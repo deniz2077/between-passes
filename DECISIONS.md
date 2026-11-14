@@ -16,3 +16,4 @@
 | 14 Nov 17:45 | Classify optical change on the published (rounded) ΔNDVI | Integrity test found a boundary mismatch |
 | 14 Nov 18:05 | Optical published on consistent tile 36SYF only (23 Oct → 2 Nov), 60 % coverage | Adding 36SYG (21 Oct baseline) gave 86 % but a visible NDVI seam (north 14.3 % vs south 9.0 % vegetation loss); conclusion unchanged either way |
 | 14 Nov 18:00 | Target awards: Best Use of Science, Local Impact; guided 6-step "evidence ladder" story | Judging guide + 2025 winners study |
+| 14 Nov 18:25 | 29 Oct granule (track 079) not used as third look | Different projection/geometry and RFI likelihood ~4e10 (HH) vs ~6 for the pair |

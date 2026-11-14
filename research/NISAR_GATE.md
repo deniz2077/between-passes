@@ -53,3 +53,9 @@ Speckle and spatial autocorrelation; edge-of-swath mask misalignment; unsubtract
 
 ## Context data (verified)
 NASA POWER daily point 35.8E/37.0N (cell elev 80.9 m), saved `data/context/power_35.8_37.0_20261018_20261108.json`. PRECTOTCORR 22 Oct–3 Nov total **27.63 mm**; 28 Oct 6.46, 29 Oct 16.49, 30 Oct 1.40, 3 Nov 1.01 mm. 4–6 Nov rain (5.97/3.99/3.62 mm) is **after** pass B and cannot appear in the A/B pair. Gridded model estimate, not a gauge.
+
+## Third-look test — granule C (29 Oct, track 079), 14 Nov ~18:25 TRT: NO-GO
+- Grid: EPSG:32636 (UTM 36N), 20 m, 17208×17496 — different projection from A/B (32637) → would need reprojection.
+- Geometry: track 079 descending, incidence 33.6–47.3° across its swath (different look angle at Ceyhan than track 151).
+- `calibrationInformation/frequencyA/{HH,HV}/rfiLikelihood` = **4.03×10¹⁰ / 6.65×10¹⁰** (vs 6.2 / 581 for A). Extreme RFI flag.
+- Decision: not used for analysis; stated in the app's Context tab.
