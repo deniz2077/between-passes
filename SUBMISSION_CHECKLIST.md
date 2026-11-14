@@ -17,7 +17,7 @@
 ## C. NASA official (deadline 15 Nov 23:59 TRT)
 - [ ] Project Name
 - [ ] High-Level Summary
-- [ ] Link to Project Demo: **≤30 s video OR ≤7 slides (incl. title)**, public, English (team name, member names, challenge)
+- [ ] Link to Project Demo: **7-slide deck chosen** (≤30 s video OR ≤7 slides allowed), public, English (team name, member names, challenge)
 - [ ] Link to Final Project (public, no login; test in private window)
 - [ ] Detailed Description
 - [ ] SI usage (truthful)
