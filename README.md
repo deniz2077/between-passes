@@ -79,7 +79,7 @@ sprint-reports/      Niğde Scrum sprint reports
 - NASA POWER daily point data (PRECTOTCORR).
 - Natural Earth 1:110m land (public domain), via world-atlas.
 - © OpenStreetMap contributors (ODbL) — places, rivers, roads.
-- Fonts: IBM Plex Sans / Mono (SIL OFL).
+- Fonts: Newsreader, Instrument Sans, DM Mono (SIL OFL).
 
 See [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md) and [`docs/`](docs/).
 

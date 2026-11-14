@@ -43,7 +43,7 @@ Turn the GO result from Sprint 1 into a reproducible processing pipeline and a w
 - **AI assistance (Claude Code):** wrote and tested the pipeline and app code and drafted the documents under Deniz's direction. Disclosed per competition rules.
 
 ## Evidence
-Commits `ca43690` through `9d76fae` on 14 Nov (17:21 – 18:07); `app/`, `tests/`, `submission/deck/`, `research/COMPETITIVE_NOTES.md`.
+Commits `ca43690` through `9d76fae` on 14 Nov (17:21 – 18:07); `app/`, `tests/`, `submission/deck/`; competitive research notes (kept private).
 
 ## Retrospective
 The honest weak spots after this sprint were: one radar pair at one place, and no headline answer (wetting or ploughing). Sprint 3 takes both on.

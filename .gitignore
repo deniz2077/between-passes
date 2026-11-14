@@ -20,3 +20,10 @@ data/raw/
 # Large reproducible media
 submission/video/*.mp4
 submission/video/frames/
+
+# Internal working notes (kept locally, not part of the public project)
+CLAUDE.md
+PROJECT_STATUS.md
+SUBMISSION_CHECKLIST.md
+research/COMPETITIVE_NOTES.md
+submission/nasa_form.md
