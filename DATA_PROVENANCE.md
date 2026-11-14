@@ -27,3 +27,10 @@ Overpass API query (places town/village/city, rivers, motorway/trunk/primary) fo
 - Bands B04, B8A, Fmask via GDAL /vsicurl with Earthdata cookies; average/mode reprojection to the NISAR grid (`scripts/extract_hls.py` → `data/raw/hls/`, not committed).
 - Shipped: `ndvi_a_40m.i16`, `ndvi_b_40m.i16` (NDVI×10000, 2×2 mean of pixels clear on both dates); per-object NDVI stats in `case.json`.
 - DOI 10.5067/HLS/HLSS30.002 (LP DAAC).
+
+## Global test — NISAR, SMAP, POWER, Natural Earth
+- **NISAR L2 GCOV VALIDATED:** 200 repeat pairs drawn from NASA CMR (`research/global/cmr_gcov_all.json`, `sample.json`); per-site granule IDs, window, spacing, metrics in `research/global/sites/NNN.json`; HTTP range reads via Earthdata Login (participant's own, `~/.netrc`).
+- **NASA SMAP SPL3SMP_E v006** (NSIDC DAAC): daily files 19 Oct–12 Nov 2026 (`research/global/smap_l3e_urls.json`), values per EASE-Grid 2.0 9 km cell in `smap_days/`, `smap.json`.
+- **NASA POWER** daily PRECTOTCORR per site: `research/global/power.json` (context only, not in the test).
+- **Natural Earth** 1:110m land (public domain) via `world-atlas@2.0.2` → `app/data/global/land.json`.
+- App package: `app/data/global/global.json` + `thumbs.u8` (SHA-256 recorded in the JSON), built by `scripts/global_export.py`.

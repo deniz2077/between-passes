@@ -11,3 +11,10 @@
 9. **Optical cross-check.** HLS dates differ from radar by up to ~1.5 days; only ~60 % of the analysis area has a consistent cloud-free same-tile pair (the northern tile would need a different baseline date and showed a seam, so it is excluded). NDVI cannot separate wet from ploughed bare soil.
 10. **Rainfall** is a NASA POWER gridded estimate (~0.5°), not a gauge.
 11. **Single case study.** Not an operational monitoring or alert system.
+
+## Global test
+- Site-scale (10 km windows), one 12-day interval per site, one random sample; not field-scale.
+- 63 % of drawn sites lacked a quality-approved SMAP retrieval, so retained sites lean toward land covers where SMAP retrieves well.
+- SMAP's 9 km cell and the NISAR window are not identical footprints; SMAP measures the top ~5 cm.
+- Ceyhan's SMAP comparison is exploratory (±2-day window, not pre-registered), and its wetting (+0.195 m³/m³) is larger than at any sampled site, so the global fit is extrapolated there.
+- SMAP shows that Ceyhan's soil got wetter; it cannot say which individual fields, so ploughing remains possible for any single parcel.

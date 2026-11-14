@@ -40,7 +40,8 @@ def record():
     p.locator("#open-case").click()
     p.wait_for_timeout(300)
     if p.locator("#story").is_visible():
-        p.evaluate("location.hash='#case'")
+        p.locator('#story [data-story="close"]').click()
+    p.locator('#mode-seg [data-mode="delta"]').click()
     p.wait_for_timeout(900)
     # 2 — change map, zoom
     r.mark("636 field parcels changed by ≥ 3 dB — 7× more area brightened than darkened.")
@@ -90,12 +91,15 @@ def record():
     cm = p.locator("#w-scatter .cey-mark")
     if cm.count():
         bb = cm.first.bounding_box()
-        r.glide(last[0], last[1], bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2, 1.0)
-        r.wait(0.3)
-        p.evaluate("document.querySelector('#w-scatter .site-dot:last-of-type')?.dispatchEvent(new MouseEvent('click'))")
-    r.wait(2.6)
+        x, y = bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2
+        r.glide(last[0], last[1], x, y, 1.0)
+        r.wait(0.2)
+        p.mouse.click(x, y)
+    r.wait(0.4)
     r.mark(os.environ.get("BP_CEYHAN_CAPTION", "Ceyhan, on the global curve."))
-    r.wait(3.2)
+    r.wait(2.0)
+    p.evaluate("document.querySelector('#w-site').scrollIntoView({behavior:'smooth', block:'start'})")
+    r.wait(4.0)
     return r.stop()
 
 

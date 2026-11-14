@@ -1,9 +1,14 @@
 # Between Passes
 
-**A radar evidence lab for Earth's changing surface** — NASA Space Apps Challenge 2026 · *Dancing with the SARs* · Team Signal Foundry (Niğde Local Event)
+**A radar evidence lab for Earth's changing surface** — NASA Space Apps Challenge 2026 · *Dancing with the SARs* · Team Signal Foundry (Deniz Efe Bulut, Niğde Local Event)
 
-Twelve days. Two NASA-ISRO **NISAR** radar passes. One farming landscape around **Ceyhan, Adana (Türkiye)**.
-Between Passes measures what the radar saw change between **22 October and 3 November 2026**, compares it with a stable control, and shows exactly what can — and cannot — be concluded.
+**Live app:** https://deniz2077.github.io/between-passes/ · **Global test:** https://deniz2077.github.io/between-passes/world.html · **Demo (7 slides):** https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf
+
+Twelve days. Two NASA-ISRO **NISAR** radar passes. One farming landscape around **Ceyhan, Adana (Türkiye)** — and then **200 randomly drawn NISAR sites worldwide**.
+
+## Headline
+- **Ceyhan:** between 22 Oct and 3 Nov 2026, 7.0× more field area brightened than darkened, while a stable town control held (+0.12 dB). NASA HLS rules out harvest for most parcels, and **NASA SMAP measured the soil there go from 0.16 (20 Oct) to 0.36 m³/m³ (3 Nov)** after the first autumn rain (exploratory: ±2-day SMAP window). **Wetting is the leading explanation**; ploughing can't be excluded field by field.
+- **Worldwide (pre-registered):** across 74 random NISAR sites with quality SMAP data, **radar change tracks soil-moisture change** (Spearman ρ 0.58, permutation p < 0.001; +1.0 dB per +0.1 m³/m³; 16 of 18 sites with a clear moisture change moved in the same direction). The plan was committed before any value was extracted — see [`research/global/PREREGISTRATION.md`](research/global/PREREGISTRATION.md) and [`RESULTS.md`](research/global/RESULTS.md).
 
 ## Research question
 *Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?*
@@ -29,6 +34,7 @@ Possible explanations (not determinable from backscatter alone): wetter soil aft
 - **The interval** — NASA POWER rainfall between passes with acquisition times.
 - **Change census** — sortable object table and threshold-sensitivity chart.
 - **Case file export** — JSON (geometry, statistics, sources, parameters, limitations), CSV of all objects, printable report.
+- **Global test page** (`world.html`) — world map of the 200 drawn sites, radar-vs-SMAP scatter, a 10 km ΔHH map for every retained site, Ceyhan's SMAP time series, and an in-browser recomputation of ρ and the slope.
 - **Integrity check on every load** — the browser recomputes the published statistics from the shipped layers and shows pass/fail (Method & sources).
 
 ## Run locally
@@ -47,6 +53,13 @@ python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earth
 .venv/bin/python scripts/build_case.py
 .venv/bin/python -m pytest tests
 ```
+Global test (same seed → same sites and numbers):
+```bash
+.venv/bin/python scripts/global_scan.py sample && .venv/bin/python scripts/global_scan.py nisar 8
+.venv/bin/python scripts/global_scan.py smap 4 && .venv/bin/python scripts/global_scan.py power
+.venv/bin/python scripts/global_analyze.py && .venv/bin/python scripts/global_export.py
+```
+
 `extract_window.py` reads only the needed HDF5 chunks over HTTP byte ranges (~70 MB of 1.9 GB per granule).
 
 ## Repository
@@ -54,7 +67,7 @@ python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earth
 app/                 static web app (HTML/CSS/ES modules, no build) + frozen case data
 scripts/             data access, window extraction, case builder, science functions
 tests/               unit tests (synthetic fixtures) + case-integrity tests
-research/            feasibility gate log, competitive notes, gate figures/statistics
+research/            feasibility gate log, competitive notes, figures; research/global/ = pre-registered global test
 docs/                method, data sources, limitations, AI use
 sprint-reports/      Niğde Scrum sprint reports
 ```
@@ -62,7 +75,9 @@ sprint-reports/      Niğde Scrum sprint reports
 ## Data & credits
 - NASA-ISRO NISAR L2 GCOV VALIDATED, `NISAR_L2_GCOV_V1`, DOI [10.5067/NIL2GCOV-V1](https://doi.org/10.5067/NIL2GCOV-V1), ASF DAAC.
 - NASA HLS S30 v2.0, DOI [10.5067/HLS/HLSS30.002](https://doi.org/10.5067/HLS/HLSS30.002), LP DAAC.
+- NASA SMAP L3 Radiometer Global Daily 9 km Soil Moisture, Enhanced (SPL3SMP_E v006), NSIDC DAAC.
 - NASA POWER daily point data (PRECTOTCORR).
+- Natural Earth 1:110m land (public domain), via world-atlas.
 - © OpenStreetMap contributors (ODbL) — places, rivers, roads.
 - Fonts: IBM Plex Sans / Mono (SIL OFL).
 

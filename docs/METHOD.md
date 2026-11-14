@@ -43,3 +43,12 @@ NASA POWER daily PRECTOTCORR at 35.8E 37.0N: 27.63 mm between passes, 6.46 mm on
 - `tests/test_science.py` — unit tests on synthetic fixtures (dB conversion, masks, edge buffer, boxcar, region estimator, hysteresis objects, encodings).
 - `tests/test_case_integrity.py` — recomputes published statistics from the shipped binary layers; SHA-256 of every layer; optical class consistency.
 - Browser self-check on every load (Method & sources): control, all 636 objects, 200 parity pixels of the speckle filter and the analysis area recomputed in JavaScript; max difference ≤ 0.005 dB.
+
+## 11. Global test (pre-registered)
+Full plan: `research/global/PREREGISTRATION.md` (commit 43f2fbb, before any extraction). Results and deviations: `research/global/RESULTS.md`.
+- Population: 889 NISAR VALIDATED HH repeat pairs (same track/frame/CRID) in CMR, 21 Oct–11 Nov 2026; |lat| ≤ 60° → 763; simple random sample of 200 (seed 2026).
+- NISAR metric: 10 × 10 km window at the frame centre, joint validity as above, ΔHH_site = 10·log₁₀(mean γ⁰_B / mean γ⁰_A).
+- Independent measurement: NASA SMAP L3 Enhanced 9 km soil moisture (SPL3SMP_E), overpass nearest the NISAR local solar time, recommended quality only, ±1 day.
+- Test: Spearman ρ, two-sided permutation p (10,000), Theil–Sen slope with bootstrap CI.
+- Result: n = 74 retained (125 lacked approved SMAP values, 1 invalid window); ρ = 0.577, p = 0.0001, +1.02 dB per +0.1 m³/m³ (95 % CI 0.69–1.42).
+- Ceyhan: the pre-registered SMAP rule finds no approved value near 22 Oct; an exploratory ±2-day window gives 0.161 → 0.356 m³/m³.

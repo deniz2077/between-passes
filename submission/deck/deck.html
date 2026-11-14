@@ -46,7 +46,7 @@
   <div>
     <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
     <h1>Between<br>Passes</h1>
-    <p style="font-size:38px;color:var(--bone);max-width:880px;line-height:1.3">What NASA-ISRO's NISAR radar saw change in the fields of my hometown region — and what can honestly be concluded.</p>
+    <p style="font-size:38px;color:var(--bone);max-width:880px;line-height:1.3">What NASA-ISRO's NISAR radar saw change in my hometown's fields — why, and whether it holds worldwide.</p>
     <div style="margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;font-size:28px">
       <span class="mono" style="color:var(--muted)">TEAM</span><span>Signal Foundry</span>
       <span class="mono" style="color:var(--muted)">MEMBER</span><span>Deniz Efe Bulut (solo)</span>
@@ -91,8 +91,8 @@
       <li><strong>Swipe & change map</strong> — both calibrated scenes on one fixed scale; ΔHH map.</li>
       <li><strong>636 change parcels</strong> detected and outlined; click any for its evidence.</li>
       <li><strong>Draw any region</strong> — statistics computed live from NISAR γ⁰ against the control.</li>
-      <li><strong>Optical cross-check</strong> view from NASA HLS.</li>
-      <li><strong>Guided case</strong>, rain timeline, and a <strong>case-file export</strong> (JSON / CSV / report).</li>
+            <li><strong>Global test page</strong>: 200 random NISAR sites on a world map, each with its own radar change map.</li>
+      <li><strong>Guided case</strong> and a <strong>case-file export</strong> (JSON / CSV / report).</li>
     </ul>
   </div>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>3 / 7</span></div>
@@ -106,53 +106,60 @@
     <div class="rung"><div class="q">1 · What changed?</div><div class="big up">7.0×</div><p>more parcel area <strong class="up">brightened</strong> (3,282 ha, 508 parcels) than <strong class="down">darkened</strong> (468 ha). Holds at every threshold 2–5 dB.</p><div class="src">NISAR GCOV · HH</div><span class="arrow"></span></div>
     <div class="rung"><div class="q">2 · Is it real?</div><div class="big acc">+0.12 dB</div><p>Ceyhan's town centre — a stable control — barely moved. Parcels count only above <strong>3 dB</strong>, beyond 99% of control pixels.</p><div class="src">same orbit · same grid</div><span class="arrow"></span></div>
     <div class="rung"><div class="q">3 · Is it harvest?</div><div class="big" style="color:var(--mag)">9%</div><p>of 310 brightened parcels with a clear optical view lost vegetation. <strong>Harvest explains a minority.</strong></p><div class="src">NASA HLS · NDVI</div><span class="arrow"></span></div>
-    <div class="rung"><div class="q">4 · What remains</div><div class="big" style="font-size:58px;margin-top:28px">soil<br>surface</div><p>Wetter soil after <strong>23 mm</strong> of rain (28–29 Oct) or ploughing. One pair can't separate them — we say so.</p><div class="src">NASA POWER · timing</div></div>
+    <div class="rung"><div class="q">4 · Was it the rain?</div><div class="big acc" style="font-size:62px">0.16→0.36</div><p>NASA SMAP soil moisture (m³/m³) at Ceyhan jumped after <strong>23 mm</strong> of rain, before the second pass. <strong>Wetting leads.</strong></p><div class="src">NASA SMAP · POWER</div></div>
   </div>
   <div style="margin-top:44px;border-left:4px solid var(--accent);padding:6px 0 6px 28px;max-width:1600px">
-    <p style="font-size:36px;color:var(--bone);line-height:1.35">Conclusion: between the two passes, the radar mostly caught <strong class="acc">fields being wetted or worked</strong> — not harvested. A third NISAR pass would tell which.</p>
+    <p style="font-size:36px;color:var(--bone);line-height:1.35">Answer: the radar mostly caught <strong class="acc">fields wetted by the first autumn rain</strong> — not harvest. Ploughing can't be excluded field by field; a third NISAR pass would settle each field.</p>
   </div>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>4 / 7</span></div>
 </section>
 
-<!-- 5 NASA DATA -->
-<section class="slide">
-  <p class="k">Why NASA data are essential</p>
-  <h2>Three NASA datasets, each answering a different rung.</h2>
-  <div class="grid2" style="grid-template-columns:1.1fr .9fr;align-items:start;margin-top:30px">
-    <table>
-      <tr><td>NASA-ISRO NISAR<br><span class="note mono">L2 GCOV VALIDATED · DOI 10.5067/NIL2GCOV-V1</span></td><td>Two passes from the <strong>identical orbit (track 151)</strong>, terrain-corrected γ⁰ HH/HV on the same 20 m grid. We read only the needed chunks: <strong>~70 MB of 1.9 GB</strong> per file.</td></tr>
-      <tr><td>NASA HLS S30<br><span class="note mono">DOI 10.5067/HLS/HLSS30.002</span></td><td>Cloud-masked Sentinel-2 surface reflectance on 23 Oct & 2 Nov, resampled onto the radar grid → vegetation change per parcel.</td></tr>
-      <tr><td>NASA POWER<br><span class="note mono">daily precipitation</span></td><td>When the rain fell relative to the passes — context, never cause.</td></tr>
-    </table>
-    <img class="shot" src="../shots/map_ndvi_south.png" style="width:100%"><p class="note mono" style="margin-top:12px;font-size:19px">NASA HLS ΔNDVI on the radar grid · <span style="color:var(--green)">greening</span> / <span style="color:var(--mag)">vegetation loss</span> · outlines: radar parcels</p>
+<!-- 5 GLOBAL TEST -->
+<section class="slide" style="padding-top:70px">
+  <p class="k">Does it hold everywhere? A pre-registered global test</p>
+  <h2 style="font-size:56px;max-width:1700px">Where NASA's SMAP saw soil get wetter, NISAR got brighter. Where it dried, NISAR got darker.</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:8px">
+    <div><img class="shot" src="../shots/world_map.png" style="width:100%"></div>
+    <div><img class="shot" src="../shots/world_scatter.png" style="width:100%;height:470px;object-fit:cover;object-position:top"></div>
   </div>
-  <div class="foot"><span>Map context © OpenStreetMap contributors (ODbL)</span><span>5 / 7</span></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:30px">
+    <div><div class="mono acc" style="font-size:52px">200</div><p style="font-size:24px">NISAR pairs drawn at random from <strong>889</strong> worldwide; test fixed and committed <strong>before</strong> extracting data</p></div>
+    <div><div class="mono acc" style="font-size:52px">ρ 0.58</div><p style="font-size:24px">radar vs. SMAP soil-moisture change at the <strong>74</strong> sites with quality SMAP data · p &lt; 0.001</p></div>
+    <div><div class="mono acc" style="font-size:52px">16 / 18</div><p style="font-size:24px">sites with a clear moisture change moved in the <strong>same direction</strong></p></div>
+    <div><div class="mono acc" style="font-size:52px">+1.0 dB</div><p style="font-size:24px">per +0.1 m³/m³ wetter (95 % CI 0.7–1.4). Same L-band, same dawn/dusk orbit.</p></div>
+  </div>
+  <div class="foot"><span>NISAR L2 GCOV VALIDATED · NASA SMAP SPL3SMP_E · Natural Earth</span><span>5 / 7</span></div>
 </section>
 
-<!-- 6 VALIDITY -->
+<!-- 6 DATA + VALIDITY -->
 <section class="slide">
-  <p class="k">Validity — and honest limits</p>
-  <h2>Every number is reproducible, and re-checked in your browser.</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr 400px;gap:52px;align-items:start;margin-top:30px">
+  <p class="k">Four NASA datasets · validity · honest limits</p>
+  <h2 style="font-size:56px">Every number is reproducible, and re-checked in your browser.</h2>
+  <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;margin-top:26px">
+    <table style="font-size:24px">
+      <tr><td>NASA-ISRO NISAR<br><span class="note mono" style="font-size:18px">L2 GCOV VALIDATED · DOI 10.5067/NIL2GCOV-V1</span></td><td>Ceyhan pair from the identical orbit, same 20 m grid; plus 200 global pairs. Only the needed HDF5 chunks are read (~70 MB of 1.9 GB).</td></tr>
+      <tr><td>NASA SMAP<br><span class="note mono" style="font-size:18px">SPL3SMP_E · L-band radiometer</span></td><td>Independent soil moisture at every site and date.</td></tr>
+      <tr><td>NASA HLS S30<br><span class="note mono" style="font-size:18px">DOI 10.5067/HLS/HLSS30.002</span></td><td>Optical vegetation change per parcel (the harvest test).</td></tr>
+      <tr><td>NASA POWER</td><td>Rain timing — context, never cause.</td></tr>
+    </table>
     <div>
-      <p class="k" style="font-size:20px;color:var(--bone)">Checked</p>
+      <ul style="margin-bottom:18px">
+        <li style="font-size:26px"><strong>Pre-registered</strong> global test; deviations listed openly.</li>
+        <li style="font-size:26px"><strong>Browser integrity checks</strong> recompute the control, all 636 parcels and the global statistics from the shipped data on every load.</li>
+        <li style="font-size:26px"><strong>23 automated tests</strong>; the bugs they and we caught are documented.</li>
+      </ul>
+      <p class="k" style="font-size:19px;color:var(--caution);margin-top:22px">Not claimed</p>
       <ul>
-        <li><strong>In-browser integrity check</strong> on every load: control, all 636 parcels and 200 speckle-filter pixels recomputed from shipped data — max difference <strong>0.005 dB</strong>.</li>
-        <li><strong>19 automated tests</strong> (unit + data integrity). One caught a real boundary bug, now fixed.</li>
-        <li>HH tested for range bias and noise: <strong>passed</strong>. Threshold sensitivity 2–5 dB published.</li>
-        <li>An optical tile with a mismatched date created a seam — <strong>we excluded it</strong>.</li>
+        <li style="font-size:24px">Which <strong>individual field</strong> was wetted vs. ploughed (SMAP is 9 km).</li>
+        <li style="font-size:24px"><strong>HV</strong> polarization: unexplained gradient and interference flag — not interpreted.</li>
+        <li style="font-size:24px">Ceyhan's SMAP baseline is <strong>exploratory</strong> (±2-day window); the global test is site-scale, one interval.</li>
       </ul>
     </div>
-    <div>
-      <p class="k" style="font-size:20px;color:var(--caution)">Not claimed</p>
-      <ul>
-        <li>The <strong>cause</strong> of any single parcel's change — shown as consistent / possible / not indicated.</li>
-        <li><strong>HV</strong> polarization: an unexplained west–east gradient and high interference flag → shown, not interpreted.</li>
-        <li>Field-level rainfall: POWER is a coarse estimate.</li>
-        <li>Operational use: this is one case study, not an alert system.</li>
-      </ul>
-    </div>
-    <img class="shot" src="../shots/crop_panel.png" style="width:400px;height:690px;object-fit:cover;object-position:top;margin-top:-20px">
+  </div>
+  <div style="position:absolute;left:96px;right:96px;bottom:110px;background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:26px 34px">
+    <p class="k" style="font-size:19px;margin-bottom:10px">Reproduce it — open source, your own free Earthdata login</p>
+    <p class="mono" style="font-size:24px;color:var(--bone)">python scripts/global_scan.py sample | nisar | smap | power  →  python scripts/global_analyze.py</p>
+    <p style="font-size:22px;margin-top:8px">Same seed, same sites, same numbers. The Ceyhan case rebuilds with <span class="mono">scripts/build_case.py</span>. Plan: <span class="mono">research/global/PREREGISTRATION.md</span> · results: <span class="mono">RESULTS.md</span></p>
   </div>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>6 / 7</span></div>
 </section>
@@ -161,17 +168,17 @@
 <section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
   <div>
     <p class="k">What it makes possible</p>
-    <h2 style="font-size:58px">From "the map changed" to <span class="acc">"here is what we can and can't say"</span>.</h2>
+    <h2 style="font-size:50px">From "the map changed" to <span class="acc">"here is what we can and can't say"</span>.</h2>
     <ul style="margin-top:28px">
       <li><strong>Locally:</strong> a trustworthy way to see where Çukurova's fields changed after rain — a starting point for field checks.</li>
-      <li><strong>Beyond Ceyhan:</strong> the data-access step already reads any NISAR GCOV granule at any point; generalising the case builder is the next step.</li>
-      <li><strong>Next:</strong> more 12-day passes to separate drying soil from lasting ploughing; field validation with local farmers.</li>
+      <li><strong>Globally:</strong> evidence, from NISAR's first validated month, that its 12-day HH change tracks soil wetting at site scale, across random sites from 45° S to 56° N.</li>
+      <li><strong>Next:</strong> the next NISAR passes to separate drying soil from lasting ploughing per field; field checks with local farmers.</li>
     </ul>
-    <div style="margin-top:40px;font-size:26px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px">
-      <span class="mono" style="color:var(--muted)">LIVE APP</span><span class="mono acc">{{APP_URL}}</span>
-      <span class="mono" style="color:var(--muted)">CODE</span><span class="mono acc">{{REPO_URL}}</span>
+    <div style="margin-top:24px;font-size:26px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px">
+      <span class="mono" style="color:var(--muted)">LIVE APP</span><span class="mono acc">deniz2077.github.io/between-passes</span>
+      <span class="mono" style="color:var(--muted)">CODE</span><span class="mono acc">github.com/deniz2077/between-passes</span>
     </div>
-    <p class="note" style="margin-top:28px">Generative AI (Claude Code) assisted with software development and documentation; the research question, study area and decisions are the team's. All results are computed from NASA data and verified by tests.</p>
+    <p class="note" style="margin-top:18px;font-size:20px">Generative AI (Claude Code) assisted with software development and documentation; the research question, study area and decisions are the team's. All results are computed from NASA data and verified by tests.</p>
   </div>
   <div><img class="shot" src="../shots/crop_soil.png" style="width:100%"></div>
   <div class="foot"><span>Between Passes · Signal Foundry · NASA Space Apps 2026</span><span>7 / 7</span></div>
