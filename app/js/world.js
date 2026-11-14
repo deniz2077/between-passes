@@ -1,7 +1,7 @@
 // Global rain test page: renders the pre-registered NISAR x SMAP result and re-verifies it in the browser.
 const $ = (s) => document.querySelector(s);
 const NS = "http://www.w3.org/2000/svg";
-const UP = [255, 138, 76], DOWN = [78, 163, 255];
+const UP = [217, 83, 30], DOWN = [42, 93, 176];
 const fmt = (v, d = 2, sign = false) => (v == null || !Number.isFinite(v)) ? "—" : (sign && v > 0 ? "+" : "") + v.toFixed(d);
 const el = (tag, attrs = {}, parent) => {
   const e = document.createElementNS(NS, tag);
@@ -93,7 +93,7 @@ function drawMap(land) {
   const c = G.ceyhan, [cx, cy] = proj(c.lon, c.lat);
   const m = el("g", { class: "cey-g", style: "cursor:pointer" }, svg);
   el("circle", { cx, cy, r: 9, class: "cey-mark" }, m);
-  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#12110f" }, m);
+  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#fbf9f4" }, m);
   m.addEventListener("click", () => select(c));
 }
 
@@ -141,7 +141,7 @@ function thumbCanvas(s) {
   for (let i = 0; i < n * n; i++) {
     const q = thumbs[off + i], o = i * 4;
     if (!q) { img.data[o + 3] = 0; continue; }
-    const d = (q - 128) * G.thumbs.step_db, a = Math.min(1, Math.abs(d) / 6) ** 0.75, c = d >= 0 ? UP : DOWN, g = 40;
+    const d = (q - 128) * G.thumbs.step_db, a = Math.min(1, Math.abs(d) / 6) ** 0.75, c = d >= 0 ? [255, 138, 76] : [90, 169, 255], g = 40;
     img.data[o] = g + (c[0] - g) * a; img.data[o + 1] = g + (c[1] - g) * a; img.data[o + 2] = g + (c[2] - g) * a; img.data[o + 3] = 255;
   }
   ctx.putImageData(img, 0, 0);
@@ -233,10 +233,10 @@ function smapSeries(c) {
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 6), Y = (v) => 6 + (0.4 - v) / 0.4 * (H - B - 6);
   const pass = [Date.UTC(2026, 9, 22, 18, 47), Date.UTC(2026, 10, 3, 18, 47)];
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;margin:6px 0 2px" aria-label="SMAP soil moisture at Ceyhan">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#24201b"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
-    ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#a6e36f" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#a6e36f" font-size="9" font-family="DM Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
-    <polyline fill="none" stroke="#efe7d6" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#efe7d6"/>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e6dfd2"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#1f6f5c" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#1f6f5c" font-size="9" font-family="DM Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
+    <polyline fill="none" stroke="#1c1b17" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#1c1b17"/>`).join("")}
     <text x="${L}" y="${H - 4}" fill="#948a7a" font-size="9" font-family="DM Mono">19 Oct</text><text x="${W - 6}" y="${H - 4}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">12 Nov</text>
   </svg><p class="cap">NASA SMAP soil moisture at Ceyhan (m³/m³), every quality-approved reading. The rain on 28–29 Oct is visible as a jump.</p>`;
 }

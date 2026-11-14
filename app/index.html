@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/paper.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2312110f'/%3E%3Cpath d='M8 24V8M24 24V8' stroke='%23a6e36f' stroke-width='3'/%3E%3Cpath d='M12 16h8' stroke='%23efe7d6' stroke-width='2'/%3E%3C/svg%3E" />
 </head>
 <body>
@@ -69,22 +70,31 @@
       <section class="stage" aria-label="Radar viewer">
         <div class="toolbar" role="toolbar" aria-label="View mode">
           <div class="seg" id="mode-seg" role="radiogroup" aria-label="Layer">
-            <button role="radio" data-mode="a" aria-checked="false">22 Oct</button>
-            <button role="radio" data-mode="b" aria-checked="false">3 Nov</button>
+            <button role="radio" data-mode="a" aria-checked="false"><span class="sk">Before</span> 22 Oct</button>
+            <button role="radio" data-mode="b" aria-checked="false"><span class="sk">After</span> 3 Nov</button>
             <button role="radio" data-mode="swipe" aria-checked="false">Swipe</button>
-            <button role="radio" data-mode="delta" aria-checked="true">Change ΔHH</button>
-            <button role="radio" data-mode="ndvi" aria-checked="false" title="Optical vegetation change from NASA HLS (Sentinel-2), 23 Oct → 2 Nov">ΔNDVI optical</button>
-            <button role="radio" data-mode="hv" aria-checked="false" title="HV change is unresolved — see Limitations">ΔHV <span class="caution-dot" aria-label="caution"></span></button>
+            <button role="radio" data-mode="delta" aria-checked="true">What changed</button>
           </div>
-          <div class="toggles">
-            <label><input type="checkbox" id="t-objects" checked /> Change objects</label>
-            <label><input type="checkbox" id="t-context" checked /> Map context</label>
-            <label><input type="checkbox" id="t-control" checked /> Control</label>
-          </div>
+          <details class="more">
+            <summary>More layers</summary>
+            <div class="more-pop">
+              <p class="eyebrow">Evidence layers</p>
+              <div class="more-modes">
+                <button role="radio" data-mode="ndvi" aria-checked="false">Vegetation change <small>NASA HLS optical</small></button>
+                <button role="radio" data-mode="hv" aria-checked="false">HV change <span class="caution-dot" aria-label="caution"></span><small>unresolved — see Limits</small></button>
+              </div>
+              <p class="eyebrow">Show on map</p>
+              <div class="toggles">
+                <label><input type="checkbox" id="t-objects" checked /> Changed parcels</label>
+                <label><input type="checkbox" id="t-context" checked /> Places, roads, rivers</label>
+                <label><input type="checkbox" id="t-control" checked /> Town control</label>
+              </div>
+            </div>
+          </details>
           <div class="tools">
-            <button id="story-btn" class="btn small ghost" title="A one-minute guided walk through the evidence">Guided case</button>
-            <button id="draw-btn" class="btn small" aria-pressed="false" title="Draw a region (click to add points, double-click or click the first point to finish)">Draw region</button>
-            <button id="reset-view" class="btn small ghost" title="Reset view (0)">Reset view</button>
+            <button id="story-btn" class="btn small primary" title="A one-minute guided walk through the evidence">▶ Guided tour</button>
+            <button id="draw-btn" class="btn small" aria-pressed="false" title="Draw a region (click to add points, double-click or click the first point to finish)">Measure a field</button>
+            <button id="reset-view" class="btn small ghost" title="Reset view (0)">Reset</button>
           </div>
         </div>
 
@@ -128,10 +138,10 @@
           <button id="sel-clear" class="link small" hidden>Back to whole area</button>
         </div>
         <div class="tabs" role="tablist" aria-label="Evidence">
-          <button role="tab" aria-selected="true" aria-controls="tab-observed" id="tb-observed">Observed</button>
+          <button role="tab" aria-selected="true" aria-controls="tab-observed" id="tb-observed">What we see</button>
           <button role="tab" aria-selected="false" aria-controls="tab-context" id="tb-context">Context</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-interp" id="tb-interp">Interpretation</button>
-          <button role="tab" aria-selected="false" aria-controls="tab-limits" id="tb-limits">Limitations</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-interp" id="tb-interp">Why?</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-limits" id="tb-limits">Limits</button>
         </div>
         <div class="tabpanels">
           <section role="tabpanel" id="tab-observed" aria-labelledby="tb-observed"></section>

@@ -180,7 +180,7 @@ function renderPanel() {
     const so = C.stats.objects;
     v.text = `The change is concentrated in individual parcels, not spread evenly — the area-wide average stays within the stable control's spread.` + (C.optical ? ` NASA HLS optical check: of ${C.optical.brightened.objects_with_clear_view} brightened parcels with a clear view, only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation, so harvest explains a minority.` : "") + ` Click an outlined parcel or draw a region.`;
   }
-  const color = v.cls === "down" ? "#4ea3ff" : v.cls === "up" ? "#ff8a4c" : "#c4baa6";
+  const color = v.cls === "down" ? "#2a5db0" : v.cls === "up" ? "#d9531e" : "#9c927f";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
 
   // OBSERVED
@@ -202,7 +202,7 @@ function renderPanel() {
       <dt>Stable control ΔHH</dt><dd>${f(C.stats.urban_control.dHH_db_region, 2, true)} dB</dd>
       ${sel.kind !== "object" ? `<dt>Inside brightened objects</dt><dd>${f((s.inUp * 0.04), 1)} ha</dd><dt>Inside darkened objects</dt><dd>${f((s.inDown * 0.04), 1)} ha</dd>` : ""}
     </dl>`;
-  obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#f0c24b" }, { v: D.ctrlQ[0], label: "p1", color: "#f0c24b" }] })}
+  obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#a8690f" }, { v: D.ctrlQ[0], label: "p1", color: "#a8690f" }] })}
       <p class="chart-caption">Bars: per-pixel ΔHH in the selection (100 m speckle filter). Amber line: the stable urban control (Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px). Pixels are spatially correlated, so no independent-pixel confidence interval is claimed.</p></div>`;
   if (s.opt) {
     const o = s.opt, has = Number.isFinite(o.dNDVI) && o.cls !== "no clear optical view";
@@ -333,7 +333,7 @@ function setMode(mode) {
   const L = layerFor(mode);
   viewer.layers.base = L.base; viewer.layers.baseB = L.baseB || null; viewer.layers.scaleBase = L.scaleBase || 1;
   viewer.mode = mode;
-  document.querySelectorAll("#mode-seg button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.mode === mode)));
+  document.querySelectorAll(".toolbar [data-mode]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.mode === mode)));
   renderLegend();
   viewer.request();
 }
@@ -662,10 +662,10 @@ async function renderNextPass() {
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 8), Y = (v) => 8 + (0.4 - v) / 0.4 * (H - B - 8);
   const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
   $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#24201b"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
-    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#f0c24b" : "#a6e36f"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#f0c24b" : "#a6e36f"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
-    <polyline fill="none" stroke="#efe7d6" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#efe7d6"/>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e6dfd2"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#a8690f" : "#1f6f5c"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#a8690f" : "#1f6f5c"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
+    <polyline fill="none" stroke="#1c1b17" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#1c1b17"/>`).join("")}
   </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³, quality-approved readings). Wet at pass B; dry again by 11 Nov.</p>`;
 }
 
@@ -723,7 +723,7 @@ function closeStory() { $("#story").hidden = true; st.story = null; }
 function wire() {
   $("#open-case").addEventListener("click", () => { openApp(); renderStory(0); });
   $("#open-method").addEventListener("click", () => openDialog("method"));
-  document.querySelectorAll("#mode-seg button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  document.querySelectorAll(".toolbar [data-mode]").forEach((b) => b.addEventListener("click", () => { setMode(b.dataset.mode); b.closest("details")?.removeAttribute("open"); }));
   for (const [id, key] of [["#t-objects", "objects"], ["#t-context", "context"], ["#t-control", "control"]]) {
     $(id).addEventListener("change", (e) => { st.show[key] = e.target.checked; updateEdges(); viewer.request(); });
   }

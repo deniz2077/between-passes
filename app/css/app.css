@@ -324,3 +324,6 @@ h1, .cover h1, .w-hero h1, .tr-hero h1 { font-family: var(--serif); font-weight:
 .passlog .next { color: var(--caution); }
 .passlog b { font-weight: 500; color: var(--bone); margin-left: 4px; }
 @media (prefers-reduced-motion: reduce) { .orbit .sat { display: none; } }
+
+.census-grid > * { min-width: 0; }
+.census-table-wrap { overflow-x: auto; max-width: 100%; }

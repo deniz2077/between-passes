@@ -2,6 +2,9 @@
 
 _Last updated: 2026-11-14 ~20:00 Europe/Istanbul_
 
+
+> **COORDINATION (14 Nov ~22:05):** the main session is doing a full UI redesign (light editorial theme, simplified case view). Other sessions: do NOT edit `app/css/*`, `app/index.html`, `app/js/main.js`, `app/js/viewer.js`, `app/js/charts.js`, or the deck's `<style>` block. Replication work (research/global/*, scripts/global_*, world.js data logic, RESULTS.md, deck/form/docs *text*) is fine.
+
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Deniz clicks Submit himself.
 - Niğde: GitHub repo link due **14 Nov** (repo now public — Deniz shares the link); Drive package (presentation, documentation, YouTube link) — folder link + cutoff pending from organizer.

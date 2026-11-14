@@ -56,8 +56,8 @@ def record():
     p.locator('#mode-seg [data-mode="swipe"]').click()
     r.wait(0.4)
     mx = v["x"] + v["width"] / 2
-    r.drag(mx, cy + 40, v["x"] + v["width"] * 0.2, cy + 40, 1.1)
-    r.drag(v["x"] + v["width"] * 0.2, cy + 40, v["x"] + v["width"] * 0.8, cy + 40, 1.4)
+    r.drag(mx, cy + 40, v["x"] + v["width"] * 0.2, cy + 40, 1.0)
+    r.drag(v["x"] + v["width"] * 0.2, cy + 40, v["x"] + v["width"] * 0.8, cy + 40, 1.2)
     r.wait(0.4)
     p.locator('#mode-seg [data-mode="delta"]').click()
     # 4 — a parcel's evidence
@@ -68,6 +68,10 @@ def record():
     r.glide(cx, cy, t["x"] + t["width"] / 2, t["y"] + t["height"] / 2, 0.9)
     p.locator("#tb-interp").click()
     r.wait(2.0)
+    # 4b — the locked prediction
+    r.mark("Then we locked a falsifiable prediction for NISAR's next pass on 15 Nov, before it flies over.")
+    p.evaluate("document.querySelector('#nextpass').scrollIntoView({behavior:'smooth', block:'center'})")
+    r.wait(4.2)
     # 5 — global test
     r.mark("Does it scale? A pre-registered test on randomly drawn NISAR sites worldwide.")
     p.goto(BASE + "world.html", wait_until="networkidle")
