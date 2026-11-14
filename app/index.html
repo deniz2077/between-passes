@@ -35,7 +35,18 @@
       </div>
       <p class="fineprint">Real NASA NISAR VALIDATED data (L2 GCOV, CRID P05036). No login required. A case study — not an alert system.</p>
     </div>
-    <div class="cover-figure" aria-hidden="true"><canvas id="cover-canvas" width="600" height="600"></canvas></div>
+    <div class="cover-figure"><canvas id="cover-canvas" width="600" height="600" aria-hidden="true"></canvas>
+      <svg class="orbit" viewBox="0 0 600 600" aria-hidden="true">
+        <path id="trk" d="M404,-40 L196,640" class="trk"/>
+        <g class="sat"><g transform="scale(1.7)"><rect x="-5" y="-4" width="10" height="8" rx="1.5"/><rect x="-19" y="-2" width="12" height="4"/><rect x="7" y="-2" width="12" height="4"/></g>
+          <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#trk"/></animateMotion></g>
+      </svg>
+      <div class="passlog mono" aria-label="NISAR passes over Ceyhan">
+        <div class="pl-h">NISAR · track 151 ↓ · every 12 days</div>
+        <div><span class="ok">●</span> 22 Oct · pass A</div>
+        <div><span class="ok">●</span> 3 Nov · pass B</div>
+        <div class="next"><span>○</span> 15 Nov · next pass <b id="pl-count"></b></div>
+      </div></div>
   </section>
 
   <!-- APP ------------------------------------------------------------------>

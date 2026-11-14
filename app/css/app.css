@@ -311,3 +311,16 @@ h1, .cover h1, .w-hero h1, .tr-hero h1 { font-family: var(--serif); font-weight:
 @media (prefers-reduced-motion: reduce) { .cover-figure::after { animation: none; display: none; } }
 .topbar { backdrop-filter: blur(8px); background: rgba(18,17,15,.82); border-bottom: 1px solid var(--line); }
 ::selection { background: rgba(166,227,111,.35); color: var(--bone); }
+
+/* Cover: NISAR ground track + pass log */
+.orbit { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.orbit .trk { stroke: rgba(166,227,111,.45); stroke-width: 1.2; stroke-dasharray: 2 6; fill: none; }
+.orbit .sat rect { fill: var(--bone); }
+.orbit .sat rect + rect, .orbit .sat rect + rect + rect { fill: var(--accent); }
+.passlog { position: absolute; right: 12px; top: 12px; background: rgba(18,17,15,.86); border: 1px solid var(--line-2);
+  border-radius: 4px; padding: 8px 11px; font-size: 11px; line-height: 1.65; color: var(--bone-2); }
+.passlog .pl-h { color: var(--accent); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; margin-bottom: 2px; }
+.passlog .ok { color: var(--accent); }
+.passlog .next { color: var(--caution); }
+.passlog b { font-weight: 500; color: var(--bone); margin-left: 4px; }
+@media (prefers-reduced-motion: reduce) { .orbit .sat { display: none; } }

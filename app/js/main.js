@@ -559,6 +559,8 @@ function renderCover() {
   const s = C.stats.objects;
   const ratio = s.area_ha_brightened / s.area_ha_darkened;
   $("#cover-result").innerHTML = `Across the ${fmtInt(Math.round((C.stats.analysis_px * 0.04) / 100))} km² analysed, <strong>${ratio.toFixed(1)}× more land brightened than darkened</strong> in the radar — ${fmtInt(Math.round(s.area_ha_brightened))} ha vs ${fmtInt(Math.round(s.area_ha_darkened))} ha — while the town centre held steady (${f(C.stats.urban_control.dHH_db_region, 2, true)} dB).`;
+  const plc = () => { const ms = Date.UTC(2026, 10, 15, 16, 24) - Date.now(); const el = $("#pl-count"); if (el) el.textContent = ms > 0 ? `in ${Math.floor(ms / 3.6e6)} h` : "flown · awaiting data"; };
+  plc(); setInterval(plc, 60000);
   const cv = $("#cover-canvas"), ctx = cv.getContext("2d");
   const img = layerFor("delta").base;
   const edges = toCanvas(edgesImage(D.objects, (l) => (D.byId.get(l).sign === "brightened" ? 1 : -1), D.W, D.H, 0, D.urban));
