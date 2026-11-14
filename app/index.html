@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Between Passes — NISAR radar evidence lab</title>
+  <meta name="description" content="Inspect what NASA-ISRO NISAR radar measured between two passes over the fields of Ceyhan, Adana (22 Oct – 3 Nov 2026), against a stable control, with every number traceable to source data." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M8 24V8M24 24V8' stroke='%2356d4e8' stroke-width='3'/%3E%3Cpath d='M12 16h8' stroke='%23e8e3d8' stroke-width='2'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip" href="#viewer">Skip to the radar viewer</a>
+
+  <!-- COVER ---------------------------------------------------------------->
+  <section id="cover" class="cover" aria-labelledby="cover-title">
+    <div class="cover-inner">
+      <p class="eyebrow">NASA Space Apps 2026 · Dancing with the SARs</p>
+      <h1 id="cover-title">Between Passes</h1>
+      <p class="lede">Twelve days. Two NISAR radar passes. One farming landscape in southern Türkiye.
+        Measure what the radar saw change — against a stable control — and see exactly what cannot be concluded.</p>
+      <dl class="facts" id="cover-facts">
+        <div><dt>Site</dt><dd>Ceyhan, Adana · 24 × 24 km</dd></div>
+        <div><dt>Passes</dt><dd class="mono">22 Oct → 3 Nov 2026</dd></div>
+        <div><dt>Signal</dt><dd>L-band γ⁰ HH · 20 m</dd></div>
+      </dl>
+      <p class="cover-result" id="cover-result" aria-live="polite">Loading the measured result…</p>
+      <div class="cover-actions">
+        <button id="open-case" class="btn primary" disabled>Open the case</button>
+        <button id="open-method" class="btn ghost">How it works</button>
+      </div>
+      <p class="fineprint">Real NASA NISAR VALIDATED data (L2 GCOV, CRID P05036). No login required. A case study — not an alert system.</p>
+    </div>
+    <div class="cover-figure" aria-hidden="true"><canvas id="cover-canvas" width="600" height="600"></canvas></div>
+  </section>
+
+  <!-- APP ------------------------------------------------------------------>
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M8 26V6M24 26V6" stroke="currentColor" stroke-width="3"/><path d="M12 16h8" stroke="var(--bone)" stroke-width="2"/></svg>
+        <span class="brand-name">Between Passes</span>
+        <span class="brand-sub">Ceyhan fields · NISAR 22 Oct → 3 Nov 2026</span>
+      </div>
+      <nav class="topnav" aria-label="Case tools">
+        <button class="link" data-open="method">Method &amp; sources</button>
+        <button class="link" data-open="export">Export case file</button>
+      </nav>
+    </header>
+
+    <main class="workspace">
+      <section class="stage" aria-label="Radar viewer">
+        <div class="toolbar" role="toolbar" aria-label="View mode">
+          <div class="seg" id="mode-seg" role="radiogroup" aria-label="Layer">
+            <button role="radio" data-mode="a" aria-checked="false">22 Oct</button>
+            <button role="radio" data-mode="b" aria-checked="false">3 Nov</button>
+            <button role="radio" data-mode="swipe" aria-checked="false">Swipe</button>
+            <button role="radio" data-mode="delta" aria-checked="true">Change ΔHH</button>
+            <button role="radio" data-mode="hv" aria-checked="false" title="HV change is unresolved — see Limitations">ΔHV <span class="caution-dot" aria-label="caution"></span></button>
+          </div>
+          <div class="toggles">
+            <label><input type="checkbox" id="t-objects" checked /> Change objects</label>
+            <label><input type="checkbox" id="t-context" checked /> Map context</label>
+            <label><input type="checkbox" id="t-control" checked /> Control</label>
+          </div>
+          <div class="tools">
+            <button id="draw-btn" class="btn small" aria-pressed="false" title="Draw a region (click to add points, double-click or click the first point to finish)">Draw region</button>
+            <button id="reset-view" class="btn small ghost" title="Reset view (0)">Reset view</button>
+          </div>
+        </div>
+
+        <div class="viewer-wrap">
+          <canvas id="viewer" tabindex="0" aria-label="NISAR radar map. Drag to pan, scroll or pinch to zoom, click a change object to inspect it."></canvas>
+          <div class="legend" id="legend"></div>
+          <div class="readout mono" id="readout" aria-live="off"></div>
+          <div class="loading" id="loading"><div class="spinner"></div><span>Loading NISAR layers…</span></div>
+          <div class="draw-hint" id="draw-hint" hidden>Click to add points · double-click or click the first point to close · Esc to cancel</div>
+          <p class="stamp mono">NASA-ISRO NISAR · L2 GCOV VALIDATED · track 151 D · frame 70 · freq A (20 MHz) · γ⁰ RTC</p>
+        </div>
+
+        <section class="interval" aria-labelledby="interval-title">
+          <div class="interval-head">
+            <h2 id="interval-title">The interval</h2>
+            <p class="muted">NASA POWER daily precipitation estimate (grid cell at 35.8°E 37.0°N, mm/day). Context only — a coarse model estimate, not a field gauge.</p>
+          </div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+      </section>
+
+      <aside class="panel" aria-label="Evidence">
+        <div class="selection-head">
+          <p class="eyebrow" id="sel-kind">Whole analysis area</p>
+          <h2 id="sel-title">Ceyhan fields</h2>
+          <button id="sel-clear" class="link small" hidden>Back to whole area</button>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Evidence">
+          <button role="tab" aria-selected="true" aria-controls="tab-observed" id="tb-observed">Observed</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-context" id="tb-context">Context</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-interp" id="tb-interp">Interpretation</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-limits" id="tb-limits">Limitations</button>
+        </div>
+        <div class="tabpanels">
+          <section role="tabpanel" id="tab-observed" aria-labelledby="tb-observed"></section>
+          <section role="tabpanel" id="tab-context" aria-labelledby="tb-context" hidden></section>
+          <section role="tabpanel" id="tab-interp" aria-labelledby="tb-interp" hidden></section>
+          <section role="tabpanel" id="tab-limits" aria-labelledby="tb-limits" hidden></section>
+        </div>
+      </aside>
+    </main>
+
+    <section class="census" aria-labelledby="census-title">
+      <div class="census-grid">
+        <div>
+          <h2 id="census-title">Change census</h2>
+          <p class="muted" id="census-sub"></p>
+          <div id="sensitivity"></div>
+        </div>
+        <div>
+          <div class="census-tools">
+            <label>Show <select id="census-filter"><option value="all">all objects</option><option value="brightened">brightened</option><option value="darkened">darkened</option></select></label>
+            <label>sorted by <select id="census-sort"><option value="area">area</option><option value="change">|ΔHH|</option></select></label>
+          </div>
+          <div class="census-table-wrap"><table class="census-table" id="census-table"><thead><tr><th>#</th><th>Change</th><th class="num">Area (ha)</th><th class="num">ΔHH (dB)</th><th class="num">Before (dB)</th><th>Nearest place</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Data: NASA-ISRO NISAR L2 GCOV VALIDATED (DOI <a href="https://doi.org/10.5067/NIL2GCOV-V1">10.5067/NIL2GCOV-V1</a>, ASF DAAC) · NASA POWER · map context © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).
+        Built by Signal Foundry for NASA Space Apps 2026. Not an official NASA or ISRO product. Generative AI assisted with software development and documentation; see Method &amp; sources.</p>
+    </footer>
+  </div>
+
+  <!-- DIALOGS -->
+  <dialog id="dlg-method" class="dialog wide" aria-labelledby="method-title"></dialog>
+  <dialog id="dlg-export" class="dialog" aria-labelledby="export-title"></dialog>
+  <div id="fatal" class="fatal" hidden role="alert"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

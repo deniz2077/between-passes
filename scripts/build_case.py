@@ -191,6 +191,14 @@ def main():
     power = json.load(open(os.path.join(ROOT, "data/context/power_35.8_37.0_20261018_20261108.json")))
     prec = power["properties"]["parameter"]["PRECTOTCORR"]
 
+    # Parity samples: display-definition smoothing (valid mask) for browser self-check
+    disp = {s: bp.boxcar_linear(hh[s], valid, k) for s in "ab"}
+    d_disp = bp.to_db(disp["b"]) - bp.to_db(disp["a"])
+    rng = np.random.default_rng(20261114)
+    cand = np.flatnonzero(valid.ravel())
+    pick = rng.choice(cand, 200, replace=False)
+    parity = [{"i": int(i), "dHH_s": round(float(d_disp.ravel()[i]), 4)} for i in pick]
+
     fl = d_hh[field_like]
     case = {
         "schema": "between-passes/case@1",
@@ -224,6 +232,7 @@ def main():
             "sensitivity": sens,
         },
         "objects": objects,
+        "parity_samples": parity,
         "context": ctx,
         "weather": {"source": "NASA POWER daily point, PRECTOTCORR (mm/day), community AG",
                     "point": [35.8, 37.0],
