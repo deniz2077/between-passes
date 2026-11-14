@@ -1,0 +1,389 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Between Passes — Project Documentation</title><link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap' rel='stylesheet'><style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+body { font: 10.5pt/1.5 "IBM Plex Sans", -apple-system, sans-serif; color: #1b1f24; }
+h1 { font-size: 22pt; margin: 0 0 6pt; letter-spacing: -.01em; }
+h2 { font-size: 14pt; margin: 16pt 0 6pt; border-bottom: 1px solid #d8dde3; padding-bottom: 3pt; }
+h3 { font-size: 11.5pt; margin: 12pt 0 4pt; }
+.part { page-break-before: always; }
+.part:first-of-type { page-break-before: auto; }
+.part > h1.ptitle { font-size: 9pt; letter-spacing: .12em; text-transform: uppercase; color: #0b7f95; margin-bottom: 10pt; }
+code, pre { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 8.6pt; }
+pre { background: #f4f6f8; padding: 8pt; border-radius: 4pt; white-space: pre-wrap; word-break: break-all; }
+table { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 6pt 0; }
+td, th { border: 1px solid #d8dde3; padding: 3pt 5pt; text-align: left; vertical-align: top; }
+a { color: #0b7f95; word-break: break-all; }
+.cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; }
+.cover .k { font: 500 9pt "IBM Plex Mono", monospace; letter-spacing: .12em; color: #0b7f95; text-transform: uppercase; }
+.cover h1 { font-size: 40pt; margin: 8pt 0 12pt; }
+.cover p { font-size: 12pt; max-width: 150mm; }
+.cover img { width: 120mm; border-radius: 6pt; margin-top: 12pt; }
+.meta { font: 9.5pt "IBM Plex Mono", monospace; color: #555; margin-top: 18pt; line-height: 1.7; }
+</style></head><body><section class='cover'><div class='k'>NASA Space Apps Challenge 2026 · Dancing with the SARs · Project Documentation</div>
+      <h1>Between Passes</h1>
+      <p>A radar evidence lab on NASA-ISRO NISAR data: what changed in the fields of Ceyhan (Adana, Türkiye) between two passes, why — tested worldwide on randomly drawn NISAR sites against NASA SMAP — and a falsifiable prediction for the next pass.</p>
+      <img src='file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/ceyhan_change.jpg'>
+      <div class='meta'>Team Signal Foundry · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
+      Live app: https://deniz2077.github.io/between-passes/<br>Code &amp; data: https://github.com/deniz2077/between-passes</div></section><section class='part'><h1 class='ptitle'>Overview</h1><h1>Between Passes</h1>
+<p><strong>A radar evidence lab for Earth's changing surface</strong> — NASA Space Apps Challenge 2026 · <em>Dancing with the SARs</em> · Team Signal Foundry (Deniz Efe Bulut, Niğde Local Event)</p>
+<p><strong>Live app:</strong> https://deniz2077.github.io/between-passes/ · <strong>Global test:</strong> https://deniz2077.github.io/between-passes/world.html · <strong>Demo (7 slides):</strong> https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf</p>
+<p>Twelve days. Two NASA-ISRO <strong>NISAR</strong> radar passes. One farming landscape around <strong>Ceyhan, Adana (Türkiye)</strong> — and then <strong>200 randomly drawn NISAR sites worldwide</strong>.</p>
+<h2>Headline</h2>
+<ul>
+<li><strong>Ceyhan:</strong> between 22 Oct and 3 Nov 2026, 7.0× more field area brightened than darkened, while a stable town control held (+0.12 dB). NASA HLS rules out harvest for most parcels, and <strong>NASA SMAP measured the soil there go from 0.16 (20 Oct) to 0.36 m³/m³ (3 Nov)</strong> after the first autumn rain (exploratory: ±2-day SMAP window). <strong>Wetting is the leading explanation</strong>; ploughing can't be excluded field by field.</li>
+<li><strong>Worldwide (pre-registered):</strong> across 74 random NISAR sites with quality SMAP data, <strong>radar change tracks soil-moisture change</strong> (Spearman ρ 0.58, permutation p &lt; 0.001; +1.0 dB per +0.1 m³/m³; 16 of 18 sites with a clear moisture change moved in the same direction). An independent, pre-registered <strong>replication on 200 new random sites</strong> gave the same answer (n = 73, ρ 0.55, p &lt; 0.001; slope +0.78 dB, CI overlapping). The clearer signal is drying (darkening ~1 dB). The plan was committed before any value was extracted — see <a href="https://github.com/deniz2077/between-passes/blob/main/research/global/PREREGISTRATION.md"><code>research/global/PREREGISTRATION.md</code></a> and <a href="https://github.com/deniz2077/between-passes/blob/main/research/global/RESULTS.md"><code>RESULTS.md</code></a>.</li>
+</ul>
+<h2>Research question</h2>
+<p><em>Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?</em></p>
+<h2>What I measured (real NISAR VALIDATED data)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analysis area</td>
+<td>404 km² at 20 m (1,010,074 valid pixels)</td>
+</tr>
+<tr>
+<td>Stable urban control (Ceyhan centre)</td>
+<td>ΔHH <strong>+0.12 dB</strong> (pixel IQR −0.14 … +0.43)</td>
+</tr>
+<tr>
+<td>Change objects (≥ 3 dB seed, ≥ 1 ha)</td>
+<td><strong>508 brightened (3,282 ha)</strong> vs <strong>128 darkened (468 ha)</strong></td>
+</tr>
+<tr>
+<td>Brightened ÷ darkened area</td>
+<td><strong>7.0×</strong> at 3 dB; between 7× and 11× for thresholds 2–5 dB</td>
+</tr>
+<tr>
+<td>Optical cross-check (NASA HLS NDVI, 23 Oct → 2 Nov)</td>
+<td>Of 310 brightened objects with a clear view, <strong>9.0 % lost vegetation</strong>; 85.5 % show little vegetation change (median ΔNDVI +0.015 vs +0.060 for other fields)</td>
+</tr>
+<tr>
+<td>ΔHV</td>
+<td><strong>Unresolved</strong> — west–east gradient + high RFI-likelihood flag; shown, not interpreted</td>
+</tr>
+</tbody>
+</table>
+<p>Explanations, ranked by independent evidence: the optical cross-check makes <strong>harvest unlikely for most brightened parcels</strong>; NASA SMAP shows Ceyhan's soil was <strong>wetted</strong> between the passes (0.16 → 0.36 m³/m³, exploratory window) after ~23 mm of rain on 28–29 Oct, and the pre-registered global test shows NISAR brightens where SMAP sees wetting. <strong>Wetting is the leading explanation</strong>; tillage remains possible for individual parcels. A <a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md">falsifiable prediction</a> for NISAR's 15 Nov pass, locked before the pass, will separate them: wet soil dries back, ploughed soil stays bright.</p>
+<h2>Features</h2>
+<ul>
+<li><strong>Radar viewer</strong> — both calibrated γ⁰ HH scenes on one fixed stretch, a swipe comparison, a ΔHH change map and a cautioned ΔHV map; pan/zoom, map context (OpenStreetMap), lat/lon grid, pixel readout.</li>
+<li><strong>Change objects</strong> — 636 parcel-scale objects detected by hysteresis thresholding; click any to inspect, or deep-link (<code>#object-12</code>).</li>
+<li><strong>Draw your own region</strong> — statistics are computed live in the browser from the real data (ratio of mean linear power), compared with the control.</li>
+<li><strong>Evidence panel</strong> — Observed / Context / Interpretation / Limitations, with a selection-vs-control histogram.</li>
+<li><strong>Optical cross-check</strong> — NASA HLS (Sentinel-2) NDVI resampled onto the radar grid: a ΔNDVI view and a per-object vegetation-change class.</li>
+<li><strong>The interval</strong> — NASA POWER rainfall between passes with acquisition times.</li>
+<li><strong>Change census</strong> — sortable object table and threshold-sensitivity chart.</li>
+<li><strong>Case file export</strong> — JSON (geometry, statistics, sources, parameters, limitations), CSV of all objects, printable report.</li>
+<li><strong>Global test page</strong> (<code>world.html</code>) — world map of the 200 drawn sites, radar-vs-SMAP scatter, a 10 km ΔHH map for every retained site, Ceyhan's SMAP time series, and an in-browser recomputation of ρ and the slope.</li>
+<li><strong>Integrity check on every load</strong> — the browser recomputes the published statistics from the shipped layers and shows pass/fail (Method &amp; sources).</li>
+</ul>
+<h2>Run locally</h2>
+<pre><code class="language-bash">python3 scripts/serve.py 8765        # then open http://localhost:8765
+</code></pre>
+<p>No login, API key or build step. All case data are frozen in <code>app/data/ceyhan/</code>.</p>
+<h2>Reproduce the data</h2>
+<pre><code class="language-bash">python3 -m venv .venv &amp;&amp; .venv/bin/pip install numpy h5py rasterio scipy requests pytest
+python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earthdata Login
+.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_033_151_D_070_2005_DHDH_A_20261022T162402_20261022T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
+.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_034_151_D_070_2005_DHDH_A_20261103T162403_20261103T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
+.venv/bin/python scripts/extract_hls.py
+.venv/bin/python scripts/build_case.py
+.venv/bin/python -m pytest tests
+</code></pre>
+<p>Global test (same seed → same sites and numbers):</p>
+<pre><code class="language-bash">.venv/bin/python scripts/global_scan.py sample &amp;&amp; .venv/bin/python scripts/global_scan.py nisar 8
+.venv/bin/python scripts/global_scan.py smap 4 &amp;&amp; .venv/bin/python scripts/global_scan.py power
+.venv/bin/python scripts/global_analyze.py &amp;&amp; .venv/bin/python scripts/global_export.py
+</code></pre>
+<p><code>extract_window.py</code> reads only the needed HDF5 chunks over HTTP byte ranges (~70 MB of 1.9 GB per granule).</p>
+<h2>Repository</h2>
+<pre><code>app/                 static web app (HTML/CSS/ES modules, no build) + frozen case data
+scripts/             data access, window extraction, case builder, science functions
+tests/               unit tests (synthetic fixtures) + case-integrity tests
+research/            feasibility gate log, competitive notes, figures; research/global/ = pre-registered global test
+docs/                method, data sources, limitations, AI use
+sprint-reports/      Niğde Scrum sprint reports
+</code></pre>
+<h2>Data &amp; credits</h2>
+<ul>
+<li>NASA-ISRO NISAR L2 GCOV VALIDATED, <code>NISAR_L2_GCOV_V1</code>, DOI <a href="https://doi.org/10.5067/NIL2GCOV-V1">10.5067/NIL2GCOV-V1</a>, ASF DAAC.</li>
+<li>NASA HLS S30 v2.0, DOI <a href="https://doi.org/10.5067/HLS/HLSS30.002">10.5067/HLS/HLSS30.002</a>, LP DAAC.</li>
+<li>NASA SMAP L3 Radiometer Global Daily 9 km Soil Moisture, Enhanced (SPL3SMP_E v006), NSIDC DAAC.</li>
+<li>NASA POWER daily point data (PRECTOTCORR).</li>
+<li>Natural Earth 1:110m land (public domain), via world-atlas.</li>
+<li>© OpenStreetMap contributors (ODbL) — places, rivers, roads.</li>
+<li>Fonts: IBM Plex Sans / Mono (SIL OFL).</li>
+</ul>
+<p>See <a href="https://github.com/deniz2077/between-passes/blob/main/DATA_PROVENANCE.md"><code>DATA_PROVENANCE.md</code></a> and <a href="https://github.com/deniz2077/between-passes/blob/main/docs/"><code>docs/</code></a>.</p>
+<h2>AI use</h2>
+<p>Generative AI (Claude Code) assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by the participant. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.</p>
+<h2>License</h2>
+<p>Code: MIT (see <code>LICENSE</code>). Data remain under their providers' terms.</p>
+<p><em>Not an official NASA or ISRO product.</em></p></section><section class='part'><h1 class='ptitle'>Method</h1><h1>Method — Between Passes</h1>
+<h2>Question</h2>
+<p>Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan (Adana, Türkiye) changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?</p>
+<h2>1. Data selection</h2>
+<ul>
+<li>NASA CMR (<code>short_name=NISAR_L2_GCOV_V1</code>, point 35.8E 37.0N) returned three VALIDATED GCOV granules. Two share <strong>track 151, descending, frame 70, CRID P05036</strong> (22 Oct and 3 Nov 2026, 16:24 UTC) and are used. The third (29 Oct, track 079) has different viewing geometry and is not compared pixel-by-pixel.</li>
+<li>Quantity: diagonal covariance terms HHHH and HVHV = radiometrically terrain-corrected <strong>γ⁰ in linear power</strong> (RTC-AP, area-based; output convention gamma0, linear power).</li>
+</ul>
+<h2>2. Access</h2>
+<p><code>scripts/nisar_remote.py</code> wraps authenticated HTTP byte-range requests in a seekable file object so <code>h5py</code> reads only the HDF5 chunks intersecting the window (~70 MB of 1.9 GB per granule).</p>
+<h2>3. Comparability</h2>
+<ul>
+<li>Both granules are on the <strong>identical 20 m UTM 37N geogrid</strong> (same row/column indices and coordinates) → no resampling.</li>
+<li>Joint validity: subswath <code>mask</code> in 1…254 on both dates, <code>inputDataExceptionMask == 768</code> (HH and HV fully focused, no anomaly), γ⁰ &gt; 0 for HH and HV on both dates.</li>
+<li>500 m buffer from any invalid pixel (L2 valid-sample masks are documented as misaligned near swath edges).</li>
+</ul>
+<h2>4. Measurement</h2>
+<ul>
+<li>Speckle: 5×5 (100 m) valid-weighted boxcar on <strong>linear</strong> γ⁰, then dB.</li>
+<li>Change: ΔdB = 10·log₁₀(γ⁰_after / γ⁰_before).</li>
+<li>Regions (objects, user polygons, control): ratio of mean linear power over member pixels (not the mean of per-pixel dB).</li>
+</ul>
+<h2>5. Control</h2>
+<p>Largest connected cluster that is persistently bright (smoothed HH &gt; 0 dB on both dates): the built-up centre of Ceyhan, 1,342 px. ΔHH +0.12 dB (region); per-pixel 1/5/25/50/75/95/99 % = −1.31 / −0.61 / −0.14 / +0.08 / +0.43 / +1.03 / +2.09 dB.</p>
+<h2>6. Change objects</h2>
+<p>Hysteresis on smoothed ΔHH within the analysis area: seeds |Δ| ≥ 3 dB (power ×2), grown through same-sign pixels |Δ| ≥ 2 dB (8-connectivity), minimum 25 px (1 ha). Brightening and darkening are segmented separately. The 3 dB seed exceeds the control's 99th percentile. Sensitivity to the seed (2, 2.5, 3, 4, 5 dB) is reported in the app.</p>
+<h2>7. Physical checks</h2>
+<ul>
+<li><strong>HH</strong>: binned by brightness, ΔHH shows no trend across range; the product's noise-equivalent backscatter is ~0.3–0.5 dB <em>lower</em> on 3 Nov, so additive noise cannot produce the brightening. → used.</li>
+<li><strong>HV</strong>: ΔHV rises west→east even at fixed brightness (e.g. −0.15 → +1.84 dB for −15…−13 dB pixels) while HV noise changed only ~0.3 dB, and the product reports a high HV RFI likelihood (581 / 305). → shown with caution, not interpreted.</li>
+</ul>
+<h2>8. Optical cross-check (NASA HLS)</h2>
+<ul>
+<li>HLS S30 v2.0 surface reflectance, tile 36SYF: 23 Oct (before, 0 % cloud) and 2 Nov (after), 08:30 UTC — a consistent same-tile pair covering ~60 % of the analysis area. (Adding tile 36SYG with a 21 Oct baseline reached 86 % but created a visible NDVI seam — excluded; sensitivity: 10.4 % vegetation loss instead of 9.0 %.)</li>
+<li>Fmask bits cloud, adjacent cloud/shadow, cloud shadow and snow excluded; NDVI = (B8A − B04)/(B8A + B04); reflectance average-resampled (Fmask: mode) onto the exact NISAR 20 m grid.</li>
+<li>Per object (≥ 80 % pixels clear on both dates): median ΔNDVI; class <em>vegetation loss</em> (≤ −0.10), <em>greening</em> (≥ +0.10), else <em>little vegetation change</em>.</li>
+<li>Result: of 310 brightened objects with a clear view, 9.0 % lost vegetation and 85.5 % show little vegetation change; median ΔNDVI +0.015 vs +0.060 for fields outside objects.</li>
+</ul>
+<h2>9. Context</h2>
+<p>NASA POWER daily PRECTOTCORR at 35.8E 37.0N: 27.63 mm between passes, 6.46 mm on 28 Oct and 16.49 mm on 29 Oct. Timing context only.</p>
+<h2>10. Verification</h2>
+<ul>
+<li><code>tests/test_science.py</code> — unit tests on synthetic fixtures (dB conversion, masks, edge buffer, boxcar, region estimator, hysteresis objects, encodings).</li>
+<li><code>tests/test_case_integrity.py</code> — recomputes published statistics from the shipped binary layers; SHA-256 of every layer; optical class consistency.</li>
+<li>Browser self-check on every load (Method &amp; sources): control, all 636 objects, 200 parity pixels of the speckle filter and the analysis area recomputed in JavaScript; max difference ≤ 0.005 dB.</li>
+</ul>
+<h2>11. Global test (pre-registered)</h2>
+<p>Full plan: <code>research/global/PREREGISTRATION.md</code> (commit 43f2fbb, before any extraction). Results and deviations: <code>research/global/RESULTS.md</code>.
+- Population: 889 NISAR VALIDATED HH repeat pairs (same track/frame/CRID) in CMR, 21 Oct–11 Nov 2026; |lat| ≤ 60° → 763; simple random sample of 200 (seed 2026).
+- NISAR metric: 10 × 10 km window at the frame centre, joint validity as above, ΔHH_site = 10·log₁₀(mean γ⁰_B / mean γ⁰_A).
+- Independent measurement: NASA SMAP L3 Enhanced 9 km soil moisture (SPL3SMP_E), overpass nearest the NISAR local solar time, recommended quality only, ±1 day.
+- Test: Spearman ρ, two-sided permutation p (10,000), Theil–Sen slope with bootstrap CI.
+- Result: n = 74 retained (125 lacked approved SMAP values, 1 invalid window); ρ = 0.577, p = 0.0001, +1.02 dB per +0.1 m³/m³ (95 % CI 0.69–1.42).
+- Ceyhan: the pre-registered SMAP rule finds no approved value near 22 Oct; an exploratory ±2-day window gives 0.161 → 0.356 m³/m³.
+- Replication (pre-registered, <code>research/global/REPLICATION_PREREGISTRATION.md</code>, commit 7e1ffcf): 200 new pairs (seed 2027, disjoint from the original sample), same rules → n = 73, ρ = 0.546, p = 0.0001, +0.78 dB per +0.1 m³/m³ (95 % CI 0.45–1.11). Replication criterion met. Pooled (descriptive): n = 147, ρ = 0.572.</p></section><section class='part'><h1 class='ptitle'>Global test — results</h1><h1>Results — Global test: does NISAR HH change track soil wetting?</h1>
+<p>Plan: <code>PREREGISTRATION.md</code> (commit 43f2fbb, written before any global value was extracted).
+Code: <code>scripts/global_scan.py</code>, <code>scripts/global_analyze.py</code>, <code>scripts/global_export.py</code>. Per-site records: <code>sites/*.json</code>. Full output: <code>results.json</code>.</p>
+<h2>Sample</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>n</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NISAR VALIDATED HH repeat pairs in CMR (14 Nov 2026)</td>
+<td>889</td>
+</tr>
+<tr>
+<td>eligible (</td>
+<td>lat</td>
+</tr>
+<tr>
+<td>randomly drawn (seed 2026)</td>
+<td>200</td>
+</tr>
+<tr>
+<td>dropped: NISAR window &lt; 50 % jointly valid</td>
+<td>1</td>
+</tr>
+<tr>
+<td>dropped: no recommended-quality SMAP value within ±1 day of a pass</td>
+<td>125</td>
+</tr>
+<tr>
+<td><strong>retained</strong></td>
+<td><strong>74</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Retained sites span 45.4° S to 55.7° N. Every SMAP cell centre used lies within 0.1° of its NISAR window centre.</p>
+<h2>Primary result (as pre-registered)</h2>
+<ul>
+<li>Spearman ρ between ΔSM (SMAP) and ΔHH_site (NISAR) = <strong>0.577</strong>, n = 74.</li>
+<li>Two-sided permutation p = <strong>0.0001</strong> (no permutation of 10,000 reached |ρ|; the smallest reportable value is 1/10,001).</li>
+<li>Theil–Sen slope <strong>+1.02 dB per +0.1 m³/m³</strong> (intercept −0.13 dB); bootstrap 95 % CI <strong>+0.69 … +1.42</strong>.</li>
+<li><strong>Hypothesis supported.</strong></li>
+</ul>
+<p>Secondary (pre-registered): net fraction of pixels ≥ +3 dB minus ≤ −3 dB vs ΔSM: ρ = 0.564, p = 0.0001.</p>
+<h2>Descriptive (not part of the test)</h2>
+<ul>
+<li>Sites with |ΔSM| &gt; 0.05 m³/m³: 18; NISAR change has the same sign in 16 (89 %).</li>
+<li>Median ΔHH: drying sites (ΔSM &lt; −0.05, n = 11) −1.14 dB; wetting sites (&gt; +0.05, n = 7) +0.34 dB; the 56 sites with |ΔSM| ≤ 0.05: −0.11 dB.</li>
+<li>Residual SD around the fit 0.72 dB.</li>
+</ul>
+<h2>Ceyhan (not in the sample)</h2>
+<ul>
+<li>NISAR, same 10 km rule: ΔHH_site <strong>+0.29 dB</strong>; 5.2 % of the window ≥ +3 dB, 0.9 % ≤ −3 dB.</li>
+<li>Pre-registered SMAP rule: <strong>no value</strong> — no SMAP swath on 22 Oct and the 21/23 Oct retrievals carry the "not recommended" flag. Ceyhan therefore cannot be placed by the pre-registered rule.</li>
+<li><strong>Exploratory</strong> (rule widened to ±2 days; not pre-registered): 20 Oct PM 0.161 → 3 Nov AM 0.356 m³/m³, ΔSM <strong>+0.195</strong>.</li>
+<li>All recommended-quality SMAP retrievals at the Ceyhan cell: 20 Oct 0.161, 25 Oct 0.109, 26 Oct 0.053, <strong>28 Oct 0.291</strong>, 2 Nov 0.268, <strong>3 Nov 0.356</strong>, 5 Nov 0.232, 10 Nov 0.134, 11 Nov 0.098. The 28–29 Oct rain (NASA POWER 23 mm) shows as a jump, and the soil was still wet at the second NISAR pass.</li>
+<li>Ceyhan's exploratory wetting (+0.195) exceeds every sampled site (maximum +0.176), so the fit is extrapolated there. Its site-wide ΔHH (+0.29 dB) is below the fitted value (+1.9 dB). The brightening is concentrated in individual fields (5.2 % of the window), consistent with the parcel-level case.</li>
+</ul>
+<h2>What this does and does not show</h2>
+<ul>
+<li><strong>Shows:</strong> across randomly drawn sites worldwide, NISAR L2 GCOV HH change between 12-day repeat passes is positively and significantly related to independently measured soil-moisture change. Soil wetting is a demonstrated, global driver of the kind of brightening seen at Ceyhan, and SMAP independently confirms Ceyhan's soil was wetted between the two passes.</li>
+<li><strong>Does not show:</strong> that any individual Ceyhan field brightened because of wetting rather than ploughing; field-scale moisture; behaviour in other seasons or intervals. 63 % of drawn sites lacked an approved SMAP retrieval, so the retained set leans toward land covers where SMAP retrieves well.</li>
+</ul>
+<h2>Deviations from the plan</h2>
+<ol>
+<li>Some NISAR frames use 10 m pixels; the first code version computed the valid fraction assuming 20 m. Fixed before analysis; no site changed status. For 10 m frames the 5×5 boxcar spans 50 m (applied literally as written).</li>
+<li>One site hit a transient HTTP 502 and was re-read once (succeeded).</li>
+<li>Ceyhan's exploratory ±2-day SMAP window is outside the plan and labelled as such everywhere it appears.</li>
+</ol>
+<h2>Independent replication (pre-registered)</h2>
+<p>Plan: <code>REPLICATION_PREREGISTRATION.md</code> (commit 7e1ffcf, written before any replication value was extracted). Code: same scripts with <code>BP_SET=rep</code>, then <code>scripts/global_replication.py</code>. Per-site records: <code>sites_rep/*.json</code>. Output: <code>results_rep.json</code>, <code>replication.json</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>n</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eligible pairs not used by the original sample</td>
+<td>563</td>
+</tr>
+<tr>
+<td>randomly drawn (seed 2027; disjoint from the original 200)</td>
+<td>200</td>
+</tr>
+<tr>
+<td>dropped: NISAR window &lt; 50 % jointly valid</td>
+<td>5</td>
+</tr>
+<tr>
+<td>dropped: no recommended-quality SMAP value within ±1 day of a pass</td>
+<td>122</td>
+</tr>
+<tr>
+<td><strong>retained</strong></td>
+<td><strong>73</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Retained sites span 52.0° S to 50.7° N.</p>
+<ul>
+<li>Spearman ρ = <strong>0.546</strong>, n = 73; two-sided permutation p = <strong>0.0001</strong> (smallest reportable).</li>
+<li>Theil–Sen slope <strong>+0.78 dB per +0.1 m³/m³</strong>; bootstrap 95 % CI <strong>+0.45 … +1.11</strong>. Overlaps the original CI (+0.69 … +1.42).</li>
+<li>Secondary (net fraction ±3 dB): ρ = 0.525, p = 0.0001.</li>
+<li><strong>Replication criterion (ρ &gt; 0 and p &lt; 0.05) met: the result replicates.</strong></li>
+</ul>
+<p>Descriptive (not part of the test): 27 replication sites had |ΔSM| &gt; 0.05 m³/m³; NISAR change had the same sign in 20 (74 %, vs 16 of 18 in the original). Median ΔHH: drying sites (n = 13) −1.32 dB, wetting sites (n = 14) +0.07 dB. As in the original, drying produces a clearer dimming than wetting produces brightening. The slope point estimate is lower than the original's (0.78 vs 1.02); the two CIs overlap.</p>
+<p><strong>POOLED (both samples; descriptive, not a separate pre-registered test):</strong> n = 147, ρ = 0.572, slope +0.89 dB per +0.1 m³/m³ (95 % CI +0.65 … +1.14); 36 of 45 sites with a clear moisture change moved in the same direction.</p>
+<h3>Deviation found and fixed during the replication</h3>
+<p>The first replication run read the <strong>original</strong> sample: the <code>nisar</code>, <code>smap</code> and <code>power</code> steps of <code>scripts/global_scan.py</code> hard-coded <code>sample.json</code> instead of <code>sample{SFX}.json</code>. The tell-tale sign was a replication result identical to the original to four decimals. Those outputs were never committed or published; they were discarded, the three steps were fixed (only the file name changed), a regression test was added (<code>tests/test_global.py</code>: replication steps read their own sample; every <code>sites_rep</code> record belongs to the replication sample and none to the original), and the extraction was re-run on the pre-registered replication sample. The numbers above come from that corrected run. Nothing else in the plan changed.</p></section><section class='part'><h1 class='ptitle'>Next-pass prediction</h1><h1>A falsifiable prediction for NISAR's next pass over Ceyhan</h1>
+<p><strong>Locked and published before the satellite flies over</strong> (14 Nov 2026, evening TRT; git commit and push timestamp on GitHub).
+Next pass: NISAR track 151 descending, frame 70, cycle 035, expected <strong>15 Nov 2026 ~16:24 UTC</strong>. Machine-readable lock: <code>prediction.json</code>. Scorer: <code>scripts/predict_next_pass.py score &lt;granule&gt;</code>.</p>
+<h2>Why this is a real test</h2>
+<p>Between 22 Oct and 3 Nov, 508 Ceyhan parcels brightened (pooled <strong>+4.14 dB</strong>). Two explanations remain:
+- <strong>Wet soil</strong> (rain on 28–29 Oct). NASA SMAP says Ceyhan's soil has since dried: 0.36 m³/m³ on 3 Nov → 0.23 (5 Nov) → 0.13 (10 Nov) → <strong>0.10</strong> (11 Nov). If wetting caused the brightening, <strong>these parcels will dim back</strong>.
+- <strong>Rougher soil</strong> (ploughing). Roughness does not dry out. If ploughing caused it, <strong>they will stay bright</strong>.</p>
+<p>The next pass separates them. We commit to the criteria now.</p>
+<h2>Criteria (fixed)</h2>
+<ul>
+<li><strong>P1 — aggregate:</strong> pooled over all 508 brightened parcels, ΔHH(3 Nov → 15 Nov) ≤ <strong>−2.07 dB</strong> (at least half the brightening reverses).</li>
+<li><strong>P2 — typical parcel:</strong> median recovery R ≥ <strong>0.5</strong>, where R = −ΔHH(B→C) / ΔHH(A→B) (1 = back to 22 Oct, 0 = stayed bright).</li>
+<li><strong>P3 — sanity:</strong> Ceyhan's urban control moves by ≤ 0.5 dB; otherwise the pass is not comparable.</li>
+<li><strong>Verdict:</strong> P1 and P2 met → <strong>wetting dominant, confirmed</strong>. Median R &lt; 0.25 → <strong>persistent: roughness/ploughing dominant</strong>. Otherwise <strong>mixed</strong>. Every parcel also gets a label: dried back (R ≥ 0.5) / partial / stayed bright (R &lt; 0.25).</li>
+</ul>
+<h2>When the test is void</h2>
+<ul>
+<li>The cycle-035 granule is missing, not VALIDATED, or not on the identical grid.</li>
+<li>It rained again: SMAP at Ceyhan (approved retrieval 14–16 Nov) ≥ 0.25 m³/m³, or, without SMAP, NASA POWER ≥ 10 mm over 12–15 Nov.</li>
+</ul>
+<h2>Honest notes</h2>
+<ul>
+<li>NISAR VALIDATED data have appeared about 3–6 days after acquisition, so the result is expected <strong>after</strong> the NASA submission deadline. The prediction is locked now; the score will be published in the app when the data exist.</li>
+<li>Rain fell on 4–6 Nov (13.6 mm, NASA POWER), after our second pass; SMAP shows the soil dried again by 10–11 Nov.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Limitations</h1><h1>Limitations</h1>
+<ol>
+<li><strong>Two radar dates.</strong> One pair cannot distinguish lasting change (tillage) from transient change (wet soil drying out).</li>
+<li><strong>Cause is not measured.</strong> HH backscatter responds to soil moisture, roughness, vegetation structure and water. Interpretations are labelled <em>consistent / possible / not indicated</em>, never <em>confirmed</em>.</li>
+<li><strong>Spatial correlation.</strong> Pixels after multilooking and filtering are not independent; I compare against a control instead of reporting independent-pixel confidence intervals.</li>
+<li><strong>Urban control.</strong> The control demonstrates instrument/processing stability, not how an unchanged agricultural field behaves.</li>
+<li><strong>HV unresolved.</strong> West–east ΔHV gradient at fixed brightness and high RFI likelihood; HV is not interpreted.</li>
+<li><strong>Thermal noise not subtracted</strong> in the product (<code>noiseCorrectionApplied = False</code>); very dark pixels carry a larger noise share.</li>
+<li><strong>Swath edge.</strong> West of the window is outside the swath; a 500 m buffer is applied.</li>
+<li><strong>Thresholds are choices.</strong> 3 dB seed / 2 dB grow / 1 ha; sensitivity 2–5 dB shown. The brightened ÷ darkened area ratio stays between 7× and 11×.</li>
+<li><strong>Optical cross-check.</strong> HLS dates differ from radar by up to ~1.5 days; only ~60 % of the analysis area has a consistent cloud-free same-tile pair (the northern tile would need a different baseline date and showed a seam, so it is excluded). NDVI cannot separate wet from ploughed bare soil.</li>
+<li><strong>Rainfall</strong> is a NASA POWER gridded estimate (~0.5°), not a gauge.</li>
+<li><strong>Single case study.</strong> Not an operational monitoring or alert system.</li>
+</ol>
+<h2>Global test</h2>
+<ul>
+<li>Site-scale (10 km windows), one 12-day interval per site, one random sample; not field-scale.</li>
+<li>63 % of drawn sites lacked a quality-approved SMAP retrieval, so retained sites lean toward land covers where SMAP retrieves well.</li>
+<li>SMAP's 9 km cell and the NISAR window are not identical footprints; SMAP measures the top ~5 cm.</li>
+<li>Ceyhan's SMAP comparison is exploratory (±2-day window, not pre-registered), and its wetting (+0.195 m³/m³) is larger than at any sampled site, so the global fit is extrapolated there.</li>
+<li>SMAP shows that Ceyhan's soil got wetter; it cannot say which individual fields, so ploughing remains possible for any single parcel.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Data provenance</h1><h1>Data provenance</h1>
+<h2>NASA NISAR — L2 GCOV, VALIDATED (primary)</h2>
+<ul>
+<li>Collection: <code>NISAR_L2_GCOV_V1</code> v1, CMR concept <code>C3622241360-ASF</code>, DOI 10.5067/NIL2GCOV-V1, ASF DAAC. Free and open; NASA ESDIS data use &amp; citation guidance.</li>
+<li>Granules A/B/C and metadata: see <code>research/NISAR_GATE.md</code>.</li>
+<li>Quantity: diagonal covariance terms HHHH / HVHV = RTC gamma-0 backscatter power (linear). dB = 10·log10(γ⁰).</li>
+<li>Access: HTTPS via Earthdata Login; window reads by HTTP Range (<code>scripts/nisar_remote.py</code>).</li>
+<li>Processing: see "Processing (implemented)" below.</li>
+</ul>
+<h2>NASA POWER — daily point (context only)</h2>
+<ul>
+<li><code>https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR,T2M&amp;community=AG&amp;longitude=35.8&amp;latitude=37.0&amp;start=20261018&amp;end=20261108&amp;format=JSON</code></li>
+<li>Saved: <code>data/context/power_35.8_37.0_20261018_20261108.json</code> (retrieved 14 Nov 2026).</li>
+<li>Gridded estimate (coarse cell), not a rain gauge; used as context, never as cause.</li>
+</ul>
+<h2>Processing (implemented)</h2>
+<ol>
+<li><code>scripts/extract_window.py</code> — 24×24 km window, centre 35.85E 37.0N, native EPSG:32637 20 m grid (rows 5888–7088, cols 2788–3988), layers HHHH, HVHV, mask, numberOfLooks, rtcGammaToSigmaFactor, inputDataExceptionMask → <code>data/raw/win_A/*.tif</code> + JSON sidecars (not committed; reproducible).</li>
+<li><code>scripts/build_case.py</code> — joint validity (mask 1..254, exception==768, γ⁰&gt;0 both dates); 500 m edge buffer; 5×5 valid-weighted boxcar on linear γ⁰; ΔdB; urban control = largest cluster HH&gt;0 dB both dates; hysteresis change objects (3 dB seed / 2 dB grow / 25 px); sensitivity 2–5 dB; HV at 40 m (2×2 linear block mean).</li>
+<li>Output <code>app/data/ceyhan/</code>: <code>hh_a.i16</code>, <code>hh_b.i16</code> (dB×100, −32768 nodata, 20 m), <code>hv_*_40m.i16</code>, <code>flags.u8</code> (1 valid, 2 analysis, 4 control), <code>objects.u16</code>, <code>case.json</code> (stats, objects, SHA-256 of every layer, parity samples, context, weather).</li>
+<li>Integrity: <code>tests/test_case_integrity.py</code> and the browser self-check recompute statistics from the shipped layers (max diff ≤ 0.005 dB).</li>
+</ol>
+<h2>OpenStreetMap context</h2>
+<p>Overpass API query (places town/village/city, rivers, motorway/trunk/primary) for bbox 36.875,35.69,37.115,36.02; base timestamp 2026-11-14T14:18:06Z; saved <code>data/context/osm_context_raw.json</code>. © OpenStreetMap contributors, ODbL.</p>
+<h2>NASA HLS S30 v2.0 — optical cross-check</h2>
+<ul>
+<li>CMR <code>short_name=HLSS30, version=2.0</code>, bbox 35.72,36.90,35.98,37.10, 10 Oct–14 Nov 2026.</li>
+<li>Published pair (tile 36SYF): before <code>HLS.S30.T36SYF.2026296T082011.v2.0</code> (23 Oct, 0 % cloud), after <code>HLS.S30.T36SYF.2026306T082551.v2.0</code> (2 Nov). Northern tile 36SYG (21 Oct / 2 Nov) tested and excluded because of an NDVI seam. 3 Nov granule rejected (covers 1 % of window). Tiles 37SBA added nothing (same swath edge).</li>
+<li>Bands B04, B8A, Fmask via GDAL /vsicurl with Earthdata cookies; average/mode reprojection to the NISAR grid (<code>scripts/extract_hls.py</code> → <code>data/raw/hls/</code>, not committed).</li>
+<li>Shipped: <code>ndvi_a_40m.i16</code>, <code>ndvi_b_40m.i16</code> (NDVI×10000, 2×2 mean of pixels clear on both dates); per-object NDVI stats in <code>case.json</code>.</li>
+<li>DOI 10.5067/HLS/HLSS30.002 (LP DAAC).</li>
+</ul>
+<h2>Global test — NISAR, SMAP, POWER, Natural Earth</h2>
+<ul>
+<li><strong>NISAR L2 GCOV VALIDATED:</strong> 200 repeat pairs drawn from NASA CMR (<code>research/global/cmr_gcov_all.json</code>, <code>sample.json</code>); per-site granule IDs, window, spacing, metrics in <code>research/global/sites/NNN.json</code>; HTTP range reads via Earthdata Login (participant's own, <code>~/.netrc</code>).</li>
+<li><strong>NASA SMAP SPL3SMP_E v006</strong> (NSIDC DAAC): daily files 19 Oct–12 Nov 2026 (<code>research/global/smap_l3e_urls.json</code>), values per EASE-Grid 2.0 9 km cell in <code>smap_days/</code>, <code>smap.json</code>.</li>
+<li><strong>NASA POWER</strong> daily PRECTOTCORR per site: <code>research/global/power.json</code> (context only, not in the test).</li>
+<li><strong>Natural Earth</strong> 1:110m land (public domain) via <code>world-atlas@2.0.2</code> → <code>app/data/global/land.json</code>.</li>
+<li>App package: <code>app/data/global/global.json</code> + <code>thumbs.u8</code> (SHA-256 recorded in the JSON), built by <code>scripts/global_export.py</code>.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Use of AI</h1><h1>Use of AI (Super Intelligence) tools</h1>
+<p><strong>Tool:</strong> Claude Code (Anthropic), used as a development assistant during the hackathon (14–15 Nov 2026).</p>
+<p><strong>Human decisions (participant):</strong> choice of challenge, hometown study area (Adana / Ceyhan), the research question and its approval, the decision to stay on NISAR rather than switch challenges, data-access login, review of results, and all submission decisions.</p>
+<p><strong>AI-assisted:</strong> writing and refactoring Python data-access and analysis code, the web application code, tests, documentation drafts and sprint-report drafts; running analyses and checks in the development environment; literature/documentation lookup.</p>
+<p><strong>AI-proposed, participant-approved:</strong> the AI assistant proposed the global NASA SMAP test, its pre-registration, the independent replication and the falsifiable next-pass prediction after the participant asked to scale the project and find a headline answer; it also created the public GitHub repository, deploy key and GitHub Pages site at the participant's request (the participant signed in himself).</p>
+<p><strong>Not AI-generated:</strong> all scientific numbers come from NASA data processed by the code in this repository and are verified by tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap.</p>
+<p><strong>Suggested submission text:</strong></p>
+<blockquote>
+<p>Generative AI (Claude Code) assisted with software development, data-processing code and documentation. The research question, study area and decisions were made by the team. All results are computed from NASA NISAR, SMAP, HLS and POWER data by the open-source code in the repository and are verified by automated tests; data sources, methods and limitations are documented.</p>
+</blockquote></section></body></html>

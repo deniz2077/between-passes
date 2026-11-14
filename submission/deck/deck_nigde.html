@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Between Passes — Niğde presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  :root { --ink:#f3efe6; --ink2:#fbf9f4; --ink3:#ebe5d8; --line:#ddd5c6; --bone:#1c1b17; --bone2:#4a463e; --muted:#7a7366; --accent:#1f6f5c; --up:#d9531e; --down:#2a5db0; --caution:#a8690f; --green:#3e8e3a; --mag:#b0388f; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--ink); color: var(--bone); font-family: "Instrument Sans", sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 84px 96px; background: var(--ink); }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .mono { font-family: "DM Mono", monospace; }
+  .k { font: 500 22px "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+  h1 { font-family: "Newsreader", Georgia, serif; font-size: 150px; line-height: .9; letter-spacing: -0.025em; margin: 0 0 30px; font-weight: 500; }
+  h1 em { font-style: italic; color: var(--accent); }
+  h2 { font-family: "Newsreader", Georgia, serif; font-size: 66px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 28px; font-weight: 500; max-width: 1600px; }
+  p, li { font-size: 32px; line-height: 1.4; color: var(--bone2); margin: 0; }
+  strong { color: var(--bone); font-weight: 600; }
+  .up { color: var(--up); } .down { color: var(--down); } .acc { color: var(--accent); } .cau { color: var(--caution); }
+  .foot { position: absolute; left: 96px; right: 96px; bottom: 44px; display: flex; justify-content: space-between; font: 20px "DM Mono", monospace; color: var(--muted); }
+  .shot { border-radius: 6px; border: 1px solid var(--line); box-shadow: 0 30px 70px -30px rgba(40,30,15,.55); display: block; }
+  .k::before { content: ""; display: inline-block; width: 30px; height: 2px; background: currentColor; vertical-align: middle; margin-right: 14px; }
+  h1 em { color: var(--up) !important; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .pill { display: inline-block; font: 500 22px "DM Mono", monospace; padding: 6px 16px; border-radius: 99px; border: 1px solid var(--line); color: var(--bone2); }
+  ul { padding-left: 0; list-style: none; margin: 0; }
+  ul li { padding-left: 36px; position: relative; margin-bottom: 18px; }
+  ul li::before { content: ""; position: absolute; left: 0; top: 17px; width: 14px; height: 3px; background: var(--accent); }
+  .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 18px; }
+  .rung { background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 30px 30px 32px; position: relative; }
+  .rung .q { font: 500 22px "DM Mono", monospace; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+  .rung .big { white-space: nowrap; font: 600 76px/1 "DM Mono", monospace; letter-spacing: -0.03em; margin: 18px 0 14px; }
+  .rung p { font-size: 30px; }
+  .rung .src { position: absolute; left: 30px; bottom: 22px; font: 19px "DM Mono", monospace; color: var(--muted); }
+  .rung { padding-bottom: 70px; min-height: 470px; }
+  .arrow { position: absolute; right: -19px; top: 50%; width: 16px; height: 16px; border-top: 3px solid var(--line); border-right: 3px solid var(--line); transform: translateY(-50%) rotate(45deg); background: var(--ink); z-index: 2; }
+  table { border-collapse: collapse; width: 100%; font-size: 26px; }
+  td { padding: 14px 0; border-top: 1px solid var(--line); color: var(--bone2); vertical-align: top; }
+  td:first-child { color: var(--bone); width: 34%; padding-right: 24px; }
+  .note { font-size: 22px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide" style="display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center;">
+  <div>
+    <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
+    <h1>Between<br><em>Passes</em></h1>
+    <p style="font-size:38px;color:var(--bone);max-width:880px;line-height:1.3">What NASA-ISRO's NISAR radar saw change in my hometown's fields — why, and whether it holds worldwide.</p>
+    <div style="margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;font-size:28px">
+      <span class="mono" style="color:var(--muted)">TEAM</span><span>Signal Foundry</span>
+      <span class="mono" style="color:var(--muted)">MEMBER</span><span>Deniz Efe Bulut (solo)</span>
+      <span class="mono" style="color:var(--muted)">EVENT</span><span>Niğde Local Event, Türkiye (virtual)</span>
+      <span class="mono" style="color:var(--muted)">CHALLENGE</span><span>Dancing with the SARs</span>
+    </div>
+  </div>
+  <div style="text-align:center"><img class="shot" src="../shots/map_delta_hero.png" style="height:800px;width:auto;max-width:100%;object-fit:contain;background:#12110f"><p class="note mono" style="margin-top:14px;font-size:19px">ΔHH 22 Oct → 3 Nov · <span class="up">brighter</span> / <span class="down">darker</span> · outlines: 636 change parcels</p></div>
+  <div class="foot"><span>Real NASA NISAR VALIDATED data · Ceyhan, Adana · 22 Oct → 3 Nov 2026</span><span>1 / 10</span></div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide">
+  <p class="k">The problem</p>
+  <h2>Autumn reshapes the Çukurova plain fast. Radar sees it — but radar is easy to misread.</h2>
+  <div class="grid2" style="align-items:start;margin-top:40px">
+    <ul>
+      <li>Çukurova around Adana is one of Türkiye's main farming plains. In late autumn fields are harvested, ploughed and wetted by the first rains — often under cloud.</li>
+      <li><strong>NISAR's L-band radar sees through cloud and darkness</strong>, every 12 days. Its first fully validated data were released on 6 Nov 2026.</li>
+      <li>But a brighter radar pixel can mean wet soil, a ploughed field, a harvested crop — or an artefact. Most tools show a colourful change map and stop there.</li>
+    </ul>
+    <div style="background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:44px 48px">
+      <p class="k" style="font-size:20px">The question</p>
+      <p style="font-size:36px;color:var(--bone);line-height:1.35">Between NISAR's passes on 22 Oct and 3 Nov — an interval with the first significant autumn rain — <strong class="acc">which fields changed beyond a stable control, and which explanations survive the evidence?</strong></p>
+      <p style="margin-top:28px;font-size:26px">For: students, science communicators and agricultural analysts who need to <em>trust</em> a radar change before acting on it.</p>
+    </div>
+  </div>
+  <div style="margin-top:26px;display:flex;gap:28px;align-items:center">
+    <img class="shot" src="../shots/hh_pair_strip.png" style="height:196px">
+    <p class="note" style="font-size:22px;max-width:420px">The same fields seen by NISAR on <strong>22 Oct</strong> (left) and <strong>3 Nov</strong> (right), calibrated HH backscatter, one fixed scale. Which differences matter — and why?</p>
+  </div>
+  <div class="foot"><span></span><span>2 / 10</span></div>
+</section>
+
+<!-- 3 PRODUCT -->
+<section class="slide" style="padding-top:64px">
+  <p class="k">What I built</p>
+  <h2 style="font-size:56px;margin-bottom:26px">A radar evidence lab that runs on the real data, in any browser, no login.</h2>
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:start">
+    <img class="shot" src="../shots/story2.png" style="width:100%">
+    <ul style="margin-top:6px">
+      <li><strong>Swipe & change map</strong> — both calibrated scenes on one fixed scale; ΔHH map.</li>
+      <li><strong>636 change parcels</strong> detected and outlined; click any for its evidence.</li>
+      <li><strong>Draw any region</strong> — statistics computed live from NISAR γ⁰ against the control.</li>
+            <li><strong>Global test page</strong>: 200 random NISAR sites on a world map, each with its own radar change map.</li>
+      <li><strong>Guided case</strong> and a <strong>case-file export</strong> (JSON / CSV / report).</li>
+    </ul>
+  </div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>3 / 10</span></div>
+</section>
+
+<!-- 4 EVIDENCE LADDER -->
+<section class="slide">
+  <p class="k">My idea: an evidence ladder</p>
+  <h2>Every claim has to climb from <span class="acc">measurement</span> to <span class="acc">explanation</span> — or stop.</h2>
+  <div class="ladder" style="margin-top:34px">
+    <div class="rung"><div class="q">1 · What changed?</div><div class="big up">7.0×</div><p>more parcel area <strong class="up">brightened</strong> (3,282 ha, 508 parcels) than <strong class="down">darkened</strong> (468 ha). Holds at every threshold 2–5 dB.</p><div class="src">NISAR GCOV · HH</div><span class="arrow"></span></div>
+    <div class="rung"><div class="q">2 · Is it real?</div><div class="big acc">+0.12 dB</div><p>Ceyhan's town centre — a stable control — barely moved. Parcels count only above <strong>3 dB</strong>, beyond 99% of control pixels.</p><div class="src">same orbit · same grid</div><span class="arrow"></span></div>
+    <div class="rung"><div class="q">3 · Is it harvest?</div><div class="big" style="color:var(--mag)">9%</div><p>of 310 brightened parcels with a clear optical view lost vegetation. <strong>Harvest explains a minority.</strong></p><div class="src">NASA HLS · NDVI</div><span class="arrow"></span></div>
+    <div class="rung"><div class="q">4 · Was it the rain?</div><div class="big acc" style="font-size:62px">0.16→0.36</div><p>NASA SMAP soil moisture (m³/m³) at Ceyhan jumped after <strong>23 mm</strong> of rain, before the second pass. <strong>Wetting leads.</strong></p><div class="src">NASA SMAP · POWER</div></div>
+  </div>
+  <div style="margin-top:44px;border-left:4px solid var(--accent);padding:6px 0 6px 28px;max-width:1600px">
+    <p style="font-size:36px;color:var(--bone);line-height:1.35">Answer: the radar mostly caught <strong class="acc">fields wetted by the first autumn rain</strong> — not harvest. Ploughing can't be excluded field by field; a third NISAR pass would settle each field.</p>
+  </div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>4 / 10</span></div>
+</section>
+
+<!-- 5 GLOBAL TEST -->
+<section class="slide" style="padding-top:70px">
+  <p class="k">Does it hold everywhere? A pre-registered global test</p>
+  <h2 style="font-size:56px;max-width:1700px">From orbit, NISAR tracks whether the ground got <span style="color:var(--up);font-style:italic">wetter or drier</span>. Tested twice, at random, worldwide.</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:8px">
+    <div><img class="shot" src="../shots/world_map.png" style="width:100%"></div>
+    <div><img class="shot" src="../shots/world_scatter.png" style="width:100%;height:470px;object-fit:cover;object-position:top"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:30px">
+    <div><div class="mono acc" style="font-size:52px">200</div><p style="font-size:24px">NISAR pairs drawn at random from <strong>889</strong> worldwide; test fixed and committed <strong>before</strong> extracting data</p></div>
+    <div><div class="mono acc" style="font-size:52px">ρ 0.58</div><p style="font-size:24px">radar vs. SMAP soil-moisture change at the <strong>74</strong> sites with quality SMAP data · p &lt; 0.001</p></div>
+    <div><div class="mono acc" style="font-size:52px">ρ 0.55</div><p style="font-size:24px"><strong>Replicated</strong> on 200 <strong>new</strong> random sites (n 73, p &lt; 0.001), also pre-registered</p></div>
+    <div><div class="mono acc" style="font-size:52px">36 / 45</div><p style="font-size:24px">sites with a clear moisture change moved in the same direction. Drying is the clearer signal (≈ −1 dB).</p></div>
+  </div>
+  <div class="foot"><span>NISAR L2 GCOV VALIDATED · NASA SMAP SPL3SMP_E · Natural Earth</span><span>5 / 10</span></div>
+</section>
+
+<!-- 6 DATA + VALIDITY -->
+<section class="slide">
+  <p class="k">Four NASA datasets · validity · honest limits</p>
+  <h2 style="font-size:56px">Every number is reproducible, and re-checked in your browser.</h2>
+  <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;margin-top:26px">
+    <table style="font-size:24px">
+      <tr><td>NASA-ISRO NISAR<br><span class="note mono" style="font-size:18px">L2 GCOV VALIDATED · DOI 10.5067/NIL2GCOV-V1</span></td><td>Ceyhan pair from the identical orbit, same 20 m grid; plus 200 global pairs. Only the needed HDF5 chunks are read (~70 MB of 1.9 GB).</td></tr>
+      <tr><td>NASA SMAP<br><span class="note mono" style="font-size:18px">SPL3SMP_E · L-band radiometer</span></td><td>Independent soil moisture at every site and date.</td></tr>
+      <tr><td>NASA HLS S30<br><span class="note mono" style="font-size:18px">DOI 10.5067/HLS/HLSS30.002</span></td><td>Optical vegetation change per parcel (the harvest test).</td></tr>
+      <tr><td>NASA POWER</td><td>Rain timing — context, never cause.</td></tr>
+    </table>
+    <div>
+      <ul style="margin-bottom:18px">
+        <li style="font-size:26px"><strong>Pre-registered</strong> global test <strong>and replication</strong>; deviations listed openly.</li>
+        <li style="font-size:26px"><strong>Browser integrity checks</strong> recompute the control, all 636 parcels and the global statistics from the shipped data on every load.</li>
+        <li style="font-size:26px"><strong>26 automated tests</strong>; the bugs they and I caught — including one in my own replication run — are documented.</li>
+      </ul>
+      <p class="k" style="font-size:19px;color:var(--caution);margin-top:22px">Not claimed</p>
+      <ul>
+        <li style="font-size:24px">Which <strong>individual field</strong> was wetted vs. ploughed (SMAP is 9 km).</li>
+        <li style="font-size:24px"><strong>HV</strong> polarization: unexplained gradient and interference flag — not interpreted.</li>
+        <li style="font-size:24px">Ceyhan's SMAP baseline is <strong>exploratory</strong> (±2-day window); the global test is site-scale, one interval.</li>
+      </ul>
+    </div>
+  </div>
+  <div style="position:absolute;left:96px;right:96px;bottom:110px;background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:26px 34px">
+    <p class="k" style="font-size:19px;margin-bottom:10px">Reproduce it — open source, your own free Earthdata login</p>
+    <p class="mono" style="font-size:24px;color:var(--bone)">python scripts/global_scan.py sample | nisar | smap | power  →  python scripts/global_analyze.py</p>
+    <p style="font-size:22px;margin-top:8px">Same seed, same sites, same numbers. The Ceyhan case rebuilds with <span class="mono">scripts/build_case.py</span>. Plan: <span class="mono">research/global/PREREGISTRATION.md</span> · results: <span class="mono">RESULTS.md</span></p>
+  </div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>6 / 10</span></div>
+</section>
+
+
+<!-- N1 ARCHITECTURE -->
+<section class="slide">
+  <p class="k">Technical infrastructure</p>
+  <h2 style="font-size:56px">Light, reproducible, verifiable — no server, no login.</h2>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:40px">
+    <div class="rung" style="min-height:380px"><div class="q">1 · Find</div><p style="font-size:26px;margin-top:14px">NASA <strong>CMR</strong> search: 15,122 VALIDATED NISAR granules → repeat pairs; SMAP, HLS granules.</p><span class="arrow"></span></div>
+    <div class="rung" style="min-height:380px"><div class="q">2 · Read</div><p style="font-size:26px;margin-top:14px"><strong>HTTP byte-range</strong> reads into h5py with the user's own Earthdata Login: ~70 MB of a 1.9 GB file.</p><span class="arrow"></span></div>
+    <div class="rung" style="min-height:380px"><div class="q">3 · Measure</div><p style="font-size:26px;margin-top:14px">Python <strong>science module</strong> (numpy, scipy, rasterio): masks, speckle filter, control, objects, statistics.</p><span class="arrow"></span></div>
+    <div class="rung" style="min-height:380px"><div class="q">4 · Freeze</div><p style="font-size:26px;margin-top:14px">Compact binary layers + JSON with <strong>SHA-256</strong> per file and provenance for every number.</p><span class="arrow"></span></div>
+    <div class="rung" style="min-height:380px"><div class="q">5 · Show</div><p style="font-size:26px;margin-top:14px">Static <strong>HTML/JS app</strong> (canvas + SVG), deployed by <strong>GitHub Actions → Pages</strong>.</p></div>
+  </div>
+  <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:48px">
+    <p style="font-size:28px"><strong class="acc">Verification at three levels:</strong> 26 automated tests (pytest) · data-integrity tests on the shipped files · the browser recomputes the published statistics on every load.</p>
+    <p style="font-size:28px"><strong class="acc">Science hygiene:</strong> pre-registered global test and replication, deviations listed, a falsifiable prediction locked in public git history before the satellite pass.</p>
+  </div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>7 / 10</span></div>
+</section>
+
+<!-- N2 PREDICTION -->
+<section class="slide">
+  <p class="k">A falsifiable prediction · locked before the satellite flies over</p>
+  <h2 style="font-size:58px">NISAR passes over Ceyhan again on 15 Nov. I wrote down what it must show.</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:34px;align-items:start">
+    <div>
+      <ul>
+        <li><strong>If the brightening was wet soil</strong>, the 508 parcels must <strong class="down">dim back</strong> as the soil dries — SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³.</li>
+        <li><strong>If it was ploughing</strong>, roughness doesn't dry: they <strong class="up">stay bright</strong>.</li>
+        <li><strong>Locked criteria:</strong> wetting dominant if the parcels dim by ≤ −2.07 dB overall and the typical parcel reverses ≥ 50 %; ploughing dominant if &lt; 25 %; void if the town control moves or it rains again.</li>
+      </ul>
+    </div>
+    <div style="background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:40px 44px">
+      <p class="k" style="font-size:20px">Why it matters</p>
+      <p style="font-size:32px;color:var(--bone);line-height:1.35">Most projects explain the past. This one <strong class="acc">commits to the future</strong> — and can be proven wrong. The scorer is in the repository; the verdict appears in the app when NASA releases the pass.</p>
+      <p class="note" style="margin-top:22px">research/prediction/PREDICTION.md · scripts/predict_next_pass.py</p>
+    </div>
+  </div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>8 / 10</span></div>
+</section>
+
+<!-- N3 LOCAL IMPACT -->
+<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+  <div>
+    <p class="k">Local impact · Çukurova</p>
+    <h2 style="font-size:54px">Built for the people who farm the plain — in Turkish, too.</h2>
+    <ul style="margin-top:20px">
+      <li>A <strong>plain-language Turkish page</strong> for farmers and agriculture technicians: what changed, why, and what is not claimed.</li>
+      <li><strong>Find your village</strong> in the parcel census, or draw your own field and measure it.</li>
+      <li>Radar sees through Çukurova's winter cloud <strong>every 12 days</strong> — a starting point for field checks, drainage and irrigation questions.</li>
+    </ul>
+    <p class="note mono" style="margin-top:24px;font-size:22px">deniz2077.github.io/between-passes/tr.html</p>
+  </div>
+  <div><img class="shot" src="../shots/tr_page.png" style="width:100%"></div>
+  <div class="foot"><span>Between Passes · Signal Foundry</span><span>9 / 10</span></div>
+</section>
+<!-- 7 IMPACT -->
+<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+  <div>
+    <p class="k">What it makes possible</p>
+    <h2 style="font-size:50px">From "the map changed" to <span class="acc">"here is what I can and can't say"</span>.</h2>
+    <ul style="margin-top:28px">
+      <li><strong>Locally:</strong> a trustworthy way to see where Çukurova's fields changed after rain — a starting point for field checks.</li>
+      <li><strong>Globally:</strong> evidence, from NISAR's first validated month, that its 12-day HH change tracks soil wetting at site scale, across random sites from 45° S to 56° N.</li>
+      <li><strong>Next:</strong> the next NISAR passes to separate drying soil from lasting ploughing per field; field checks with local farmers.</li>
+    </ul>
+    <div style="margin-top:24px;font-size:26px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px">
+      <span class="mono" style="color:var(--muted)">LIVE APP</span><span class="mono acc">deniz2077.github.io/between-passes</span>
+      <span class="mono" style="color:var(--muted)">CODE</span><span class="mono acc">github.com/deniz2077/between-passes</span>
+    </div>
+    <p class="note" style="margin-top:18px;font-size:20px">Generative AI (Claude Code) assisted with software development and documentation; the research question, study area and decisions are the team's. All results are computed from NASA data and verified by tests.</p>
+  </div>
+  <div><img class="shot" src="../shots/crop_soil.png" style="width:100%"></div>
+  <div class="foot"><span>Between Passes · Signal Foundry · NASA Space Apps 2026</span><span>10 / 10</span></div>
+</section>
+
+</body>
+</html>

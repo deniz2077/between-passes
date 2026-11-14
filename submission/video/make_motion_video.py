@@ -44,7 +44,7 @@ def record():
     p.locator('#mode-seg [data-mode="delta"]').click()
     p.wait_for_timeout(900)
     # 2 — change map, zoom
-    r.mark("636 field parcels changed by ≥ 3 dB — 7× more area brightened than darkened.")
+    r.mark("636 fields changed sharply — 7× more farmland lit up on radar than went dark.")
     v = p.locator("#viewer").bounding_box()
     cx, cy = v["x"] + v["width"] * 0.55, v["y"] + v["height"] * 0.45
     r.glide(b["x"], b["y"], cx, cy, 0.8)
@@ -52,7 +52,7 @@ def record():
     r.drag(cx, cy, cx - 160, cy + 60, 1.2)
     r.wait(0.6)
     # 3 — swipe between passes
-    r.mark("Swipe between the two passes: same orbit, same 20 m grid, one fixed scale.")
+    r.mark("Swipe between the two passes, taken 12 days apart from the same orbit.")
     p.locator('#mode-seg [data-mode="swipe"]').click()
     r.wait(0.4)
     mx = v["x"] + v["width"] / 2
@@ -61,7 +61,7 @@ def record():
     r.wait(0.4)
     p.locator('#mode-seg [data-mode="delta"]').click()
     # 4 — a parcel's evidence
-    r.mark("Every parcel opens its evidence: change vs. a stable town control, and a NASA optical check.")
+    r.mark("Tap any field for its evidence: compared with the town, which shouldn't change, and a NASA optical satellite.")
     p.evaluate("location.hash='#object-2'")
     r.wait(1.6)
     t = p.locator("#tb-interp").bounding_box()
@@ -73,7 +73,7 @@ def record():
     p.evaluate("document.querySelector('#nextpass').scrollIntoView({behavior:'smooth', block:'center'})")
     r.wait(4.2)
     # 5 — global test
-    r.mark("Does it scale? A pre-registered test on randomly drawn NISAR sites worldwide.")
+    r.mark("Does it work everywhere? I tested it on random NISAR sites worldwide.")
     p.goto(BASE + "world.html", wait_until="networkidle")
     p.wait_for_timeout(700)
     r.wait(1.8)
@@ -89,7 +89,7 @@ def record():
         dots.nth(i).click()
         last = (x, y)
         r.wait(0.9)
-    r.mark(os.environ.get("BP_RESULT_CAPTION", "Radar change vs. soil-moisture change measured by NASA SMAP."))
+    r.mark(os.environ.get("BP_RESULT_CAPTION", "Twice, on new random sites: where NASA's soil-moisture satellite saw ground get wetter or drier, NISAR's radar changed with it."))
     p.evaluate("document.querySelector('.w-scattercard').scrollIntoView({behavior:'smooth', block:'center'})")
     r.wait(2.4)
     cm = p.locator("#w-scatter .cey-mark")
@@ -100,7 +100,7 @@ def record():
         r.wait(0.2)
         p.mouse.click(x, y)
     r.wait(0.4)
-    r.mark(os.environ.get("BP_CEYHAN_CAPTION", "Ceyhan, on the global curve."))
+    r.mark(os.environ.get("BP_CEYHAN_CAPTION", "Ceyhan: the leading explanation is rain-soaked soil, backed by NASA SMAP."))
     r.wait(2.0)
     p.evaluate("document.querySelector('#w-site').scrollIntoView({behavior:'smooth', block:'start'})")
     r.wait(4.0)
