@@ -2,7 +2,7 @@
 
 1. **Two radar dates.** One pair cannot distinguish lasting change (tillage) from transient change (wet soil drying out).
 2. **Cause is not measured.** HH backscatter responds to soil moisture, roughness, vegetation structure and water. Interpretations are labelled *consistent / possible / not indicated*, never *confirmed*.
-3. **Spatial correlation.** Pixels after multilooking and filtering are not independent; we compare against a control instead of reporting independent-pixel confidence intervals.
+3. **Spatial correlation.** Pixels after multilooking and filtering are not independent; I compare against a control instead of reporting independent-pixel confidence intervals.
 4. **Urban control.** The control demonstrates instrument/processing stability, not how an unchanged agricultural field behaves.
 5. **HV unresolved.** West–east ΔHV gradient at fixed brightness and high RFI likelihood; HV is not interpreted.
 6. **Thermal noise not subtracted** in the product (`noiseCorrectionApplied = False`); very dark pixels carry a larger noise share.

@@ -238,7 +238,7 @@ function renderPanel() {
     </dl>
     <p>Both passes were acquired on the same descending orbit track (151) at the same time of day and identical geometry, so the comparison is pixel-for-pixel on one 20 m grid without resampling.</p>
     <p>NASA POWER estimates ${f(tot, 1)} mm of rain over the interval, concentrated on 28–29 October — about five days before the second pass. Rain on 4–6 November fell <em>after</em> the second pass and cannot appear in this pair.</p>
-    <p>A third NISAR pass exists on 29 October (track 079, the rainiest day). We checked it and did not use it: it is on a different orbit track and map projection (UTM 36N), and its own radio-frequency-interference likelihood flag is extremely high (≈4×10¹⁰ for HH, versus ≈6 for the two passes used).</p>
+    <p>A third NISAR pass exists on 29 October (track 079, the rainiest day). I checked it and did not use it: it is on a different orbit track and map projection (UTM 36N), and its own radio-frequency-interference likelihood flag is extremely high (≈4×10¹⁰ for HH, versus ≈6 for the two passes used).</p>
     <p class="muted">Precipitation: NASA POWER daily point estimate (~0.5° model grid). Not a rain gauge; it cannot say how much rain fell on any single field.</p>`;
 
   // INTERPRETATION
@@ -249,7 +249,7 @@ function renderPanel() {
     <ul class="plain">
       <li><strong>Two dates only.</strong> One before/after pair cannot separate a lasting change (tillage) from a transient one (wet soil drying out).</li>
       <li><strong>Cause is not measured.</strong> Backscatter responds to soil moisture, surface roughness, vegetation structure and water. Interpretations are possibilities, not findings.</li>
-      <li><strong>Speckle and spatial correlation.</strong> Values use a 100 m × 100 m filter; neighbouring pixels are not independent, so we compare against a control instead of reporting pixel-count confidence intervals.</li>
+      <li><strong>Speckle and spatial correlation.</strong> Values use a 100 m × 100 m filter; neighbouring pixels are not independent, so I compare against a control instead of reporting pixel-count confidence intervals.</li>
       <li><strong>Control is urban.</strong> The stable control (bright, built-up Ceyhan centre) shows instrument and processing stability, not how an unchanged field behaves.</li>
       <li><strong>HV unresolved.</strong> A west–east gradient in ΔHV and a high RFI-likelihood flag make HV unsuitable for interpretation here.</li>
       <li><strong>Noise not subtracted.</strong> The product's thermal-noise correction is off; very dark pixels (≲ −18 dB HH) carry a larger noise share.</li>
@@ -559,7 +559,7 @@ function openReport() {
 function renderCover() {
   const s = C.stats.objects;
   const ratio = s.area_ha_brightened / s.area_ha_darkened;
-  $("#cover-result").innerHTML = `Across the ${fmtInt(Math.round((C.stats.analysis_px * 0.04) / 100))} km² analysed, <strong>${ratio.toFixed(1)}× more land brightened than darkened</strong> in the radar — ${fmtInt(Math.round(s.area_ha_brightened))} ha vs ${fmtInt(Math.round(s.area_ha_darkened))} ha — while the town centre held steady (${f(C.stats.urban_control.dHH_db_region, 2, true)} dB).`;
+  $("#cover-result").innerHTML = `<strong>${ratio.toFixed(1)}× more farmland lit up on radar than went dark</strong> (${fmtInt(Math.round(s.area_ha_brightened))} ha vs ${fmtInt(Math.round(s.area_ha_darkened))} ha), while the town, which shouldn't change, stayed steady. The leading explanation, backed by NASA's soil-moisture satellite: <strong>rain soaked the soil.</strong>`;
   const plc = () => { const ms = Date.UTC(2026, 10, 15, 16, 24) - Date.now(); const el = $("#pl-count"); if (el) el.textContent = ms > 0 ? `in ${Math.floor(ms / 3.6e6)} h` : "flown · awaiting data"; };
   plc(); setInterval(plc, 60000);
   const cv = $("#cover-canvas"), ctx = cv.getContext("2d");
@@ -636,7 +636,7 @@ async function renderNextPass() {
   const commit = "https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md";
   const thr = P.P1_threshold_dHH_BC_db, agg = P.aggregate_dHH_AB_db;
   let html = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} parcels brightened</b> (pooled <b class="num-up">${f(agg, 2, true)} dB</b>). If that was <b>wet soil</b>, they must dim back as the soil dries — NASA SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³. If it was <b>ploughing</b>, roughness doesn't dry: they stay bright.</p>
-    <p>We locked the test <a href="${commit}">in public, before the pass</a>:</p>
+    <p>I locked the test <a href="${commit}">in public, before the pass</a>:</p>
     <ol><li><b>Wetting dominant</b> if the brightened parcels dim by ≤ <b>${f(thr, 2)} dB</b> overall <i>and</i> the typical parcel reverses ≥ 50 % of its brightening.</li>
       <li><b>Ploughing dominant</b> if the typical parcel reverses &lt; 25 %.</li>
       <li>Otherwise <b>mixed</b>. Void if the town control moves &gt; 0.5 dB or if it rains again (SMAP ≥ 0.25).</li></ol>`;
@@ -682,11 +682,11 @@ function storySteps() {
     { k: "1 · Two passes", t: "Same orbit, same time of day, twelve days apart",
       p: `NASA-ISRO's NISAR radar imaged these fields around <strong>Ceyhan, Adana</strong> on 22 Oct and 3 Nov 2026 at 19:24 local time, from the identical orbit track. Radar sees through cloud and darkness. <strong>Drag the handle</strong> to compare the two calibrated scenes.`,
       go: () => { select({ kind: "area" }); setMode("swipe"); viewer.fit(); } },
-    { k: "2 · What changed", t: `${ratio.toFixed(1)}× more land brightened than darkened`,
+    { k: "2 · What changed", t: `${ratio.toFixed(1)}× more land lit up than went dark`,
       p: `Orange parcels returned more radar energy on 3 Nov, blue less. Field by field: <span class="num-up">${fmtInt(so.brightened)} parcels brightened (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. The asymmetry holds at every detection threshold from 2 to 5 dB.`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
     { k: "3 · Is it real?", t: "Check against something that shouldn't change",
-      p: `Ceyhan's town centre (amber outline) is our stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A parcel only counts as changed above <strong>3 dB</strong> — beyond 99% of the control's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
+      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A parcel only counts as changed above <strong>3 dB</strong> — beyond 99% of the control's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.focus([ux0, uy0, ux1, uy1], 6); } },
     { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
       p: op ? `NASA HLS optical imagery (Sentinel-2) measures vegetation. Of <strong>${op.brightened.objects_with_clear_view}</strong> radar-brightened parcels with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost vegetation (magenta). <strong>Harvest explains a minority.</strong>` : "Optical cross-check unavailable.",
@@ -699,7 +699,7 @@ function storySteps() {
       },
       go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
     { k: "6 · Does it hold everywhere?", t: "Tested on random sites worldwide — twice",
-      p: () => { const P = GL?.results?.primary; return P ? `We fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar change tracked soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
+      p: () => { const P = GL?.results?.primary; return P ? `I fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar change tracked soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
       go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
   ];
 }

@@ -13,7 +13,7 @@ Twelve days. Two NASA-ISRO **NISAR** radar passes. One farming landscape around 
 ## Research question
 *Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?*
 
-## What we measured (real NISAR VALIDATED data)
+## What I measured (real NISAR VALIDATED data)
 | | Value |
 |---|---|
 | Analysis area | 404 km² at 20 m (1,010,074 valid pixels) |

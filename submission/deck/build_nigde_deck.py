@@ -30,7 +30,7 @@ EXTRA = """
 <!-- N2 PREDICTION -->
 <section class="slide">
   <p class="k">A falsifiable prediction · locked before the satellite flies over</p>
-  <h2 style="font-size:58px">NISAR passes over Ceyhan again on 15 Nov. We wrote down what it must show.</h2>
+  <h2 style="font-size:58px">NISAR passes over Ceyhan again on 15 Nov. I wrote down what it must show.</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:34px;align-items:start">
     <div>
       <ul>
