@@ -9,42 +9,30 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 EXTRA = """
-<!-- N1 ARCHITECTURE -->
+<!-- N1 HOW IT WORKS -->
 <section class="slide">
-  <p class="k">Technical infrastructure</p>
-  <h2 style="font-size:56px">Light, reproducible, verifiable — no server, no login.</h2>
-  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:40px">
-    <div class="rung" style="min-height:380px"><div class="q">1 · Find</div><p style="font-size:26px;margin-top:14px">NASA <strong>CMR</strong> search: 15,122 VALIDATED NISAR granules → repeat pairs; SMAP, HLS granules.</p><span class="arrow"></span></div>
-    <div class="rung" style="min-height:380px"><div class="q">2 · Read</div><p style="font-size:26px;margin-top:14px"><strong>HTTP byte-range</strong> reads into h5py with the user's own Earthdata Login: ~70 MB of a 1.9 GB file.</p><span class="arrow"></span></div>
-    <div class="rung" style="min-height:380px"><div class="q">3 · Measure</div><p style="font-size:26px;margin-top:14px">Python <strong>science module</strong> (numpy, scipy, rasterio): masks, speckle filter, control, objects, statistics.</p><span class="arrow"></span></div>
-    <div class="rung" style="min-height:380px"><div class="q">4 · Freeze</div><p style="font-size:26px;margin-top:14px">Compact binary layers + JSON with <strong>SHA-256</strong> per file and provenance for every number.</p><span class="arrow"></span></div>
-    <div class="rung" style="min-height:380px"><div class="q">5 · Show</div><p style="font-size:26px;margin-top:14px">Static <strong>HTML/JS app</strong> (canvas + SVG), deployed by <strong>GitHub Actions → Pages</strong>.</p></div>
+  <p class="k">How it works</p>
+  <h2>No server, no login. It runs in any browser.</h2>
+  <div class="big3" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><div class="t">1 · Find</div><p>Search NASA's catalogue for NISAR passes over the same place.</p></div>
+    <div class="card"><div class="t">2 · Read</div><p>Download only the needed part of each file: about 70 MB of 1.9 GB.</p></div>
+    <div class="card"><div class="t">3 · Measure</div><p>Python code compares the passes against a town that should not change.</p></div>
+    <div class="card"><div class="t">4 · Show</div><p>A website that re-checks every number when it opens.</p></div>
   </div>
-  <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:48px">
-    <p style="font-size:28px"><strong class="acc">Verification at three levels:</strong> 26 automated tests (pytest) · data-integrity tests on the shipped files · the browser recomputes the published statistics on every load.</p>
-    <p style="font-size:28px"><strong class="acc">Science hygiene:</strong> pre-registered global test and replication, deviations listed, a falsifiable prediction locked in public git history before the satellite pass.</p>
-  </div>
+  <p class="lead" style="margin-top:44px">Everything is open source. Anyone with a free NASA Earthdata account can run it again and get the same numbers.</p>
+  <p class="fn">Python (h5py, numpy, scipy, rasterio) · HTTP byte-range reads · HTML/JS canvas app · GitHub Actions → Pages · 26 automated tests (pytest).</p>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>
 </section>
 
-<!-- N2 PREDICTION -->
+<!-- N2 HONEST -->
 <section class="slide">
-  <p class="k">A falsifiable prediction · locked before the satellite flies over</p>
-  <h2 style="font-size:58px">NISAR passes over Ceyhan again on 15 Nov. I wrote down what it must show.</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:34px;align-items:start">
-    <div>
-      <ul>
-        <li><strong>If the brightening was wet soil</strong>, the 508 parcels must <strong class="down">dim back</strong> as the soil dries — SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³.</li>
-        <li><strong>If it was ploughing</strong>, roughness doesn't dry: they <strong class="up">stay bright</strong>.</li>
-        <li><strong>Locked criteria:</strong> wetting dominant if the parcels dim by ≤ −2.07 dB overall and the typical parcel reverses ≥ 50 %; ploughing dominant if &lt; 25 %; void if the town control moves or it rains again.</li>
-      </ul>
-    </div>
-    <div style="background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:40px 44px">
-      <p class="k" style="font-size:20px">Why it matters</p>
-      <p style="font-size:32px;color:var(--bone);line-height:1.35">Most projects explain the past. This one <strong class="acc">commits to the future</strong> — and can be proven wrong. The scorer is in the repository. NASA publishes NISAR data about 10–20 days after a pass, so the verdict will appear on the live app in late November — right or wrong.</p>
-      <p class="note" style="margin-top:22px">research/prediction/PREDICTION.md · scripts/predict_next_pass.py</p>
-    </div>
+  <p class="k">How I know it's right · and what I don't claim</p>
+  <h2>I tried hard to prove myself wrong.</h2>
+  <div class="two">
+    <div class="out"><h3 class="acc">What I did</h3><p>Wrote the worldwide test down <strong>before</strong> seeing the data. Repeated it on new places. Published my mistakes, including a bug I caught in my own repeat run.</p></div>
+    <div class="out"><h3 class="cau">What I don't claim</h3><p>That every single field was wet: some may have been ploughed. Radar alone can't prove the cause. This is a case study, not a warning system.</p></div>
   </div>
+  <p class="fn">Pre-registration: research/global/PREREGISTRATION.md and REPLICATION_PREREGISTRATION.md · limits: docs/LIMITATIONS.md</p>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>
 </section>
 
@@ -52,11 +40,11 @@ EXTRA = """
 <section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
   <div>
     <p class="k">Local impact · Çukurova</p>
-    <h2 style="font-size:54px">Built for the people who farm the plain — in Turkish, too.</h2>
+    <h2 style="font-size:66px">Built for the people who farm the plain. In Turkish, too.</h2>
     <ul style="margin-top:20px">
-      <li>A <strong>plain-language Turkish page</strong> for farmers and agriculture technicians: what changed, why, and what is not claimed.</li>
-      <li><strong>Find your village</strong> in the parcel census, or draw your own field and measure it.</li>
-      <li>Radar sees through Çukurova's winter cloud <strong>every 12 days</strong> — a starting point for field checks, drainage and irrigation questions.</li>
+      <li>A plain-language Turkish page for farmers and agriculture technicians.</li>
+      <li>Find your village, or draw your own field and measure it.</li>
+      <li>Radar sees through winter cloud every 12 days: a starting point for field checks, drainage and irrigation questions.</li>
     </ul>
     <p class="note mono" style="margin-top:24px;font-size:22px">deniz2077.github.io/between-passes/tr.html</p>
   </div>
@@ -70,8 +58,8 @@ def main():
     s = open(os.path.join(HERE, "deck.html"), encoding="utf-8").read()
     i = s.index("<!-- 7 IMPACT -->")
     s = s[:i] + EXTRA + s[i:]
-    s = s.replace("<title>Between Passes — NASA Space Apps 2026 demo deck</title>",
-                  "<title>Between Passes — Niğde presentation</title>")
+    s = s.replace("<title>Between Passes · NASA Space Apps 2026 demo deck</title>",
+                  "<title>Between Passes · Niğde presentation</title>")
     # renumber every slide footer "k / T"
     n = [0]
     total = s.count('class="slide"')

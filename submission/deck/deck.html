@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Between Passes — NASA Space Apps 2026 demo deck</title>
+<title>Between Passes · NASA Space Apps 2026 demo deck</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <style>
   @page { size: 1920px 1080px; margin: 0; }
@@ -41,15 +41,30 @@
   td:first-child { color: var(--bone); width: 34%; padding-right: 24px; }
   .note { font-size: 22px; color: var(--muted); }
 </style>
+
+<style>
+  h2 { font-size: 76px; line-height: 1.04; max-width: 1500px; }
+  .lead { font-size: 38px; line-height: 1.38; color: var(--bone2); max-width: 1300px; }
+  .fn { position: absolute; left: 96px; right: 96px; bottom: 92px; font: 19px/1.45 "DM Mono", monospace; color: var(--muted); }
+  .big3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
+  .card { background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 34px 36px 38px; }
+  .card .t { font: 500 21px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .card .n { font: 600 64px/1 "DM Mono", monospace; letter-spacing: -0.03em; margin: 0 0 16px; }
+  .card p { font-size: 31px; line-height: 1.38; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+  .out { border-radius: 16px; padding: 36px 40px; border: 2px solid var(--line); background: var(--ink2); }
+  .out h3 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 46px; margin: 0 0 12px; }
+  .out p { font-size: 32px; }
+  .links { display: grid; grid-template-columns: auto 1fr; gap: 10px 22px; font-size: 25px; margin-top: 30px; }
+</style>
 </head>
 <body>
-
 <!-- 1 TITLE -->
 <section class="slide" style="display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center;">
   <div>
     <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
     <h1>Between<br><em>Passes</em></h1>
-    <p style="font-size:38px;color:var(--bone);max-width:880px;line-height:1.3">What NASA-ISRO's NISAR radar saw change in my hometown's fields — why, and whether it holds worldwide.</p>
+    <p style="font-size:44px;color:var(--bone);max-width:880px;line-height:1.25;font-family:Newsreader,Georgia,serif">Can a radar satellite tell, from space, whether farmland got wetter or drier?</p>
     <div style="margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;font-size:28px">
       <span class="mono" style="color:var(--muted)">TEAM</span><span>Signal Foundry</span>
       <span class="mono" style="color:var(--muted)">MEMBER</span><span>Deniz Efe Bulut (solo)</span>
@@ -57,136 +72,96 @@
       <span class="mono" style="color:var(--muted)">CHALLENGE</span><span>Dancing with the SARs</span>
     </div>
   </div>
-  <div style="text-align:center"><img class="shot" src="../shots/map_delta_hero.png" style="height:800px;width:auto;max-width:100%;object-fit:contain;background:#12110f"><p class="note mono" style="margin-top:14px;font-size:19px">ΔHH 22 Oct → 3 Nov · <span class="up">brighter</span> / <span class="down">darker</span> · outlines: 636 change parcels</p></div>
-  <div class="foot"><span>Real NASA NISAR VALIDATED data · Ceyhan, Adana · 22 Oct → 3 Nov 2026</span><span>1 / 7</span></div>
+  <div style="text-align:center"><img class="shot" src="../shots/map_delta_hero.png" style="height:800px;width:auto;max-width:100%;object-fit:contain;background:#12110f"><p class="note mono" style="margin-top:14px;font-size:19px">Farmland near Ceyhan, Türkiye · <span class="up">orange: got brighter</span> · <span class="down">blue: got darker</span></p></div>
+  <div class="foot"><span>Real NASA-ISRO NISAR data · 22 Oct and 3 Nov 2026</span><span>1 / 7</span></div>
 </section>
 
 <!-- 2 PROBLEM -->
 <section class="slide">
   <p class="k">The problem</p>
-  <h2>Autumn reshapes the Çukurova plain fast. Radar sees it — but radar is easy to misread.</h2>
-  <div class="grid2" style="align-items:start;margin-top:40px">
-    <ul>
-      <li>Çukurova around Adana is one of Türkiye's main farming plains. In late autumn fields are harvested, ploughed and wetted by the first rains — often under cloud.</li>
-      <li><strong>NISAR's L-band radar sees through cloud and darkness</strong>, every 12 days. Its first fully validated data were released on 6 Nov 2026.</li>
-      <li>But a brighter radar pixel can mean wet soil, a ploughed field, a harvested crop — or an artefact. Most tools show a colourful change map and stop there.</li>
-    </ul>
-    <div style="background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:44px 48px">
-      <p class="k" style="font-size:20px">The question</p>
-      <p style="font-size:36px;color:var(--bone);line-height:1.35">Between NISAR's passes on 22 Oct and 3 Nov — an interval with the first significant autumn rain — <strong class="acc">which fields changed beyond a stable control, and which explanations survive the evidence?</strong></p>
-      <p style="margin-top:28px;font-size:26px">For: students, science communicators and agricultural analysts who need to <em>trust</em> a radar change before acting on it.</p>
-    </div>
+  <h2>NASA's new radar satellite sees through clouds. But when a radar image changes, what changed on the ground?</h2>
+  <img class="shot" src="../shots/hh_pair_strip.png" style="width:100%;max-height:330px;object-fit:cover;margin-top:30px">
+  <div class="big3" style="margin-top:34px">
+    <div class="card"><div class="t">Wet soil?</div><p>Rain makes soil reflect more radar.</p></div>
+    <div class="card"><div class="t">Ploughing?</div><p>Rough, turned soil also looks brighter.</p></div>
+    <div class="card"><div class="t">Harvest?</div><p>Removing crops changes the signal too.</p></div>
   </div>
-  <div style="margin-top:26px;display:flex;gap:28px;align-items:center">
-    <img class="shot" src="../shots/hh_pair_strip.png" style="height:196px">
-    <p class="note" style="font-size:22px;max-width:420px">The same fields seen by NISAR on <strong>22 Oct</strong> (left) and <strong>3 Nov</strong> (right), calibrated HH backscatter, one fixed scale. Which differences matter — and why?</p>
-  </div>
-  <div class="foot"><span></span><span>2 / 7</span></div>
+  <div class="foot"><span>The same fields seen by NISAR on 22 Oct (left) and 3 Nov (right)</span><span>2 / 7</span></div>
 </section>
 
-<!-- 3 PRODUCT -->
-<section class="slide" style="padding-top:64px">
-  <p class="k">What I built</p>
-  <h2 style="font-size:56px;margin-bottom:26px">A radar evidence lab that runs on the real data, in any browser, no login.</h2>
-  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:start">
-    <img class="shot" src="../shots/story2.png" style="width:100%">
-    <ul style="margin-top:6px">
-      <li><strong>Swipe & change map</strong> — both calibrated scenes on one fixed scale; ΔHH map.</li>
-      <li><strong>636 change parcels</strong> detected and outlined; click any for its evidence.</li>
-      <li><strong>Draw any region</strong> — statistics computed live from NISAR γ⁰ against the control.</li>
-            <li><strong>Global test page</strong>: 200 random NISAR sites on a world map, each with its own radar change map.</li>
-      <li><strong>Guided case</strong> and a <strong>case-file export</strong> (JSON / CSV / report).</li>
-    </ul>
+<!-- 3 FOUND -->
+<section class="slide" style="display:grid;grid-template-columns:.95fr 1.05fr;gap:72px;align-items:center">
+  <div>
+    <p class="k">What I found in my home region</p>
+    <h2 style="font-size:72px">In 12 days, <span class="up">7× more farmland lit up</span> than went dark.</h2>
+    <p class="lead">The town centre, which should not change, stayed the same. So the change is real, not a camera error.</p>
   </div>
-  <div class="foot"><span>Between Passes · Signal Foundry</span><span>3 / 7</span></div>
+  <div><img class="shot" src="../shots/crop_soil.png" style="width:100%"></div>
+  <p class="fn">3,282 ha brightened vs 468 ha darkened (≥ 3 dB change, ≥ 1 ha). Town control: +0.12 dB. Holds at every threshold from 2 to 5 dB.</p>
+  <div class="foot"><span>Ceyhan, Adana · NISAR L-band radar, 20 m detail</span><span>3 / 7</span></div>
 </section>
 
-<!-- 4 EVIDENCE LADDER -->
+<!-- 4 WHY -->
 <section class="slide">
-  <p class="k">My idea: an evidence ladder</p>
-  <h2>Every claim has to climb from <span class="acc">measurement</span> to <span class="acc">explanation</span> — or stop.</h2>
-  <div class="ladder" style="margin-top:34px">
-    <div class="rung"><div class="q">1 · What changed?</div><div class="big up">7.0×</div><p>more parcel area <strong class="up">brightened</strong> (3,282 ha, 508 parcels) than <strong class="down">darkened</strong> (468 ha). Holds at every threshold 2–5 dB.</p><div class="src">NISAR GCOV · HH</div><span class="arrow"></span></div>
-    <div class="rung"><div class="q">2 · Is it real?</div><div class="big acc">+0.12 dB</div><p>Ceyhan's town centre — a stable control — barely moved. Parcels count only above <strong>3 dB</strong>, beyond 99% of control pixels.</p><div class="src">same orbit · same grid</div><span class="arrow"></span></div>
-    <div class="rung"><div class="q">3 · Is it harvest?</div><div class="big" style="color:var(--mag)">9%</div><p>of 310 brightened parcels with a clear optical view lost vegetation. <strong>Harvest explains a minority.</strong></p><div class="src">NASA HLS · NDVI</div><span class="arrow"></span></div>
-    <div class="rung"><div class="q">4 · Was it the rain?</div><div class="big acc" style="font-size:62px">0.16→0.36</div><p>NASA SMAP soil moisture (m³/m³) at Ceyhan jumped after <strong>23 mm</strong> of rain, before the second pass. <strong>Wetting leads.</strong></p><div class="src">NASA SMAP · POWER</div></div>
+  <p class="k">Why it happened · checked with three more NASA datasets</p>
+  <h2>It rained, and the soil got wet.</h2>
+  <div class="big3">
+    <div class="card"><div class="t">Not harvest</div><div class="n acc">9%</div><p>An optical satellite shows only 9% of the brighter fields lost their plants.</p></div>
+    <div class="card"><div class="t">It rained</div><div class="n acc">23 mm</div><p>The first big autumn rain fell between the two passes.</p></div>
+    <div class="card"><div class="t">The soil got wet</div><div class="n acc">0.16→0.36</div><p>NASA's soil-moisture satellite saw Ceyhan's soil more than double in water.</p></div>
   </div>
-  <div style="margin-top:44px;border-left:4px solid var(--accent);padding:6px 0 6px 28px;max-width:1600px">
-    <p style="font-size:36px;color:var(--bone);line-height:1.35">Answer: the radar mostly caught <strong class="acc">fields wetted by the first autumn rain</strong> — not harvest. Ploughing can't be excluded field by field; a third NISAR pass would settle each field.</p>
-  </div>
-  <div class="foot"><span>Between Passes · Signal Foundry</span><span>4 / 7</span></div>
+  <p class="lead" style="margin-top:40px">Ploughing can still explain some single fields. The next pass will tell.</p>
+  <p class="fn">NASA HLS (310 fields with a clear view) · NASA POWER rainfall 28–29 Oct · NASA SMAP soil moisture, m³/m³, 20 Oct and 3 Nov (exploratory ±2-day window).</p>
+  <div class="foot"><span>NISAR · HLS · POWER · SMAP</span><span>4 / 7</span></div>
 </section>
 
-<!-- 5 GLOBAL TEST -->
-<section class="slide" style="padding-top:70px">
-  <p class="k">Does it hold everywhere? A pre-registered global test</p>
-  <h2 style="font-size:56px;max-width:1700px">From orbit, NISAR tracks whether the ground got <span style="color:var(--up);font-style:italic">wetter or drier</span>. Tested twice, at random, worldwide.</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:8px">
-    <div><img class="shot" src="../shots/world_map.png" style="width:100%"></div>
-    <div><img class="shot" src="../shots/world_scatter.png" style="width:100%;height:470px;object-fit:cover;object-position:top"></div>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:30px">
-    <div><div class="mono acc" style="font-size:52px">200</div><p style="font-size:24px">NISAR pairs drawn at random from <strong>889</strong> worldwide; test fixed and committed <strong>before</strong> extracting data</p></div>
-    <div><div class="mono acc" style="font-size:52px">ρ 0.58</div><p style="font-size:24px">radar vs. SMAP soil-moisture change at the <strong>74</strong> sites with quality SMAP data · p &lt; 0.001</p></div>
-    <div><div class="mono acc" style="font-size:52px">ρ 0.55</div><p style="font-size:24px"><strong>Replicated</strong> on 200 <strong>new</strong> random sites (n 73, p &lt; 0.001), also pre-registered</p></div>
-    <div><div class="mono acc" style="font-size:52px">36 / 45</div><p style="font-size:24px">sites with a clear moisture change moved in the same direction. Drying is the clearer signal (≈ −1 dB).</p></div>
-  </div>
-  <div class="foot"><span>NISAR L2 GCOV VALIDATED · NASA SMAP SPL3SMP_E · Natural Earth</span><span>5 / 7</span></div>
-</section>
-
-<!-- 6 DATA + VALIDITY -->
+<!-- 5 WORLDWIDE -->
 <section class="slide">
-  <p class="k">Four NASA datasets · validity · honest limits</p>
-  <h2 style="font-size:56px">Every number is reproducible, and re-checked in your browser.</h2>
-  <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;margin-top:26px">
-    <table style="font-size:24px">
-      <tr><td>NASA-ISRO NISAR<br><span class="note mono" style="font-size:18px">L2 GCOV VALIDATED · DOI 10.5067/NIL2GCOV-V1</span></td><td>Ceyhan pair from the identical orbit, same 20 m grid; plus 200 global pairs. Only the needed HDF5 chunks are read (~70 MB of 1.9 GB).</td></tr>
-      <tr><td>NASA SMAP<br><span class="note mono" style="font-size:18px">SPL3SMP_E · L-band radiometer</span></td><td>Independent soil moisture at every site and date.</td></tr>
-      <tr><td>NASA HLS S30<br><span class="note mono" style="font-size:18px">DOI 10.5067/HLS/HLSS30.002</span></td><td>Optical vegetation change per parcel (the harvest test).</td></tr>
-      <tr><td>NASA POWER</td><td>Rain timing — context, never cause.</td></tr>
-    </table>
+  <p class="k">Is it true everywhere?</p>
+  <h2>I tested it at 400 random places worldwide. <span class="acc">Twice.</span></h2>
+  <div style="display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;margin-top:20px">
+    <img class="shot" src="../shots/world_map.png" style="width:100%">
     <div>
-      <ul style="margin-bottom:18px">
-        <li style="font-size:26px"><strong>Pre-registered</strong> global test <strong>and replication</strong>; deviations listed openly.</li>
-        <li style="font-size:26px"><strong>Browser integrity checks</strong> recompute the control, all 636 parcels and the global statistics from the shipped data on every load.</li>
-        <li style="font-size:26px"><strong>26 automated tests</strong>; the bugs they and I caught — including one in my own replication run — are documented.</li>
-      </ul>
-      <p class="k" style="font-size:19px;color:var(--caution);margin-top:22px">Not claimed</p>
-      <ul>
-        <li style="font-size:24px">Which <strong>individual field</strong> was wetted vs. ploughed (SMAP is 9 km).</li>
-        <li style="font-size:24px"><strong>HV</strong> polarization: unexplained gradient and interference flag — not interpreted.</li>
-        <li style="font-size:24px">Ceyhan's SMAP baseline is <strong>exploratory</strong> (±2-day window); the global test is site-scale, one interval.</li>
-      </ul>
+      <p class="lead" style="font-size:36px">Where NASA's soil-moisture satellite saw ground get <strong>wetter or drier</strong>, NISAR's radar changed with it.</p>
+      <p class="lead" style="font-size:36px;margin-top:26px">I wrote the rules down <strong>before</strong> looking at any data, then repeated the whole test on new places. <strong>Same answer both times.</strong></p>
     </div>
   </div>
-  <div style="position:absolute;left:96px;right:96px;bottom:110px;background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:26px 34px">
-    <p class="k" style="font-size:19px;margin-bottom:10px">Reproduce it — open source, your own free Earthdata login</p>
-    <p class="mono" style="font-size:24px;color:var(--bone)">python scripts/global_scan.py sample | nisar | smap | power  →  python scripts/global_analyze.py</p>
-    <p style="font-size:22px;margin-top:8px">Same seed, same sites, same numbers. The Ceyhan case rebuilds with <span class="mono">scripts/build_case.py</span>. Plan: <span class="mono">research/global/PREREGISTRATION.md</span> · results: <span class="mono">RESULTS.md</span></p>
+  <p class="fn">Two random draws of 200 NISAR sites; 74 and 73 had quality SMAP data. Spearman ρ 0.58 and 0.55, permutation p &lt; 0.001 both. 36 of 45 sites with a clear moisture change moved the same way. Plans committed to Git before extraction.</p>
+  <div class="foot"><span>NISAR L2 GCOV · NASA SMAP · 147 usable sites, 45° S to 56° N</span><span>5 / 7</span></div>
+</section>
+
+<!-- 6 PREDICTION -->
+<section class="slide">
+  <p class="k">An open test · this project can be proven wrong</p>
+  <h2>I predicted the next satellite pass before it happened.</h2>
+  <p class="lead">NISAR flew over Ceyhan again on 15 Nov. The day before, I locked in public what it must show.</p>
+  <div class="two">
+    <div class="out" style="border-color:var(--down)"><h3 class="down">If I'm right</h3><p>The soil dries, so the bright fields <strong>dim again</strong>.</p></div>
+    <div class="out" style="border-color:var(--up)"><h3 class="up">If I'm wrong</h3><p>They were ploughed, so they <strong>stay bright</strong>.</p></div>
   </div>
+  <p class="lead" style="margin-top:40px">NASA publishes NISAR data about 10–20 days after a pass. <strong>The verdict will appear on the live app</strong>, right or wrong.</p>
+  <p class="fn">Locked 14 Nov 2026 in research/prediction/PREDICTION.md with its scoring code. Right = brightened fields dim ≥ 2.07 dB overall and the typical field reverses ≥ 50 %.</p>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>6 / 7</span></div>
 </section>
 
 <!-- 7 IMPACT -->
-<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
   <div>
-    <p class="k">What it makes possible</p>
-    <h2 style="font-size:50px">From "the map changed" to <span class="acc">"here is what I can and can't say"</span>.</h2>
-    <ul style="margin-top:16px">
-      <li><strong>Locally:</strong> a trustworthy way to see where Çukurova's fields changed after rain — a starting point for field checks.</li>
-      <li><strong>Globally:</strong> evidence, from NISAR's first validated month, that its 12-day HH change tracks soil wetting at site scale, across random sites from 45° S to 56° N.</li>
+    <p class="k">Try it yourself</p>
+    <h2 style="font-size:68px">A radar lab anyone can open. Free, no login.</h2>
+    <ul style="margin-top:22px">
+      <li>Swipe between the two passes and tap any field to see why it changed.</li>
+      <li>Explore the worldwide test, site by site.</li>
+      <li>A Turkish page for local farmers.</li>
+      <li>Every number is checked again in your browser.</li>
     </ul>
-    <div style="margin-top:22px;border-left:5px solid var(--accent);background:var(--ink2);padding:18px 26px;border-radius:0 12px 12px 0">
-      <p class="k" style="font-size:19px;margin:0 0 6px">An open test · this project can be proven wrong</p>
-      <p style="font-size:25px;margin:0;line-height:1.35">Before NISAR's <strong>15 Nov</strong> pass, I locked a prediction in public: if the fields lit up because the soil was wet, they must <strong class="down">dim again</strong> as it dries; if they were ploughed, they stay bright. NASA publishes the data ~10–20 days after a pass — <strong>the verdict will appear on the live app</strong>, right or wrong.</p>
-    </div>
-    <div style="margin-top:24px;font-size:26px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px">
+    <div class="links">
       <span class="mono" style="color:var(--muted)">LIVE APP</span><span class="mono acc">deniz2077.github.io/between-passes</span>
       <span class="mono" style="color:var(--muted)">CODE</span><span class="mono acc">github.com/deniz2077/between-passes</span>
     </div>
-    <p class="note" style="margin-top:14px;font-size:19px">AI use: Claude Code assisted with code and documentation; the question, study area and decisions are mine. Every result is computed from NASA data and checked by tests.</p>
+    <p class="note" style="margin-top:18px;font-size:19px">AI use: Claude Code helped write code and documents. The question, place and decisions are mine. Every result comes from NASA data and is checked by 26 automated tests.</p>
   </div>
-  <div><img class="shot" src="../shots/crop_soil.png" style="width:100%"></div>
+  <div><img class="shot" src="../shots/case.png" style="width:100%"></div>
   <div class="foot"><span>Between Passes · Signal Foundry · NASA Space Apps 2026</span><span>7 / 7</span></div>
 </section>
 
