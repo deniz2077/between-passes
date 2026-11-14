@@ -180,7 +180,7 @@ function renderPanel() {
     const so = C.stats.objects;
     v.text = `The change is concentrated in individual parcels, not spread evenly — the area-wide average stays within the stable control's spread.` + (C.optical ? ` NASA HLS optical check: of ${C.optical.brightened.objects_with_clear_view} brightened parcels with a clear view, only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation, so harvest explains a minority.` : "") + ` Click an outlined parcel or draw a region.`;
   }
-  const color = v.cls === "down" ? "#4ea3ff" : v.cls === "up" ? "#ff8a4c" : "#b9b4aa";
+  const color = v.cls === "down" ? "#4ea3ff" : v.cls === "up" ? "#ff8a4c" : "#c4baa6";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
 
   // OBSERVED
@@ -202,7 +202,7 @@ function renderPanel() {
       <dt>Stable control ΔHH</dt><dd>${f(C.stats.urban_control.dHH_db_region, 2, true)} dB</dd>
       ${sel.kind !== "object" ? `<dt>Inside brightened objects</dt><dd>${f((s.inUp * 0.04), 1)} ha</dd><dt>Inside darkened objects</dt><dd>${f((s.inDown * 0.04), 1)} ha</dd>` : ""}
     </dl>`;
-  obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#e8c547" }, { v: D.ctrlQ[0], label: "p1", color: "#e8c547" }] })}
+  obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#f0c24b" }, { v: D.ctrlQ[0], label: "p1", color: "#f0c24b" }] })}
       <p class="chart-caption">Bars: per-pixel ΔHH in the selection (100 m speckle filter). Amber line: the stable urban control (Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px). Pixels are spatially correlated, so no independent-pixel confidence interval is claimed.</p></div>`;
   if (s.opt) {
     const o = s.opt, has = Number.isFinite(o.dNDVI) && o.cls !== "no clear optical view";
@@ -368,7 +368,7 @@ function drawOverlay(ctx, v) {
   ctx.save();
   // graticule
   ctx.strokeStyle = "rgba(232,227,216,.14)"; ctx.lineWidth = 1;
-  ctx.font = "10.5px IBM Plex Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.6)";
+  ctx.font = "10.5px DM Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.6)";
   for (const g of ctxData.graticule) {
     ctx.beginPath(); g.px.forEach(([x, y], i) => { const [sx, sy] = v.toScreen(x, y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.stroke();
     const [x, y] = g.kind === "lon" ? g.px[g.px.length - 1] : g.px[0];
@@ -385,7 +385,7 @@ function drawOverlay(ctx, v) {
   // roads & rivers
   const line = (pts, style, width) => { ctx.strokeStyle = style; ctx.lineWidth = width; ctx.beginPath(); pts.forEach(([x, y], i) => { const [sx, sy] = v.toScreen(x, y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.stroke(); };
   for (const r of ctxData.roads) line(r.px, r.class === "motorway" ? "rgba(232,227,216,.45)" : "rgba(232,227,216,.25)", r.class === "motorway" ? 1.6 : 1);
-  for (const r of ctxData.rivers) line(r.px, "rgba(86,212,232,.75)", 1.6);
+  for (const r of ctxData.rivers) line(r.px, "rgba(140,184,201,.72)", 1.6);
   // places
   ctx.textAlign = "left";
   for (const p of ctxData.places) {
@@ -393,16 +393,16 @@ function drawOverlay(ctx, v) {
     const [sx, sy] = v.toScreen(p.px[0], p.px[1]);
     if (sx < -50 || sy < -20 || sx > v.cw + 50 || sy > v.ch + 20) continue;
     const city = p.kind !== "village";
-    ctx.font = city ? "600 13px IBM Plex Sans, sans-serif" : "11px IBM Plex Sans, sans-serif";
-    ctx.fillStyle = "#e8e3d8"; ctx.beginPath(); ctx.arc(sx, sy, city ? 3.5 : 2, 0, Math.PI * 2); ctx.fill();
+    ctx.font = city ? "600 13px Instrument Sans, sans-serif" : "11px Instrument Sans, sans-serif";
+    ctx.fillStyle = "#efe7d6"; ctx.beginPath(); ctx.arc(sx, sy, city ? 3.5 : 2, 0, Math.PI * 2); ctx.fill();
     ctx.lineWidth = 3; ctx.strokeStyle = "rgba(7,9,12,.85)"; ctx.strokeText(p.name, sx + 6, sy + 4); ctx.fillText(p.name, sx + 6, sy + 4);
   }
   // scale bar
   const km = v.scale * 50 > 120 ? 1 : v.scale * 50 * 5 > 120 ? 5 : 10;   // 50 px = 1 km
   const len = km * 50 * v.scale;
   const x0 = v.cw - len - 16, y0 = v.ch - 30;
-  ctx.fillStyle = "#e8e3d8"; ctx.fillRect(x0, y0, len, 3);
-  ctx.font = "11px IBM Plex Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(`${km} km`, x0 + len / 2, y0 - 5);
+  ctx.fillStyle = "#efe7d6"; ctx.fillRect(x0, y0, len, 3);
+  ctx.font = "11px DM Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(`${km} km`, x0 + len / 2, y0 - 5);
   ctx.restore();
 }
 
@@ -534,7 +534,7 @@ function openReport() {
   const w = window.open("", "_blank");
   if (!w) { alert("Please allow pop-ups to open the printable report."); return; }
   w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Between Passes — case report</title>
-  <style>body{font:13px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:#111;max-width:820px;margin:24px auto;padding:0 20px}h1{font-size:22px;margin:0}h2{font-size:14px;margin:18px 0 6px}
+  <style>body{font:13px/1.45 "Instrument Sans",system-ui,sans-serif;color:#111;max-width:820px;margin:24px auto;padding:0 20px}h1{font-size:22px;margin:0}h2{font-size:14px;margin:18px 0 6px}
   .meta{color:#555;font-size:12px}img{width:100%;border:1px solid #ccc;margin-top:10px}table{border-collapse:collapse;width:100%}td{border-top:1px solid #ddd;padding:4px 6px}td:last-child{text-align:right;font-family:monospace}
   code{font-size:10.5px;word-break:break-all}.v{font-size:20px;font-weight:600;font-family:monospace}@media print{button{display:none}}</style></head><body>
   <button onclick="print()">Print / save as PDF</button>
@@ -562,11 +562,11 @@ function renderCover() {
   const cv = $("#cover-canvas"), ctx = cv.getContext("2d");
   const img = layerFor("delta").base;
   const edges = toCanvas(edgesImage(D.objects, (l) => (D.byId.get(l).sign === "brightened" ? 1 : -1), D.W, D.H, 0, D.urban));
-  ctx.fillStyle = "#11161e"; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = "#1a1815"; ctx.fillRect(0, 0, cv.width, cv.height);
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, cv.width, cv.height);
   ctx.globalAlpha = 0.6; ctx.drawImage(edges, 0, 0, cv.width, cv.height); ctx.globalAlpha = 1;
-  ctx.font = "500 11px IBM Plex Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.75)";
+  ctx.font = "500 11px DM Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.75)";
   ctx.fillText("ΔHH 22 Oct → 3 Nov 2026 · NISAR · real data", 12, cv.height - 12);
   const btn = $("#open-case"); btn.disabled = false;
 }
@@ -660,10 +660,10 @@ async function renderNextPass() {
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 8), Y = (v) => 8 + (0.4 - v) / 0.4 * (H - B - 8);
   const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
   $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1a2230"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">${v}</text>`).join("")}
-    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#e8c547" : "#56d4e8"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#e8c547" : "#56d4e8"}" font-size="9" font-family="IBM Plex Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
-    <polyline fill="none" stroke="#e8e3d8" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#e8e3d8"/>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#24201b"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#f0c24b" : "#a6e36f"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#f0c24b" : "#a6e36f"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
+    <polyline fill="none" stroke="#efe7d6" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#efe7d6"/>`).join("")}
   </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³, quality-approved readings). Wet at pass B; dry again by 11 Nov.</p>`;
 }
 

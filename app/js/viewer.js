@@ -196,24 +196,24 @@ export class Viewer {
 
   _drawSwipeHandle(ctx) {
     const x = this.cw * this.swipe;
-    ctx.fillStyle = "#e8e3d8"; ctx.fillRect(x - 1, 0, 2, this.ch);
+    ctx.fillStyle = "#efe7d6"; ctx.fillRect(x - 1, 0, 2, this.ch);
     ctx.beginPath(); ctx.arc(x, this.ch / 2, 15, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = "#0b0e13"; ctx.font = "600 12px IBM Plex Sans, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillStyle = "#12110f"; ctx.font = "600 12px Instrument Sans, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("⇆", x, this.ch / 2 + 1);
-    ctx.font = "600 12px IBM Plex Mono, monospace";
-    const tag = (t, tx, align) => { ctx.textAlign = align; ctx.fillStyle = "rgba(11,14,19,.85)"; const m = ctx.measureText(t).width; const bx = align === "right" ? tx - m - 8 : tx - 4; ctx.fillRect(bx, this.ch - 64, m + 12, 22); ctx.fillStyle = "#e8e3d8"; ctx.fillText(t, tx + (align === "right" ? -2 : 2), this.ch - 53); };
+    ctx.font = "600 12px DM Mono, monospace";
+    const tag = (t, tx, align) => { ctx.textAlign = align; ctx.fillStyle = "rgba(11,14,19,.85)"; const m = ctx.measureText(t).width; const bx = align === "right" ? tx - m - 8 : tx - 4; ctx.fillRect(bx, this.ch - 64, m + 12, 22); ctx.fillStyle = "#efe7d6"; ctx.fillText(t, tx + (align === "right" ? -2 : 2), this.ch - 53); };
     tag("22 Oct", x - 10, "right"); tag("3 Nov", x + 10, "left");
   }
 
   _drawPoly(ctx) {
     const pts = this.poly.map(([x, y]) => this.toScreen(x, y));
     ctx.save();
-    ctx.lineWidth = 2; ctx.strokeStyle = "#56d4e8"; ctx.fillStyle = "rgba(86,212,232,.12)";
+    ctx.lineWidth = 2; ctx.strokeStyle = "#a6e36f"; ctx.fillStyle = "rgba(166,227,111,.12)";
     ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
     if (this.polyClosed) { ctx.closePath(); ctx.fill(); }
     else if (this._hoverPt) ctx.lineTo(...this._hoverPt);
     ctx.stroke();
-    ctx.fillStyle = "#56d4e8";
+    ctx.fillStyle = "#a6e36f";
     pts.forEach(([x, y], i) => { ctx.beginPath(); ctx.arc(x, y, i === 0 && !this.polyClosed ? 6 : 3, 0, Math.PI * 2); ctx.fill(); });
     ctx.restore();
   }

@@ -7,10 +7,10 @@
   <meta name="description" content="A pre-registered test across randomly sampled NISAR repeat pairs worldwide: does L-band radar brightening track soil wetting measured independently by NASA SMAP?" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/world.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M8 24V8M24 24V8' stroke='%2356d4e8' stroke-width='3'/%3E%3Cpath d='M12 16h8' stroke='%23e8e3d8' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2312110f'/%3E%3Cpath d='M8 24V8M24 24V8' stroke='%23a6e36f' stroke-width='3'/%3E%3Cpath d='M12 16h8' stroke='%23efe7d6' stroke-width='2'/%3E%3C/svg%3E" />
 </head>
 <body class="world">
   <header class="topbar">
@@ -50,6 +50,8 @@
         <svg id="w-scatter" role="img" aria-label="Scatter plot of SMAP soil-moisture change against NISAR HH change"></svg>
         <p class="w-note" id="w-scatter-note"></p>
       </figure>
+
+      <section class="w-card w-rep" id="w-rep" hidden aria-live="polite"></section>
     </section>
 
     <section class="w-card w-method" id="method">

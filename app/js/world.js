@@ -93,7 +93,7 @@ function drawMap(land) {
   const c = G.ceyhan, [cx, cy] = proj(c.lon, c.lat);
   const m = el("g", { class: "cey-g", style: "cursor:pointer" }, svg);
   el("circle", { cx, cy, r: 9, class: "cey-mark" }, m);
-  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#0b0e13" }, m);
+  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#12110f" }, m);
   m.addEventListener("click", () => select(c));
 }
 
@@ -102,7 +102,7 @@ function drawScatter(fit) {
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.innerHTML = "";
   const cdsm = cDSM();
-  const all = [...G.sites, ...(cdsm != null ? [{ dSM: cdsm, dHH_site_db: G.ceyhan.dHH_site_db }] : [])];
+  const all = [...G.sites, ...(REP ? REP.rep_sites : []), ...(cdsm != null ? [{ dSM: cdsm, dHH_site_db: G.ceyhan.dHH_site_db }] : [])];
   const xs = all.map((s) => s.dSM), ys = all.map((s) => s.dHH_site_db);
   const pad = (lo, hi, f) => { const r = hi - lo || 1; return [lo - r * f, hi + r * f]; };
   const [x0, x1] = pad(Math.min(...xs, 0), Math.max(...xs, 0), 0.06), [y0, y1] = pad(Math.min(...ys, 0), Math.max(...ys, 0), 0.08);
@@ -114,6 +114,10 @@ function drawScatter(fit) {
   el("text", { x: 14, y: (T + H - B) / 2, "text-anchor": "middle", class: "lab", transform: `rotate(-90 14 ${(T + H - B) / 2})` }, svg).textContent = "NISAR ΔHH (dB)  →  brighter";
   const [m, b] = fit;
   el("line", { x1: X(x0), y1: Y(b + m * x0), x2: X(x1), y2: Y(b + m * x1), class: "fit" }, svg);
+  if (REP) for (const s of REP.rep_sites) {
+    const c = el("circle", { cx: X(s.dSM), cy: Y(s.dHH_site_db), r: 3.6, class: "rep-dot", stroke: colorFor(s.dHH_site_db) }, svg);
+    el("title", {}, c).textContent = `replication site: ΔSM ${fmt(s.dSM, 3, true)}, ΔHH ${fmt(s.dHH_site_db, 2, true)} dB`;
+  }
   for (const s of G.sites) {
     const c = el("circle", { cx: X(s.dSM), cy: Y(s.dHH_site_db), r: 4.2, fill: colorFor(s.dHH_site_db), class: "site-dot", "fill-opacity": .9 }, svg);
     c.addEventListener("click", () => select(s));
@@ -229,13 +233,25 @@ function smapSeries(c) {
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 6), Y = (v) => 6 + (0.4 - v) / 0.4 * (H - B - 6);
   const pass = [Date.UTC(2026, 9, 22, 18, 47), Date.UTC(2026, 10, 3, 18, 47)];
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;margin:6px 0 2px" aria-label="SMAP soil moisture at Ceyhan">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1a2230"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">${v}</text>`).join("")}
-    ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#56d4e8" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#56d4e8" font-size="9" font-family="IBM Plex Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
-    <polyline fill="none" stroke="#e8e3d8" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#e8e3d8"/>`).join("")}
-    <text x="${L}" y="${H - 4}" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">19 Oct</text><text x="${W - 6}" y="${H - 4}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">12 Nov</text>
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#24201b"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#a6e36f" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#a6e36f" font-size="9" font-family="DM Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
+    <polyline fill="none" stroke="#efe7d6" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#efe7d6"/>`).join("")}
+    <text x="${L}" y="${H - 4}" fill="#948a7a" font-size="9" font-family="DM Mono">19 Oct</text><text x="${W - 6}" y="${H - 4}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">12 Nov</text>
   </svg><p class="cap">NASA SMAP soil moisture at Ceyhan (m³/m³), every quality-approved reading. The rain on 28–29 Oct is visible as a jump.</p>`;
 }
+
+let REP = null; // replication summary (optional)
+function renderReplication(R) {
+  const o = R.original, r = R.replication, P = R.pooled, box = $("#w-rep");
+  box.hidden = false;
+  box.innerHTML = `<p class="eyebrow">Independent replication · pre-registered before extraction</p>
+    <h2>${R.replicates ? "The result replicated on 200 fresh random sites." : "The result did not replicate on 200 fresh random sites."}</h2>
+    <p>Same plan, new random draw (seed 2027) from the 563 pairs not used before. At the <b>${r.n}</b> new sites with quality SMAP data: Spearman ρ <b>${fmt(r.rho, 2)}</b>, p ${r.p <= 0.00011 ? "&lt; 0.001" : "= " + fmt(r.p, 4)}, slope ${fmt(r.slope, 2, true)} dB per +0.1 m³/m³ (95 % CI ${fmt(r.ci[0], 2, true)} … ${fmt(r.ci[1], 2, true)}; original ${fmt(o.ci[0], 2, true)} … ${fmt(o.ci[1], 2, true)}, ${R.slope_ci_overlap ? "overlapping" : "not overlapping"}).</p>
+    <p class="verdict ${R.replicates ? "ok-t" : "bad-t"}">${R.replicates ? "✓ Replication criterion met (ρ > 0, p < 0.05)" : "✗ Replication criterion not met"}</p>
+    <p class="muted">${esc(R.pooled_label)}: n ${P.n}, ρ ${fmt(P.rho, 2)}, slope ${fmt(P.slope, 2, true)} dB per +0.1 m³/m³; ${P.same_direction[0]} of ${P.same_direction[1]} sites with a clear moisture change moved in the same direction. Hollow points on the plot are the replication sites.</p>`;
+}
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 async function boot() {
   const [g, land, tb] = await Promise.all([
@@ -245,7 +261,9 @@ async function boot() {
   ]);
   G = g; thumbs = new Uint8Array(tb);
   const fit = theilSen(G.sites.map((s) => s.dSM), G.sites.map((s) => s.dHH_site_db));
+  REP = await fetch("data/global/replication.json").then((r) => r.ok ? r.json() : null).catch(() => null);
   hero(fit); drawMap(land); drawScatter(fit); selfCheck(fit);
+  if (REP) renderReplication(REP);
   const m = location.hash.match(/^#site-(\w+)/);
   const s = m ? (m[1] === "ceyhan" ? G.ceyhan : G.sites.find((x) => String(x.k) === m[1])) : null;
   select(s || G.ceyhan, !!s);

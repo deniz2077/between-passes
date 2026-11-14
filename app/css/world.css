@@ -21,9 +21,9 @@ body.world .topnav a.link { text-decoration: none; }
 .w-scattercard { grid-column: 1; }
 .w-mapwrap { position: relative; }
 #w-map, #w-scatter { width: 100%; height: auto; display: block; }
-#w-map .land { fill: #1b2431; stroke: #2a3648; stroke-width: .6; }
-#w-map .grat { fill: none; stroke: #18202b; stroke-width: .6; }
-#w-map .sphere { fill: #0d1219; stroke: #243041; }
+#w-map .land { fill: #27241e; stroke: #3a342c; stroke-width: .6; }
+#w-map .grat { fill: none; stroke: #221f1a; stroke-width: .6; }
+#w-map .sphere { fill: #0f0e0c; stroke: #302b24; }
 .site-dot { cursor: pointer; stroke: rgba(11,14,19,.85); stroke-width: 1; transition: r .12s; }
 .site-dot.sel { stroke: var(--bone); stroke-width: 2.2; }
 .site-dot:focus-visible { outline: none; stroke: var(--accent); stroke-width: 2.5; }
@@ -35,15 +35,15 @@ body.world .topnav a.link { text-decoration: none; }
 .w-note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 
 #w-scatter .ax { stroke: var(--line-2); }
-#w-scatter .gl { stroke: #1a2230; }
+#w-scatter .gl { stroke: #24201b; }
 #w-scatter text { fill: var(--muted); font: 11px var(--mono); }
 #w-scatter .lab { fill: var(--bone-2); font: 12px var(--sans); }
 #w-scatter .fit { stroke: var(--accent); stroke-width: 2; }
-#w-scatter .band { fill: rgba(86,212,232,.12); }
+#w-scatter .band { fill: rgba(166,227,111,.12); }
 
 .w-site h2 { font-size: 18px; margin: 2px 0 2px; }
 .w-site .sub { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
-.w-site canvas { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--line); image-rendering: pixelated; background: #0d1219; display: block; }
+.w-site canvas { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--line); image-rendering: pixelated; background: #0f0e0c; display: block; }
 .w-site .cap { font-size: 11px; color: var(--muted); margin: 6px 0 12px; }
 .w-site dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; margin: 0; font-size: 13px; }
 .w-site dt { color: var(--muted); }
@@ -73,3 +73,10 @@ body.world .topnav a.link { text-decoration: none; }
   .kd:first-child { margin-left: 0; }
   body.world .brand-sub { display: none; }
 }
+
+.w-rep { grid-column: 1; }
+.w-rep h2 { font-size: 18px; margin: 2px 0 8px; }
+.w-rep p { font-size: 14px; color: var(--bone-2); margin: 0 0 8px; }
+.w-rep .verdict { font: 600 15px var(--mono); }
+.rep-dot { fill: none; stroke-width: 1.6; }
+@media (max-width: 1000px) { .w-rep { grid-column: 1; } }
