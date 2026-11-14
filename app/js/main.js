@@ -1,5 +1,5 @@
 import * as S from "./science.js";
-import { Viewer, grayImage, deltaImage, edgesImage, toCanvas, deltaLegendGradient, HH_RANGE, DELTA_MAX } from "./viewer.js";
+import { Viewer, grayImage, deltaImage, edgesImage, toCanvas, deltaLegendGradient, ndviDeltaImage, ndviLegendGradient, NDVI_MAX, HH_RANGE, DELTA_MAX } from "./viewer.js";
 import { histogramSvg, timelineSvg, sensitivitySvg, monthName } from "./charts.js";
 
 const BASE = "data/ceyhan/";
@@ -33,8 +33,8 @@ async function load() {
   if (!r.ok) throw new Error(`case.json: HTTP ${r.status}`);
   C = await r.json();
   const L = C.layers;
-  const [hhA, hhB, hvA, hvB, flags, objects] = await Promise.all(
-    ["hh_a", "hh_b", "hv_a_40m", "hv_b_40m", "flags", "objects"].map((k) => fetchBin(L[k])));
+  const [hhA, hhB, hvA, hvB, flags, objects, ndA, ndB] = await Promise.all(
+    ["hh_a", "hh_b", "hv_a_40m", "hv_b_40m", "flags", "objects", "ndvi_a_40m", "ndvi_b_40m"].map((k) => (L[k] ? fetchBin(L[k]) : Promise.resolve(null))));
   const W = C.grid.width, H = C.grid.height, N = W * H;
   const valid = new Uint8Array(N), analysis = new Uint8Array(N), urban = new Uint8Array(N);
   for (let i = 0; i < N; i++) { valid[i] = flags[i] & 1; analysis[i] = (flags[i] >> 1) & 1; urban[i] = (flags[i] >> 2) & 1; }
@@ -59,7 +59,12 @@ async function load() {
   const urbanIdx = [], analysisIdx = [];
   for (let i = 0; i < N; i++) { if (urban[i]) urbanIdx.push(i); if (analysis[i]) analysisIdx.push(i); }
   const byId = new Map(C.objects.map((o) => [o.id, o]));
-  D = { W, H, N, linA, linB, dbA, dbB, dHH, dHV, w2, h2, valid, analysis, urban, objects, members, byId, urbanIdx, analysisIdx, hvA, hvB };
+  let dNDVI = null;
+  if (ndA && ndB) {
+    dNDVI = new Float32Array(w2 * h2);
+    for (let i = 0; i < dNDVI.length; i++) dNDVI[i] = ndA[i] === S.NODATA || ndB[i] === S.NODATA ? NaN : (ndB[i] - ndA[i]) / 10000;
+  }
+  D = { W, H, N, linA, linB, dbA, dbB, dHH, dHV, w2, h2, valid, analysis, urban, objects, members, byId, urbanIdx, analysisIdx, hvA, hvB, ndA, ndB, dNDVI };
   D.ctrlQ = C.stats.urban_control.dHH_px_q1_5_25_50_75_95_99;
   D.ctrlHist = S.histogram(urbanIdx.map((i) => dHH[i]), -8, 8, 64);
   D.checks = selfCheck();
@@ -115,7 +120,22 @@ function selectionStats(sel) {
     if (D.hvA[j] === S.NODATA || D.hvB[j] === S.NODATA) continue;
     hva += 10 ** (D.hvA[j] / 1000); hvb += 10 ** (D.hvB[j] / 1000); nh++;
   }
-  return { ...r, q, hist, outside, inUp, inDown, nObjects: objSet.size, dHV: nh ? 10 * Math.log10(hvb / hva) : NaN, idx };
+  // Optical (HLS NDVI, 40 m blocks clear on both dates)
+  let opt = null;
+  if (D.dNDVI) {
+    const vals = [], na = [], nb = [];
+    for (const j of seen) { const v = D.dNDVI[j]; if (Number.isFinite(v)) { vals.push(v); na.push(D.ndA[j] / 10000); nb.push(D.ndB[j] / 10000); } }
+    opt = { clearFrac: seen.size ? vals.length / seen.size : 0, dNDVI: S.quantiles(vals, [50])[0], before: S.quantiles(na, [50])[0], after: S.quantiles(nb, [50])[0] };
+  }
+  if (sel.kind === "object") {
+    const o = D.byId.get(sel.id);
+    opt = o.dNDVI !== undefined ? { clearFrac: o.optical_clear_frac, dNDVI: o.dNDVI, before: o.NDVI_before, after: o.NDVI_after, cls: o.optical_class, exact: true }
+      : { clearFrac: o.optical_clear_frac ?? 0, dNDVI: NaN, cls: "no clear optical view", exact: true };
+  } else if (opt && opt.clearFrac >= C.params.optical_min_clear_frac) {
+    const t = C.params.ndvi_change;
+    opt.cls = opt.dNDVI <= -t ? "vegetation loss" : opt.dNDVI >= t ? "greening" : "little vegetation change";
+  } else if (opt) opt.cls = "no clear optical view";
+  return { ...r, q, hist, outside, inUp, inDown, nObjects: objSet.size, dHV: nh ? 10 * Math.log10(hvb / hva) : NaN, idx, opt };
 }
 
 function verdict(d) {
@@ -155,7 +175,7 @@ function renderPanel() {
   const v = verdict(s.dDb);
   if (sel.kind === "area") {
     const so = C.stats.objects;
-    v.text = `The area-wide average change is small — within the stable control's pixel spread. The change is concentrated in individual parcels: ${fmtInt(so.brightened)} brightened objects (${fmtInt(Math.round(so.area_ha_brightened))} ha) vs ${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha). Click an outlined parcel, or draw a region.`;
+    v.text = `The area-wide average change is small — within the stable control's pixel spread. The change is concentrated in individual parcels: ${fmtInt(so.brightened)} brightened objects (${fmtInt(Math.round(so.area_ha_brightened))} ha) vs ${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha). Click an outlined parcel, or draw a region.` + (C.optical ? ` Optical check (NASA HLS): of ${C.optical.brightened.objects_with_clear_view} brightened objects with a clear view, ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation — harvest explains a minority.` : "");
   }
   const color = v.cls === "down" ? "#4ea3ff" : v.cls === "up" ? "#ff8a4c" : "#b9b4aa";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
@@ -177,6 +197,18 @@ function renderPanel() {
     </dl>`;
   obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#e8c547" }, { v: D.ctrlQ[0], label: "p1", color: "#e8c547" }] })}
       <p class="chart-caption">Bars: per-pixel ΔHH in the selection (100 m speckle filter). Amber line: the stable urban control (Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px). Pixels are spatially correlated, so no independent-pixel confidence interval is claimed.</p></div>`;
+  if (s.opt) {
+    const o = s.opt, has = Number.isFinite(o.dNDVI) && o.cls !== "no clear optical view";
+    const pillCls = o.cls === "vegetation loss" ? "down" : o.cls === "greening" ? "ok" : o.cls === "little vegetation change" ? "" : "caution";
+    obs += `<h3>Optical cross-check · NASA HLS (Sentinel-2)</h3>
+      <dl class="kv">
+        <dt>Vegetation index (NDVI) 21/23 Oct → 2 Nov</dt><dd>${has ? `${f(o.before)} → ${f(o.after)}` : "—"}</dd>
+        <dt>ΔNDVI (median)</dt><dd>${has ? f(o.dNDVI, 3, true) : "—"}</dd>
+        <dt>Clear on both dates</dt><dd>${f(100 * o.clearFrac, 0)}%</dd>
+        <dt>Optical reading</dt><dd><span class="pill ${pillCls}">${esc(o.cls)}</span></dd>
+      </dl>
+      <p class="chart-caption">${has ? `Fields outside change objects greened by ${f(C.optical.background_fields_dNDVI_median, 3, true)} (median) over the same days. ` : "Cloud, cloud shadow or the satellite's swath edge left too few clear pixels (needs ≥ 80% clear on both dates). "}A vegetation-loss reading would point to harvest; little change points to the soil surface (moisture or roughness).${o.exact ? "" : " Region values use 40 m blocks."}</p>`;
+  }
   obs += `<div class="caution-box"><p><strong>ΔHV ${f(s.dHV, 2, true)} dB — unresolved.</strong> HV change across this scene grows from west to east even for equally bright pixels, and HV carries a high radio-interference likelihood flag. It is shown, not interpreted.</p></div>`;
   $("#tab-observed").innerHTML = obs;
 
@@ -214,6 +246,7 @@ function renderPanel() {
       <li><strong>HV unresolved.</strong> A west–east gradient in ΔHV and a high RFI-likelihood flag make HV unsuitable for interpretation here.</li>
       <li><strong>Noise not subtracted.</strong> The product's thermal-noise correction is off; very dark pixels (≲ −18 dB HH) carry a larger noise share.</li>
       <li><strong>Swath edge.</strong> The western strip is outside the swath; a 500 m buffer excludes pixels near invalid data.</li>
+      <li><strong>Optical is a cross-check, not ground truth.</strong> NASA HLS dates (21/23 Oct and 2 Nov) differ from the radar passes by up to ~1.5 days. The northern tile uses 21 Oct; background fields there greened ~0.03 NDVI less than in the south, an inter-date offset smaller than the 0.10 threshold used to call vegetation loss. Optical NDVI cannot tell wet soil from ploughed soil.</li>
       <li><strong>Rainfall is coarse.</strong> NASA POWER is a gridded estimate, used only as timing context.</li>
       <li><strong>Thresholds are choices.</strong> Objects use a 3 dB seed, 2 dB growth and 1 ha minimum. The census below shows how the result changes from 2 to 5 dB.</li>
     </ul>`;
@@ -237,11 +270,16 @@ function interpretation(sel, s) {
     bright && strong ? "consistent" : bright ? "possible" : "not indicated", bright && strong ? "ok" : "",
     bright ? `Rougher soil scatters more energy back to the radar. Large jumps (≥ 3 dB) confined to a single parcel fit a field-management event better than rain, which would affect neighbouring bare fields similarly.${sel.kind === "object" ? " This object is parcel-shaped and its change is " + (strong ? "strong." : "moderate.") : ""}` :
       "Tillage usually brightens HH; this selection darkened.",
-    "optical imagery (e.g. NASA HLS) or farm records before and after; a persistent change in later NISAR passes.");
+    "farm records; a persistent change in later NISAR passes (wet soil dries back, ploughed roughness persists). Optical NDVI cannot separate wet from ploughed bare soil.");
+  const o = s.opt || { cls: "no clear optical view" };
+  const harvestTag = o.cls === "vegetation loss" ? ["consistent", "ok"] : o.cls === "no clear optical view" ? ["possible", ""] : ["not indicated", ""];
   h += mk("Harvest or removal of vegetation",
-    "possible", "",
-    "Removing a crop changes HH in either direction, depending on the crop's structure and the soil beneath. The autumn crop calendar in the Çukurova plain (cotton harvest, preparation for winter wheat) makes field operations plausible in this window — general regional knowledge, not verified for these fields.",
-    "optical vegetation index (NDVI) drop between the dates; a reliable HV channel (vegetation volume), which is unresolved here.");
+    harvestTag[0], harvestTag[1],
+    (o.cls === "vegetation loss" ? `NASA HLS shows the vegetation index fell (ΔNDVI ${f(o.dNDVI, 3, true)}) between late October (21/23 Oct) and 2 Nov — consistent with a crop being harvested or cleared. ` :
+      o.cls === "no clear optical view" ? "No clear optical view of this selection on both dates, so vegetation change cannot be checked here. " :
+      `NASA HLS shows no vegetation loss here (ΔNDVI ${f(o.dNDVI, 3, true)}), so harvest is unlikely to explain this radar change. `) +
+    "The Çukurova autumn calendar (cotton harvest, preparation for winter wheat) makes field operations plausible in this window — general regional knowledge, not verified for these fields.",
+    "a cloud-free optical pair where unavailable; field records; a reliable HV channel (vegetation volume), unresolved here.");
   h += mk("Standing water or flooding",
     !bright && after < -15 ? "consistent" : "not indicated", !bright && after < -15 ? "ok" : "",
     !bright && after < -15 ? `Smooth open water reflects energy away and appears very dark. This selection fell to ${f(after, 1)} dB on 3 Nov.` :
@@ -264,6 +302,7 @@ function layerFor(mode) {
   else if (mode === "swipe") L = { base: layerFor("a").base, baseB: layerFor("b").base };
   else if (mode === "delta") L = { base: toCanvas(deltaImage(D.dHH, D.dbA, D.W, D.H)) };
   else if (mode === "hv") L = { base: toCanvas(deltaImage(D.dHV, D.dbA, D.w2, D.h2, 2)), scaleBase: 0.5 };
+  else if (mode === "ndvi") L = { base: toCanvas(ndviDeltaImage(D.dNDVI, D.dbA, D.w2, D.h2, 2)), scaleBase: 0.5 };
   D.cache[mode] = L;
   return L;
 }
@@ -291,7 +330,13 @@ function setMode(mode) {
 function renderLegend() {
   const m = st.mode;
   let h = "";
-  if (m === "delta" || m === "hv") {
+  if (m === "ndvi") {
+    const op = C.optical;
+    h = `<div class="title">ΔNDVI optical (2 Nov − 21/23 Oct)</div>
+      <div class="bar" style="background:${ndviLegendGradient()}"></div>
+      <div class="ticks"><span>−${NDVI_MAX}</span><span>veg. loss</span><span>0</span><span>greening</span><span>+${NDVI_MAX}</span></div>
+      <div class="note">NASA HLS S30 (Sentinel-2), 40 m. Grey = no clear view on both dates (cloud or outside the optical swath; ${Math.round(op.clear_both_frac_of_analysis * 100)}% of the area is clear). Outlines: radar change objects.</div>`;
+  } else if (m === "delta" || m === "hv") {
     h = `<div class="title">${m === "hv" ? "ΔHV" : "ΔHH"} (3 Nov − 22 Oct), dB</div>
       <div class="bar" style="background:${deltaLegendGradient()}"></div>
       <div class="ticks"><span>−${DELTA_MAX}</span><span>darker</span><span>0</span><span>brighter</span><span>+${DELTA_MAX}</span></div>`;
@@ -353,7 +398,7 @@ function renderCensus() {
   const filt = $("#census-filter").value, sort = $("#census-sort").value;
   let rows = C.objects.filter((o) => filt === "all" || o.sign === filt);
   rows = rows.slice().sort(sort === "area" ? (a, b) => b.area_ha - a.area_ha : (a, b) => Math.abs(b.dHH_db) - Math.abs(a.dHH_db));
-  $("#census-table tbody").innerHTML = rows.slice(0, 300).map((o) => `<tr data-id="${o.id}" tabindex="0"><td class="num">${o.id}</td><td><span class="pill ${o.sign === "brightened" ? "up" : "down"}">${o.sign}</span></td><td class="num">${f(o.area_ha, 1)}</td><td class="num">${f(o.dHH_db, 2, true)}</td><td class="num">${f(o.HH_before_db, 1)}</td><td>${esc(nearestPlace(o.centroid_px)?.name ?? "")}</td></tr>`).join("");
+  $("#census-table tbody").innerHTML = rows.slice(0, 300).map((o) => `<tr data-id="${o.id}" tabindex="0"><td class="num">${o.id}</td><td><span class="pill ${o.sign === "brightened" ? "up" : "down"}">${o.sign}</span></td><td class="num">${f(o.area_ha, 1)}</td><td class="num">${f(o.dHH_db, 2, true)}</td><td class="num">${f(o.HH_before_db, 1)}</td><td>${o.dNDVI !== undefined ? `${esc(o.optical_class)} <span class="muted mono">${f(o.dNDVI, 2, true)}</span>` : '<span class="muted">no clear view</span>'}</td><td>${esc(nearestPlace(o.centroid_px)?.name ?? "")}</td></tr>`).join("");
   highlightCensus();
 }
 function highlightCensus() {
@@ -396,6 +441,7 @@ function methodHtml() {
       <li><strong>Measure.</strong> 5 × 5 (100 m) valid-weighted boxcar on linear γ⁰; Δ = 10·log₁₀(after/before). Region values use the ratio of mean linear power.</li>
       <li><strong>Control.</strong> Largest persistently bright (HH &gt; 0 dB on both dates) cluster: Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px, ΔHH ${f(C.stats.urban_control.dHH_db_region, 2, true)} dB.</li>
       <li><strong>Detect.</strong> Change objects: |Δ| ≥ ${C.params.object_core_db} dB seeds grown through same-sign pixels ≥ ${C.params.object_grow_db} dB, ≥ ${C.params.object_min_px} px (1 ha); threshold sensitivity reported.</li>
+      <li><strong>Cross-check with optical.</strong> NASA HLS S30 (Sentinel-2) surface reflectance on 23 Oct (21 Oct for the northern tile) and 2 Nov, cloud-masked with Fmask and resampled onto the same 20 m grid; NDVI change per object (≥ 80% clear pixels) separates vegetation loss (harvest) from soil-surface change.</li>
       <li><strong>Check.</strong> HV tested for range-dependent bias (failed → excluded); HH tested (passed). Python unit tests and an integrity test recompute every published number from the shipped files; the browser repeats that check on every load (below).</li>
     </ol>
     <h3>Integrity check — run in your browser just now</h3>
@@ -404,6 +450,7 @@ function methodHtml() {
     <ul class="plain">
       <li>NASA-ISRO NISAR L2 Geocoded Polarimetric Covariance (GCOV), VALIDATED, collection NISAR_L2_GCOV_V1, DOI <a href="https://doi.org/10.5067/NIL2GCOV-V1">10.5067/NIL2GCOV-V1</a>, distributed by ASF DAAC.<br><code>${esc(a.a.granule)}</code><br><code>${esc(a.b.granule)}</code></li>
       <li>NASA POWER daily point data (PRECTOTCORR), 35.8°E 37.0°N, 18 Oct–8 Nov 2026.</li>
+      <li>NASA HLS S30 v2.0 (DOI <a href="https://doi.org/10.5067/HLS/HLSS30.002">10.5067/HLS/HLSS30.002</a>), LP DAAC: <code>HLS.S30.T36SYF.2026296T082011.v2.0</code>, <code>HLS.S30.T36SYG.2026294T082001.v2.0</code>, <code>HLS.S30.T36SYF.2026306T082551.v2.0</code>, <code>HLS.S30.T36SYG.2026306T082551.v2.0</code>.</li>
       <li>Map context: © OpenStreetMap contributors, ODbL (places, rivers, main roads).</li>
       <li>Product metadata: RTC-AP area-based terrain correction (Shiroma et al., 2022, IEEE TGRS, doi:10.1109/TGRS.2022.3147472); Copernicus DEM 30 m (modified for NISAR).</li>
     </ul>
@@ -450,6 +497,7 @@ function caseFile() {
       per_pixel_dHH_q5_25_50_75_95: s.q.map((v) => +v.toFixed(3)), dHV_db_unresolved_40m_blocks: Number.isFinite(s.dHV) ? +s.dHV.toFixed(3) : null },
     control: { name: "Ceyhan urban centre (persistently bright)", pixels: C.stats.urban_control.px, dHH_db: C.stats.urban_control.dHH_db_region, per_pixel_q1_5_25_50_75_95_99: D.ctrlQ },
     verdict: verdict(s.dDb).text,
+    optical_cross_check: st.lastStats.opt ? { source: C.optical.source, before: C.optical.before, after: C.optical.after, ...st.lastStats.opt } : null,
     sources: { nisar: C.acquisitions, collection: "NISAR_L2_GCOV_V1 (DOI 10.5067/NIL2GCOV-V1)", weather: C.weather.source, map_context: "© OpenStreetMap contributors (ODbL)" },
     method: { params: C.params, estimator: "10*log10(mean linear gamma0 after / mean before)", grid: { epsg: C.grid.epsg, posting_m: C.grid.posting_m, transform: C.grid.transform } },
     integrity_checks: D.checks.map(({ name, diff, tol, pass }) => ({ name, max_abs_diff_db: +diff.toFixed(5), tol_db: tol, pass })),
@@ -458,8 +506,8 @@ function caseFile() {
 }
 
 function exportCsv() {
-  const head = ["id", "sign", "area_ha", "pixels", "dHH_db", "HH_before_db", "HH_after_db", "dHV_db_unresolved", "lon", "lat", "nearest_place"];
-  const rows = C.objects.map((o) => [o.id, o.sign, o.area_ha, o.pixels, o.dHH_db, o.HH_before_db, o.HH_after_db, o.dHV_db_unresolved, o.centroid_lonlat[0], o.centroid_lonlat[1], `"${(nearestPlace(o.centroid_px)?.name ?? "").replace(/"/g, '""')}"`].join(","));
+  const head = ["id", "sign", "area_ha", "pixels", "dHH_db", "HH_before_db", "HH_after_db", "dHV_db_unresolved", "NDVI_before", "NDVI_after", "dNDVI", "optical_class", "optical_clear_frac", "lon", "lat", "nearest_place"];
+  const rows = C.objects.map((o) => [o.id, o.sign, o.area_ha, o.pixels, o.dHH_db, o.HH_before_db, o.HH_after_db, o.dHV_db_unresolved, o.NDVI_before ?? "", o.NDVI_after ?? "", o.dNDVI ?? "", o.optical_class, o.optical_clear_frac, o.centroid_lonlat[0], o.centroid_lonlat[1], `"${(nearestPlace(o.centroid_px)?.name ?? "").replace(/"/g, '""')}"`].join(","));
   return [head.join(","), ...rows].join("\n");
 }
 

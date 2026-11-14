@@ -44,6 +44,31 @@ export function deltaImage(delta, baseDb, w, h, scaleW = 1) {
   return img;
 }
 
+/** Optical ΔNDVI (40 m): green = greening, magenta = vegetation loss; transparent = no clear view. */
+export const NDVI_MAX = 0.3;
+const GREEN = [94, 201, 98], MAGENTA = [214, 92, 196];
+export function ndviDeltaImage(d, baseDb, w, h, f) {
+  const img = new ImageData(w, h);
+  const [lo, hi] = HH_RANGE;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = y * w + x, v = d[i], o = i * 4;
+    const b = baseDb[(y * f) * (w * f) + x * f];
+    const g = 0.3 * 255 * Math.min(1, Math.max(0, ((Number.isFinite(b) ? b : -12) - lo) / (hi - lo)));
+    if (!Number.isFinite(v)) { if (Number.isFinite(b)) { img.data[o] = g; img.data[o + 1] = g; img.data[o + 2] = g; img.data[o + 3] = 120; } continue; }
+    const a = Math.min(1, Math.abs(v) / NDVI_MAX) ** 0.8, c = v >= 0 ? GREEN : MAGENTA;
+    img.data[o] = g + (c[0] - g) * a; img.data[o + 1] = g + (c[1] - g) * a; img.data[o + 2] = g + (c[2] - g) * a; img.data[o + 3] = 255;
+  }
+  return img;
+}
+export function ndviLegendGradient() {
+  const stops = [];
+  for (let k = 0; k <= 10; k++) {
+    const v = -NDVI_MAX + (k / 10) * 2 * NDVI_MAX, a = Math.min(1, Math.abs(v) / NDVI_MAX) ** 0.8, g = 0.3 * 255 * 0.5, c = v >= 0 ? GREEN : MAGENTA;
+    stops.push(`rgb(${c.map((cc) => Math.round(g + (cc - g) * a))}) ${k * 10}%`);
+  }
+  return `linear-gradient(90deg, ${stops.join(",")})`;
+}
+
 export function deltaLegendGradient() {
   const stops = [];
   for (let k = 0; k <= 12; k++) {

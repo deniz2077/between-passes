@@ -45,8 +45,8 @@
         <span class="brand-sub">Ceyhan fields · NISAR 22 Oct → 3 Nov 2026</span>
       </div>
       <nav class="topnav" aria-label="Case tools">
-        <button class="link" data-open="method">Method &amp; sources</button>
-        <button class="link" data-open="export">Export case file</button>
+        <button class="link" data-open="method">Method<span class="long"> &amp; sources</span></button>
+        <button class="link" data-open="export">Export<span class="long"> case file</span></button>
       </nav>
     </header>
 
@@ -58,6 +58,7 @@
             <button role="radio" data-mode="b" aria-checked="false">3 Nov</button>
             <button role="radio" data-mode="swipe" aria-checked="false">Swipe</button>
             <button role="radio" data-mode="delta" aria-checked="true">Change ΔHH</button>
+            <button role="radio" data-mode="ndvi" aria-checked="false" title="Optical vegetation change from NASA HLS (Sentinel-2), 21/23 Oct → 2 Nov">ΔNDVI optical</button>
             <button role="radio" data-mode="hv" aria-checked="false" title="HV change is unresolved — see Limitations">ΔHV <span class="caution-dot" aria-label="caution"></span></button>
           </div>
           <div class="toggles">
@@ -122,7 +123,7 @@
             <label>Show <select id="census-filter"><option value="all">all objects</option><option value="brightened">brightened</option><option value="darkened">darkened</option></select></label>
             <label>sorted by <select id="census-sort"><option value="area">area</option><option value="change">|ΔHH|</option></select></label>
           </div>
-          <div class="census-table-wrap"><table class="census-table" id="census-table"><thead><tr><th>#</th><th>Change</th><th class="num">Area (ha)</th><th class="num">ΔHH (dB)</th><th class="num">Before (dB)</th><th>Nearest place</th></tr></thead><tbody></tbody></table></div>
+          <div class="census-table-wrap"><table class="census-table" id="census-table"><thead><tr><th>#</th><th>Change</th><th class="num">Area (ha)</th><th class="num">ΔHH (dB)</th><th class="num">Before (dB)</th><th>Optical (HLS)</th><th>Nearest place</th></tr></thead><tbody></tbody></table></div>
         </div>
       </div>
     </section>

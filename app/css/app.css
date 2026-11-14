@@ -79,7 +79,7 @@ h2 { font-size: 15px; }
   position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 10px 20px; background: rgba(11, 14, 19, .92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line);
 }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--accent); min-width: 0; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--accent); min-width: 0; flex: 1 1 auto; overflow: hidden; }
 .brand-name { color: var(--bone); font-weight: 600; white-space: nowrap; }
 .brand-sub { color: var(--muted); font: 12px var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .topnav { display: flex; gap: 6px; flex-shrink: 0; }
@@ -87,8 +87,8 @@ h2 { font-size: 15px; }
 .workspace { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 0; border-bottom: 1px solid var(--line); }
 .stage { min-width: 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
-.seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; }
-.seg button { background: transparent; color: var(--bone-2); border: 0; border-right: 1px solid var(--line-2); padding: 7px 12px; font: 500 13px var(--sans); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.seg { display: inline-flex; max-width: 100%; overflow-x: auto; scrollbar-width: none; border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; }
+.seg button { white-space: nowrap; flex-shrink: 0; background: transparent; color: var(--bone-2); border: 0; border-right: 1px solid var(--line-2); padding: 7px 12px; font: 500 13px var(--sans); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .seg button:last-child { border-right: 0; }
 .seg button[aria-checked="true"] { background: var(--bone); color: var(--ink); }
 .caution-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--caution); display: inline-block; }
@@ -215,6 +215,9 @@ select { background: var(--ink-3); color: var(--bone); border: 1px solid var(--l
   .brand-sub { display: none; }
   .tools { margin-left: 0; }
   .viewer-wrap { height: 62vh; min-height: 320px; }
+}
+@media (max-width: 640px) {
+  .topnav .long { display: none; }
 }
 @media (max-width: 520px) {
   .topbar { padding: 8px 12px; }

@@ -40,6 +40,8 @@ PARAMS = {
     "field_like_max_db": -5.0,       # HH < -5 dB on both dates (smoothed)
     "hv_block_px": 2,                # HV shipped at 40 m
     "lonlat_grid_step_px": 40,
+    "optical_min_clear_frac": 0.8,   # object needs >= 80% pixels clear on both HLS dates
+    "ndvi_change": 0.10,             # |dNDVI| threshold for vegetation loss / greening
 }
 
 
@@ -114,6 +116,56 @@ def main():
         })
     objects.sort(key=lambda o: -o["area_ha"])
 
+    # Optical cross-check (NASA HLS S30 NDVI on the same grid) ---------------------------
+    optical = None
+    hls_dir = os.path.join(ROOT, "data/raw/hls")
+    if os.path.exists(os.path.join(hls_dir, "20261023_ndvi.tif")):
+        def rdh(n):
+            with rasterio.open(os.path.join(hls_dir, n)) as s_:
+                return s_.read(1)
+        n_a, n_b = rdh("20261023_ndvi.tif"), rdh("20261102_ndvi.tif")
+        clear = (rdh("20261023_clear.tif") > 0) & (rdh("20261102_clear.tif") > 0)
+        d_ndvi = np.where(clear, n_b - n_a, np.nan)
+        P = PARAMS
+        for o in objects:
+            sl_ = (slice(o["bbox_px"][1], o["bbox_px"][3]), slice(o["bbox_px"][0], o["bbox_px"][2]))
+            reg = labels[sl_] == o["id"]
+            cl = reg & clear[sl_]
+            frac = float(cl.sum() / reg.sum())
+            o["optical_clear_frac"] = round(frac, 3)
+            if frac >= P["optical_min_clear_frac"]:
+                dn = round(float(np.median(d_ndvi[sl_][cl])), 3)  # classify on the published value
+                o["NDVI_before"] = round(float(np.median(n_a[sl_][cl])), 3)
+                o["NDVI_after"] = round(float(np.median(n_b[sl_][cl])), 3)
+                o["dNDVI"] = round(dn, 3)
+                o["optical_class"] = ("vegetation loss" if dn <= -P["ndvi_change"] else
+                                      "greening" if dn >= P["ndvi_change"] else "little vegetation change")
+            else:
+                o["optical_class"] = "no clear optical view"
+        bg = clear & analysis & (labels == 0)
+
+        def summ(sign):
+            r = [o for o in objects if o["sign"] == sign and "dNDVI" in o]
+            d = np.array([o["dNDVI"] for o in r])
+            return {"objects_with_clear_view": len(r),
+                    "dNDVI_median": round(float(np.median(d)), 3) if len(d) else None,
+                    "dNDVI_q25_q75": [round(float(v), 3) for v in np.percentile(d, [25, 75])] if len(d) else None,
+                    "frac_vegetation_loss": round(float((d <= -P["ndvi_change"]).mean()), 3) if len(d) else None,
+                    "frac_little_change": round(float((np.abs(d) < P["ndvi_change"]).mean()), 3) if len(d) else None,
+                    "frac_greening": round(float((d >= P["ndvi_change"]).mean()), 3) if len(d) else None}
+        optical = {
+            "source": "NASA HLS S30 v2.0 (Sentinel-2 surface reflectance harmonized), DOI 10.5067/HLS/HLSS30.002",
+            "before": {"date": "2026-10-23 (south, tile 36SYF) / 2026-10-21 (north, tile 36SYG)", "utc": "08:30",
+                       "granules": ["HLS.S30.T36SYF.2026296T082011.v2.0", "HLS.S30.T36SYG.2026294T082001.v2.0"]},
+            "after": {"date": "2026-11-02", "utc": "08:30",
+                      "granules": ["HLS.S30.T36SYF.2026306T082551.v2.0", "HLS.S30.T36SYG.2026306T082551.v2.0"]},
+            "clear_both_frac_of_analysis": round(float((clear & analysis).sum() / analysis.sum()), 3),
+            "background_fields_dNDVI_median": round(float(np.median(d_ndvi[bg])), 3),
+            "background_fields_dNDVI_q25_q75": [round(float(v), 3) for v in np.percentile(d_ndvi[bg], [25, 75])],
+            "brightened": summ("brightened"), "darkened": summ("darkened"),
+            "method": "NDVI=(B8A-B04)/(B8A+B04); Fmask cloud/adjacent/shadow/snow excluded; average-resampled to the NISAR 20 m grid; per-object median over pixels clear on both dates",
+        }
+
     # Sensitivity of the object census to the core threshold
     sens = []
     for core in (2.0, 2.5, 3.0, 4.0, 5.0):
@@ -141,6 +193,14 @@ def main():
     layers["flags"] = write("flags.u8", flags)
     layers["flags"]["bits"] = {"1": "jointly valid (both dates)", "2": "analysis area (500 m edge buffer)",
                               "4": "stable urban control"}
+    if optical is not None:
+        for nm, arr in (("ndvi_a_40m", n_a), ("ndvi_b_40m", n_b)):
+            m40 = bp.block_mean_linear(np.where(clear, arr, 0.0), clear, 2)
+            enc = np.full(m40.shape, bp.INT16_NODATA, np.int16)
+            ok = np.isfinite(m40)
+            enc[ok] = np.round(m40[ok] * 10000).astype(np.int16)
+            layers[nm] = write(f"{nm}.i16", enc)
+            layers[nm]["encoding"] = "NDVI*10000, -32768 = no clear view on both dates (40 m)"
     remap = np.zeros(len(info) + 1, np.uint16)
     for new, o in enumerate(objects, start=1):
         remap[o["id"]] = new
@@ -232,6 +292,7 @@ def main():
             "sensitivity": sens,
         },
         "objects": objects,
+        "optical": optical,
         "parity_samples": parity,
         "context": ctx,
         "weather": {"source": "NASA POWER daily point, PRECTOTCORR (mm/day), community AG",

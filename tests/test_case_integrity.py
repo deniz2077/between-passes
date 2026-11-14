@@ -69,3 +69,19 @@ def test_invalid_pixels_are_nodata(case):
     valid = (lay["flags"] & 1) > 0
     assert (lay["hh_a"][~valid] == bp.INT16_NODATA).all()
     assert (lay["hh_a"][valid] != bp.INT16_NODATA).all()
+
+
+def test_optical_classes_follow_thresholds(case):
+    c, _ = case
+    if not c.get("optical"):
+        pytest.skip("no optical cross-check in case")
+    t, mn = c["params"]["ndvi_change"], c["params"]["optical_min_clear_frac"]
+    for o in c["objects"]:
+        if o["optical_class"] == "no clear optical view":
+            assert o["optical_clear_frac"] < mn and "dNDVI" not in o
+            continue
+        assert o["optical_clear_frac"] >= mn
+        d = o["dNDVI"]
+        expect = "vegetation loss" if d <= -t else "greening" if d >= t else "little vegetation change"
+        assert o["optical_class"] == expect
+        assert -1 <= o["NDVI_before"] <= 1 and -1 <= o["NDVI_after"] <= 1
