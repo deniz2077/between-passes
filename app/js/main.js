@@ -424,7 +424,7 @@ function select(sel, { focus = false } = {}) {
   renderPanel();
   if (focus && sel.kind === "object") viewer.focus(D.byId.get(sel.id).bbox_px);
   viewer.request();
-  const h = sel.kind === "object" ? `#object-${sel.id}` : "#case";
+  const h = sel.kind === "object" ? `#object-${sel.id}` : sel.kind === "roi" ? `#roi=${sel.poly.map((p) => p.map((v) => v.toFixed(1)).join(",")).join(";")}` : "#case";
   if (location.hash !== h) history.replaceState(null, "", h);
 }
 
@@ -728,7 +728,15 @@ async function boot() {
     await load();
     renderCover();
     const sm = location.hash.match(/^#story-(\d)$/);
+    const rm = location.hash.match(/^#roi=([\d.,;]+)$/);
     if (sm) { openApp(false); renderStory(Math.min(5, Math.max(0, +sm[1] - 1))); }
+    else if (rm) {
+      openApp(false);
+      const poly = rm[1].split(";").map((p) => p.split(",").map(Number)).filter((p) => p.length === 2 && p.every(Number.isFinite));
+      if (poly.length >= 3) { viewer.poly = poly; viewer.polyClosed = true; select({ kind: "roi", poly }); const xs = poly.map((p) => p[0]), ys = poly.map((p) => p[1]); viewer.focus([Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], 1.4); }
+    }
+    else if (location.hash === "#method" || location.hash === "#export") { openApp(false); openDialog(location.hash.slice(1)); }
+    else if (location.hash === "#census") { openApp(false); setTimeout(() => $(".census").scrollIntoView(), 400); }
     else if (location.hash.startsWith("#case") || location.hash.startsWith("#object-")) openApp(false);
   } catch (err) {
     console.error(err);

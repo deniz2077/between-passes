@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>cards</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#0b0e13;color:#e8e3d8;font-family:"IBM Plex Sans",sans-serif}
+  .card{width:1920px;height:1080px;display:none;flex-direction:column;justify-content:center;padding:0 160px;box-sizing:border-box}
+  .k{font:500 24px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#56d4e8;margin:0 0 22px}
+  h1{font-size:150px;line-height:.95;letter-spacing:-.04em;margin:0 0 36px;font-weight:600}
+  p{font-size:36px;line-height:1.4;color:#b9b4aa;margin:0;max-width:1400px}
+  .meta{margin-top:56px;font:28px "IBM Plex Mono",monospace;color:#8a93a3;line-height:1.7}
+  ul{margin:28px 0 0;padding:0;list-style:none}
+  li{font-size:32px;color:#b9b4aa;margin-bottom:14px;padding-left:34px;position:relative}
+  li::before{content:"";position:absolute;left:0;top:20px;width:14px;height:3px;background:#e8c547}
+  strong{color:#e8e3d8}
+</style></head>
+<body>
+<section class="card" id="intro">
+  <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
+  <h1>Between Passes</h1>
+  <p>A radar evidence lab built on NASA-ISRO NISAR data: what changed in the fields of Ceyhan, Adana between two radar passes — and what can honestly be concluded.</p>
+  <div class="meta">Team Signal Foundry · Niğde Local Event, Türkiye<br>Captioned walkthrough of the working app · no narration</div>
+</section>
+<section class="card" id="outro">
+  <p class="k">What we don't claim</p>
+  <ul>
+    <li>The <strong>cause</strong> of any single parcel's change — only which explanations are consistent.</li>
+    <li><strong>HV</strong> polarization — an unexplained gradient and interference flag; shown, not interpreted.</li>
+    <li>Field-level rainfall — NASA POWER is a coarse estimate. One case study, not an alert system.</li>
+  </ul>
+  <div class="meta" style="margin-top:60px">Data: NASA-ISRO NISAR L2 GCOV VALIDATED · NASA HLS · NASA POWER · © OpenStreetMap contributors<br>Screens captured from the working app. No AI-generated imagery.<br>Generative AI assisted with software development and documentation.</div>
+</section>
+<script>const id=(location.hash||"#intro").slice(1);document.getElementById(id).style.display="flex";</script>
+</body></html>

@@ -16,3 +16,7 @@ data/raw/
 .netrc
 .env
 *.token
+
+# Large reproducible media
+submission/video/*.mp4
+submission/video/frames/
