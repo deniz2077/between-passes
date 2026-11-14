@@ -5,7 +5,7 @@
 - Granules A/B/C and metadata: see `research/NISAR_GATE.md`.
 - Quantity: diagonal covariance terms HHHH / HVHV = RTC gamma-0 backscatter power (linear). dB = 10·log10(γ⁰).
 - Access: HTTPS via Earthdata Login; window reads by HTTP Range (`scripts/nisar_remote.py`).
-- Processing: _pending_.
+- Processing: see "Processing (implemented)" below.
 
 ## NASA POWER — daily point (context only)
 - `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR,T2M&community=AG&longitude=35.8&latitude=37.0&start=20261018&end=20261108&format=JSON`
