@@ -1,0 +1,18 @@
+# Private organizer correspondence and planning briefs — never commit
+NIGDE_2026_ORGANIZER_SOURCE_MESSAGES_PRIVATE.md
+private/
+*_MASTER_BRIEF*.md
+# Environments / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.DS_Store
+# Large raw radar data (reproduce with scripts)
+data/raw/
+*.h5
+# Secrets
+.netrc
+.env
+*.token
