@@ -41,7 +41,7 @@ EXTRA = """
     </div>
     <div style="background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:40px 44px">
       <p class="k" style="font-size:20px">Why it matters</p>
-      <p style="font-size:32px;color:var(--bone);line-height:1.35">Most projects explain the past. This one <strong class="acc">commits to the future</strong> — and can be proven wrong. The scorer is in the repository; the verdict appears in the app when NASA releases the pass.</p>
+      <p style="font-size:32px;color:var(--bone);line-height:1.35">Most projects explain the past. This one <strong class="acc">commits to the future</strong> — and can be proven wrong. The scorer is in the repository. NASA publishes NISAR data about 10–20 days after a pass, so the verdict will appear on the live app in late November — right or wrong.</p>
       <p class="note" style="margin-top:22px">research/prediction/PREDICTION.md · scripts/predict_next_pass.py</p>
     </div>
   </div>

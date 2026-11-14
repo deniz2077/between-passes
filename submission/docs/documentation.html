@@ -32,6 +32,9 @@ a { color: #0b7f95; word-break: break-all; }
 <li><strong>Ceyhan:</strong> between 22 Oct and 3 Nov 2026, 7.0× more field area brightened than darkened, while a stable town control held (+0.12 dB). NASA HLS rules out harvest for most parcels, and <strong>NASA SMAP measured the soil there go from 0.16 (20 Oct) to 0.36 m³/m³ (3 Nov)</strong> after the first autumn rain (exploratory: ±2-day SMAP window). <strong>Wetting is the leading explanation</strong>; ploughing can't be excluded field by field.</li>
 <li><strong>Worldwide (pre-registered):</strong> across 74 random NISAR sites with quality SMAP data, <strong>radar change tracks soil-moisture change</strong> (Spearman ρ 0.58, permutation p &lt; 0.001; +1.0 dB per +0.1 m³/m³; 16 of 18 sites with a clear moisture change moved in the same direction). An independent, pre-registered <strong>replication on 200 new random sites</strong> gave the same answer (n = 73, ρ 0.55, p &lt; 0.001; slope +0.78 dB, CI overlapping). The clearer signal is drying (darkening ~1 dB). The plan was committed before any value was extracted — see <a href="https://github.com/deniz2077/between-passes/blob/main/research/global/PREREGISTRATION.md"><code>research/global/PREREGISTRATION.md</code></a> and <a href="https://github.com/deniz2077/between-passes/blob/main/research/global/RESULTS.md"><code>RESULTS.md</code></a>.</li>
 </ul>
+<h2>An open test: the 15 Nov prediction</h2>
+<p>Before NISAR's next pass over Ceyhan (15 Nov 2026, ~19:24 local), I locked a falsifiable prediction in this repository (<a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md"><code>research/prediction/PREDICTION.md</code></a>, committed 14 Nov 20:05 TRT). If the fields brightened because the soil was wet, they must <strong>dim back</strong> as it dries (pooled change ≤ −2.07 dB, typical parcel reverses ≥ 50 %). If they were ploughed, they <strong>stay bright</strong>. The scorer (<a href="https://github.com/deniz2077/between-passes/blob/main/scripts/predict_next_pass.py"><code>scripts/predict_next_pass.py</code></a>) was committed with the criteria.</p>
+<p>NASA has published NISAR VALIDATED granules <strong>10–20 days after acquisition</strong> (the 3 Nov pass appeared on 13 Nov), so the verdict cannot exist before the submission deadline. When the 15 Nov granule is published, the locked scorer runs unchanged and the verdict — whatever it is — appears on the live app's cover and in <code>research/prediction/</code>. Any result added after 15 Nov is dated and produced only by the code committed before the pass.</p>
 <h2>Research question</h2>
 <p><em>Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?</em></p>
 <h2>What I measured (real NISAR VALIDATED data)</h2>
@@ -118,7 +121,7 @@ sprint-reports/      Niğde Scrum sprint reports
 <li>NASA POWER daily point data (PRECTOTCORR).</li>
 <li>Natural Earth 1:110m land (public domain), via world-atlas.</li>
 <li>© OpenStreetMap contributors (ODbL) — places, rivers, roads.</li>
-<li>Fonts: IBM Plex Sans / Mono (SIL OFL).</li>
+<li>Fonts: Newsreader, Instrument Sans, DM Mono (SIL OFL).</li>
 </ul>
 <p>See <a href="https://github.com/deniz2077/between-passes/blob/main/DATA_PROVENANCE.md"><code>DATA_PROVENANCE.md</code></a> and <a href="https://github.com/deniz2077/between-passes/blob/main/docs/"><code>docs/</code></a>.</p>
 <h2>AI use</h2>

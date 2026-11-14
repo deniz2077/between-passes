@@ -136,3 +136,10 @@ select { background: var(--ink-2); color: var(--bone); }
   .seg button { padding: 7px 7px; font-size: 12px; }
   .seg button .sk { margin-right: 1px; }
 }
+
+/* Cover: the open test (prediction) */
+.cover-test { margin: -6px 0 26px; padding: 14px 18px 14px 18px; border-left: 3px solid var(--accent); background: var(--ink-2); border-radius: 0 6px 6px 0; max-width: 36em; }
+.cover-test .ct-k { margin: 0 0 6px; font: 500 11.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.cover-test .ct-t { margin: 0 0 8px; font-size: 15px; line-height: 1.5; color: var(--bone-2); }
+.cover-test .ct-t strong { color: var(--bone); }
+.cover-test .ct-link { font-weight: 600; font-size: 14.5px; }

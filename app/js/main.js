@@ -560,7 +560,7 @@ function renderCover() {
   const s = C.stats.objects;
   const ratio = s.area_ha_brightened / s.area_ha_darkened;
   $("#cover-result").innerHTML = `<strong>${ratio.toFixed(1)}× more farmland lit up on radar than went dark</strong> (${fmtInt(Math.round(s.area_ha_brightened))} ha vs ${fmtInt(Math.round(s.area_ha_darkened))} ha), while the town, which shouldn't change, stayed steady. The leading explanation, backed by NASA's soil-moisture satellite: <strong>rain soaked the soil.</strong>`;
-  const plc = () => { const ms = Date.UTC(2026, 10, 15, 16, 24) - Date.now(); const el = $("#pl-count"); if (el) el.textContent = ms > 0 ? `in ${Math.floor(ms / 3.6e6)} h` : "flown · awaiting data"; };
+  const plc = () => { const ms = Date.UTC(2026, 10, 15, 16, 24) - Date.now(); const el = $("#pl-count"); if (el && !el.dataset.scored) el.textContent = ms > 0 ? `in ${Math.floor(ms / 3.6e6)} h` : "flown · awaiting NASA data"; };
   plc(); setInterval(plc, 60000);
   const cv = $("#cover-canvas"), ctx = cv.getContext("2d");
   const img = layerFor("delta").base;
@@ -645,6 +645,11 @@ async function renderNextPass() {
       <p>Pooled change 3 Nov → next pass: <b>${f(R.aggregate_dHH_BC_db, 2, true)} dB</b> (threshold ${f(thr, 2)}); median parcel recovery <b>${f(100 * R.median_R, 0)} %</b>; control ${f(R.control_dHH_BC_db, 2, true)} dB. Granule <span class="mono">${esc(R.granule_c)}</span>.</p>` + html;
   }
   $("#np-text").innerHTML = html;
+  if (R) {
+    const ct = $("#ct-t"); if (ct) ct.innerHTML = `NISAR flew over Ceyhan again on 15 Nov. The prediction, locked before the pass, has been scored: <strong>${esc(R.verdict)}</strong>. Scored ${esc(R.scored_utc.slice(0, 10))} by the code committed before the pass.`;
+    const k = $("#cover-test .ct-k"); if (k) k.textContent = "The open test · scored";
+    const pl = $("#pl-count"); if (pl) { pl.dataset.scored = "1"; pl.textContent = "scored"; }
+  }
   const target = Date.UTC(2026, 10, 15, 16, 24);
   const tick = () => {
     const ms = target - Date.now();
@@ -653,7 +658,7 @@ async function renderNextPass() {
       const h = Math.floor(ms / 3.6e6), m = Math.floor((ms % 3.6e6) / 6e4);
       $("#np-count").innerHTML = `NISAR over Ceyhan again in<span class="big">${h} h ${String(m).padStart(2, "0")} min</span>15 Nov 2026 · ~19:24 local · track 151`;
     } else {
-      $("#np-count").innerHTML = `The pass has flown<span class="big">awaiting NASA release</span>VALIDATED data typically appear a few days after acquisition; the locked scorer will run then.`;
+      $("#np-count").innerHTML = `The pass has flown<span class="big">awaiting NASA data</span>NISAR VALIDATED data have appeared 10–20 days after each pass (the 3 Nov pass was published on 13 Nov). The locked scorer runs as soon as it is out.`;
     }
   };
   tick(); setInterval(tick, 30000);
@@ -767,6 +772,7 @@ function wire() {
     if (!D) return;
     if (location.hash === "" || location.hash === "#") { $("#app").hidden = true; $("#cover").hidden = false; return; }
     if ($("#app").hidden) openApp(false);
+    if (location.hash === "#prediction") { setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); return; }
     const m = location.hash.match(/^#object-(\d+)$/);
     if (m && D.byId.has(+m[1]) && !(st.sel.kind === "object" && st.sel.id === +m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
   });
@@ -794,6 +800,7 @@ async function boot() {
     }
     else if (location.hash === "#method" || location.hash === "#export") { openApp(false); openDialog(location.hash.slice(1)); }
     else if (location.hash === "#census") { openApp(false); setTimeout(() => $(".census").scrollIntoView(), 400); }
+    else if (location.hash === "#prediction") { openApp(false); setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); }
     else if (location.hash.startsWith("#case") || location.hash.startsWith("#object-")) openApp(false);
   } catch (err) {
     console.error(err);
