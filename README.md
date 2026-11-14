@@ -18,7 +18,7 @@ Between Passes measures what the radar saw change between **22 October and 3 Nov
 | Optical cross-check (NASA HLS NDVI, 21/23 Oct → 2 Nov) | Of 422 brightened objects with a clear view, **10.4 % lost vegetation**; 84.6 % show little vegetation change (median ΔNDVI +0.004 vs +0.051 for other fields) |
 | ΔHV | **Unresolved** — west–east gradient + high RFI-likelihood flag; shown, not interpreted |
 
-Possible explanations (not determinable from backscatter alone): wetter soil after ~24 mm of rain on 28–29 Oct (NASA POWER estimate), tillage, harvest, standing water. The optical cross-check makes **harvest unlikely for most brightened parcels**, leaving soil-surface change (moisture and/or roughness) as the leading candidates. The app shows which are *consistent* with each selection and what evidence would decide between them.
+Possible explanations (not determinable from backscatter alone): wetter soil after ~23 mm of rain on 28–29 Oct (27.6 mm over the whole interval) (NASA POWER estimate), tillage, harvest, standing water. The optical cross-check makes **harvest unlikely for most brightened parcels**, leaving soil-surface change (moisture and/or roughness) as the leading candidates. The app shows which are *consistent* with each selection and what evidence would decide between them.
 
 ## Features
 - **Radar viewer** — both calibrated γ⁰ HH scenes on one fixed stretch, a swipe comparison, a ΔHH change map and a cautioned ΔHV map; pan/zoom, map context (OpenStreetMap), lat/lon grid, pixel readout.

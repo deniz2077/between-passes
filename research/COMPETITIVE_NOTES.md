@@ -14,3 +14,25 @@ Inspected via GitHub API file trees + READMEs only. Live demos **not yet opened*
 2. Both NISAR rivals use **InSAR (GUNW)**. A calibrated **polarimetric backscatter (GCOV γ⁰ HH/HV)** study is a different, under-served angle.
 3. Our differentiators must be *computational*: user-drawn ROI computed in-browser on real calibrated γ⁰ arrays, identically processed stable-control comparison, HH vs HV behaviour, explicit noise/stability baseline, and a reproducible export.
 4. Avoid cinematic intros; get to real data in one click.
+
+## Second pass (14 Nov ~18:00) — live demos, judging guide, 2025 winners
+
+### Earth Whisper live (earth-whisper.vercel.app), opened and used
+- Landing: cinematic Earth/satellite imagery, "Analysis with DHARA", 4-person team, lists NISAR, Sentinel-1, GPM IMERG, HLS, NASADEM.
+- Investigate → Sandhya River: precomputed result for one candidate region of **5,600 m²**; NISAR coherence change −0.3263; Sentinel-1 median −2.05 dB; rainfall 3/7/14-day; **optical verification "NOT TESTED"**; "Investigation 3/4" placeholders.
+- Their 4-pair "temporal fingerprint" shows only two value pairs, repeated/reversed (0.5406↔0.2143, 0.2872↔0.1753) — appears to be a data-integrity slip (observation only; not verified in their code).
+- Strength: breadth of sources and multi-pair framing. Weakness: tiny showcased region, no control, no user-driven computation, optical not done.
+
+### Official Judging & Awards Guide (2026)
+- Criteria 1–5: Impact, Creativity, Validity, Relevance (NASA data as core), Presentation (demo + full project).
+- Target awards for us: **Best Use of Science** ("best and most valid use of the scientific method") and **Local Impact** (hometown). Secondary: Best Use of Data.
+
+### 2025 Global Winners studied
+- Best Use of Science — SpaceGenes+ (solo, Berlin): one clear analytical idea (synergy of combined stressors) on one NASA dataset, interactive dashboard, honest "future" section, AI use disclosed.
+- Local Impact — QUEÑARIS (Arequipa): strong local stakes (water security), named beneficiaries, NASA LP DAAC indices.
+- Lesson: lead with stakes + audience + one memorable analytical idea; show the tool doing it.
+
+### Strategy decisions
+1. Make the **evidence ladder** the hero: measure (NISAR) → is it real? (stable control) → is it harvest? (HLS optical) → what remains (soil surface: moisture/tillage) → timing context (POWER).
+2. Add a **guided story mode** (≈5 steps) so a judge sees the ladder in < 60 s, each step driving the real map.
+3. Counter breadth with depth + verifiability (integrity checks, all 636 objects, user regions). Consider the 29 Oct NISAR pass (track 079) as a third look if time allows.

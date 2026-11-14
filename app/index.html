@@ -67,6 +67,7 @@
             <label><input type="checkbox" id="t-control" checked /> Control</label>
           </div>
           <div class="tools">
+            <button id="story-btn" class="btn small ghost" title="A one-minute guided walk through the evidence">Guided case</button>
             <button id="draw-btn" class="btn small" aria-pressed="false" title="Draw a region (click to add points, double-click or click the first point to finish)">Draw region</button>
             <button id="reset-view" class="btn small ghost" title="Reset view (0)">Reset view</button>
           </div>
@@ -77,6 +78,7 @@
           <div class="legend" id="legend"></div>
           <div class="readout mono" id="readout" aria-live="off"></div>
           <div class="loading" id="loading"><div class="spinner"></div><span>Loading NISAR layers…</span></div>
+          <section class="story" id="story" hidden aria-live="polite" aria-label="Guided case"></section>
           <div class="draw-hint" id="draw-hint" hidden>Click to add points · double-click or click the first point to close · Esc to cancel</div>
           <p class="stamp mono">NASA-ISRO NISAR · L2 GCOV VALIDATED · track 151 D · frame 70 · freq A (20 MHz) · γ⁰ RTC</p>
         </div>

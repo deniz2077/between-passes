@@ -363,8 +363,13 @@ function drawOverlay(ctx, v) {
     const [x, y] = g.kind === "lon" ? g.px[g.px.length - 1] : g.px[0];
     const [sx, sy] = v.toScreen(x, y);
     const label = g.kind === "lon" ? `${g.value.toFixed(2)}°E` : `${g.value.toFixed(2)}°N`;
-    if (g.kind === "lon") { ctx.textAlign = "center"; ctx.fillText(label, Math.min(Math.max(sx, 30), v.cw - 30), Math.max(14, Math.min(sy - 6, v.ch - 22))); }
-    else { ctx.textAlign = "right"; ctx.fillText(label, v.cw - 8, Math.min(Math.max(sy - 4, 14), v.ch - 24)); }
+    if (g.kind === "lon") {
+      const lx = Math.min(Math.max(sx, 30), v.cw - 30), ly = Math.max(14, Math.min(sy - 6, v.ch - 22));
+      if (lx < v.cw - 80) { ctx.textAlign = "center"; ctx.fillText(label, lx, ly); }   // keep clear of lat labels
+    } else {
+      const ly = Math.min(Math.max(sy - 4, 14), v.ch - 24);
+      if (ly > 26 && ly < v.ch - 44) { ctx.textAlign = "right"; ctx.fillText(label, v.cw - 8, ly); }  // keep clear of lon labels & scale bar
+    }
   }
   // roads & rivers
   const line = (pts, style, width) => { ctx.strokeStyle = style; ctx.lineWidth = width; ctx.beginPath(); pts.forEach(([x, y], i) => { const [sx, sy] = v.toScreen(x, y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.stroke(); };
@@ -600,9 +605,55 @@ function initViewer() {
   if (m && D.byId.has(+m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
 }
 
+// ------------------------------------------------------------ guided story
+function storySteps() {
+  const so = C.stats.objects, uc = C.stats.urban_control, op = C.optical;
+  const ratio = so.area_ha_brightened / so.area_ha_darkened;
+  let ux0 = D.W, uy0 = D.H, ux1 = 0, uy1 = 0;
+  for (const i of D.urbanIdx) { const x = i % D.W, y = (i / D.W) | 0; ux0 = Math.min(ux0, x); uy0 = Math.min(uy0, y); ux1 = Math.max(ux1, x); uy1 = Math.max(uy1, y); }
+  const soilObj = C.objects.find((o) => o.sign === "brightened" && o.optical_class === "little vegetation change") || C.objects[0];
+  const rain = C.weather.series.filter((d) => d.date === "20261028" || d.date === "20261029").reduce((a, d) => a + d.mm, 0);
+  return [
+    { k: "1 · Two passes", t: "Same orbit, same time of day, twelve days apart",
+      p: `NASA-ISRO's NISAR radar imaged these fields around <strong>Ceyhan, Adana</strong> on 22 Oct and 3 Nov 2026 at 19:24 local time, from the identical orbit track. Radar sees through cloud and darkness. <strong>Drag the handle</strong> to compare the two calibrated scenes.`,
+      go: () => { select({ kind: "area" }); setMode("swipe"); viewer.fit(); } },
+    { k: "2 · What changed", t: `${ratio.toFixed(1)}× more land brightened than darkened`,
+      p: `Orange parcels returned more radar energy on 3 Nov, blue less. Field by field: <span class="num-up">${fmtInt(so.brightened)} parcels brightened (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. The asymmetry holds at every detection threshold from 2 to 5 dB.`,
+      go: () => { select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
+    { k: "3 · Is it real?", t: "Check against something that shouldn't change",
+      p: `Ceyhan's town centre (amber outline) is our stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A parcel only counts as changed above <strong>3 dB</strong> — beyond 99% of the control's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
+      go: () => { select({ kind: "area" }); setMode("delta"); viewer.focus([ux0, uy0, ux1, uy1], 6); } },
+    { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
+      p: op ? `NASA HLS optical imagery (Sentinel-2) measures vegetation. Of <strong>${op.brightened.objects_with_clear_view}</strong> radar-brightened parcels with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost vegetation (magenta). <strong>Harvest explains a minority.</strong>` : "Optical cross-check unavailable.",
+      go: () => { select({ kind: "area" }); setMode("ndvi"); viewer.fit(); } },
+    { k: "5 · What remains", t: "The soil surface: wetter, or ploughed",
+      p: `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). Left: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing. One radar pair can't tell them apart — the <strong>Interpretation</strong> tab shows what would.`,
+      go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
+    { k: "6 · Your turn", t: "Draw any region and measure it",
+      p: `Every number here is computed in your browser from the real NISAR data — and re-verified on load (see <strong>Method &amp; sources</strong>). Click <strong>Draw region</strong>, outline a field, and export the evidence as a case file.`,
+      go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
+  ];
+}
+
+function renderStory(i) {
+  const steps = (D.steps ||= storySteps());
+  st.story = i;
+  const s = steps[i], el = $("#story");
+  el.hidden = false;
+  el.innerHTML = `<button class="close" aria-label="Close guided case" data-story="close">×</button>
+    <div class="step-k">${s.k}</div><h3>${s.t}</h3><p>${s.p}</p>
+    <div class="nav"><div class="dots">${steps.map((_, j) => `<button aria-label="Step ${j + 1}" aria-current="${j === i}" data-story="${j}"></button>`).join("")}</div>
+      ${i > 0 ? `<button class="btn small ghost" data-story="prev">Back</button>` : ""}
+      ${i < steps.length - 1 ? `<button class="btn small primary" data-story="next">Next</button>` : `<button class="btn small primary" data-story="draw">Draw a region</button>`}
+    </div>`;
+  s.go();
+}
+
+function closeStory() { $("#story").hidden = true; st.story = null; }
+
 // ------------------------------------------------------------ wiring
 function wire() {
-  $("#open-case").addEventListener("click", () => openApp());
+  $("#open-case").addEventListener("click", () => { openApp(); renderStory(0); });
   $("#open-method").addEventListener("click", () => openDialog("method"));
   document.querySelectorAll("#mode-seg button").forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
   for (const [id, key] of [["#t-objects", "objects"], ["#t-context", "context"], ["#t-control", "control"]]) {
@@ -616,6 +667,16 @@ function wire() {
     $("#viewer").focus();
   });
   $("#reset-view").addEventListener("click", () => viewer.fit());
+  $("#story-btn").addEventListener("click", () => renderStory(0));
+  $("#story").addEventListener("click", (e) => {
+    const v = e.target.closest("[data-story]")?.dataset.story;
+    if (v == null) return;
+    if (v === "close") closeStory();
+    else if (v === "next") renderStory(st.story + 1);
+    else if (v === "prev") renderStory(st.story - 1);
+    else if (v === "draw") { closeStory(); $("#draw-btn").click(); }
+    else renderStory(+v);
+  });
   $("#sel-clear").addEventListener("click", () => { viewer.cancelDraw(); select({ kind: "area" }); });
   for (const t of ["observed", "context", "interp", "limits"]) $(`#tb-${t}`).addEventListener("click", () => setTab(t));
   $("#census-filter").addEventListener("change", renderCensus);
