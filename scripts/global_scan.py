@@ -153,7 +153,7 @@ def site_job(p):
 
 def run_nisar(workers):
     os.makedirs(SITES, exist_ok=True)
-    sample = json.load(open(os.path.join(G, "sample.json")))["sample"]
+    sample = json.load(open(os.path.join(G, f"sample{SFX}.json")))["sample"]
     with Pool(workers) as pool:
         for k, msg in pool.imap_unordered(site_job, sample):
             print(f"{k:03d} {msg}", flush=True)
@@ -189,7 +189,7 @@ def smap_day(args):
 
 
 def run_smap(workers):
-    sample = json.load(open(os.path.join(G, "sample.json")))["sample"]
+    sample = json.load(open(os.path.join(G, f"sample{SFX}.json")))["sample"]
     extra = [dict(k="ceyhan", lon=35.85, lat=37.0)]
     cells = {}
     for p in sample + extra:
@@ -221,7 +221,7 @@ def run_smap(workers):
 # ---------------------------------------------------------------- step 4
 def run_power(_workers):
     import requests
-    sample = json.load(open(os.path.join(G, "sample.json")))["sample"]
+    sample = json.load(open(os.path.join(G, f"sample{SFX}.json")))["sample"]
     pts = [(str(p["k"]), p["lon"], p["lat"]) for p in sample] + [("ceyhan", 35.8, 37.0)]
     path = os.path.join(G, f"power{SFX}.json")
     out = json.load(open(path)) if os.path.exists(path) else {}

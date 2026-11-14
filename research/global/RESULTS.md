@@ -43,3 +43,28 @@ Secondary (pre-registered): net fraction of pixels ≥ +3 dB minus ≤ −3 dB v
 1. Some NISAR frames use 10 m pixels; the first code version computed the valid fraction assuming 20 m. Fixed before analysis; no site changed status. For 10 m frames the 5×5 boxcar spans 50 m (applied literally as written).
 2. One site hit a transient HTTP 502 and was re-read once (succeeded).
 3. Ceyhan's exploratory ±2-day SMAP window is outside the plan and labelled as such everywhere it appears.
+
+## Independent replication (pre-registered)
+Plan: `REPLICATION_PREREGISTRATION.md` (commit 7e1ffcf, written before any replication value was extracted). Code: same scripts with `BP_SET=rep`, then `scripts/global_replication.py`. Per-site records: `sites_rep/*.json`. Output: `results_rep.json`, `replication.json`.
+
+| | n |
+|---|---|
+| eligible pairs not used by the original sample | 563 |
+| randomly drawn (seed 2027; disjoint from the original 200) | 200 |
+| dropped: NISAR window < 50 % jointly valid | 5 |
+| dropped: no recommended-quality SMAP value within ±1 day of a pass | 122 |
+| **retained** | **73** |
+
+Retained sites span 52.0° S to 50.7° N.
+
+- Spearman ρ = **0.546**, n = 73; two-sided permutation p = **0.0001** (smallest reportable).
+- Theil–Sen slope **+0.78 dB per +0.1 m³/m³**; bootstrap 95 % CI **+0.45 … +1.11**. Overlaps the original CI (+0.69 … +1.42).
+- Secondary (net fraction ±3 dB): ρ = 0.525, p = 0.0001.
+- **Replication criterion (ρ > 0 and p < 0.05) met: the result replicates.**
+
+Descriptive (not part of the test): 27 replication sites had |ΔSM| > 0.05 m³/m³; NISAR change had the same sign in 20 (74 %, vs 16 of 18 in the original). Median ΔHH: drying sites (n = 13) −1.32 dB, wetting sites (n = 14) +0.07 dB. As in the original, drying produces a clearer dimming than wetting produces brightening. The slope point estimate is lower than the original's (0.78 vs 1.02); the two CIs overlap.
+
+**POOLED (both samples; descriptive, not a separate pre-registered test):** n = 147, ρ = 0.572, slope +0.89 dB per +0.1 m³/m³ (95 % CI +0.65 … +1.14); 36 of 45 sites with a clear moisture change moved in the same direction.
+
+### Deviation found and fixed during the replication
+The first replication run read the **original** sample: the `nisar`, `smap` and `power` steps of `scripts/global_scan.py` hard-coded `sample.json` instead of `sample{SFX}.json`. The tell-tale sign was a replication result identical to the original to four decimals. Those outputs were never committed or published; they were discarded, the three steps were fixed (only the file name changed), a regression test was added (`tests/test_global.py`: replication steps read their own sample; every `sites_rep` record belongs to the replication sample and none to the original), and the extraction was re-run on the pre-registered replication sample. The numbers above come from that corrected run. Nothing else in the plan changed.

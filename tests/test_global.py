@@ -1,4 +1,5 @@
 """Tests for the global test pipeline on synthetic inputs (no real data peeked)."""
+import json
 import os
 import sys
 
@@ -63,3 +64,24 @@ def test_recovery_scorer_on_synthetic_passes():
     assert abs(r[1]["R"] - 1) < 1e-3 and abs(r[1]["dHH_AB"] - 6.021) < 1e-2
     r = recovery(a, b, c_stay, obj, valid, [1, 2])
     assert abs(r[2]["R"]) < 1e-3
+
+
+def test_replication_steps_read_their_own_sample():
+    """Regression: nisar/smap/power steps must read sample{SFX}.json, not the original sample."""
+    import re
+    src = open(os.path.join(os.path.dirname(__file__), "..", "scripts", "global_scan.py")).read()
+    for fn in ("run_nisar", "run_smap", "run_power"):
+        body = src.split(f"def {fn}(")[1].split("\ndef ")[0]
+        assert 'f"sample{SFX}.json"' in body and '"sample.json"' not in body, fn
+
+
+def test_replication_sites_match_replication_sample():
+    import glob
+    g = os.path.join(os.path.dirname(__file__), "..", "research", "global")
+    if not os.path.exists(os.path.join(g, "sample_rep.json")) or not os.path.isdir(os.path.join(g, "sites_rep")):
+        return
+    keys = {p["k"]: p["key"] for p in json.load(open(os.path.join(g, "sample_rep.json")))["sample"]}
+    orig = {p["key"] for p in json.load(open(os.path.join(g, "sample.json")))["sample"]}
+    for fn in glob.glob(os.path.join(g, "sites_rep", "*.json")):
+        s = json.load(open(fn))
+        assert s["key"] == keys[s["k"]] and s["key"] not in orig

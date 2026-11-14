@@ -1,0 +1,21 @@
+{
+ "k": 161,
+ "key": "156_D_065_P05036_QPDH",
+ "a": "NISAR_L2_PR_GCOV_033_156_D_065_2005_QPDH_A_20261023T004104_20261023T004113_P05036_N_P_J_001",
+ "b": "NISAR_L2_PR_GCOV_034_156_D_065_2005_QPDH_A_20261104T004105_20261104T004113_P05036_N_P_J_001",
+ "date_a": "20261023",
+ "date_b": "20261104",
+ "lon": -83.98,
+ "lat": 45.88,
+ "mode": "QPDH",
+ "bytes": 35651584,
+ "epsg": 32617,
+ "local_solar_hour": 19.08,
+ "spacing_m": 20.0,
+ "valid_frac": 0.0,
+ "exc_values_a": [
+  3840
+ ],
+ "status": "drop",
+ "reason": "valid fraction < 0.5"
+}
