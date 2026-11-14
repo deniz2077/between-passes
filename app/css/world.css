@@ -1,0 +1,75 @@
+body.world { min-height: 100vh; }
+body.world .topbar { position: sticky; top: 0; z-index: 5; }
+body.world .brand-name { color: var(--bone); text-decoration: none; }
+body.world .topnav a.link { text-decoration: none; }
+.w-main { max-width: 1320px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 40px) 64px; }
+.w-hero { margin: 8px 0 28px; max-width: 980px; }
+.w-hero h1 { font-size: clamp(28px, 4.2vw, 52px); line-height: 1.05; letter-spacing: -0.025em; margin: 6px 0 14px; }
+.w-lede { font-size: 17px; color: var(--bone-2); max-width: 860px; margin: 0 0 18px; }
+.w-stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; }
+.w-stats div { min-width: 110px; }
+.w-stats dt { font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.w-stats dd { margin: 4px 0 0; font: 500 22px/1.1 var(--mono); color: var(--bone); }
+.w-stats dd small { font-size: 12px; color: var(--muted); }
+
+.w-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; }
+.w-card { background: var(--ink-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 0; }
+.w-card figcaption { font-size: 13px; color: var(--bone-2); margin-bottom: 10px; line-height: 1.45; }
+.w-card figcaption .eyebrow { display: inline; margin-right: 6px; }
+.w-mapcard { grid-column: 1; }
+.w-site { grid-column: 2; grid-row: 1 / span 2; align-self: start; position: sticky; top: 64px; }
+.w-scattercard { grid-column: 1; }
+.w-mapwrap { position: relative; }
+#w-map, #w-scatter { width: 100%; height: auto; display: block; }
+#w-map .land { fill: #1b2431; stroke: #2a3648; stroke-width: .6; }
+#w-map .grat { fill: none; stroke: #18202b; stroke-width: .6; }
+#w-map .sphere { fill: #0d1219; stroke: #243041; }
+.site-dot { cursor: pointer; stroke: rgba(11,14,19,.85); stroke-width: 1; transition: r .12s; }
+.site-dot.sel { stroke: var(--bone); stroke-width: 2.2; }
+.site-dot:focus-visible { outline: none; stroke: var(--accent); stroke-width: 2.5; }
+.cey-mark { fill: none; stroke: var(--bone); stroke-width: 2; pointer-events: none; }
+.key { white-space: nowrap; margin-left: 6px; color: var(--muted); }
+.kd { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 4px 0 8px; vertical-align: -1px; }
+.kd.up { background: var(--up); } .kd.dn { background: var(--down); }
+.kd.cey { border: 2px solid var(--bone); width: 11px; height: 11px; }
+.w-note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+
+#w-scatter .ax { stroke: var(--line-2); }
+#w-scatter .gl { stroke: #1a2230; }
+#w-scatter text { fill: var(--muted); font: 11px var(--mono); }
+#w-scatter .lab { fill: var(--bone-2); font: 12px var(--sans); }
+#w-scatter .fit { stroke: var(--accent); stroke-width: 2; }
+#w-scatter .band { fill: rgba(86,212,232,.12); }
+
+.w-site h2 { font-size: 18px; margin: 2px 0 2px; }
+.w-site .sub { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+.w-site canvas { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--line); image-rendering: pixelated; background: #0d1219; display: block; }
+.w-site .cap { font-size: 11px; color: var(--muted); margin: 6px 0 12px; }
+.w-site dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; margin: 0; font-size: 13px; }
+.w-site dt { color: var(--muted); }
+.w-site dd { margin: 0; font-family: var(--mono); text-align: right; }
+.w-site .ids { font: 10px/1.4 var(--mono); color: var(--muted); word-break: break-all; margin-top: 12px; }
+.w-site .navrow { display: flex; gap: 8px; margin-top: 12px; }
+.w-site .navrow .btn { flex: 1; }
+.up-t { color: var(--up); } .dn-t { color: var(--down); }
+
+.w-method { margin-top: 16px; }
+.w-method h2 { font-size: 18px; margin-bottom: 10px; }
+.w-method h3 { font-size: 13px; color: var(--bone); margin: 14px 0 4px; }
+.w-method p, .w-method li { font-size: 14px; color: var(--bone-2); }
+.w-method ul { padding-left: 18px; margin: 4px 0; }
+.w-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.w-method .fineprint { margin-top: 18px; }
+.ok-t { color: #7ee2a8; } .bad-t { color: #ff6b6b; }
+
+@media (max-width: 1000px) {
+  .w-grid { grid-template-columns: 1fr; }
+  .w-site { grid-column: 1; grid-row: auto; position: static; }
+  .w-cols { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .w-stats dd { font-size: 18px; }
+  .key { white-space: normal; display: block; margin: 4px 0 0; }
+  .kd:first-child { margin-left: 0; }
+  body.world .brand-sub { display: none; }
+}

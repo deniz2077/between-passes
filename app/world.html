@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Between Passes — Global rain test</title>
+  <meta name="description" content="A pre-registered test across randomly sampled NISAR repeat pairs worldwide: does L-band radar brightening track soil wetting measured independently by NASA SMAP?" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/world.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M8 24V8M24 24V8' stroke='%2356d4e8' stroke-width='3'/%3E%3Cpath d='M12 16h8' stroke='%23e8e3d8' stroke-width='2'/%3E%3C/svg%3E" />
+</head>
+<body class="world">
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M8 26V6M24 26V6" stroke="currentColor" stroke-width="3"/><path d="M12 16h8" stroke="var(--bone)" stroke-width="2"/></svg>
+      <a class="brand-name" href="index.html">Between Passes</a>
+      <span class="brand-sub">Global rain test · NISAR × SMAP</span>
+    </div>
+    <nav class="topnav" aria-label="Pages">
+      <a class="link" href="index.html#case">Ceyhan case</a>
+      <a class="link" href="#method">Method<span class="long"> &amp; pre-registration</span></a>
+    </nav>
+  </header>
+
+  <main class="w-main">
+    <section class="w-hero">
+      <p class="eyebrow">Pre-registered global test · <span id="w-n-sites">…</span> randomly drawn NISAR sites</p>
+      <h1 id="w-headline">Loading the global result…</h1>
+      <p class="w-lede" id="w-lede"></p>
+      <dl class="w-stats" id="w-stats"></dl>
+    </section>
+
+    <section class="w-grid">
+      <figure class="w-card w-mapcard">
+        <figcaption><span class="eyebrow">Where</span> Every dot is one 10 × 10 km NISAR window, coloured by its radar change between two passes 12 days apart. <span class="key"><i class="kd up"></i>brighter <i class="kd dn"></i>darker <i class="kd cey"></i>Ceyhan</span></figcaption>
+        <div class="w-mapwrap"><svg id="w-map" role="img" aria-label="World map of sampled NISAR sites"></svg></div>
+      </figure>
+
+      <aside class="w-card w-site" id="w-site" aria-live="polite">
+        <p class="eyebrow">Site</p>
+        <p class="muted">Select a dot on the map or the plot.</p>
+      </aside>
+
+      <figure class="w-card w-scattercard">
+        <figcaption><span class="eyebrow">The test</span> Radar change (NISAR HH) against soil-moisture change measured independently by NASA SMAP, same days, same dawn/dusk orbit.</figcaption>
+        <svg id="w-scatter" role="img" aria-label="Scatter plot of SMAP soil-moisture change against NISAR HH change"></svg>
+        <p class="w-note" id="w-scatter-note"></p>
+      </figure>
+    </section>
+
+    <section class="w-card w-method" id="method">
+      <h2>Method &amp; pre-registration</h2>
+      <div class="w-cols">
+        <div>
+          <h3>Fixed before looking</h3>
+          <p>The hypothesis, sample, metrics, quality rules and statistical test were written down and committed <em>before</em> any global value was extracted (<span class="mono">research/global/PREREGISTRATION.md</span>, commit <span class="mono">43f2fbb</span>).</p>
+          <ul>
+            <li><b>Population:</b> <span id="w-pop">…</span> NISAR VALIDATED repeat pairs with HH (same track, frame, CRID), 21 Oct – 11 Nov 2026; |lat| ≤ 60°.</li>
+            <li><b>Sample:</b> 200 pairs, simple random, seed 2026.</li>
+            <li><b>NISAR:</b> 10 × 10 km window at the frame centre; ΔHH = 10·log₁₀(mean γ⁰ after / mean γ⁰ before) over jointly valid pixels.</li>
+            <li><b>SMAP:</b> L3 Enhanced 9 km soil moisture, overpass nearest the NISAR local time, recommended-quality only.</li>
+            <li><b>Test:</b> Spearman ρ, two-sided permutation p (10,000); Theil–Sen slope with bootstrap 95 % CI.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What was dropped, and why</h3>
+          <ul id="w-drops"></ul>
+          <h3>Checked in your browser</h3>
+          <p id="w-check" class="mono">Recomputing…</p>
+          <h3>Limits</h3>
+          <p>Site-scale, not field-scale. A 10 km window mixes fields, towns, forest and water; vegetation, wind and freezing also change HH. SMAP's 9 km cell and the NISAR window are not identical footprints. One random sample of one 12-day interval.</p>
+        </div>
+      </div>
+      <p class="fineprint">Data: NASA-ISRO NISAR L2 GCOV VALIDATED (ASF DAAC) · NASA SMAP SPL3SMP_E v006 (NSIDC DAAC) · NASA POWER · Natural Earth (public domain). No login required.</p>
+    </section>
+  </main>
+  <script type="module" src="js/world.js"></script>
+</body>
+</html>

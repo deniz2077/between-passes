@@ -1,6 +1,6 @@
 # Pre-registration — Global test: does NISAR HH change track soil wetting?
 
-Written and committed **before** any global NISAR or SMAP values were extracted (14 Nov 2026, ~19:45 TRT). Any deviation from this plan will be listed in the results file with its reason.
+Written and committed **before** any global NISAR or SMAP values were extracted (14 Nov 2026, ~19:25 TRT; commit 43f2fbb). Any deviation from this plan will be listed in the results file with its reason.
 
 ## Why
 The Ceyhan case leaves two explanations for field brightening: soil wetting or ploughing. One pair at one place cannot separate them. If many NISAR pairs worldwide show HH change that tracks an **independent measurement of soil-moisture change**, wetting is a demonstrated driver of NISAR HH change at site scale, and Ceyhan can be placed on that global relationship.
