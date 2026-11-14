@@ -1,0 +1,54 @@
+{
+ "locked_utc": "2026-11-14T17:05:01+00:00",
+ "criteria": {
+  "pass": "NISAR L2 GCOV VALIDATED, track 151 descending, frame 70, CRID P05036, cycle 035 (expected 15 Nov 2026 ~16:24 UTC)",
+  "metric": "per brightened object: dHH_BC = 10*log10(mean gamma0_C / mean gamma0_B) over object pixels valid on A, B and C; recovery R = -dHH_BC / dHH_AB (1 = fully back to 22 Oct, 0 = stayed bright)",
+  "P1_aggregate": "over all brightened-object pixels pooled: 10*log10(sum C / sum B) <= -0.5 * aggregate dHH_AB",
+  "P2_median": "median recovery R across brightened objects >= 0.5",
+  "P3_control": "urban control |dHH_BC| <= 0.5 dB (otherwise the pass is not comparable -> inconclusive)",
+  "verdict": "P1 and P2 met -> WETTING dominant (confirmed); median R < 0.25 -> PERSISTENT (roughness/ploughing dominant); otherwise MIXED",
+  "per_object_labels": "R >= 0.5 'dried back (wetting)'; R < 0.25 'stayed bright (roughness/ploughing or other)'; else 'partial'",
+  "void_if": [
+   "the cycle-035 granule is missing, not VALIDATED, or not on the identical grid",
+   "it rained again: NASA SMAP at Ceyhan (any recommended-quality retrieval 14-16 Nov) >= 0.25 m3/m3, or, if SMAP has none, NASA POWER >= 10 mm over 12-15 Nov"
+  ]
+ },
+ "aggregate_dHH_AB_db": 4.141,
+ "P1_threshold_dHH_BC_db": -2.07,
+ "context": {
+  "smap_ceyhan_recommended": [
+   [
+    "20261103",
+    "AM",
+    0.356
+   ],
+   [
+    "20261105",
+    "PM",
+    0.2315
+   ],
+   [
+    "20261110",
+    "AM",
+    0.1337
+   ],
+   [
+    "20261111",
+    "PM",
+    0.0976
+   ]
+  ],
+  "power_ceyhan_mm": {
+   "20261104": 5.97,
+   "20261105": 3.99,
+   "20261106": 3.62,
+   "20261107": 0.0,
+   "20261108": 0.0,
+   "20261109": 0.0,
+   "20261110": 0.0,
+   "20261111": 0.0
+  }
+ },
+ "n_brightened": 508,
+ "n_soil_subgroup": 265
+}

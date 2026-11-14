@@ -1,6 +1,6 @@
 # Pre-registration — Independent replication of the global test
 
-Written and committed **before** any replication value was extracted (14 Nov 2026, evening TRT). The original test (`PREREGISTRATION.md`, commit 43f2fbb) found ρ = 0.577, p = 0.0001, n = 74.
+Written and committed **before** any replication value was extracted (14 Nov 2026, evening TRT; commit 7e1ffcf). The original test (`PREREGISTRATION.md`, commit 43f2fbb) found ρ = 0.577, p = 0.0001, n = 74.
 
 ## Question
 Does the original result replicate on a fresh, independent random sample?

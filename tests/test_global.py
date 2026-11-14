@@ -49,3 +49,17 @@ def test_ease_grid_cell_for_known_points():
     assert (r, c) == (811, 1928)
     r, c = ease_rc(-179.99, 0.0)
     assert c == 0
+
+
+def test_recovery_scorer_on_synthetic_passes():
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+    from predict_next_pass import recovery
+    obj = np.zeros((10, 10), np.uint16); obj[2:6, 2:6] = 1; obj[6:9, 6:9] = 2
+    a = np.full((10, 10), 0.01); b = a.copy(); b[obj > 0] = 0.04          # +6 dB brightening
+    valid = np.ones((10, 10), bool)
+    c_dry = a.copy()                                                     # fully back -> R = 1
+    c_stay = b.copy()                                                    # stayed bright -> R = 0
+    r = recovery(a, b, c_dry, obj, valid, [1, 2])
+    assert abs(r[1]["R"] - 1) < 1e-3 and abs(r[1]["dHH_AB"] - 6.021) < 1e-2
+    r = recovery(a, b, c_stay, obj, valid, [1, 2])
+    assert abs(r[2]["R"]) < 1e-3
