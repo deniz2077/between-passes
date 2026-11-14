@@ -1,6 +1,6 @@
 # PROJECT STATUS — Between Passes (Signal Foundry)
 
-_Last updated: 2026-11-14 17:35 Europe/Istanbul_
+_Last updated: 2026-11-14 17:52 Europe/Istanbul_
 
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Target an early basic submission, then resubmit.
@@ -8,7 +8,7 @@ _Last updated: 2026-11-14 17:35 Europe/Istanbul_
 - Repo visibility: **pending Nisa's answer** — do not change visibility until Deniz confirms.
 
 ## Phase
-Sprint 2 (research + prototype). Gate GO 17:10; research question approved; Sprint 1 report committed. Pipeline, tests (18 pass) and web app v1 working locally.
+Sprint 2 (research + prototype) in progress. Done: pipeline, 636 change objects vs urban control, NASA HLS optical cross-check (86% coverage; 10.4% of brightened objects lost vegetation), web app v1 incl. ΔNDVI view, 19 tests, docs (docs/METHOD.md, LIMITATIONS.md, AI_USE.md). Sprint 2 report to be written at end of today's work.
 
 ## Verified
 - Official challenge text read (fits a hometown backscatter-change study).
@@ -23,10 +23,10 @@ Sprint 2 (research + prototype). Gate GO 17:10; research question approved; Spri
 - Git author name/email (commits currently use placeholder "Signal Foundry").
 
 ## Next actions
-1. Push to GitHub once repo exists; enable GitHub Pages (app/ folder) for the public judge URL.
-2. Optional validity boost: NASA HLS optical NDVI before/after for top objects (harvest vs wetting/tillage).
-3. docs/ (METHOD, LIMITATIONS, AI_USE), Sprint 2 report at sprint end.
-4. Day 2: polish, NASA demo (≤30 s video or ≤7 slides), Niğde presentation/docs/YouTube, NASA form.
+1. GitHub: waiting for Nisa (visibility) → Deniz creates repo → push → share link with organizer (due today).
+2. Public URL: GitHub Pages from app/ (needs public repo) — or another static host if repo must stay private (ask Deniz).
+3. Sprint 2 report at end of day 1.
+4. Day 2: UI polish, NASA demo (≤30 s video or ≤7 slides), Niğde presentation/docs/YouTube, NASA form, Sprint 3/4 reports.
 
 ## How to run
 `python3 scripts/serve.py 8765` → http://localhost:8765 (app reads app/data/ceyhan). Tests: `.venv/bin/python -m pytest tests`.
