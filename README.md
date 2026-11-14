@@ -15,15 +15,17 @@ Between Passes measures what the radar saw change between **22 October and 3 Nov
 | Stable urban control (Ceyhan centre) | ΔHH **+0.12 dB** (pixel IQR −0.14 … +0.43) |
 | Change objects (≥ 3 dB seed, ≥ 1 ha) | **508 brightened (3,282 ha)** vs **128 darkened (468 ha)** |
 | Brightened ÷ darkened area | **7.0×** at 3 dB; between 7× and 11× for thresholds 2–5 dB |
+| Optical cross-check (NASA HLS NDVI, 21/23 Oct → 2 Nov) | Of 422 brightened objects with a clear view, **10.4 % lost vegetation**; 84.6 % show little vegetation change (median ΔNDVI +0.004 vs +0.051 for other fields) |
 | ΔHV | **Unresolved** — west–east gradient + high RFI-likelihood flag; shown, not interpreted |
 
-Possible explanations (not determinable from backscatter alone): wetter soil after ~24 mm of rain on 28–29 Oct (NASA POWER estimate), tillage, harvest, standing water. The app shows which are *consistent* with each selection and what evidence would decide between them.
+Possible explanations (not determinable from backscatter alone): wetter soil after ~24 mm of rain on 28–29 Oct (NASA POWER estimate), tillage, harvest, standing water. The optical cross-check makes **harvest unlikely for most brightened parcels**, leaving soil-surface change (moisture and/or roughness) as the leading candidates. The app shows which are *consistent* with each selection and what evidence would decide between them.
 
 ## Features
 - **Radar viewer** — both calibrated γ⁰ HH scenes on one fixed stretch, a swipe comparison, a ΔHH change map and a cautioned ΔHV map; pan/zoom, map context (OpenStreetMap), lat/lon grid, pixel readout.
 - **Change objects** — 636 parcel-scale objects detected by hysteresis thresholding; click any to inspect, or deep-link (`#object-12`).
 - **Draw your own region** — statistics are computed live in the browser from the real data (ratio of mean linear power), compared with the control.
 - **Evidence panel** — Observed / Context / Interpretation / Limitations, with a selection-vs-control histogram.
+- **Optical cross-check** — NASA HLS (Sentinel-2) NDVI resampled onto the radar grid: a ΔNDVI view and a per-object vegetation-change class.
 - **The interval** — NASA POWER rainfall between passes with acquisition times.
 - **Change census** — sortable object table and threshold-sensitivity chart.
 - **Case file export** — JSON (geometry, statistics, sources, parameters, limitations), CSV of all objects, printable report.
@@ -41,6 +43,7 @@ python3 -m venv .venv && .venv/bin/pip install numpy h5py rasterio scipy request
 python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earthdata Login
 .venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_033_151_D_070_2005_DHDH_A_20261022T162402_20261022T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
 .venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_034_151_D_070_2005_DHDH_A_20261103T162403_20261103T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
+.venv/bin/python scripts/extract_hls.py
 .venv/bin/python scripts/build_case.py
 .venv/bin/python -m pytest tests
 ```
@@ -58,6 +61,7 @@ sprint-reports/      Niğde Scrum sprint reports
 
 ## Data & credits
 - NASA-ISRO NISAR L2 GCOV VALIDATED, `NISAR_L2_GCOV_V1`, DOI [10.5067/NIL2GCOV-V1](https://doi.org/10.5067/NIL2GCOV-V1), ASF DAAC.
+- NASA HLS S30 v2.0, DOI [10.5067/HLS/HLSS30.002](https://doi.org/10.5067/HLS/HLSS30.002), LP DAAC.
 - NASA POWER daily point data (PRECTOTCORR).
 - © OpenStreetMap contributors (ODbL) — places, rivers, roads.
 - Fonts: IBM Plex Sans / Mono (SIL OFL).

@@ -20,3 +20,10 @@
 
 ## OpenStreetMap context
 Overpass API query (places town/village/city, rivers, motorway/trunk/primary) for bbox 36.875,35.69,37.115,36.02; base timestamp 2026-11-14T14:18:06Z; saved `data/context/osm_context_raw.json`. © OpenStreetMap contributors, ODbL.
+
+## NASA HLS S30 v2.0 — optical cross-check
+- CMR `short_name=HLSS30, version=2.0`, bbox 35.72,36.90,35.98,37.10, 10 Oct–14 Nov 2026.
+- Before: `HLS.S30.T36SYF.2026296T082011.v2.0` (23 Oct, 0 % cloud), `HLS.S30.T36SYG.2026294T082001.v2.0` (21 Oct, 15 %). After: `HLS.S30.T36SYF.2026306T082551.v2.0`, `HLS.S30.T36SYG.2026306T082551.v2.0` (2 Nov). 3 Nov granule rejected (covers 1 % of window). Tiles 37SBA added nothing (same swath edge).
+- Bands B04, B8A, Fmask via GDAL /vsicurl with Earthdata cookies; average/mode reprojection to the NISAR grid (`scripts/extract_hls.py` → `data/raw/hls/`, not committed).
+- Shipped: `ndvi_a_40m.i16`, `ndvi_b_40m.i16` (NDVI×10000, 2×2 mean of pixels clear on both dates); per-object NDVI stats in `case.json`.
+- DOI 10.5067/HLS/HLSS30.002 (LP DAAC).

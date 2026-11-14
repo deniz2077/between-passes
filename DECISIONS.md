@@ -9,3 +9,8 @@
 | 14 Nov ~16:5x–17:0x | Treat 29 Oct granule (track 079) as *not* pixel-comparable with the track-151 pair until geometry is checked | Different track ⇒ different incidence angle |
 | 14 Nov ~16:5x–17:0x | "Case file + uncertainty" alone is not a differentiator; focus on calibrated γ⁰ HH/HV computation, controls, in-browser ROI stats | Earth Whisper already uses that framing (`research/COMPETITIVE_NOTES.md`) |
 | 14 Nov 17:10 | NISAR gate GO; HH is the primary evidence channel; HV shown only as documented unresolved artifact/gradient | research/NISAR_GATE.md steps 4–6 |
+| 14 Nov 17:25 | Static no-build web app (HTML/CSS/ES modules) instead of React/Vite | Node not installed; fewer moving parts; deploys to any static host |
+| 14 Nov 17:30 | Region statistic = ratio of mean linear γ⁰; per-pixel stats only as distributions | Standard multilook estimator; avoids dB-averaging bias |
+| 14 Nov 17:30 | Change objects: 3 dB seed (> control p99 +2.09), 2 dB grow, 1 ha; sensitivity 2–5 dB published | Control-anchored, transparent thresholds |
+| 14 Nov 17:40 | Add NASA HLS NDVI cross-check (23/21 Oct → 2 Nov) | Separates vegetation loss (harvest) from soil-surface change; second NASA dataset |
+| 14 Nov 17:45 | Classify optical change on the published (rounded) ΔNDVI | Integrity test found a boundary mismatch |
