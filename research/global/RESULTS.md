@@ -33,7 +33,7 @@ Secondary (pre-registered): net fraction of pixels ≥ +3 dB minus ≤ −3 dB v
 - Pre-registered SMAP rule: **no value** — no SMAP swath on 22 Oct and the 21/23 Oct retrievals carry the "not recommended" flag. Ceyhan therefore cannot be placed by the pre-registered rule.
 - **Exploratory** (rule widened to ±2 days; not pre-registered): 20 Oct PM 0.161 → 3 Nov AM 0.356 m³/m³, ΔSM **+0.195**.
 - All recommended-quality SMAP retrievals at the Ceyhan cell: 20 Oct 0.161, 25 Oct 0.109, 26 Oct 0.053, **28 Oct 0.291**, 2 Nov 0.268, **3 Nov 0.356**, 5 Nov 0.232, 10 Nov 0.134, 11 Nov 0.098. The 28–29 Oct rain (NASA POWER 23 mm) shows as a jump, and the soil was still wet at the second NISAR pass.
-- Ceyhan's exploratory wetting exceeds all but two sampled sites, so the fit is extrapolated there. Its site-wide ΔHH (+0.29 dB) is below the fitted value (+1.9 dB). The brightening is concentrated in individual fields (5.2 % of the window), consistent with the parcel-level case.
+- Ceyhan's exploratory wetting (+0.195) exceeds every sampled site (maximum +0.176), so the fit is extrapolated there. Its site-wide ΔHH (+0.29 dB) is below the fitted value (+1.9 dB). The brightening is concentrated in individual fields (5.2 % of the window), consistent with the parcel-level case.
 
 ## What this does and does not show
 - **Shows:** across randomly drawn sites worldwide, NISAR L2 GCOV HH change between 12-day repeat passes is positively and significantly related to independently measured soil-moisture change. Soil wetting is a demonstrated, global driver of the kind of brightening seen at Ceyhan, and SMAP independently confirms Ceyhan's soil was wetted between the two passes.

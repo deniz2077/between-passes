@@ -14,7 +14,7 @@ const st = {
   mode: "delta",
   show: { objects: true, context: true, control: true },
 };
-let C, D, viewer;
+let C, D, viewer, GL = null; // GL: global NISAR x SMAP test (data/global/global.json)
 
 // ---------------------------------------------------------------- loading
 async function fetchBin(meta) {
@@ -32,6 +32,7 @@ async function load() {
   const r = await fetch(BASE + "case.json");
   if (!r.ok) throw new Error(`case.json: HTTP ${r.status}`);
   C = await r.json();
+  fetch("data/global/global.json").then((g) => g.ok ? g.json() : null).then((g) => { GL = g; }).catch(() => {});
   const L = C.layers;
   const [hhA, hhB, hvA, hvB, flags, objects, ndA, ndB] = await Promise.all(
     ["hh_a", "hh_b", "hv_a_40m", "hv_b_40m", "flags", "objects", "ndvi_a_40m", "ndvi_b_40m"].map((k) => (L[k] ? fetchBin(L[k]) : Promise.resolve(null))));
@@ -266,12 +267,16 @@ function interpretation(sel, s) {
   const bright = d > 0;
   const strong = Math.abs(d) >= 3;
   const mk = (title, tag, cls, body, need) => `<div class="hyp"><h4>${title} <span class="pill ${cls}">${tag}</span></h4><p>${body}</p><p class="need">Would be decided by: ${need}</p></div>`;
-  let h = `<p>The radar measures how much L-band energy returns from the ground. These are physical explanations that remain <em>possible</em> for what was measured in this selection. None is confirmed by this data alone.</p>`;
+  let h = `<p>The radar measures how much L-band energy returns from the ground. These are the physical explanations that remain possible for what was measured in this selection, ranked by the independent evidence available. None is proven for an individual field.</p>`;
+  const ex = GL?.ceyhan?.exploratory, P = GL?.results?.primary;
+  const wetEvidence = GL && ex && P
+    ? ` <b>Independent evidence:</b> NASA SMAP measured soil moisture in Ceyhan's 9 km cell rise from ${f(ex.sm_a, 2)} (20 Oct) to ${f(ex.sm_b, 2)} m³/m³ on the morning of the second pass (3 Nov) — the soil really was wet. And in a pre-registered test on ${P.n} randomly drawn NISAR sites worldwide, radar change tracked SMAP soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001; <a href="world.html#site-ceyhan">see the global test</a>). Wetting is therefore the <em>leading</em> explanation — but SMAP is 9 km wide, so it cannot say which individual fields.`
+    : "";
   h += mk("Wetter soil after the 28–29 Oct rain",
-    bright ? "consistent" : "not indicated", bright ? "ok" : "",
-    bright ? `Water raises the soil's dielectric constant and increases HH return, most visibly on bare or sparsely vegetated fields. This selection was ${f(before, 1)} dB before (${before < -9 ? "dark — typical of bare or smooth soil" : "moderately bright"}) and brightened by ${f(d, 2, true)} dB. About five days of drying separate the last heavy rain from the second pass.` :
+    bright ? (wetEvidence ? "leading explanation" : "consistent") : "not indicated", bright ? "ok" : "",
+    bright ? `Water raises the soil's dielectric constant and increases HH return, most visibly on bare or sparsely vegetated fields. This selection was ${f(before, 1)} dB before (${before < -9 ? "dark — typical of bare or smooth soil" : "moderately bright"}) and brightened by ${f(d, 2, true)} dB.${wetEvidence}` :
       `Rain-wetted soil would raise HH, but this selection darkened.`,
-    "in-situ soil moisture, or a NISAR pass shortly after the rain on the same track (a decay back toward the 22 Oct level would point to moisture).");
+    "field-scale soil moisture (SMAP's 9 km cell covers many fields), or the next NISAR pass on this track: wet soil dries back toward the 22 Oct level, ploughed roughness persists.");
   h += mk("Ploughing or tillage (rougher surface)",
     bright && strong ? "consistent" : bright ? "possible" : "not indicated", bright && strong ? "ok" : "",
     bright ? `Rougher soil scatters more energy back to the radar. Large jumps (≥ 3 dB) confined to a single parcel fit a field-management event better than rain, which would affect neighbouring bare fields similarly.${sel.kind === "object" ? " This object is parcel-shaped and its change is " + (strong ? "strong." : "moderate.") : ""}` :
@@ -638,11 +643,15 @@ function storySteps() {
     { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
       p: op ? `NASA HLS optical imagery (Sentinel-2) measures vegetation. Of <strong>${op.brightened.objects_with_clear_view}</strong> radar-brightened parcels with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost vegetation (magenta). <strong>Harvest explains a minority.</strong>` : "Optical cross-check unavailable.",
       go: () => { select({ kind: "area" }); setMode("ndvi"); viewer.fit(); } },
-    { k: "5 · What remains", t: "The soil surface: wetter, or ploughed",
-      p: `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). Left: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing. One radar pair can't tell them apart — the <strong>Interpretation</strong> tab shows what would.`,
+    { k: "5 · What remains", t: "The soil got wet — confirmed by a third NASA satellite",
+      p: () => {
+        const ex = GL?.ceyhan?.exploratory, P = GL?.results?.primary;
+        const base = `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). Left: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing.`;
+        return ex && P ? `${base} NASA <strong>SMAP</strong> measured Ceyhan's soil moisture jump from <strong>${f(ex.sm_a, 2)} to ${f(ex.sm_b, 2)} m³/m³</strong> by the morning of the second pass. <strong>Wetting is the leading explanation</strong>; ploughing can't be ruled out field by field.` : `${base} The <strong>Interpretation</strong> tab shows what would decide it.`;
+      },
       go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
-    { k: "6 · Your turn", t: "Draw any region and measure it",
-      p: `Every number here is computed in your browser from the real NISAR data — and re-verified on load (see <strong>Method &amp; sources</strong>). Click <strong>Draw region</strong>, outline a field, and export the evidence as a case file.`,
+    { k: "6 · Does it hold everywhere?", t: "A pre-registered test on 200 random NISAR sites",
+      p: () => { const P = GL?.results?.primary; return P ? `We fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar brightened where soil got wetter and darkened where it dried (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001). <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
       go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
   ];
 }
@@ -653,7 +662,7 @@ function renderStory(i) {
   const s = steps[i], el = $("#story");
   el.hidden = false;
   el.innerHTML = `<button class="close" aria-label="Close guided case" data-story="close">×</button>
-    <div class="step-k">${s.k}</div><h3>${s.t}</h3><p>${s.p}</p>
+    <div class="step-k">${s.k}</div><h3>${s.t}</h3><p>${typeof s.p === "function" ? s.p() : s.p}</p>
     <div class="nav"><div class="dots">${steps.map((_, j) => `<button aria-label="Step ${j + 1}" aria-current="${j === i}" data-story="${j}"></button>`).join("")}</div>
       ${i > 0 ? `<button class="btn small ghost" data-story="prev">Back</button>` : ""}
       ${i < steps.length - 1 ? `<button class="btn small primary" data-story="next">Next</button>` : `<button class="btn small primary" data-story="draw">Draw a region</button>`}
