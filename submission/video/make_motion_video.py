@@ -120,12 +120,12 @@ def caption(img, text):
     im = Image.fromarray(img).convert("RGBA")
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(ov)
-    d.rectangle([0, 1080 - 120, 1920, 1080], fill=(7, 9, 12, 232))
-    d.rectangle([0, 1080 - 120, 8, 1080], fill=(86, 212, 232, 255))
+    d.rectangle([0, 1080 - 120, 1920, 1080], fill=(28, 27, 23, 236))
+    d.rectangle([0, 1080 - 120, 8, 1080], fill=(217, 83, 30, 255))
     im = Image.alpha_composite(im, ov).convert("RGB")
     d = ImageDraw.Draw(im)
     w = d.textlength(text, font=FONT)
-    d.text(((1920 - w) / 2, 1080 - 120 + 38), text, font=FONT, fill=(232, 227, 216))
+    d.text(((1920 - w) / 2, 1080 - 120 + 38), text, font=FONT, fill=(243, 239, 230))
     return np.asarray(im)
 
 

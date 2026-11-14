@@ -1,9 +1,8 @@
 # PROJECT STATUS — Between Passes (Signal Foundry)
 
-_Last updated: 2026-11-14 ~20:00 Europe/Istanbul_
+_Last updated: 2026-11-14 ~22:30 Europe/Istanbul_
 
 
-> **COORDINATION (14 Nov ~22:05):** the main session is doing a full UI redesign (light editorial theme, simplified case view). Other sessions: do NOT edit `app/css/*`, `app/index.html`, `app/js/main.js`, `app/js/viewer.js`, `app/js/charts.js`, or the deck's `<style>` block. Replication work (research/global/*, scripts/global_*, world.js data logic, RESULTS.md, deck/form/docs *text*) is fine.
 
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Deniz clicks Submit himself.
@@ -16,7 +15,7 @@ _Last updated: 2026-11-14 ~20:00 Europe/Istanbul_
 - Repo (public): https://github.com/deniz2077/between-passes — push via repo-only deploy key `~/.ssh/between_passes_deploy` (core.sshCommand set in .git/config)
 
 ## Phase
-Sprint 3 (scale + headline) done. Pre-registered global test: 200 random NISAR pairs → 74 with quality SMAP; ρ 0.58, p 1e-4, +1.0 dB per +0.1 m³/m³. SMAP confirms Ceyhan's soil wetted (0.16 → 0.36, exploratory ±2-day). App: World page; case interpretation and guided steps 5–6 updated. Deck final (7 slides, real links). NASA form final draft. Niğde ≤60 s motion video: `submission/video/between_passes_demo_60s.mp4` (45.8 s, not in git). 23 tests pass.
+Sprint 3 complete + extras. Global test (ρ 0.58, n 74) **replicated** on 200 new random sites (ρ 0.55, n 73, p 1e-4; pre-registered, commit 7e1ffcf). Falsifiable prediction for the 15 Nov pass locked (commit e3915c1). Light editorial redesign live (paper + ink, radar on dark plates, simplified case toolbar). NASA 7-slide deck, Niğde 10-slide presentation, 15-page documentation and a 50.6 s captioned real-motion video (`submission/video/between_passes_demo_60s.mp4`, not in git) are built. 26 tests pass.
 
 ## Needs from Deniz
 - Share repo link with the organizer (today).
