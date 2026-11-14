@@ -1,6 +1,6 @@
 # Sprint 3 Report — Scale the Science, Find the Headline, Go Public
 
-- **Team:** Signal Foundry (solo participant: Deniz Efe Bulut — Product Owner / Developer / Scrum Master)
+- **Team:** Dusk Orbit (solo participant: Deniz Efe Bulut — Product Owner / Developer / Scrum Master)
 - **Event:** NASA Space Apps Challenge 2026, Niğde Local Event (virtual)
 - **Challenge:** Dancing with the SARs
 - **Sprint window:** 14 Nov 2026, 19:15 – 20:00 (Europe/Istanbul)

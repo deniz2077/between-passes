@@ -646,8 +646,8 @@ async function renderNextPass() {
   }
   $("#np-text").innerHTML = html;
   if (R) {
-    const ct = $("#ct-t"); if (ct) ct.innerHTML = `NISAR flew over Ceyhan again on 15 Nov. The prediction, locked before the pass, has been scored: <strong>${esc(R.verdict)}</strong>. Scored ${esc(R.scored_utc.slice(0, 10))} by the code committed before the pass.`;
-    const k = $("#cover-test .ct-k"); if (k) k.textContent = "The open test · scored";
+    const ct = $("#ct-t"); if (ct) ct.innerHTML = `NISAR flew over Ceyhan again on 15 Nov. The prediction, published before the pass, has been scored: <strong>${esc(R.verdict)}</strong>. Scored ${esc(R.scored_utc.slice(0, 10))} by the code committed before the pass.`;
+    const k = $("#cover-test .ct-k"); if (k) k.textContent = "The prediction · scored";
     const pl = $("#pl-count"); if (pl) { pl.dataset.scored = "1"; pl.textContent = "scored"; }
   }
   const target = Date.UTC(2026, 10, 15, 16, 24);

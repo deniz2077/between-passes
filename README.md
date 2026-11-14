@@ -1,97 +1,66 @@
 # Between Passes
 
-**A radar evidence lab for Earth's changing surface** — NASA Space Apps Challenge 2026 · *Dancing with the SARs* · Team Signal Foundry (Deniz Efe Bulut, Niğde Local Event)
+**Can a radar satellite tell, from space, whether farmland got wetter or drier?**
 
-**Live app:** https://deniz2077.github.io/between-passes/ · **Global test:** https://deniz2077.github.io/between-passes/world.html · **Demo (7 slides):** https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf
+NASA and ISRO's new **NISAR** satellite sees the ground through cloud and darkness, passing over the same place every 12 days. I used it to answer one question about my home region in southern Türkiye, then tested the answer at random places around the world.
 
-Twelve days. Two NASA-ISRO **NISAR** radar passes. One farming landscape around **Ceyhan, Adana (Türkiye)** — and then **200 randomly drawn NISAR sites worldwide**.
+**[Open the live app →](https://deniz2077.github.io/between-passes/)**   ·   [Worldwide test](https://deniz2077.github.io/between-passes/world.html)   ·   [7-slide demo](https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf)   ·   [Türkçe](https://deniz2077.github.io/between-passes/tr.html)
 
-## Headline
-- **Ceyhan:** between 22 Oct and 3 Nov 2026, 7.0× more field area brightened than darkened, while a stable town control held (+0.12 dB). NASA HLS rules out harvest for most parcels, and **NASA SMAP measured the soil there go from 0.16 (20 Oct) to 0.36 m³/m³ (3 Nov)** after the first autumn rain (exploratory: ±2-day SMAP window). **Wetting is the leading explanation**; ploughing can't be excluded field by field.
-- **Worldwide (pre-registered):** across 74 random NISAR sites with quality SMAP data, **radar change tracks soil-moisture change** (Spearman ρ 0.58, permutation p < 0.001; +1.0 dB per +0.1 m³/m³; 16 of 18 sites with a clear moisture change moved in the same direction). An independent, pre-registered **replication on 200 new random sites** gave the same answer (n = 73, ρ 0.55, p < 0.001; slope +0.78 dB, CI overlapping). The clearer signal is drying (darkening ~1 dB). The plan was committed before any value was extracted — see [`research/global/PREREGISTRATION.md`](research/global/PREREGISTRATION.md) and [`RESULTS.md`](research/global/RESULTS.md).
+![Farmland near Ceyhan seen by NISAR. Orange fields got brighter between 22 Oct and 3 Nov 2026, blue fields got darker.](app/img/ceyhan_change.jpg)
 
-## An open test: the 15 Nov prediction
-Before NISAR's next pass over Ceyhan (15 Nov 2026, ~19:24 local), I locked a falsifiable prediction in this repository ([`research/prediction/PREDICTION.md`](research/prediction/PREDICTION.md), committed 14 Nov 20:05 TRT). If the fields brightened because the soil was wet, they must **dim back** as it dries (pooled change ≤ −2.07 dB, typical parcel reverses ≥ 50 %). If they were ploughed, they **stay bright**. The scorer ([`scripts/predict_next_pass.py`](scripts/predict_next_pass.py)) was committed with the criteria.
+*NASA Space Apps Challenge 2026 · Dancing with the SARs · Team Dusk Orbit (Deniz Efe Bulut) · Niğde Local Event*
 
-NASA has published NISAR VALIDATED granules **10–20 days after acquisition** (the 3 Nov pass appeared on 13 Nov), so the verdict cannot exist before the submission deadline. When the 15 Nov granule is published, the locked scorer runs unchanged and the verdict — whatever it is — appears on the live app's cover and in `research/prediction/`. Any result added after 15 Nov is dated and produced only by the code committed before the pass.
+---
 
-## Research question
-*Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?*
+## What I found
 
-## What I measured (real NISAR VALIDATED data)
-| | Value |
+**1. Something changed.** Between two passes, on 22 October and 3 November 2026, seven times more farmland around Ceyhan lit up on radar than went dark. The town centre, which should not change, stayed the same. So the change is real.
+
+**2. Most likely, wet soil.** I checked three more NASA datasets. An optical satellite shows most of those fields kept their plants, so it wasn't mainly the harvest. The first big autumn rain fell between the passes. And NASA's soil-moisture satellite saw the soil there more than double in water.
+
+**3. It holds around the world.** I picked 200 random places NISAR had seen twice, and wrote the rules of the test down before looking at any data. At the places with good soil data, when the soil got wetter or drier, the radar usually changed with it. Then I repeated the whole test on 200 new places. Same answer.
+
+**4. The next pass will check it.** NISAR flew over Ceyhan again on 15 November. The day before, I published what that pass should show: as the soil dries, the bright fields dim again. NASA releases the data about 10 to 20 days after a pass. The result will appear on the live app, scored by code that was saved before the satellite flew.
+
+## What you can do in the app
+
+- Swipe between the two passes.
+- Tap any field to see what changed and why.
+- Draw your own field and measure it.
+- Explore every site of the worldwide test.
+- Read a plain-language summary in Turkish, for local farmers.
+
+Every number is checked again in your browser each time the page opens.
+
+## The data
+
+All from NASA, all public:
+
+| Dataset | What it tells us |
 |---|---|
-| Analysis area | 404 km² at 20 m (1,010,074 valid pixels) |
-| Stable urban control (Ceyhan centre) | ΔHH **+0.12 dB** (pixel IQR −0.14 … +0.43) |
-| Change objects (≥ 3 dB seed, ≥ 1 ha) | **508 brightened (3,282 ha)** vs **128 darkened (468 ha)** |
-| Brightened ÷ darkened area | **7.0×** at 3 dB; between 7× and 11× for thresholds 2–5 dB |
-| Optical cross-check (NASA HLS NDVI, 23 Oct → 2 Nov) | Of 310 brightened objects with a clear view, **9.0 % lost vegetation**; 85.5 % show little vegetation change (median ΔNDVI +0.015 vs +0.060 for other fields) |
-| ΔHV | **Unresolved** — west–east gradient + high RFI-likelihood flag; shown, not interpreted |
+| **NISAR** radar (NASA and ISRO) | What changed on the ground |
+| **SMAP** soil moisture | Whether the soil got wetter or drier |
+| **HLS** optical imagery | Whether plants were removed |
+| **POWER** weather | When it rained |
 
-Explanations, ranked by independent evidence: the optical cross-check makes **harvest unlikely for most brightened parcels**; NASA SMAP shows Ceyhan's soil was **wetted** between the passes (0.16 → 0.36 m³/m³, exploratory window) after ~23 mm of rain on 28–29 Oct, and the pre-registered global test shows NISAR brightens where SMAP sees wetting. **Wetting is the leading explanation**; tillage remains possible for individual parcels. A [falsifiable prediction](research/prediction/PREDICTION.md) for NISAR's 15 Nov pass, locked before the pass, will separate them: wet soil dries back, ploughed soil stays bright.
+## Go deeper
 
-## Features
-- **Radar viewer** — both calibrated γ⁰ HH scenes on one fixed stretch, a swipe comparison, a ΔHH change map and a cautioned ΔHV map; pan/zoom, map context (OpenStreetMap), lat/lon grid, pixel readout.
-- **Change objects** — 636 parcel-scale objects detected by hysteresis thresholding; click any to inspect, or deep-link (`#object-12`).
-- **Draw your own region** — statistics are computed live in the browser from the real data (ratio of mean linear power), compared with the control.
-- **Evidence panel** — Observed / Context / Interpretation / Limitations, with a selection-vs-control histogram.
-- **Optical cross-check** — NASA HLS (Sentinel-2) NDVI resampled onto the radar grid: a ΔNDVI view and a per-object vegetation-change class.
-- **The interval** — NASA POWER rainfall between passes with acquisition times.
-- **Change census** — sortable object table and threshold-sensitivity chart.
-- **Case file export** — JSON (geometry, statistics, sources, parameters, limitations), CSV of all objects, printable report.
-- **Global test page** (`world.html`) — world map of the 200 drawn sites, radar-vs-SMAP scatter, a 10 km ΔHH map for every retained site, Ceyhan's SMAP time series, and an in-browser recomputation of ρ and the slope.
-- **Integrity check on every load** — the browser recomputes the published statistics from the shipped layers and shows pass/fail (Method & sources).
-
-## Run locally
-```bash
-python3 scripts/serve.py 8765        # then open http://localhost:8765
-```
-No login, API key or build step. All case data are frozen in `app/data/ceyhan/`.
-
-## Reproduce the data
-```bash
-python3 -m venv .venv && .venv/bin/pip install numpy h5py rasterio scipy requests pytest
-python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earthdata Login
-.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_033_151_D_070_2005_DHDH_A_20261022T162402_20261022T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
-.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_034_151_D_070_2005_DHDH_A_20261103T162403_20261103T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
-.venv/bin/python scripts/extract_hls.py
-.venv/bin/python scripts/build_case.py
-.venv/bin/python -m pytest tests
-```
-Global test (same seed → same sites and numbers):
-```bash
-.venv/bin/python scripts/global_scan.py sample && .venv/bin/python scripts/global_scan.py nisar 8
-.venv/bin/python scripts/global_scan.py smap 4 && .venv/bin/python scripts/global_scan.py power
-.venv/bin/python scripts/global_analyze.py && .venv/bin/python scripts/global_export.py
-```
-
-`extract_window.py` reads only the needed HDF5 chunks over HTTP byte ranges (~70 MB of 1.9 GB per granule).
-
-## Repository
-```
-app/                 static web app (HTML/CSS/ES modules, no build) + frozen case data
-scripts/             data access, window extraction, case builder, science functions
-tests/               unit tests (synthetic fixtures) + case-integrity tests
-research/            feasibility gate log, competitive notes, figures; research/global/ = pre-registered global test
-docs/                method, data sources, limitations, AI use
-sprint-reports/      Niğde Scrum sprint reports
-```
-
-## Data & credits
-- NASA-ISRO NISAR L2 GCOV VALIDATED, `NISAR_L2_GCOV_V1`, DOI [10.5067/NIL2GCOV-V1](https://doi.org/10.5067/NIL2GCOV-V1), ASF DAAC.
-- NASA HLS S30 v2.0, DOI [10.5067/HLS/HLSS30.002](https://doi.org/10.5067/HLS/HLSS30.002), LP DAAC.
-- NASA SMAP L3 Radiometer Global Daily 9 km Soil Moisture, Enhanced (SPL3SMP_E v006), NSIDC DAAC.
-- NASA POWER daily point data (PRECTOTCORR).
-- Natural Earth 1:110m land (public domain), via world-atlas.
-- © OpenStreetMap contributors (ODbL) — places, rivers, roads.
-- Fonts: Newsreader, Instrument Sans, DM Mono (SIL OFL).
-
-See [`DATA_PROVENANCE.md`](DATA_PROVENANCE.md) and [`docs/`](docs/).
+| | |
+|---|---|
+| [How it works](docs/METHOD.md) | Every step, in detail |
+| [What I don't claim](docs/LIMITATIONS.md) | The honest limits |
+| [The worldwide test](research/global/RESULTS.md) | Results, written before and after |
+| [The prediction](research/prediction/PREDICTION.md) | Locked on 14 Nov, before the pass |
+| [Reproduce it](docs/REPRODUCE.md) | Run everything yourself |
+| [Data sources](DATA_PROVENANCE.md) | Exact files and credits |
+| [Sprint reports](sprint-reports/) | How the two days went |
 
 ## AI use
-Generative AI (Claude Code) assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by the participant. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.
 
-## License
-Code: MIT (see `LICENSE`). Data remain under their providers' terms.
+AI assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by me. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.
 
-*Not an official NASA or ISRO product.*
+Full details: [docs/AI_USE.md](docs/AI_USE.md).
+
+---
+
+Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors. Not an official NASA or ISRO product.

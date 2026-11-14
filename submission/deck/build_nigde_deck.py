@@ -21,19 +21,19 @@ EXTRA = """
   </div>
   <p class="lead" style="margin-top:44px">Everything is open source. Anyone with a free NASA Earthdata account can run it again and get the same numbers.</p>
   <p class="fn">Python (h5py, numpy, scipy, rasterio) · HTTP byte-range reads · HTML/JS canvas app · GitHub Actions → Pages · 26 automated tests (pytest).</p>
-  <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>N / T</span></div>
 </section>
 
 <!-- N2 HONEST -->
 <section class="slide">
   <p class="k">How I know it's right · and what I don't claim</p>
-  <h2>I tried hard to prove myself wrong.</h2>
+  <h2>I checked my answer every way I could.</h2>
   <div class="two">
     <div class="out"><h3 class="acc">What I did</h3><p>Wrote the worldwide test down <strong>before</strong> seeing the data. Repeated it on new places. Published my mistakes, including a bug I caught in my own repeat run.</p></div>
     <div class="out"><h3 class="cau">What I don't claim</h3><p>That every single field was wet: some may have been ploughed. Radar alone can't prove the cause. This is a case study, not a warning system.</p></div>
   </div>
   <p class="fn">Pre-registration: research/global/PREREGISTRATION.md and REPLICATION_PREREGISTRATION.md · limits: docs/LIMITATIONS.md</p>
-  <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>N / T</span></div>
 </section>
 
 <!-- N3 LOCAL IMPACT -->
@@ -49,7 +49,7 @@ EXTRA = """
     <p class="note mono" style="margin-top:24px;font-size:22px">deniz2077.github.io/between-passes/tr.html</p>
   </div>
   <div><img class="shot" src="../shots/tr_page.png" style="width:100%"></div>
-  <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>N / T</span></div>
 </section>
 """
 

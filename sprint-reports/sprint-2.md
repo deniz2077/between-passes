@@ -1,6 +1,6 @@
 # Sprint 2 Report — Pipeline, Prototype & First Submission Drafts
 
-- **Team:** Signal Foundry (solo participant: Deniz Efe Bulut — Product Owner / Developer / Scrum Master)
+- **Team:** Dusk Orbit (solo participant: Deniz Efe Bulut — Product Owner / Developer / Scrum Master)
 - **Event:** NASA Space Apps Challenge 2026, Niğde Local Event (virtual)
 - **Challenge:** Dancing with the SARs
 - **Sprint window:** 14 Nov 2026, 17:20 – 18:10 (Europe/Istanbul)

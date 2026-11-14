@@ -62,7 +62,7 @@ def main():
       <h1>Between Passes</h1>
       <p>A radar evidence lab on NASA-ISRO NISAR data: what changed in the fields of Ceyhan (Adana, Türkiye) between two passes, why — tested worldwide on randomly drawn NISAR sites against NASA SMAP — and a falsifiable prediction for the next pass.</p>
       <img src='file://{ROOT}/app/img/ceyhan_change.jpg'>
-      <div class='meta'>Team Signal Foundry · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
+      <div class='meta'>Team Dusk Orbit · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
       Live app: https://deniz2077.github.io/between-passes/<br>Code &amp; data: https://github.com/deniz2077/between-passes</div></section>""")
     for title, path in PARTS:
         html.append(f"<section class='part'><h1 class='ptitle'>{title}</h1>{md(path)}</section>")

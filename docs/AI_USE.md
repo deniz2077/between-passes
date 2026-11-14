@@ -11,4 +11,4 @@
 **Not AI-generated:** all scientific numbers come from NASA data processed by the code in this repository and are verified by tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap.
 
 **Suggested submission text:**
-> Generative AI (Claude Code) assisted with software development, data-processing code and documentation. The research question, study area and decisions were made by the team. All results are computed from NASA NISAR, SMAP, HLS and POWER data by the open-source code in the repository and are verified by automated tests; data sources, methods and limitations are documented.
+> AI assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by me. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.

@@ -69,7 +69,7 @@ def record():
     p.locator("#tb-interp").click()
     r.wait(2.0)
     # 4b — the locked prediction
-    r.mark("Then I locked a falsifiable prediction for NISAR's next pass on 15 Nov, before it flies over.")
+    r.mark("Then I published a prediction for NISAR's next pass on 15 Nov, before it flew over.")
     p.evaluate("document.querySelector('#nextpass').scrollIntoView({behavior:'smooth', block:'center'})")
     r.wait(4.2)
     # 5 — global test
