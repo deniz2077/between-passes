@@ -25,14 +25,31 @@ Footprint A: polygon (36.12E 38.08N)–(35.31E 35.98N)–(37.98E 35.30N)–(38.8
 - Product-level (BETA-era) issues still worth checking in our data: valid-mask misalignment at edges, RFI blobs (worse in HV), low-backscatter streaks, 77 MHz noise floor (**not our mode**: 20+5 MHz).
 - GCOV diagonal terms (HHHH, HVHV) are real-valued **gamma-0 power, radiometrically terrain corrected** (GCOV doc page) → dB conversion `10·log10` is valid for these terms only. Layers also include `numberOfLooks`, `mask`, `rtcGammaToSigmaFactor`.
 
-## Step 3 — Access (BLOCKED on participant login)
-- Browse PNG (`..._LATLON.png`, 1976×1953 RGB) downloads without auth — **browse only, does not pass the gate**.
-- `.h5` GET → 302 → `HTTP 401 Basic: Access denied` ⇒ **Earthdata Login required**.
-- Plan: participant runs `python3 scripts/setup_earthdata_netrc.py` (own credentials, hidden prompt, written only to `~/.netrc`, chmod 600). Then `scripts/nisar_remote.py` does authenticated HTTP **byte-range reads** so h5py reads only the AOI window (no 2×1.8 GB downloads). Fallback: Harmony subset via Earthdata Search in browser.
-- Status at 17:2x TRT: helper launched in a terminal tab, awaiting participant.
+## Step 3 — Access (PASS, 17:00 TRT after participant set up own ~/.netrc)
+Authenticated HTTP byte-range reads (`scripts/nisar_remote.py`) let h5py read only needed chunks. Metadata inspection of A: 23 MB / 11 requests / 22 s. Window extraction: A 71 MB, B 65 MB (of 1.92 GB each). Full metadata: `research/granule_A_inspect.json`.
 
-## Steps 4–7 — pending data
-Raster verification (shape, CRS, transform, nodata, units, extrema), co-registration check, ROI + stable-control stats, GO/NO-GO.
+## Step 4 — Raster verification (PASS)
+- Grid: EPSG:32637 (UTM 37N), freq A 20 m posting, 17532×17784; coordinates are pixel centres (A/B-frequency grids share edge 151920 m only under that convention).
+- **A and B share an identical geogrid** (same row/col indices and coordinates for the window) → no resampling needed.
+- Window: centre 35.85E 37.0N, 24×24 km = 1200×1200 px, x 207680–231680, y 4087520–4111520.
+- Layers: HHHH, HVHV (float32, units "1" = linear RTC γ⁰ power; output convention gamma0, linear power, RTC-AP area-based), mask (0 invalid/partially focused, 1 = subswath 1, 255 = outside), numberOfLooks (~9 median), rtcGammaToSigmaFactor, inputDataExceptionMask (768 = HH+HV fully focused, no anomaly).
+- Finite fraction 99.7%; jointly valid (mask==1, exception==768, γ⁰>0 both dates) **77.5%** (west part is outside the swath).
+- Look direction **Left**, descending → swath west edge = near range; incidence 33.5°–47.2° across swath.
+- `noiseCorrectionApplied = False` (thermal noise not subtracted). Reported noise-equivalent backscatter in window (east part; NaN elsewhere): HH ≈ −17.5…−18.8 dB (B 0.3–0.5 dB lower than A); HV ≈ −22.9…−23.7 dB (B 0.1–0.3 dB higher). Units stated as DN² — treat as indicative.
+- rfiLikelihood (freq A): HH 6.2 / 5.1; **HV 581.5 / 305.0** (A/B) → HV RFI risk flagged.
+
+## Step 5 — First real preview + control (PASS)
+Figures: `research/figures/gate_preview_A.png`, `research/figures/gate_HH_pair.png`. Stats: `research/gate_stats_A.json`. 5×5 boxcar on linear γ⁰ before dB.
+- **Stable control** = largest persistently bright (HH>0 dB both dates) urban cluster in Ceyhan, 1,342 px: **ΔHH median +0.08 dB (IQR −0.14…+0.43)**.
+- Field-like pixels (HH<−5 dB both dates), 883,874 px: ΔHH median +0.37 dB, p5/p25/p75/p95 = −0.90/−0.08/+0.92/+2.49 dB; **3.3% > +3 dB vs 0.4% < −3 dB** (strongly right-skewed, parcel-shaped).
+- At fixed brightness, ΔHH shows **no range ramp**; darker HH fields brighten more (~+0.8–1.0 dB for −15…−11 dB fields) uniformly across range. HH noise floor decreased on B, so additive noise cannot explain the brightening.
+- **HV unresolved**: ΔHV rises west→east even at fixed HV brightness (e.g. −0.15 → +1.84 dB for −15…−13 dB pixels), while the reported HV noise floor changed only ~0.3 dB. Could be a real landscape gradient or an HV-specific artifact (RFI likelihood high). **HV change will not be interpreted** unless resolved; it is shown as a documented failure mode.
+
+## Step 6 — Verdict: **GO** (access + comparability), 17:2x TRT
+Two authentic, calibrated, identically gridded same-track NISAR γ⁰ rasters are accessible reproducibly; HH shows a stable control and a measurable, spatially structured, parcel-scale change signal.
+
+## Scientific failure modes to carry forward
+Speckle and spatial autocorrelation; edge-of-swath mask misalignment; unsubtracted noise (dark pixels); HV RFI / ramp; parcel changes can be tillage, harvest, irrigation, crop growth or soil wetting — **cause not determinable from backscatter alone**; POWER rain is a coarse model estimate; only 2 dates on this geometry (29 Oct is track 079).
 
 ## Context data (verified)
 NASA POWER daily point 35.8E/37.0N (cell elev 80.9 m), saved `data/context/power_35.8_37.0_20261018_20261108.json`. PRECTOTCORR 22 Oct–3 Nov total **27.63 mm**; 28 Oct 6.46, 29 Oct 16.49, 30 Oct 1.40, 3 Nov 1.01 mm. 4–6 Nov rain (5.97/3.99/3.62 mm) is **after** pass B and cannot appear in the A/B pair. Gridded model estimate, not a gauge.

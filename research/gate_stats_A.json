@@ -1,0 +1,27 @@
+{
+ "window": "UTM37N x 207680-231680, y 4087520-4111520 (24x24 km, 20 m), centre 35.85E 37.0N",
+ "valid_pixels": 1116363,
+ "valid_fraction": 0.7752520833333333,
+ "speckle_filter": "5x5 boxcar on linear gamma0 before dB",
+ "urban_control_ceyhan": {
+  "pixels": 1342,
+  "dHH_median": 0.07635743844997822,
+  "dHH_p25_p75": [
+   -0.14137462348876761,
+   0.43005727414661976
+  ]
+ },
+ "agricultural_like_HH_lt_-5dB": {
+  "pixels": 883874,
+  "dHH_median": 0.3723211706584504,
+  "dHH_p5_25_75_95": [
+   -0.900552253060401,
+   -0.07501092200723392,
+   0.9204597644678023,
+   2.4860329749126855
+  ],
+  "frac_gt_+3dB": 0.03262795375811484,
+  "frac_lt_-3dB": 0.0037844760678558257
+ },
+ "note": "Preliminary gate statistics. Pixels are spatially correlated; no independent-pixel confidence intervals."
+}
