@@ -1,6 +1,6 @@
 # PROJECT STATUS — Between Passes (Signal Foundry)
 
-_Last updated: 2026-11-14 17:12 Europe/Istanbul_
+_Last updated: 2026-11-14 17:35 Europe/Istanbul_
 
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Target an early basic submission, then resubmit.
@@ -8,7 +8,7 @@ _Last updated: 2026-11-14 17:12 Europe/Istanbul_
 - Repo visibility: **pending Nisa's answer** — do not change visibility until Deniz confirms.
 
 ## Phase
-Sprint 1 (framing + feasibility). NISAR gate **GO at 17:10** (see research/NISAR_GATE.md). Awaiting Deniz approval of research question phrasing.
+Sprint 2 (research + prototype). Gate GO 17:10; research question approved; Sprint 1 report committed. Pipeline, tests (18 pass) and web app v1 working locally.
 
 ## Verified
 - Official challenge text read (fits a hometown backscatter-change study).
@@ -18,13 +18,18 @@ Sprint 1 (framing + feasibility). NISAR gate **GO at 17:10** (see research/NISAR
 - POWER rainfall numbers in the brief reproduced exactly.
 - HDF5 download requires Earthdata Login (401 without).
 
-## Blocker
-Deniz must enter his own Earthdata credentials in the terminal tab running `python3 scripts/setup_earthdata_netrc.py` (or run it himself). No credentials go through chat.
+## Blockers / needs from Deniz
+- GitHub repo (no `gh` CLI here): Deniz creates the repo on github.com (visibility per Nisa) and shares the URL; link due to organizer **today**.
+- Git author name/email (commits currently use placeholder "Signal Foundry").
 
-## Next actions (literal)
-1. After `~/.netrc` exists: `.venv/bin/python scripts/inspect_granule.py <GranuleUR_A> research/granule_A_inspect.json`
-2. Read a ~10×10 km HHHH/HVHV window from A and B around the AOI (shift east if near swath edge), verify grids match.
-3. First ΔdB preview + stable control → GO/NO-GO report to Deniz.
+## Next actions
+1. Push to GitHub once repo exists; enable GitHub Pages (app/ folder) for the public judge URL.
+2. Optional validity boost: NASA HLS optical NDVI before/after for top objects (harvest vs wetting/tillage).
+3. docs/ (METHOD, LIMITATIONS, AI_USE), Sprint 2 report at sprint end.
+4. Day 2: polish, NASA demo (≤30 s video or ≤7 slides), Niğde presentation/docs/YouTube, NASA form.
+
+## How to run
+`python3 scripts/serve.py 8765` → http://localhost:8765 (app reads app/data/ceyhan). Tests: `.venv/bin/python -m pytest tests`.
 
 ## Environment
 - Python venv `.venv` (py3.9; numpy, h5py, rasterio, scipy, requests, fsspec, matplotlib, pytest).
