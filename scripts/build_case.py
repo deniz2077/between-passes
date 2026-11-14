@@ -155,10 +155,11 @@ def main():
                     "frac_greening": round(float((d >= P["ndvi_change"]).mean()), 3) if len(d) else None}
         optical = {
             "source": "NASA HLS S30 v2.0 (Sentinel-2 surface reflectance harmonized), DOI 10.5067/HLS/HLSS30.002",
-            "before": {"date": "2026-10-23 (south, tile 36SYF) / 2026-10-21 (north, tile 36SYG)", "utc": "08:30",
-                       "granules": ["HLS.S30.T36SYF.2026296T082011.v2.0", "HLS.S30.T36SYG.2026294T082001.v2.0"]},
-            "after": {"date": "2026-11-02", "utc": "08:30",
-                      "granules": ["HLS.S30.T36SYF.2026306T082551.v2.0", "HLS.S30.T36SYG.2026306T082551.v2.0"]},
+            "before": {"date": "2026-10-23", "utc": "08:30", "granules": ["HLS.S30.T36SYF.2026296T082011.v2.0"]},
+            "after": {"date": "2026-11-02", "utc": "08:30", "granules": ["HLS.S30.T36SYF.2026306T082551.v2.0"]},
+            "sensitivity_north_tile": {"note": "Adding tile 36SYG (21 Oct baseline) raised coverage to 86% but created an NDVI seam; excluded.",
+                                       "brightened_objects_with_view": 422, "frac_vegetation_loss": 0.104,
+                                       "north_only_frac_vegetation_loss": 0.143, "south_only_frac_vegetation_loss": 0.090},
             "clear_both_frac_of_analysis": round(float((clear & analysis).sum() / analysis.sum()), 3),
             "background_fields_dNDVI_median": round(float(np.median(d_ndvi[bg])), 3),
             "background_fields_dNDVI_q25_q75": [round(float(v), 3) for v in np.percentile(d_ndvi[bg], [25, 75])],

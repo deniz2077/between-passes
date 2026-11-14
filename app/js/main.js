@@ -131,9 +131,11 @@ function selectionStats(sel) {
     const o = D.byId.get(sel.id);
     opt = o.dNDVI !== undefined ? { clearFrac: o.optical_clear_frac, dNDVI: o.dNDVI, before: o.NDVI_before, after: o.NDVI_after, cls: o.optical_class, exact: true }
       : { clearFrac: o.optical_clear_frac ?? 0, dNDVI: NaN, cls: "no clear optical view", exact: true };
-  } else if (opt && opt.clearFrac >= C.params.optical_min_clear_frac) {
+  } else if (opt && Number.isFinite(opt.dNDVI) && opt.clearFrac >= 0.5) {
+    // regions: classify over the clear part when at least half is clear (objects need 80%)
     const t = C.params.ndvi_change;
     opt.cls = opt.dNDVI <= -t ? "vegetation loss" : opt.dNDVI >= t ? "greening" : "little vegetation change";
+    opt.partial = opt.clearFrac < 0.999;
   } else if (opt) opt.cls = "no clear optical view";
   return { ...r, q, hist, outside, inUp, inDown, nObjects: objSet.size, dHV: nh ? 10 * Math.log10(hvb / hva) : NaN, idx, opt };
 }
@@ -175,13 +177,17 @@ function renderPanel() {
   const v = verdict(s.dDb);
   if (sel.kind === "area") {
     const so = C.stats.objects;
-    v.text = `The area-wide average change is small — within the stable control's pixel spread. The change is concentrated in individual parcels: ${fmtInt(so.brightened)} brightened objects (${fmtInt(Math.round(so.area_ha_brightened))} ha) vs ${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha). Click an outlined parcel, or draw a region.` + (C.optical ? ` Optical check (NASA HLS): of ${C.optical.brightened.objects_with_clear_view} brightened objects with a clear view, ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation — harvest explains a minority.` : "");
+    v.text = `The change is concentrated in individual parcels, not spread evenly — the area-wide average stays within the stable control's spread.` + (C.optical ? ` NASA HLS optical check: of ${C.optical.brightened.objects_with_clear_view} brightened parcels with a clear view, only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation, so harvest explains a minority.` : "") + ` Click an outlined parcel or draw a region.`;
   }
   const color = v.cls === "down" ? "#4ea3ff" : v.cls === "up" ? "#ff8a4c" : "#b9b4aa";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
 
   // OBSERVED
-  let obs = `<div class="verdict">
+  const so = C.stats.objects;
+  let obs = sel.kind === "area" ? `<div class="verdict">
+      <div class="big up">${(so.area_ha_brightened / so.area_ha_darkened).toFixed(1)}×</div>
+      <div class="label">more parcel area brightened (${fmtInt(Math.round(so.area_ha_brightened))} ha) than darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha) — change objects ≥ 3 dB, ≥ 1 ha, over ${f(areaHa / 100, 0)} km². Area-average ΔHH ${f(s.dDb, 2, true)} dB.</div>
+      <div class="call">${esc(v.text)}</div></div>` : `<div class="verdict">
       <div class="big ${v.cls}">${f(s.dDb, 2, true)} dB</div>
       <div class="label">ΔHH = 10·log₁₀(mean γ⁰ 3 Nov / mean γ⁰ 22 Oct) over ${fmtInt(s.n)} valid pixels (${f(areaHa, 1)} ha)</div>
       <div class="call">${esc(v.text)}</div>
@@ -202,12 +208,12 @@ function renderPanel() {
     const pillCls = o.cls === "vegetation loss" ? "down" : o.cls === "greening" ? "ok" : o.cls === "little vegetation change" ? "" : "caution";
     obs += `<h3>Optical cross-check · NASA HLS (Sentinel-2)</h3>
       <dl class="kv">
-        <dt>Vegetation index (NDVI) 21/23 Oct → 2 Nov</dt><dd>${has ? `${f(o.before)} → ${f(o.after)}` : "—"}</dd>
+        <dt>Vegetation index (NDVI) 23 Oct → 2 Nov</dt><dd>${has ? `${f(o.before)} → ${f(o.after)}` : "—"}</dd>
         <dt>ΔNDVI (median)</dt><dd>${has ? f(o.dNDVI, 3, true) : "—"}</dd>
         <dt>Clear on both dates</dt><dd>${f(100 * o.clearFrac, 0)}%</dd>
         <dt>Optical reading</dt><dd><span class="pill ${pillCls}">${esc(o.cls)}</span></dd>
       </dl>
-      <p class="chart-caption">${has ? `Fields outside change objects greened by ${f(C.optical.background_fields_dNDVI_median, 3, true)} (median) over the same days. ` : "Cloud, cloud shadow or the satellite's swath edge left too few clear pixels (needs ≥ 80% clear on both dates). "}A vegetation-loss reading would point to harvest; little change points to the soil surface (moisture or roughness).${o.exact ? "" : " Region values use 40 m blocks."}</p>`;
+      <p class="chart-caption">${has ? `Fields outside change objects greened by ${f(C.optical.background_fields_dNDVI_median, 3, true)} (median) over the same days. ` : "Cloud, cloud shadow or the satellite's swath edge left too few clear pixels (parcels need ≥ 80%, regions ≥ 50% clear on both dates). "}${o.partial ? `Values cover the ${f(100 * o.clearFrac, 0)}% of this selection with a clear view. ` : ""}A vegetation-loss reading would point to harvest; little change points to the soil surface (moisture or roughness).${o.exact ? "" : " Region values use 40 m blocks."}</p>`;
   }
   obs += `<div class="caution-box"><p><strong>ΔHV ${f(s.dHV, 2, true)} dB — unresolved.</strong> HV change across this scene grows from west to east even for equally bright pixels, and HV carries a high radio-interference likelihood flag. It is shown, not interpreted.</p></div>`;
   $("#tab-observed").innerHTML = obs;
@@ -246,7 +252,7 @@ function renderPanel() {
       <li><strong>HV unresolved.</strong> A west–east gradient in ΔHV and a high RFI-likelihood flag make HV unsuitable for interpretation here.</li>
       <li><strong>Noise not subtracted.</strong> The product's thermal-noise correction is off; very dark pixels (≲ −18 dB HH) carry a larger noise share.</li>
       <li><strong>Swath edge.</strong> The western strip is outside the swath; a 500 m buffer excludes pixels near invalid data.</li>
-      <li><strong>Optical is a cross-check, not ground truth.</strong> NASA HLS dates (21/23 Oct and 2 Nov) differ from the radar passes by up to ~1.5 days. The northern tile uses 21 Oct; background fields there greened ~0.03 NDVI less than in the south, an inter-date offset smaller than the 0.10 threshold used to call vegetation loss. Optical NDVI cannot tell wet soil from ploughed soil.</li>
+      <li><strong>Optical is a cross-check, not ground truth.</strong> NASA HLS dates (23 Oct, 2 Nov) differ from the radar passes by up to ~1.5 days, and a consistent cloud-free pair covers only the southern ~60% of the area. Adding the northern tile (21 Oct baseline) would reach 86% but creates a visible NDVI seam, so it is excluded; with it, vegetation loss would be 10% instead of 9%. Optical NDVI cannot tell wet soil from ploughed soil.</li>
       <li><strong>Rainfall is coarse.</strong> NASA POWER is a gridded estimate, used only as timing context.</li>
       <li><strong>Thresholds are choices.</strong> Objects use a 3 dB seed, 2 dB growth and 1 ha minimum. The census below shows how the result changes from 2 to 5 dB.</li>
     </ul>`;
@@ -275,7 +281,7 @@ function interpretation(sel, s) {
   const harvestTag = o.cls === "vegetation loss" ? ["consistent", "ok"] : o.cls === "no clear optical view" ? ["possible", ""] : ["not indicated", ""];
   h += mk("Harvest or removal of vegetation",
     harvestTag[0], harvestTag[1],
-    (o.cls === "vegetation loss" ? `NASA HLS shows the vegetation index fell (ΔNDVI ${f(o.dNDVI, 3, true)}) between late October (21/23 Oct) and 2 Nov — consistent with a crop being harvested or cleared. ` :
+    (o.cls === "vegetation loss" ? `NASA HLS shows the vegetation index fell (ΔNDVI ${f(o.dNDVI, 3, true)}) between 23 Oct and 2 Nov — consistent with a crop being harvested or cleared. ` :
       o.cls === "no clear optical view" ? "No clear optical view of this selection on both dates, so vegetation change cannot be checked here. " :
       `NASA HLS shows no vegetation loss here (ΔNDVI ${f(o.dNDVI, 3, true)}), so harvest is unlikely to explain this radar change. `) +
     "The Çukurova autumn calendar (cotton harvest, preparation for winter wheat) makes field operations plausible in this window — general regional knowledge, not verified for these fields.",
@@ -332,7 +338,7 @@ function renderLegend() {
   let h = "";
   if (m === "ndvi") {
     const op = C.optical;
-    h = `<div class="title">ΔNDVI optical (2 Nov − 21/23 Oct)</div>
+    h = `<div class="title">ΔNDVI optical (2 Nov − 23 Oct)</div>
       <div class="bar" style="background:${ndviLegendGradient()}"></div>
       <div class="ticks"><span>−${NDVI_MAX}</span><span>veg. loss</span><span>0</span><span>greening</span><span>+${NDVI_MAX}</span></div>
       <div class="note">NASA HLS S30 (Sentinel-2), 40 m. Grey = no clear view on both dates (cloud or outside the optical swath; ${Math.round(op.clear_both_frac_of_analysis * 100)}% of the area is clear). Outlines: radar change objects.</div>`;
@@ -446,7 +452,7 @@ function methodHtml() {
       <li><strong>Measure.</strong> 5 × 5 (100 m) valid-weighted boxcar on linear γ⁰; Δ = 10·log₁₀(after/before). Region values use the ratio of mean linear power.</li>
       <li><strong>Control.</strong> Largest persistently bright (HH &gt; 0 dB on both dates) cluster: Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px, ΔHH ${f(C.stats.urban_control.dHH_db_region, 2, true)} dB.</li>
       <li><strong>Detect.</strong> Change objects: |Δ| ≥ ${C.params.object_core_db} dB seeds grown through same-sign pixels ≥ ${C.params.object_grow_db} dB, ≥ ${C.params.object_min_px} px (1 ha); threshold sensitivity reported.</li>
-      <li><strong>Cross-check with optical.</strong> NASA HLS S30 (Sentinel-2) surface reflectance on 23 Oct (21 Oct for the northern tile) and 2 Nov, cloud-masked with Fmask and resampled onto the same 20 m grid; NDVI change per object (≥ 80% clear pixels) separates vegetation loss (harvest) from soil-surface change.</li>
+      <li><strong>Cross-check with optical.</strong> NASA HLS S30 (Sentinel-2) surface reflectance on 23 Oct and 2 Nov (same tile, 08:30 UTC), cloud-masked with Fmask and resampled onto the same 20 m grid; NDVI change per object (≥ 80% clear pixels) separates vegetation loss (harvest) from soil-surface change.</li>
       <li><strong>Check.</strong> HV tested for range-dependent bias (failed → excluded); HH tested (passed). Python unit tests and an integrity test recompute every published number from the shipped files; the browser repeats that check on every load (below).</li>
     </ol>
     <h3>Integrity check — run in your browser just now</h3>
@@ -455,7 +461,7 @@ function methodHtml() {
     <ul class="plain">
       <li>NASA-ISRO NISAR L2 Geocoded Polarimetric Covariance (GCOV), VALIDATED, collection NISAR_L2_GCOV_V1, DOI <a href="https://doi.org/10.5067/NIL2GCOV-V1">10.5067/NIL2GCOV-V1</a>, distributed by ASF DAAC.<br><code>${esc(a.a.granule)}</code><br><code>${esc(a.b.granule)}</code></li>
       <li>NASA POWER daily point data (PRECTOTCORR), 35.8°E 37.0°N, 18 Oct–8 Nov 2026.</li>
-      <li>NASA HLS S30 v2.0 (DOI <a href="https://doi.org/10.5067/HLS/HLSS30.002">10.5067/HLS/HLSS30.002</a>), LP DAAC: <code>HLS.S30.T36SYF.2026296T082011.v2.0</code>, <code>HLS.S30.T36SYG.2026294T082001.v2.0</code>, <code>HLS.S30.T36SYF.2026306T082551.v2.0</code>, <code>HLS.S30.T36SYG.2026306T082551.v2.0</code>.</li>
+      <li>NASA HLS S30 v2.0 (DOI <a href="https://doi.org/10.5067/HLS/HLSS30.002">10.5067/HLS/HLSS30.002</a>), LP DAAC: <code>HLS.S30.T36SYF.2026296T082011.v2.0</code>, <code>HLS.S30.T36SYF.2026306T082551.v2.0</code>.</li>
       <li>Map context: © OpenStreetMap contributors, ODbL (places, rivers, main roads).</li>
       <li>Product metadata: RTC-AP area-based terrain correction (Shiroma et al., 2022, IEEE TGRS, doi:10.1109/TGRS.2022.3147472); Copernicus DEM 30 m (modified for NISAR).</li>
     </ul>
@@ -595,11 +601,17 @@ function initViewer() {
   updateEdges();
   renderPanel();
   renderCensus();
-  $("#timeline").innerHTML = timelineSvg(C.weather.series, [
-    { key: "a", date: "20261022", hourFrac: 16.4 / 24, label: "Pass A · 22 Oct" },
-    { key: "c", date: "20261029", hourFrac: 16.53 / 24, label: "29 Oct · other track" },
-    { key: "b", date: "20261103", hourFrac: 16.4 / 24, label: "Pass B · 3 Nov" },
-  ]);
+  const drawTimeline = () => {
+    const w = Math.max(640, Math.round($("#timeline").clientWidth || 900));
+    $("#timeline").innerHTML = timelineSvg(C.weather.series, [
+      { key: "a", date: "20261022", hourFrac: 16.4 / 24, label: "Pass A · 22 Oct" },
+      { key: "c", date: "20261029", hourFrac: 16.53 / 24, label: "29 Oct · other track" },
+      { key: "b", date: "20261103", hourFrac: 16.4 / 24, label: "Pass B · 3 Nov" },
+    ], { width: w });
+  };
+  drawTimeline();
+  let tlw = 0;
+  new ResizeObserver(() => { const w = $("#timeline").clientWidth; if (Math.abs(w - tlw) > 40) { tlw = w; drawTimeline(); } }).observe($("#timeline"));
   $("#loading").hidden = true;
   const m = location.hash.match(/^#object-(\d+)$/);
   if (m && D.byId.has(+m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
@@ -715,7 +727,9 @@ async function boot() {
   try {
     await load();
     renderCover();
-    if (location.hash.startsWith("#case") || location.hash.startsWith("#object-")) openApp(false);
+    const sm = location.hash.match(/^#story-(\d)$/);
+    if (sm) { openApp(false); renderStory(Math.min(5, Math.max(0, +sm[1] - 1))); }
+    else if (location.hash.startsWith("#case") || location.hash.startsWith("#object-")) openApp(false);
   } catch (err) {
     console.error(err);
     $("#cover-result").textContent = "The case data could not be loaded.";

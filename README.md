@@ -15,7 +15,7 @@ Between Passes measures what the radar saw change between **22 October and 3 Nov
 | Stable urban control (Ceyhan centre) | ΔHH **+0.12 dB** (pixel IQR −0.14 … +0.43) |
 | Change objects (≥ 3 dB seed, ≥ 1 ha) | **508 brightened (3,282 ha)** vs **128 darkened (468 ha)** |
 | Brightened ÷ darkened area | **7.0×** at 3 dB; between 7× and 11× for thresholds 2–5 dB |
-| Optical cross-check (NASA HLS NDVI, 21/23 Oct → 2 Nov) | Of 422 brightened objects with a clear view, **10.4 % lost vegetation**; 84.6 % show little vegetation change (median ΔNDVI +0.004 vs +0.051 for other fields) |
+| Optical cross-check (NASA HLS NDVI, 23 Oct → 2 Nov) | Of 310 brightened objects with a clear view, **9.0 % lost vegetation**; 85.5 % show little vegetation change (median ΔNDVI +0.015 vs +0.060 for other fields) |
 | ΔHV | **Unresolved** — west–east gradient + high RFI-likelihood flag; shown, not interpreted |
 
 Possible explanations (not determinable from backscatter alone): wetter soil after ~23 mm of rain on 28–29 Oct (27.6 mm over the whole interval) (NASA POWER estimate), tillage, harvest, standing water. The optical cross-check makes **harvest unlikely for most brightened parcels**, leaving soil-surface change (moisture and/or roughness) as the leading candidates. The app shows which are *consistent* with each selection and what evidence would decide between them.

@@ -8,6 +8,6 @@
 6. **Thermal noise not subtracted** in the product (`noiseCorrectionApplied = False`); very dark pixels carry a larger noise share.
 7. **Swath edge.** West of the window is outside the swath; a 500 m buffer is applied.
 8. **Thresholds are choices.** 3 dB seed / 2 dB grow / 1 ha; sensitivity 2–5 dB shown. The brightened ÷ darkened area ratio stays between 7× and 11×.
-9. **Optical cross-check.** HLS dates differ from radar by up to ~1.5 days; the northern tile uses 21 Oct and shows ~0.03 less background greening than the south (inter-date offset below the 0.10 threshold). 14 % of the analysis area lacks a clear optical view. NDVI cannot separate wet from ploughed bare soil.
+9. **Optical cross-check.** HLS dates differ from radar by up to ~1.5 days; only ~60 % of the analysis area has a consistent cloud-free same-tile pair (the northern tile would need a different baseline date and showed a seam, so it is excluded). NDVI cannot separate wet from ploughed bare soil.
 10. **Rainfall** is a NASA POWER gridded estimate (~0.5°), not a gauge.
 11. **Single case study.** Not an operational monitoring or alert system.

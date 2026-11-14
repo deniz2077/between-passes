@@ -14,3 +14,5 @@
 | 14 Nov 17:30 | Change objects: 3 dB seed (> control p99 +2.09), 2 dB grow, 1 ha; sensitivity 2–5 dB published | Control-anchored, transparent thresholds |
 | 14 Nov 17:40 | Add NASA HLS NDVI cross-check (23/21 Oct → 2 Nov) | Separates vegetation loss (harvest) from soil-surface change; second NASA dataset |
 | 14 Nov 17:45 | Classify optical change on the published (rounded) ΔNDVI | Integrity test found a boundary mismatch |
+| 14 Nov 18:05 | Optical published on consistent tile 36SYF only (23 Oct → 2 Nov), 60 % coverage | Adding 36SYG (21 Oct baseline) gave 86 % but a visible NDVI seam (north 14.3 % vs south 9.0 % vegetation loss); conclusion unchanged either way |
+| 14 Nov 18:00 | Target awards: Best Use of Science, Local Impact; guided 6-step "evidence ladder" story | Judging guide + 2025 winners study |

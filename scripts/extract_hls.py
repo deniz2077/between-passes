@@ -20,9 +20,12 @@ OUT = os.path.join(ROOT, "data/raw/hls")
 GRID_REF = os.path.join(ROOT, "data/raw/win_A/20261022_A_HHHH.tif")
 LP = "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSS30.020"
 SCENES = {
-    # "before": tile 36SYF on 23 Oct; northern tile 36SYG had no 23 Oct granule -> 21 Oct (still before pass A)
-    "20261023": ["HLS.S30.T36SYF.2026296T082011.v2.0", "HLS.S30.T36SYG.2026294T082001.v2.0"],
-    "20261102": ["HLS.S30.T36SYF.2026306T082551.v2.0", "HLS.S30.T36SYG.2026306T082551.v2.0"],
+    # Tile 36SYF only: a consistent same-tile pair (23 Oct, 0% cloud -> 2 Nov).
+    # Sensitivity run (14 Nov): adding northern tile 36SYG with a 21 Oct baseline raised coverage to 86%
+    # but produced a visible NDVI seam (north 14.3% vs south 9.0% vegetation loss among brightened
+    # objects), so it is excluded from published results. See DECISIONS.md.
+    "20261023": ["HLS.S30.T36SYF.2026296T082011.v2.0"],
+    "20261102": ["HLS.S30.T36SYF.2026306T082551.v2.0"],
 }
 # HLS v2 Fmask bits: 1 cloud, 2 adjacent to cloud/shadow, 3 cloud shadow, 4 snow/ice, 5 water
 BAD_BITS = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)
