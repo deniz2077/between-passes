@@ -17,6 +17,4 @@
 | 14 Nov ~17:55 | Optical published on consistent tile 36SYF only (23 Oct → 2 Nov), 60 % coverage | Adding 36SYG (21 Oct baseline) gave 86 % but a visible NDVI seam (north 14.3 % vs south 9.0 % vegetation loss); conclusion unchanged either way |
 | 14 Nov ~17:50 | Target awards: Best Use of Science, Local Impact; guided 6-step "evidence ladder" story | Judging guide + 2025 winners study |
 | 14 Nov ~18:00 | 29 Oct granule (track 079) not used as third look | Different projection/geometry and RFI likelihood ~4e10 (HH) vs ~6 for the pair |
-
-## 2026-11-14 ~19:15 — NASA demo = 7-slide deck; video only for Niğde
-NASA's "Link to Project Demo" accepts a ≤30 s video OR ≤7 slides. Deniz chose the 7-slide deck (the evidence ladder needs text; a silent 30 s clip cannot carry it). The captioned walkthrough video is kept **only** for the Niğde Drive package, where the organizer explicitly requires a YouTube demo video. Team member name on slide 1: Deniz Efe Bulut (written name only — no image/voice).
+| 14 Nov ~19:15 | NASA demo = the 7-slide deck; captioned video kept only for Niğde (YouTube required there). Slide 1 member: Deniz Efe Bulut (written name only) | NASA allows ≤30 s video OR ≤7 slides; the evidence ladder needs text |
