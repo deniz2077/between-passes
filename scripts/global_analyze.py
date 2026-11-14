@@ -14,7 +14,9 @@ from scipy import stats
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 G = os.path.join(ROOT, "research", "global")
-SEED = 2026
+SEED = 2026  # same permutation/bootstrap seed for the replication (as pre-registered)
+SET = os.environ.get("BP_SET", "")
+SFX = "_" + SET if SET else ""
 
 
 def sm_value(smap, cell, date, hour, max_days=1):
@@ -82,12 +84,12 @@ def boot_slope(x, y, n=2000, seed=SEED):
 
 
 def main():
-    sample = json.load(open(os.path.join(G, "sample.json")))
-    smap = json.load(open(os.path.join(G, "smap.json")))
-    power = json.load(open(os.path.join(G, "power.json"))) if os.path.exists(os.path.join(G, "power.json")) else {}
+    sample = json.load(open(os.path.join(G, f"sample{SFX}.json")))
+    smap = json.load(open(os.path.join(G, f"smap{SFX}.json")))
+    power = json.load(open(os.path.join(G, f"power{SFX}.json"))) if os.path.exists(os.path.join(G, f"power{SFX}.json")) else {}
     rows, drops = [], []
     for p in sample["sample"]:
-        fn = os.path.join(G, "sites", f"{p['k']:03d}.json")
+        fn = os.path.join(G, "sites" + SFX, f"{p['k']:03d}.json")
         if not os.path.exists(fn):
             drops.append(dict(k=p["k"], reason="not processed"))
             continue
@@ -119,7 +121,7 @@ def main():
                      boot95_db_per_0p1=[round(lo * 0.1, 3), round(hi * 0.1, 3)]),
         secondary_net_frac3=dict(spearman_rho=round(rho2, 4), perm_p=round(p2, 5)),
     )
-    json.dump(dict(results=res, sites=rows), open(os.path.join(G, "results.json"), "w"), indent=1)
+    json.dump(dict(results=res, sites=rows), open(os.path.join(G, f"results{SFX}.json"), "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "drops"}, indent=1))
     from collections import Counter
     print(Counter(d["reason"].split(":")[0] for d in drops))

@@ -22,10 +22,12 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 G = os.path.join(ROOT, "research", "global")
-SITES = os.path.join(G, "sites")
+SET = os.environ.get("BP_SET", "")  # "" = original sample, "rep" = pre-registered replication
+SFX = "_" + SET if SET else ""
+SITES = os.path.join(G, "sites" + SFX)
 HH_MODES = ("DHDH", "SHSH", "QPDH")
 N_SAMPLE = 200
-SEED = 2026
+SEED = 2027 if SET == "rep" else 2026
 HALF_M = 5000.0
 
 
@@ -48,11 +50,14 @@ def make_sample():
                           date_b=b["date"], lon=a["lon"], lat=a["lat"], mode=a["pol"]))
     n_all = len(pairs)
     elig = [p for p in pairs if abs(p["lat"]) <= 60]
+    if SET == "rep":  # exclude every pair used by the original sample
+        used = {x["key"] for x in json.load(open(os.path.join(G, "sample.json")))["sample"]}
+        elig = [p for p in elig if p["key"] not in used]
     rng = np.random.default_rng(SEED)
     idx = sorted(rng.choice(len(elig), size=N_SAMPLE, replace=False).tolist())
     sample = [dict(k=i, **elig[j]) for i, j in enumerate(idx)]
     json.dump(dict(n_pairs=n_all, n_eligible=len(elig), seed=SEED, sample=sample),
-              open(os.path.join(G, "sample.json"), "w"), indent=1)
+              open(os.path.join(G, f"sample{SFX}.json"), "w"), indent=1)
     print("pairs", n_all, "eligible", len(elig), "sampled", len(sample))
 
 
@@ -196,7 +201,7 @@ def run_smap(workers):
             urls[d] = url
     uniq = sorted(set(cells.values()))
     jobs = [(d, urls[d], uniq) for d in sorted(urls) if "20261019" <= d <= "20261112"]
-    cache = os.path.join(G, "smap_days")
+    cache = os.path.join(G, "smap_days" + SFX)
     os.makedirs(cache, exist_ok=True)
     days = {}
     for d, _, _ in jobs:
@@ -210,7 +215,7 @@ def run_smap(workers):
             json.dump(out, open(os.path.join(cache, f"{d}.json"), "w"))
             print("smap", d, flush=True)
     json.dump(dict(cells=cells, files={d: urls[d] for d in days}, days=days),
-              open(os.path.join(G, "smap.json"), "w"))
+              open(os.path.join(G, f"smap{SFX}.json"), "w"))
 
 
 # ---------------------------------------------------------------- step 4
@@ -218,7 +223,7 @@ def run_power(_workers):
     import requests
     sample = json.load(open(os.path.join(G, "sample.json")))["sample"]
     pts = [(str(p["k"]), p["lon"], p["lat"]) for p in sample] + [("ceyhan", 35.8, 37.0)]
-    path = os.path.join(G, "power.json")
+    path = os.path.join(G, f"power{SFX}.json")
     out = json.load(open(path)) if os.path.exists(path) else {}
     for k, lon, lat in pts:
         if k in out:
