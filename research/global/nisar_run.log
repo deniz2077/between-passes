@@ -1,0 +1,243 @@
+001 cached
+000 cached
+008 ok dHH=-0.11 dB valid=1.00
+006 ok dHH=-0.01 dB valid=4.00
+007 ok dHH=-0.31 dB valid=1.00
+003 ok dHH=-0.64 dB valid=4.00
+010 ok dHH=+1.60 dB valid=4.00
+002 ok dHH=-2.40 dB valid=4.00
+004 ok dHH=-0.51 dB valid=1.00
+009 ok dHH=-0.31 dB valid=4.00
+011 ok dHH=+0.11 dB valid=4.00
+005 ok dHH=+0.39 dB valid=4.00
+017 ok dHH=-1.14 dB valid=1.00
+016 ok dHH=-1.57 dB valid=1.00
+020 ok dHH=+0.54 dB valid=1.00
+012 ok dHH=-0.12 dB valid=4.00
+015 ok dHH=+0.08 dB valid=4.00
+019 ok dHH=-4.23 dB valid=1.00
+021 ok dHH=-0.07 dB valid=1.00
+013 ok dHH=-0.14 dB valid=4.00
+018 ok dHH=+1.20 dB valid=1.00
+014 ok dHH=-0.62 dB valid=4.00
+023 read error: PermissionError: Range request failed: HTTP 502 for https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_009_A_160_2005_DHDH_A_20261024T205132_20261024T205210_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_009_A_160_2005_DHDH_A_20261024T205132_20261024T205210_P050
+027 ok dHH=+0.08 dB valid=1.00
+022 ok dHH=-0.03 dB valid=1.00
+025 ok dHH=-1.30 dB valid=4.00
+024 ok dHH=-5.45 dB valid=1.00
+026 ok dHH=+0.58 dB valid=1.00
+031 ok dHH=-0.44 dB valid=1.00
+030 ok dHH=-0.91 dB valid=4.00
+029 ok dHH=+1.80 dB valid=4.00
+028 ok dHH=-1.74 dB valid=4.00
+032 ok dHH=-0.04 dB valid=1.00
+033 ok dHH=+1.35 dB valid=1.00
+035 ok dHH=+0.32 dB valid=4.00
+036 ok dHH=+4.52 dB valid=4.00
+038 ok dHH=-0.10 dB valid=4.00
+037 ok dHH=-0.01 dB valid=4.00
+040 ok dHH=-0.06 dB valid=1.00
+041 ok dHH=-0.06 dB valid=1.00
+042 ok dHH=+0.05 dB valid=4.00
+039 ok dHH=-1.42 dB valid=4.00
+034 ok dHH=-0.48 dB valid=4.00
+000 cached
+012 cached
+013 cached
+014 cached
+015 cached
+016 cached
+017 cached
+018 cached
+019 cached
+020 cached
+021 cached
+022 cached
+023 cached
+024 cached
+025 cached
+026 cached
+027 cached
+028 cached
+029 cached
+030 cached
+031 cached
+032 cached
+033 cached
+034 cached
+035 cached
+036 cached
+037 cached
+038 cached
+039 cached
+040 cached
+041 cached
+042 cached
+002 cached
+004 cached
+006 cached
+003 cached
+005 cached
+007 cached
+009 cached
+001 cached
+011 cached
+008 cached
+010 cached
+048 ok dHH=+0.02 dB valid=1.00
+047 ok dHH=-0.50 dB valid=1.00
+043 ok dHH=+0.34 dB valid=1.00
+053 ok dHH=-3.49 dB valid=1.00
+051 ok dHH=-2.27 dB valid=1.00
+050 ok dHH=-0.85 dB valid=1.00
+052 ok dHH=-2.29 dB valid=1.00
+049 ok dHH=-2.77 dB valid=1.00
+046 ok dHH=-0.31 dB valid=1.00
+054 ok dHH=+2.52 dB valid=1.00
+044 ok dHH=+1.47 dB valid=1.00
+055 ok dHH=+2.67 dB valid=1.00
+045 ok dHH=+1.47 dB valid=1.00
+056 ok dHH=+1.22 dB valid=1.00
+060 ok dHH=-3.08 dB valid=1.00
+059 ok dHH=-1.69 dB valid=1.00
+063 ok dHH=-0.25 dB valid=1.00
+057 ok dHH=-0.85 dB valid=1.00
+062 ok dHH=+1.30 dB valid=1.00
+058 ok dHH=+0.12 dB valid=1.00
+064 ok dHH=-0.92 dB valid=1.00
+061 ok dHH=+0.98 dB valid=1.00
+067 ok dHH=-0.22 dB valid=1.00
+066 ok dHH=-0.68 dB valid=1.00
+065 ok dHH=-0.15 dB valid=1.00
+068 ok dHH=-0.47 dB valid=1.00
+074 ok dHH=+3.85 dB valid=1.00
+070 ok dHH=-0.12 dB valid=1.00
+075 ok dHH=+0.07 dB valid=1.00
+076 ok dHH=+0.09 dB valid=1.00
+069 ok dHH=-0.27 dB valid=1.00
+072 ok dHH=+0.09 dB valid=1.00
+071 ok dHH=-1.05 dB valid=1.00
+073 ok dHH=+0.06 dB valid=1.00
+077 ok dHH=-0.05 dB valid=1.00
+078 ok dHH=-0.70 dB valid=1.00
+081 ok dHH=-2.70 dB valid=1.00
+079 ok dHH=-0.36 dB valid=1.00
+080 ok dHH=+1.05 dB valid=1.00
+082 ok dHH=+0.14 dB valid=1.00
+083 ok dHH=-0.17 dB valid=1.00
+086 ok dHH=-0.48 dB valid=1.00
+087 ok dHH=-0.29 dB valid=1.00
+085 ok dHH=-0.63 dB valid=1.00
+088 ok dHH=-0.21 dB valid=1.00
+089 ok dHH=-0.25 dB valid=1.00
+084 ok dHH=+0.62 dB valid=1.00
+090 ok dHH=-0.68 dB valid=1.00
+091 ok dHH=+0.05 dB valid=1.00
+093 ok dHH=+0.64 dB valid=1.00
+092 ok dHH=+0.01 dB valid=1.00
+094 ok dHH=-0.96 dB valid=1.00
+095 ok dHH=+1.73 dB valid=1.00
+096 ok dHH=+2.76 dB valid=1.00
+097 ok dHH=-0.00 dB valid=1.00
+098 ok dHH=-0.92 dB valid=1.00
+101 ok dHH=-0.33 dB valid=1.00
+103 ok dHH=-1.13 dB valid=0.99
+102 ok dHH=-1.15 dB valid=1.00
+100 ok dHH=+0.56 dB valid=1.00
+099 ok dHH=-0.94 dB valid=1.00
+106 ok dHH=-0.64 dB valid=1.00
+105 ok dHH=-0.86 dB valid=1.00
+107 ok dHH=-0.43 dB valid=1.00
+104 ok dHH=+1.04 dB valid=1.00
+108 ok dHH=-0.47 dB valid=1.00
+109 ok dHH=+0.29 dB valid=1.00
+110 ok dHH=-1.16 dB valid=1.00
+112 ok dHH=-2.97 dB valid=1.00
+111 ok dHH=-0.13 dB valid=1.00
+113 ok dHH=+0.42 dB valid=1.00
+114 ok dHH=-0.16 dB valid=0.98
+115 ok dHH=-1.34 dB valid=1.00
+116 ok dHH=-1.77 dB valid=1.00
+117 ok dHH=-0.70 dB valid=1.00
+118 ok dHH=-0.30 dB valid=1.00
+119 ok dHH=-0.24 dB valid=1.00
+120 ok dHH=-4.43 dB valid=1.00
+121 ok dHH=-1.14 dB valid=1.00
+122 ok dHH=-0.17 dB valid=1.00
+123 ok dHH=-1.19 dB valid=1.00
+124 ok dHH=-0.06 dB valid=1.00
+126 ok dHH=+0.63 dB valid=1.00
+125 ok dHH=-0.02 dB valid=1.00
+129 ok dHH=+0.54 dB valid=1.00
+130 ok dHH=+0.91 dB valid=1.00
+127 ok dHH=+1.56 dB valid=1.00
+131 ok dHH=+2.12 dB valid=1.00
+135 ok dHH=-1.00 dB valid=1.00
+132 ok dHH=-0.49 dB valid=1.00
+133 ok dHH=-0.26 dB valid=1.00
+128 ok dHH=-5.52 dB valid=1.00
+134 ok dHH=-3.98 dB valid=1.00
+136 ok dHH=-0.00 dB valid=1.00
+138 ok dHH=+0.39 dB valid=1.00
+137 ok dHH=+0.05 dB valid=1.00
+139 ok dHH=+0.27 dB valid=1.00
+141 ok dHH=-0.10 dB valid=1.00
+143 ok dHH=-0.01 dB valid=1.00
+142 ok dHH=-0.12 dB valid=1.00
+149 ok dHH=-0.44 dB valid=1.00
+145 valid fraction < 0.5
+148 ok dHH=+0.12 dB valid=1.00
+146 ok dHH=+0.95 dB valid=1.00
+144 ok dHH=-0.02 dB valid=1.00
+150 ok dHH=-1.24 dB valid=1.00
+147 ok dHH=-1.33 dB valid=1.00
+140 ok dHH=-0.32 dB valid=1.00
+151 ok dHH=-3.18 dB valid=1.00
+154 ok dHH=+1.40 dB valid=1.00
+152 ok dHH=-1.02 dB valid=1.00
+155 ok dHH=-0.22 dB valid=1.00
+153 ok dHH=+0.36 dB valid=1.00
+156 ok dHH=+0.15 dB valid=1.00
+157 ok dHH=+0.07 dB valid=1.00
+158 ok dHH=+0.92 dB valid=1.00
+161 ok dHH=+0.05 dB valid=1.00
+163 ok dHH=-0.03 dB valid=1.00
+162 ok dHH=+2.07 dB valid=1.00
+160 ok dHH=+0.22 dB valid=1.00
+159 ok dHH=+0.93 dB valid=1.00
+164 ok dHH=+0.07 dB valid=1.00
+166 ok dHH=-0.09 dB valid=1.00
+165 ok dHH=-1.90 dB valid=1.00
+168 ok dHH=-3.97 dB valid=1.00
+167 ok dHH=-0.22 dB valid=1.00
+169 ok dHH=-0.03 dB valid=1.00
+174 ok dHH=-0.31 dB valid=1.00
+170 ok dHH=+0.00 dB valid=1.00
+173 ok dHH=-0.17 dB valid=1.00
+171 ok dHH=+0.03 dB valid=1.00
+172 ok dHH=+0.18 dB valid=1.00
+176 ok dHH=-0.13 dB valid=1.00
+175 ok dHH=+0.15 dB valid=1.00
+181 ok dHH=-1.12 dB valid=1.00
+180 ok dHH=-0.01 dB valid=1.00
+179 ok dHH=+1.60 dB valid=1.00
+177 ok dHH=-0.81 dB valid=1.00
+178 ok dHH=+0.11 dB valid=1.00
+183 ok dHH=-0.74 dB valid=1.00
+184 ok dHH=-0.51 dB valid=1.00
+185 ok dHH=+0.02 dB valid=1.00
+186 ok dHH=-0.79 dB valid=1.00
+182 ok dHH=-0.67 dB valid=1.00
+189 ok dHH=-1.60 dB valid=1.00
+190 ok dHH=-0.56 dB valid=1.00
+192 ok dHH=-0.13 dB valid=1.00
+191 ok dHH=-1.30 dB valid=1.00
+193 ok dHH=+0.09 dB valid=1.00
+194 ok dHH=-0.16 dB valid=1.00
+188 ok dHH=-0.95 dB valid=1.00
+197 ok dHH=-0.20 dB valid=1.00
+187 ok dHH=+0.81 dB valid=1.00
+198 ok dHH=-1.08 dB valid=1.00
+199 ok dHH=-0.37 dB valid=1.00
+195 ok dHH=-0.95 dB valid=1.00
+196 ok dHH=-0.12 dB valid=1.00

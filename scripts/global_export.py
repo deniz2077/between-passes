@@ -14,7 +14,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
 from bp_science import decode_db_int16  # noqa: E402
-from global_analyze import sm_value  # noqa: E402
+from global_analyze import rain, sm_value  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 G = os.path.join(ROOT, "research", "global")
@@ -58,7 +58,24 @@ def main():
     sb, ub = sm_value(smap, cell, cey["date_b"], cey["local_solar_hour"])
     c = {k: cey.get(k) for k in keep}
     c.update(k="ceyhan", sm_a=sa, sm_b=sb, dSM=None if sa is None or sb is None else round(sb - sa, 4),
-             smap_a=ua, smap_b=ub, thumb=len(thumbs))
+             smap_a=ua, smap_b=ub, thumb=len(thumbs), exploratory=None)
+    if c["dSM"] is None:
+        # EXPLORATORY (not pre-registered): widen the SMAP date window from +-1 to +-2 days
+        ea, uea = sm_value(smap, cell, cey["date_a"], cey["local_solar_hour"], max_days=2)
+        eb, ueb = sm_value(smap, cell, cey["date_b"], cey["local_solar_hour"], max_days=2)
+        if ea is not None and eb is not None:
+            series = []
+            r, cc = cell
+            for day in sorted(smap["days"]):
+                for ov in ("AM", "PM"):
+                    rec = smap["days"][day].get(f"{r},{cc},{ov}")
+                    if rec and rec[0] != -9999.0 and 0 <= rec[0] <= 0.6 and not rec[1] & 1:
+                        series.append([day, ov, round(rec[0], 4)])
+            c["exploratory"] = dict(rule="SMAP date window widened from +-1 to +-2 days (not pre-registered)",
+                                    sm_a=round(ea, 4), sm_b=round(eb, 4), dSM=round(eb - ea, 4),
+                                    smap_a=uea, smap_b=ueb, recommended_series=series)
+    power = json.load(open(os.path.join(G, "power.json")))
+    c["rain"] = rain(power, "ceyhan", cey["date_a"], cey["date_b"])
     thumbs.append(thumb100(999))
     blob = np.stack(thumbs).tobytes()
     open(os.path.join(OUT, "thumbs.u8"), "wb").write(blob)

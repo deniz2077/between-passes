@@ -56,6 +56,7 @@ function colorFor(d) {
 }
 
 let G, thumbs, sel = null;
+const cDSM = () => G.ceyhan.dSM ?? G.ceyhan.exploratory?.dSM ?? null;
 const dots = new Map(), pts = new Map();
 
 function drawMap(land) {
@@ -100,7 +101,8 @@ function drawScatter(fit) {
   const svg = $("#w-scatter"), W = 820, H = 420, L = 58, R = 18, T = 16, B = 46;
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.innerHTML = "";
-  const all = [...G.sites, ...(G.ceyhan.dSM != null ? [G.ceyhan] : [])];
+  const cdsm = cDSM();
+  const all = [...G.sites, ...(cdsm != null ? [{ dSM: cdsm, dHH_site_db: G.ceyhan.dHH_site_db }] : [])];
   const xs = all.map((s) => s.dSM), ys = all.map((s) => s.dHH_site_db);
   const pad = (lo, hi, f) => { const r = hi - lo || 1; return [lo - r * f, hi + r * f]; };
   const [x0, x1] = pad(Math.min(...xs, 0), Math.max(...xs, 0), 0.06), [y0, y1] = pad(Math.min(...ys, 0), Math.max(...ys, 0), 0.08);
@@ -119,10 +121,11 @@ function drawScatter(fit) {
     pts.set(s.k, c);
   }
   const c = G.ceyhan;
-  if (c.dSM != null) {
-    el("circle", { cx: X(c.dSM), cy: Y(c.dHH_site_db), r: 9, class: "cey-mark" }, svg);
-    const t = el("text", { x: X(c.dSM) + 12, y: Y(c.dHH_site_db) - 10, class: "lab" }, svg); t.textContent = "Ceyhan";
-    pts.set("ceyhan", el("circle", { cx: X(c.dSM), cy: Y(c.dHH_site_db), r: 4, fill: colorFor(c.dHH_site_db), class: "site-dot" }, svg));
+  if (cdsm != null) {
+    const ex = c.dSM == null;
+    el("circle", { cx: X(cdsm), cy: Y(c.dHH_site_db), r: 9, class: "cey-mark", "stroke-dasharray": ex ? "3 3" : "" }, svg);
+    const t = el("text", { x: X(cdsm) - 12, y: Y(c.dHH_site_db) - 14, class: "lab", "text-anchor": "end" }, svg); t.textContent = ex ? "Ceyhan (exploratory)" : "Ceyhan";
+    pts.set("ceyhan", el("circle", { cx: X(cdsm), cy: Y(c.dHH_site_db), r: 4, fill: colorFor(c.dHH_site_db), class: "site-dot" }, svg));
     pts.get("ceyhan").addEventListener("click", () => select(c));
   }
 }
@@ -160,13 +163,14 @@ function select(s, push = true) {
     <dl>
       <dt>NISAR ΔHH (site)</dt><dd class="${s.dHH_site_db >= 0 ? "up-t" : "dn-t"}">${fmt(s.dHH_site_db, 2, true)} dB</dd>
       <dt>Area ≥ +3 dB / ≤ −3 dB</dt><dd>${fmt(100 * s.frac_up3, 1)} % / ${fmt(100 * s.frac_dn3, 1)} %</dd>
-      <dt>SMAP soil moisture</dt><dd>${fmt(s.sm_a, 3)} → ${fmt(s.sm_b, 3)}</dd>
-      <dt>SMAP change</dt><dd>${fmt(s.dSM, 3, true)} m³/m³</dd>
+      <dt>SMAP soil moisture${isC && s.exploratory ? "*" : ""}</dt><dd>${fmt(s.sm_a ?? s.exploratory?.sm_a, 3)} → ${fmt(s.sm_b ?? s.exploratory?.sm_b, 3)}</dd>
+      <dt>SMAP change${isC && s.exploratory ? "*" : ""}</dt><dd>${fmt(s.dSM ?? s.exploratory?.dSM, 3, true)} m³/m³</dd>
       <dt>Rain between passes</dt><dd>${r.between == null ? "—" : fmt(r.between, 1) + " mm"}</dd>
       <dt>Rain 3 d before each</dt><dd>${r.pre3_a == null ? "—" : `${fmt(r.pre3_a, 1)} / ${fmt(r.pre3_b, 1)} mm`}</dd>
       <dt>Valid pixels</dt><dd>${fmt(100 * s.valid_frac, 0)} %</dd>
     </dl>
-    <p class="ids">${s.a}<br>${s.b}${s.smap_a ? `<br>SMAP ${s.smap_a.day} ${s.smap_a.overpass} / ${s.smap_b.day} ${s.smap_b.overpass}` : ""}</p>
+    ${isC ? smapSeries(s) + (s.exploratory ? `<p class="cap">* exploratory: ${s.exploratory.rule}.</p>` : "") : ""}
+    <p class="ids">${s.a}<br>${s.b}${(() => { const u = s.dSM != null ? s : s.exploratory; return u ? `<br>SMAP ${u.smap_a.day} ${u.smap_a.overpass} / ${u.smap_b.day} ${u.smap_b.overpass}` : ""; })()}</p>
     ${isC ? `<div class="navrow"><a class="btn small primary" href="index.html#case">Open the full Ceyhan case</a></div>` : `<div class="navrow"><button class="btn small ghost" id="w-prev">← Previous</button><button class="btn small ghost" id="w-next">Next →</button></div>`}`;
   $("#w-thumb").appendChild(thumbCanvas(s));
   if (!isC) {
@@ -184,30 +188,53 @@ function selfCheck(fit) {
   $("#w-check").innerHTML = `<span class="${ok ? "ok-t" : "bad-t"}">${ok ? "✓ PASS" : "✗ MISMATCH"}</span> — recomputed from the ${G.sites.length} shipped sites: Spearman ρ ${fmt(rho, 4)} (published ${fmt(P.spearman_rho, 4)}), Theil–Sen ${fmt(fit[0] * 0.1, 3)} dB per 0.1 m³/m³ (published ${fmt(P.theil_sen_db_per_0p1, 3)}).`;
 }
 
+function signAgreement() {
+  const clear = G.sites.filter((s) => Math.abs(s.dSM) > 0.05);
+  return [clear.filter((s) => Math.sign(s.dSM) === Math.sign(s.dHH_site_db)).length, clear.length];
+}
+
 function hero(fit) {
   const P = G.results.primary, n = P.n, sig = P.perm_p < 0.05 && P.spearman_rho > 0, c = G.ceyhan;
-  const H = window.WORLD_TEXT || {};
-  $("#w-n-sites").textContent = n;
+  const [agree, clear] = signAgreement();
+  $("#w-n-sites").textContent = G.results.n_sampled;
   $("#w-pop").textContent = G.results.n_population_pairs;
-  $("#w-headline").textContent = H.headline || (sig
-    ? `Across ${n} sites worldwide, NISAR's radar brightened where the soil got wetter.`
-    : `Across ${n} sites worldwide, NISAR's site-wide change did not track soil wetting.`);
-  $("#w-lede").textContent = H.lede || "";
-  const pred = c.dSM != null ? fit[1] + fit[0] * c.dSM : null;
+  $("#w-headline").textContent = sig
+    ? `Where NASA's SMAP saw soil get wetter, NISAR's radar got brighter. Where it dried, NISAR got darker.`
+    : `Across ${n} sites worldwide, NISAR's site-wide change did not track soil wetting.`;
+  $("#w-lede").innerHTML = sig
+    ? `We drew ${G.results.n_sampled} NISAR repeat pairs at random from ${G.results.n_population_pairs} worldwide and fixed the test before looking. At the ${n} sites where SMAP had a quality-approved reading on both dates, radar change tracks soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)}); ${agree} of the ${clear} sites with a clear moisture change (> 0.05 m³/m³) moved in the same direction. That is the physics the Ceyhan case relies on — <a href="#site-ceyhan">and SMAP confirms Ceyhan's soil was wetted between our two passes</a>.`
+    : `The pre-registered test did not find the expected relationship.`;
   const stats = [
     ["Sites tested", `${n}<small> of ${G.results.n_sampled} drawn</small>`],
     ["Spearman ρ", fmt(P.spearman_rho, 2)],
-    ["p (permutation)", P.perm_p < 0.0002 ? "< 0.0002" : fmt(P.perm_p, 4)],
-    ["Slope", `${fmt(P.theil_sen_db_per_0p1, 2, true)}<small> dB per +0.1 m³/m³</small>`],
-    ["95 % CI", `${fmt(P.boot95_db_per_0p1[0], 2, true)} … ${fmt(P.boot95_db_per_0p1[1], 2, true)}`],
+    ["p (permutation)", P.perm_p <= 0.00011 ? "< 0.001" : fmt(P.perm_p, 4)],
+    ["Slope", `${fmt(P.theil_sen_db_per_0p1, 1, true)}<small> dB per +0.1 m³/m³</small>`],
+    ["Same direction", `${agree}/${clear}<small> clear cases</small>`],
   ];
   $("#w-stats").innerHTML = stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
-  $("#w-scatter-note").textContent = c.dSM != null
-    ? `Line: Theil–Sen fit across the ${n} sampled sites. Ceyhan (outlined, not part of the sample): SMAP ${fmt(c.dSM, 3, true)} m³/m³, NISAR ${fmt(c.dHH_site_db, 2, true)} dB; the global fit predicts ${fmt(pred, 2, true)} dB at that wetting.`
-    : `Line: Theil–Sen fit across the ${n} sampled sites. SMAP had no recommended-quality value at Ceyhan on these dates.`;
+  const e = c.exploratory, cd = cDSM(), pred = cd != null ? fit[1] + fit[0] * cd : null;
+  $("#w-scatter-note").innerHTML = `Line: Theil–Sen fit across the ${n} sampled sites (95 % CI of the slope ${fmt(P.boot95_db_per_0p1[0], 2, true)} … ${fmt(P.boot95_db_per_0p1[1], 2, true)} dB per +0.1 m³/m³). ` + (cd == null
+    ? `SMAP had no quality-approved value at Ceyhan on these dates.`
+    : `<b>Ceyhan</b> (dashed, not in the sample${e ? "; <i>exploratory</i>: the pre-registered ±1-day SMAP window found no approved reading near 22 Oct, so a ±2-day window was used" : ""}): SMAP ${fmt(cd, 2, true)} m³/m³, NISAR ${fmt(c.dHH_site_db, 2, true)} dB over its 10 km window. Its wetting is beyond almost every sampled site, and its site-wide brightening is smaller than the fitted line (${fmt(pred, 1, true)} dB) — only ${fmt(100 * c.frac_up3, 1)} % of the window brightened by ≥ 3 dB: the change sits in individual fields (see the case's parcel map).`);
   const reasons = {};
   for (const d of G.drops) { const k = (d.reason || "").split(":")[0].replace(/\s*\[.*$/, ""); reasons[k] = (reasons[k] || 0) + 1; }
-  $("#w-drops").innerHTML = Object.entries(reasons).map(([k, v]) => `<li>${v} × ${k}</li>`).join("") || "<li>None</li>";
+  const why = { "SMAP unavailable": "SMAP had no quality-approved reading within a day of a pass (orbit gaps, dense vegetation, water or flags)", "valid fraction < 0.5": "NISAR window less than half valid" };
+  $("#w-drops").innerHTML = Object.entries(reasons).map(([k, v]) => `<li>${v} × ${why[k] || k}</li>`).join("") || "<li>None</li>";
+}
+
+function smapSeries(c) {
+  const e = c.exploratory; if (!e) return "";
+  const pts = e.recommended_series.map(([d, ov, v]) => ({ t: Date.UTC(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6)) + (ov === "PM" ? 18 : 6) * 3600e3, v }));
+  const t0 = Date.UTC(2026, 9, 19), t1 = Date.UTC(2026, 10, 12), W = 300, H = 110, L = 28, B = 18;
+  const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 6), Y = (v) => 6 + (0.4 - v) / 0.4 * (H - B - 6);
+  const pass = [Date.UTC(2026, 9, 22, 18, 47), Date.UTC(2026, 10, 3, 18, 47)];
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;margin:6px 0 2px" aria-label="SMAP soil moisture at Ceyhan">
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1a2230"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">${v}</text>`).join("")}
+    ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#56d4e8" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#56d4e8" font-size="9" font-family="IBM Plex Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
+    <polyline fill="none" stroke="#e8e3d8" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#e8e3d8"/>`).join("")}
+    <text x="${L}" y="${H - 4}" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">19 Oct</text><text x="${W - 6}" y="${H - 4}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">12 Nov</text>
+  </svg><p class="cap">NASA SMAP soil moisture at Ceyhan (m³/m³), every quality-approved reading. The rain on 28–29 Oct is visible as a jump.</p>`;
 }
 
 async function boot() {

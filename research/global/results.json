@@ -1,0 +1,4823 @@
+{
+ "results": {
+  "n_population_pairs": 889,
+  "n_eligible": 763,
+  "n_sampled": 200,
+  "n_retained": 74,
+  "drops": [
+   {
+    "k": 3,
+    "reason": "SMAP unavailable: A[20261024AM:qflag;20261024PM:fill;20261023PM:qflag] B[20261105AM:fill;20261105PM:qflag;20261104PM:fill]"
+   },
+   {
+    "k": 4,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:qflag;20261025AM:qflag] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 5,
+    "reason": "SMAP unavailable: A[20261024PM:qflag;20261024AM:qflag;20261025AM:qflag] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 6,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 11,
+    "reason": "SMAP unavailable: A[20261024AM:qflag;20261024PM:fill;20261023PM:qflag] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 12,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:qflag;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 15,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 16,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 17,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 18,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 19,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 23,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 25,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 28,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 29,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 32,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 33,
+    "reason": "SMAP unavailable: A[ok] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 34,
+    "reason": "SMAP unavailable: A[20261024PM:qflag;20261024AM:fill;20261025AM:qflag] B[20261105PM:qflag;20261105AM:qflag;20261106AM:qflag]"
+   },
+   {
+    "k": 35,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:qflag;20261105AM:qflag;20261106AM:qflag]"
+   },
+   {
+    "k": 36,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 37,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 39,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 44,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:qflag;20261106AM:qflag;20261107AM:fill]"
+   },
+   {
+    "k": 46,
+    "reason": "SMAP unavailable: A[20261025AM:qflag;20261025PM:qflag;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 48,
+    "reason": "SMAP unavailable: A[ok] B[20261106AM:qflag;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 49,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 50,
+    "reason": "SMAP unavailable: A[20261025AM:qflag;20261025PM:qflag;20261024PM:fill] B[20261106AM:qflag;20261106PM:fill;20261105PM:qflag]"
+   },
+   {
+    "k": 51,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:qflag;20261024PM:fill] B[20261106AM:qflag;20261106PM:fill;20261105PM:qflag]"
+   },
+   {
+    "k": 52,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:qflag;20261024PM:fill] B[20261106AM:qflag;20261106PM:fill;20261105PM:qflag]"
+   },
+   {
+    "k": 53,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:qflag;20261024PM:fill] B[20261106AM:qflag;20261106PM:fill;20261105PM:qflag]"
+   },
+   {
+    "k": 54,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 55,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 56,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:qflag;20261106PM:fill;20261105PM:qflag]"
+   },
+   {
+    "k": 60,
+    "reason": "SMAP unavailable: A[20261025AM:qflag;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:qflag;20261105PM:qflag]"
+   },
+   {
+    "k": 61,
+    "reason": "SMAP unavailable: A[20261025PM:qflag;20261025AM:qflag;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:qflag]"
+   },
+   {
+    "k": 62,
+    "reason": "SMAP unavailable: A[20261025PM:qflag;20261025AM:qflag;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:qflag]"
+   },
+   {
+    "k": 64,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 65,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:qflag;20261107AM:fill]"
+   },
+   {
+    "k": 66,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 67,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 71,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 74,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 78,
+    "reason": "SMAP unavailable: A[20261025PM:qflag;20261025AM:qflag;20261026AM:fill] B[ok]"
+   },
+   {
+    "k": 79,
+    "reason": "SMAP unavailable: A[20261025PM:fill;20261025AM:fill;20261026AM:fill] B[20261106PM:fill;20261106AM:fill;20261107AM:fill]"
+   },
+   {
+    "k": 81,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 82,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 83,
+    "reason": "SMAP unavailable: A[20261025AM:fill;20261025PM:fill;20261024PM:fill] B[20261106AM:fill;20261106PM:fill;20261105PM:fill]"
+   },
+   {
+    "k": 84,
+    "reason": "SMAP unavailable: A[20261026PM:fill;20261026AM:fill;20261027AM:qflag] B[20261107PM:fill;20261107AM:qflag;20261108AM:fill]"
+   },
+   {
+    "k": 86,
+    "reason": "SMAP unavailable: A[20261026PM:fill;20261026AM:fill;20261027AM:fill] B[20261107PM:fill;20261107AM:fill;20261108AM:fill]"
+   },
+   {
+    "k": 87,
+    "reason": "SMAP unavailable: A[20261026AM:fill;20261026PM:fill;20261025PM:fill] B[20261107AM:fill;20261107PM:fill;20261106PM:fill]"
+   },
+   {
+    "k": 88,
+    "reason": "SMAP unavailable: A[20261026AM:fill;20261026PM:fill;20261025PM:fill] B[20261107AM:fill;20261107PM:fill;20261106PM:fill]"
+   },
+   {
+    "k": 89,
+    "reason": "SMAP unavailable: A[20261026AM:fill;20261026PM:fill;20261025PM:qflag] B[20261107AM:fill;20261107PM:qflag;20261106PM:fill]"
+   },
+   {
+    "k": 90,
+    "reason": "SMAP unavailable: A[20261026AM:fill;20261026PM:fill;20261025PM:qflag] B[20261107AM:fill;20261107PM:qflag;20261106PM:fill]"
+   },
+   {
+    "k": 92,
+    "reason": "SMAP unavailable: A[20261026PM:qflag;20261026AM:qflag;20261027AM:fill] B[20261107PM:fill;20261107AM:fill;20261108AM:fill]"
+   },
+   {
+    "k": 93,
+    "reason": "SMAP unavailable: A[20261026PM:fill;20261026AM:fill;20261027AM:fill] B[20261107PM:fill;20261107AM:fill;20261108AM:fill]"
+   },
+   {
+    "k": 94,
+    "reason": "SMAP unavailable: A[20261027AM:fill;20261027PM:fill;20261026PM:qflag] B[ok]"
+   },
+   {
+    "k": 95,
+    "reason": "SMAP unavailable: A[20261027AM:qflag;20261027PM:qflag;20261026PM:qflag] B[20261108AM:fill;20261108PM:fill;20261107PM:fill]"
+   },
+   {
+    "k": 96,
+    "reason": "SMAP unavailable: A[20261027AM:qflag;20261027PM:qflag;20261026PM:qflag] B[20261108AM:fill;20261108PM:fill;20261107PM:qflag]"
+   },
+   {
+    "k": 97,
+    "reason": "SMAP unavailable: A[20261027AM:qflag;20261027PM:qflag;20261026PM:qflag] B[20261108AM:qflag;20261108PM:fill;20261107PM:qflag]"
+   },
+   {
+    "k": 98,
+    "reason": "SMAP unavailable: A[20261027PM:fill;20261027AM:fill;20261028AM:qflag] B[20261108PM:qflag;20261108AM:fill;20261109AM:fill]"
+   },
+   {
+    "k": 100,
+    "reason": "SMAP unavailable: A[20261027PM:qflag;20261027AM:fill;20261028AM:qflag] B[20261108PM:fill;20261108AM:fill;20261109AM:fill]"
+   },
+   {
+    "k": 103,
+    "reason": "SMAP unavailable: A[20261028AM:fill;20261028PM:fill;20261027PM:fill] B[20261109AM:fill;20261109PM:fill;20261108PM:fill]"
+   },
+   {
+    "k": 104,
+    "reason": "SMAP unavailable: A[20261028AM:fill;20261028PM:fill;20261027PM:fill] B[20261109AM:fill;20261109PM:fill;20261108PM:fill]"
+   },
+   {
+    "k": 106,
+    "reason": "SMAP unavailable: A[20261028AM:fill;20261028PM:qflag;20261027PM:fill] B[20261109AM:fill;20261109PM:fill;20261108PM:qflag]"
+   },
+   {
+    "k": 109,
+    "reason": "SMAP unavailable: A[20261030AM:qflag;20261030PM:qflag;20261029PM:fill] B[20261111AM:fill;20261111PM:fill;20261110PM:fill]"
+   },
+   {
+    "k": 112,
+    "reason": "SMAP unavailable: A[20261030AM:fill;20261030PM:qflag;20261029PM:fill] B[ok]"
+   },
+   {
+    "k": 113,
+    "reason": "SMAP unavailable: A[20261030AM:fill;20261030PM:qflag;20261029PM:fill] B[20261111AM:qflag;20261111PM:fill;20261110PM:fill]"
+   },
+   {
+    "k": 114,
+    "reason": "SMAP unavailable: A[20261030AM:fill;20261030PM:fill;20261029PM:fill] B[20261111AM:fill;20261111PM:fill;20261110PM:fill]"
+   },
+   {
+    "k": 117,
+    "reason": "SMAP unavailable: A[20261021AM:qflag;20261021PM:qflag;20261020PM:qflag] B[20261102AM:fill;20261102PM:fill;20261101PM:fill]"
+   },
+   {
+    "k": 119,
+    "reason": "SMAP unavailable: A[20261021PM:fill;20261021AM:qflag;20261022AM:fill] B[20261102PM:qflag;20261102AM:fill;20261103AM:qflag]"
+   },
+   {
+    "k": 122,
+    "reason": "SMAP unavailable: A[20261021AM:fill;20261021PM:fill;20261020PM:fill] B[20261102AM:fill;20261102PM:fill;20261101PM:fill]"
+   },
+   {
+    "k": 123,
+    "reason": "SMAP unavailable: A[20261021AM:fill;20261021PM:fill;20261020PM:fill] B[20261102AM:fill;20261102PM:fill;20261101PM:fill]"
+   },
+   {
+    "k": 124,
+    "reason": "SMAP unavailable: A[20261021PM:qflag;20261021AM:qflag;20261022AM:fill] B[20261102PM:fill;20261102AM:fill;20261103AM:fill]"
+   },
+   {
+    "k": 126,
+    "reason": "SMAP unavailable: A[20261021PM:fill;20261021AM:qflag;20261022AM:fill] B[20261102PM:qflag;20261102AM:fill;20261103AM:fill]"
+   },
+   {
+    "k": 127,
+    "reason": "SMAP unavailable: A[20261021PM:fill;20261021AM:fill;20261022AM:fill] B[20261102PM:fill;20261102AM:fill;20261103AM:fill]"
+   },
+   {
+    "k": 128,
+    "reason": "SMAP unavailable: A[20261021PM:fill;20261021AM:fill;20261022AM:fill] B[20261102PM:fill;20261102AM:fill;20261103AM:fill]"
+   },
+   {
+    "k": 129,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:fill]"
+   },
+   {
+    "k": 130,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:qflag]"
+   },
+   {
+    "k": 131,
+    "reason": "SMAP unavailable: A[20261022AM:qflag;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:qflag]"
+   },
+   {
+    "k": 132,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:fill]"
+   },
+   {
+    "k": 133,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:qflag;20261103PM:qflag;20261102PM:fill]"
+   },
+   {
+    "k": 134,
+    "reason": "SMAP unavailable: A[20261022AM:qflag;20261022PM:fill;20261021PM:fill] B[ok]"
+   },
+   {
+    "k": 135,
+    "reason": "SMAP unavailable: A[20261022AM:qflag;20261022PM:fill;20261021PM:fill] B[ok]"
+   },
+   {
+    "k": 137,
+    "reason": "SMAP unavailable: A[20261022AM:qflag;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:qflag;20261102PM:qflag]"
+   },
+   {
+    "k": 138,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:qflag]"
+   },
+   {
+    "k": 139,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:fill;20261103PM:fill;20261102PM:qflag]"
+   },
+   {
+    "k": 140,
+    "reason": "SMAP unavailable: A[20261022PM:fill;20261022AM:fill;20261023AM:fill] B[20261103PM:fill;20261103AM:fill;20261104AM:fill]"
+   },
+   {
+    "k": 144,
+    "reason": "SMAP unavailable: A[20261022AM:fill;20261022PM:fill;20261021PM:fill] B[20261103AM:qflag;20261103PM:fill;20261102PM:qflag]"
+   },
+   {
+    "k": 145,
+    "reason": "valid fraction < 0.5"
+   },
+   {
+    "k": 146,
+    "reason": "SMAP unavailable: A[20261022PM:fill;20261022AM:fill;20261023AM:qflag] B[20261103PM:qflag;20261103AM:fill;20261104AM:fill]"
+   },
+   {
+    "k": 147,
+    "reason": "SMAP unavailable: A[20261022PM:qflag;20261022AM:fill;20261023AM:qflag] B[20261103PM:fill;20261103AM:fill;20261104AM:fill]"
+   },
+   {
+    "k": 152,
+    "reason": "SMAP unavailable: A[20261022PM:fill;20261022AM:fill;20261023AM:fill] B[20261103PM:qflag;20261103AM:qflag;20261104AM:fill]"
+   },
+   {
+    "k": 153,
+    "reason": "SMAP unavailable: A[20261022PM:qflag;20261022AM:fill;20261023AM:qflag] B[20261103PM:fill;20261103AM:qflag;20261104AM:fill]"
+   },
+   {
+    "k": 156,
+    "reason": "SMAP unavailable: A[20261023AM:qflag;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 158,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:qflag;20261024AM:fill] B[20261104PM:qflag;20261104AM:fill;20261105AM:qflag]"
+   },
+   {
+    "k": 159,
+    "reason": "SMAP unavailable: A[20261023PM:qflag;20261023AM:qflag;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:qflag]"
+   },
+   {
+    "k": 161,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 162,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:qflag;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 163,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 164,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 165,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 166,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 167,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 168,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 172,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 173,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 174,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 175,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 176,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:qflag] B[20261104AM:fill;20261104PM:qflag;20261103PM:fill]"
+   },
+   {
+    "k": 178,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:qflag;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:qflag]"
+   },
+   {
+    "k": 180,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:qflag;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:qflag]"
+   },
+   {
+    "k": 181,
+    "reason": "SMAP unavailable: A[20261023PM:qflag;20261023AM:fill;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 182,
+    "reason": "SMAP unavailable: A[20261023PM:qflag;20261023AM:fill;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 183,
+    "reason": "SMAP unavailable: A[20261023PM:qflag;20261023AM:qflag;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 184,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:fill;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 186,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:qflag;20261024AM:fill] B[20261104PM:qflag;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 187,
+    "reason": "SMAP unavailable: A[20261023PM:fill;20261023AM:fill;20261024AM:fill] B[20261104PM:fill;20261104AM:fill;20261105AM:fill]"
+   },
+   {
+    "k": 191,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:fill;20261022PM:fill] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 192,
+    "reason": "SMAP unavailable: A[ok] B[20261104AM:fill;20261104PM:fill;20261103PM:fill]"
+   },
+   {
+    "k": 193,
+    "reason": "SMAP unavailable: A[20261023AM:fill;20261023PM:qflag;20261022PM:fill] B[ok]"
+   },
+   {
+    "k": 194,
+    "reason": "SMAP unavailable: A[20261024PM:qflag;20261024AM:qflag;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 195,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:fill;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 196,
+    "reason": "SMAP unavailable: A[20261024PM:fill;20261024AM:qflag;20261025AM:fill] B[20261105PM:fill;20261105AM:fill;20261106AM:fill]"
+   },
+   {
+    "k": 197,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:qflag] B[20261105AM:fill;20261105PM:fill;20261104PM:fill]"
+   },
+   {
+    "k": 198,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:fill] B[ok]"
+   },
+   {
+    "k": 199,
+    "reason": "SMAP unavailable: A[20261024AM:fill;20261024PM:fill;20261023PM:qflag] B[ok]"
+   }
+  ],
+  "primary": {
+   "spearman_rho": 0.5773,
+   "perm_p": 0.0001,
+   "n": 74,
+   "theil_sen_db_per_0p1": 1.023,
+   "intercept_db": -0.134,
+   "boot95_db_per_0p1": [
+    0.691,
+    1.422
+   ]
+  },
+  "secondary_net_frac3": {
+   "spearman_rho": 0.5636,
+   "perm_p": 0.0001
+  }
+ },
+ "sites": [
+  {
+   "k": 0,
+   "key": "001_A_006_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_001_A_006_2005_DHDH_A_20261024T060456_20261024T060530_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_001_A_006_2005_DHDH_A_20261105T060456_20261105T060531_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -7.14,
+   "lat": 8.68,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32629,
+   "local_solar_hour": 5.59,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1715,
+   "HH_a_site_db": -5.894,
+   "HH_b_site_db": -6.066,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.2418,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.8,
+   "spacing_m": 20.0,
+   "sm_a": 0.2291,
+   "sm_b": 0.2287,
+   "dSM": -0.0005,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 0.4,
+    "cell_latlon": [
+     8.682134628295898,
+     -7.142116069793701
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "PM",
+    "hours_from_nisar": 12.4,
+    "cell_latlon": [
+     8.682134628295898,
+     -7.142116069793701
+    ]
+   },
+   "rain": {
+    "between": 32.95,
+    "pre3_a": 10.42,
+    "pre3_b": 16.41
+   }
+  },
+  {
+   "k": 1,
+   "key": "001_A_007_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_001_A_007_2005_DHDH_A_20261024T060529_20261024T060604_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_001_A_007_2005_DHDH_A_20261105T060530_20261105T060604_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -7.61,
+   "lat": 10.67,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32629,
+   "local_solar_hour": 5.58,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.863,
+   "HH_a_site_db": -7.098,
+   "HH_b_site_db": -7.96,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0073,
+   "net_frac3": -0.0073,
+   "dHH_px_median_db": -0.8263,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 34.6,
+   "spacing_m": 20.0,
+   "sm_a": 0.1664,
+   "sm_b": 0.1523,
+   "dSM": -0.0141,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 0.4,
+    "cell_latlon": [
+     10.687161445617676,
+     -7.608921051025391
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "PM",
+    "hours_from_nisar": 12.4,
+    "cell_latlon": [
+     10.687161445617676,
+     -7.608921051025391
+    ]
+   },
+   "rain": {
+    "between": 23.28,
+    "pre3_a": 2.42,
+    "pre3_b": 7.97
+   }
+  },
+  {
+   "k": 2,
+   "key": "003_A_155_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_003_A_155_4005_DHDH_A_20261024T104924_20261024T105002_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_003_A_155_4005_DHDH_A_20261105T104925_20261105T105003_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -70.48,
+   "lat": -45.4,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32719,
+   "local_solar_hour": 6.12,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -2.4036,
+   "HH_a_site_db": -15.398,
+   "HH_b_site_db": -17.802,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.2056,
+   "net_frac3": -0.2056,
+   "dHH_px_median_db": -2.3962,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 41.6,
+   "spacing_m": 10.0,
+   "sm_a": 0.1347,
+   "sm_b": 0.1168,
+   "dSM": -0.0179,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -45.44287109375,
+     -70.44087219238281
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "PM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -45.44287109375,
+     -70.44087219238281
+    ]
+   },
+   "rain": {
+    "between": 2.67,
+    "pre3_a": 14.18,
+    "pre3_b": 2.02
+   }
+  },
+  {
+   "k": 7,
+   "key": "003_D_099_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_003_D_099_2005_DHDH_A_20261024T101721_20261024T101756_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_003_D_099_2005_DHDH_A_20261105T101722_20261105T101757_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 118.07,
+   "lat": -20.75,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32750,
+   "local_solar_hour": 18.15,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.3084,
+   "HH_a_site_db": -19.042,
+   "HH_b_site_db": -19.35,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.3021,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 39.0,
+   "spacing_m": 20.0,
+   "sm_a": 0.1162,
+   "sm_b": 0.1102,
+   "dSM": -0.006,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -20.739166259765625,
+     118.05497741699219
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -20.739166259765625,
+     118.05497741699219
+    ]
+   },
+   "rain": {
+    "between": 0.44,
+    "pre3_a": 0.0,
+    "pre3_b": 0.44
+   }
+  },
+  {
+   "k": 8,
+   "key": "003_D_102_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_003_D_102_2005_DHDH_A_20261024T101902_20261024T101937_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_003_D_102_2005_DHDH_A_20261105T101903_20261105T101937_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 116.81,
+   "lat": -26.75,
+   "mode": "DHDH",
+   "bytes": 35651584,
+   "epsg": 32750,
+   "local_solar_hour": 18.1,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1065,
+   "HH_a_site_db": -15.728,
+   "HH_b_site_db": -15.835,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.1095,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.0,
+   "spacing_m": 20.0,
+   "sm_a": 0.0338,
+   "sm_b": 0.0448,
+   "dSM": 0.011,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "AM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -26.745723724365234,
+     116.8412857055664
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -26.745723724365234,
+     116.8412857055664
+    ]
+   },
+   "rain": {
+    "between": 0.32,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 9,
+   "key": "003_D_103_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_003_D_103_4005_DHDH_A_20261024T102004_20261024T102011_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_003_D_103_4005_DHDH_A_20261105T102005_20261105T102011_P05036_N_P_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 116.21,
+   "lat": -29.77,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32750,
+   "local_solar_hour": 18.08,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.3052,
+   "HH_a_site_db": -16.774,
+   "HH_b_site_db": -17.08,
+   "frac_up3": 0.0003,
+   "frac_dn3": 0.0022,
+   "net_frac3": -0.0019,
+   "dHH_px_median_db": -0.3329,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 44.5,
+   "spacing_m": 10.0,
+   "sm_a": 0.0484,
+   "sm_b": 0.075,
+   "dSM": 0.0266,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -29.783374786376953,
+     116.18775939941406
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -29.783374786376953,
+     116.18775939941406
+    ]
+   },
+   "rain": {
+    "between": 3.62,
+    "pre3_a": 0.59,
+    "pre3_b": 0.06
+   }
+  },
+  {
+   "k": 10,
+   "key": "004_A_024_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_004_A_024_4005_DHDH_A_20261024T111440_20261024T111515_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_004_A_024_4005_DHDH_A_20261105T111441_20261105T111516_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -93.57,
+   "lat": 44.32,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32615,
+   "local_solar_hour": 5.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 1.602,
+   "HH_a_site_db": -8.555,
+   "HH_b_site_db": -6.953,
+   "frac_up3": 0.3504,
+   "frac_dn3": 0.0096,
+   "net_frac3": 0.3408,
+   "dHH_px_median_db": 2.094,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 42.2,
+   "spacing_m": 10.0,
+   "sm_a": 0.2299,
+   "sm_b": 0.3332,
+   "dSM": 0.1033,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 1.0,
+    "cell_latlon": [
+     44.35365676879883,
+     -93.59439849853516
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "AM",
+    "hours_from_nisar": 23.0,
+    "cell_latlon": [
+     44.35365676879883,
+     -93.59439849853516
+    ]
+   },
+   "rain": {
+    "between": 46.78,
+    "pre3_a": 1.6,
+    "pre3_b": 34.31
+   }
+  },
+  {
+   "k": 13,
+   "key": "005_D_079_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_005_D_079_4005_DHDH_A_20261024T132558_20261024T132633_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_005_D_079_4005_DHDH_A_20261105T132559_20261105T132633_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 76.94,
+   "lat": 19.11,
+   "mode": "DHDH",
+   "bytes": 54525952,
+   "epsg": 32643,
+   "local_solar_hour": 18.55,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.145,
+   "HH_a_site_db": -9.041,
+   "HH_b_site_db": -9.186,
+   "frac_up3": 0.0205,
+   "frac_dn3": 0.0179,
+   "net_frac3": 0.0026,
+   "dHH_px_median_db": -0.1469,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 48.1,
+   "spacing_m": 10.0,
+   "sm_a": 0.1676,
+   "sm_b": 0.2009,
+   "dSM": 0.0332,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     19.08943748474121,
+     76.97614288330078
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     19.08943748474121,
+     76.97614288330078
+    ]
+   },
+   "rain": {
+    "between": 10.93,
+    "pre3_a": 0.97,
+    "pre3_b": 2.95
+   }
+  },
+  {
+   "k": 14,
+   "key": "005_D_081_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_005_D_081_4005_DHDH_A_20261024T132705_20261024T132740_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_005_D_081_4005_DHDH_A_20261105T132706_20261105T132740_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 75.9,
+   "lat": 15.13,
+   "mode": "DHDH",
+   "bytes": 52428800,
+   "epsg": 32643,
+   "local_solar_hour": 18.51,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.6222,
+   "HH_a_site_db": -9.494,
+   "HH_b_site_db": -10.116,
+   "frac_up3": 0.0162,
+   "frac_dn3": 0.0575,
+   "net_frac3": -0.0413,
+   "dHH_px_median_db": -0.4339,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 46.9,
+   "spacing_m": 10.0,
+   "sm_a": 0.1471,
+   "sm_b": 0.1414,
+   "dSM": -0.0057,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 23.5,
+    "cell_latlon": [
+     15.103992462158203,
+     75.8558120727539
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     15.103992462158203,
+     75.8558120727539
+    ]
+   },
+   "rain": {
+    "between": 17.64,
+    "pre3_a": 19.92,
+    "pre3_b": 15.56
+   }
+  },
+  {
+   "k": 20,
+   "key": "007_D_100_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_007_D_100_2005_DHDH_A_20261024T165727_20261024T165802_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_007_D_100_2005_DHDH_A_20261105T165728_20261105T165803_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 17.71,
+   "lat": -22.74,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32733,
+   "local_solar_hour": 18.13,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.5367,
+   "HH_a_site_db": -15.749,
+   "HH_b_site_db": -15.213,
+   "frac_up3": 0.0065,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0065,
+   "dHH_px_median_db": 0.2053,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 33.2,
+   "spacing_m": 20.0,
+   "sm_a": 0.0619,
+   "sm_b": 0.069,
+   "dSM": 0.0071,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -22.711896896362305,
+     17.69190788269043
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -22.711896896362305,
+     17.69190788269043
+    ]
+   },
+   "rain": {
+    "between": 3.84,
+    "pre3_a": 0.0,
+    "pre3_b": 1.94
+   }
+  },
+  {
+   "k": 21,
+   "key": "007_D_101_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_007_D_101_2005_DHDH_A_20261024T165801_20261024T165836_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_007_D_101_2005_DHDH_A_20261105T165802_20261105T165836_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 17.29,
+   "lat": -24.76,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32733,
+   "local_solar_hour": 18.12,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.073,
+   "HH_a_site_db": -12.83,
+   "HH_b_site_db": -12.903,
+   "frac_up3": 0.0018,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0018,
+   "dHH_px_median_db": -0.0776,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 34.9,
+   "spacing_m": 20.0,
+   "sm_a": 0.0512,
+   "sm_b": 0.0564,
+   "dSM": 0.0052,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     17.318464279174805
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     17.318464279174805
+    ]
+   },
+   "rain": {
+    "between": 1.32,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 22,
+   "key": "007_D_102_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_007_D_102_2005_DHDH_A_20261024T165835_20261024T165909_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_007_D_102_2005_DHDH_A_20261105T165835_20261105T165910_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 16.86,
+   "lat": -26.75,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32733,
+   "local_solar_hour": 18.09,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.029,
+   "HH_a_site_db": -10.749,
+   "HH_b_site_db": -10.778,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.0485,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 41.9,
+   "spacing_m": 20.0,
+   "sm_a": 0.0652,
+   "sm_b": 0.0634,
+   "dSM": -0.0017,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -26.745723724365234,
+     16.851659774780273
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -26.745723724365234,
+     16.851659774780273
+    ]
+   },
+   "rain": {
+    "between": 0.16,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 24,
+   "key": "009_A_161_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_009_A_161_2005_DHDH_A_20261024T205209_20261024T205244_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_009_A_161_2005_DHDH_A_20261105T205209_20261105T205244_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 136.97,
+   "lat": -33.24,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32753,
+   "local_solar_hour": 6.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -5.4493,
+   "HH_a_site_db": -7.205,
+   "HH_b_site_db": -12.654,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.992,
+   "net_frac3": -0.992,
+   "dHH_px_median_db": -5.5023,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 41.7,
+   "spacing_m": 20.0,
+   "sm_a": 0.33,
+   "sm_b": 0.0559,
+   "dSM": -0.2741,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 12.0,
+    "cell_latlon": [
+     -33.2500114440918,
+     137.00726318359375
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 0.0,
+    "cell_latlon": [
+     -33.2500114440918,
+     137.00726318359375
+    ]
+   },
+   "rain": {
+    "between": 10.98,
+    "pre3_a": 5.82,
+    "pre3_b": 0.03
+   }
+  },
+  {
+   "k": 26,
+   "key": "010_D_101_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_010_D_101_2005_DHDH_A_20261024T215740_20261024T215815_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_010_D_101_2005_DHDH_A_20261105T215741_20261105T215815_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -57.56,
+   "lat": -24.77,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32721,
+   "local_solar_hour": 18.11,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.5848,
+   "HH_a_site_db": -5.67,
+   "HH_b_site_db": -5.085,
+   "frac_up3": 0.0069,
+   "frac_dn3": 0.0001,
+   "net_frac3": 0.0068,
+   "dHH_px_median_db": 0.2979,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 39.5,
+   "spacing_m": 20.0,
+   "sm_a": 0.4194,
+   "sm_b": 0.4403,
+   "dSM": 0.0209,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     -57.55705261230469
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -24.790395736694336,
+     -57.55705261230469
+    ]
+   },
+   "rain": {
+    "between": 51.2,
+    "pre3_a": 21.22,
+    "pre3_b": 40.87
+   }
+  },
+  {
+   "k": 27,
+   "key": "010_D_103_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_010_D_103_2005_DHDH_A_20261024T215847_20261024T215922_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_010_D_103_2005_DHDH_A_20261105T215848_20261105T215922_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": -58.4,
+   "lat": -28.75,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32721,
+   "local_solar_hour": 18.07,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0806,
+   "HH_a_site_db": -7.321,
+   "HH_b_site_db": -7.241,
+   "frac_up3": 0.0015,
+   "frac_dn3": 0.0017,
+   "net_frac3": -0.0002,
+   "dHH_px_median_db": 0.0042,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.7,
+   "spacing_m": 20.0,
+   "sm_a": 0.3676,
+   "sm_b": 0.3574,
+   "dSM": -0.0102,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -28.73454475402832,
+     -58.39730453491211
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -28.73454475402832,
+     -58.39730453491211
+    ]
+   },
+   "rain": {
+    "between": 133.83,
+    "pre3_a": 46.39,
+    "pre3_b": 132.89
+   }
+  },
+  {
+   "k": 30,
+   "key": "011_A_016_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_011_A_016_4005_DHDH_A_20261024T224921_20261024T224956_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_011_A_016_4005_DHDH_A_20261105T224922_20261105T224957_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 97.84,
+   "lat": 28.54,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32647,
+   "local_solar_hour": 5.34,
+   "valid_frac": 0.9988,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.9078,
+   "HH_a_site_db": 3.833,
+   "HH_b_site_db": 2.925,
+   "frac_up3": 0.0006,
+   "frac_dn3": 0.0008,
+   "net_frac3": -0.0002,
+   "dHH_px_median_db": -0.134,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 46.3,
+   "spacing_m": 10.0,
+   "sm_a": 0.2144,
+   "sm_b": 0.1557,
+   "dSM": -0.0587,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 12.7,
+    "cell_latlon": [
+     28.574108123779297,
+     97.79564666748047
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 0.7,
+    "cell_latlon": [
+     28.574108123779297,
+     97.79564666748047
+    ]
+   },
+   "rain": {
+    "between": 5.41,
+    "pre3_a": 0.02,
+    "pre3_b": 2.25
+   }
+  },
+  {
+   "k": 31,
+   "key": "011_A_022_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_011_A_022_2005_DHDH_A_20261024T225244_20261024T225319_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_011_A_022_2005_DHDH_A_20261105T225244_20261105T225319_P05036_N_F_J_001",
+   "date_a": "20261024",
+   "date_b": "20261105",
+   "lon": 93.46,
+   "lat": 40.42,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32646,
+   "local_solar_hour": 5.1,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.4406,
+   "HH_a_site_db": -20.434,
+   "HH_b_site_db": -20.875,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.4534,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 44.9,
+   "spacing_m": 20.0,
+   "sm_a": 0.0498,
+   "sm_b": 0.0361,
+   "dSM": -0.0137,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "PM",
+    "hours_from_nisar": 12.9,
+    "cell_latlon": [
+     40.456016540527344,
+     93.50103759765625
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 11.1,
+    "cell_latlon": [
+     40.456016540527344,
+     93.50103759765625
+    ]
+   },
+   "rain": {
+    "between": 0.1,
+    "pre3_a": 0.0,
+    "pre3_b": 0.1
+   }
+  },
+  {
+   "k": 38,
+   "key": "012_A_013_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_012_A_013_4005_DHDH_A_20261025T002734_20261025T002808_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_012_A_013_4005_DHDH_A_20261106T002734_20261106T002809_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 74.64,
+   "lat": 22.6,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32643,
+   "local_solar_hour": 5.43,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1037,
+   "HH_a_site_db": -9.593,
+   "HH_b_site_db": -9.697,
+   "frac_up3": 0.009,
+   "frac_dn3": 0.0063,
+   "net_frac3": 0.0027,
+   "dHH_px_median_db": -0.1299,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 40.4,
+   "spacing_m": 10.0,
+   "sm_a": 0.1245,
+   "sm_b": 0.1635,
+   "dSM": 0.039,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     22.63552474975586,
+     74.6421127319336
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     22.63552474975586,
+     74.6421127319336
+    ]
+   },
+   "rain": {
+    "between": 2.02,
+    "pre3_a": 0.1,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 40,
+   "key": "013_A_010_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_013_A_010_2005_DHDH_A_20261025T020546_20261025T020621_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_013_A_010_2005_DHDH_A_20261106T020547_20261106T020621_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 51.26,
+   "lat": 16.62,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32639,
+   "local_solar_hour": 5.5,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0567,
+   "HH_a_site_db": -8.402,
+   "HH_b_site_db": -8.458,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.0291,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 37.9,
+   "spacing_m": 20.0,
+   "sm_a": 0.0935,
+   "sm_b": 0.0846,
+   "dSM": -0.0089,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     16.64411163330078,
+     51.3018684387207
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 23.5,
+    "cell_latlon": [
+     16.64411163330078,
+     51.3018684387207
+    ]
+   },
+   "rain": {
+    "between": 0.19,
+    "pre3_a": 0.77,
+    "pre3_b": 0.19
+   }
+  },
+  {
+   "k": 41,
+   "key": "013_A_011_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_013_A_011_2005_DHDH_A_20261025T020620_20261025T020654_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_013_A_011_2005_DHDH_A_20261106T020620_20261106T020655_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 50.74,
+   "lat": 18.62,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32639,
+   "local_solar_hour": 5.48,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0598,
+   "HH_a_site_db": -20.51,
+   "HH_b_site_db": -20.57,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0002,
+   "net_frac3": -0.0001,
+   "dHH_px_median_db": -0.0625,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 37.9,
+   "spacing_m": 20.0,
+   "sm_a": 0.0436,
+   "sm_b": 0.0304,
+   "dSM": -0.0132,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     18.642345428466797,
+     50.741703033447266
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     18.642345428466797,
+     50.741703033447266
+    ]
+   },
+   "rain": {
+    "between": 0.0,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 42,
+   "key": "013_A_013_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_013_A_013_4005_DHDH_A_20261025T020756_20261025T020802_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_013_A_013_4005_DHDH_A_20261106T020757_20261106T020802_P05036_N_P_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 49.37,
+   "lat": 23.64,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32639,
+   "local_solar_hour": 5.41,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0505,
+   "HH_a_site_db": -18.804,
+   "HH_b_site_db": -18.753,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": 0.0609,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 37.3,
+   "spacing_m": 10.0,
+   "sm_a": 0.028,
+   "sm_b": 0.0367,
+   "dSM": 0.0087,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     23.631681442260742,
+     49.341285705566406
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     23.631681442260742,
+     49.341285705566406
+    ]
+   },
+   "rain": {
+    "between": 0.01,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 43,
+   "key": "013_A_017_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_013_A_017_4005_DHDH_A_20261025T020941_20261025T021016_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_013_A_017_4005_DHDH_A_20261106T020942_20261106T021017_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 47.24,
+   "lat": 30.52,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32638,
+   "local_solar_hour": 5.3,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.3398,
+   "HH_a_site_db": -13.011,
+   "HH_b_site_db": -12.671,
+   "frac_up3": 0.0038,
+   "frac_dn3": 0.0021,
+   "net_frac3": 0.0017,
+   "dHH_px_median_db": 0.0643,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 41.3,
+   "sm_a": 0.0812,
+   "sm_b": 0.1519,
+   "dSM": 0.0708,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 12.7,
+    "cell_latlon": [
+     30.515819549560547,
+     47.19398498535156
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.7,
+    "cell_latlon": [
+     30.515819549560547,
+     47.19398498535156
+    ]
+   },
+   "rain": {
+    "between": 7.17,
+    "pre3_a": 0.47,
+    "pre3_b": 3.87
+   }
+  },
+  {
+   "k": 45,
+   "key": "013_D_062_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_013_D_062_4005_DHDH_A_20261025T023527_20261025T023603_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_013_D_062_4005_DHDH_A_20261106T023528_20261106T023603_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -109.09,
+   "lat": 52.61,
+   "mode": "DHDH",
+   "bytes": 81788928,
+   "epsg": 32612,
+   "local_solar_hour": 19.31,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 1.4665,
+   "HH_a_site_db": -15.768,
+   "HH_b_site_db": -14.301,
+   "frac_up3": 0.1281,
+   "frac_dn3": 0.0024,
+   "net_frac3": 0.1257,
+   "dHH_px_median_db": 1.8104,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 69.8,
+   "sm_a": 0.1334,
+   "sm_b": 0.1755,
+   "dSM": 0.0421,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 1.3,
+    "cell_latlon": [
+     52.607521057128906,
+     -109.09232330322266
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 1.3,
+    "cell_latlon": [
+     52.607521057128906,
+     -109.09232330322266
+    ]
+   },
+   "rain": {
+    "between": 12.2,
+    "pre3_a": 9.41,
+    "pre3_b": 0.23
+   }
+  },
+  {
+   "k": 47,
+   "key": "014_A_006_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_014_A_006_2005_DHDH_A_20261025T034326_20261025T034400_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_014_A_006_2005_DHDH_A_20261106T034326_20261106T034401_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 28.25,
+   "lat": 8.68,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32635,
+   "local_solar_hour": 5.6,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.5025,
+   "HH_a_site_db": -8.329,
+   "HH_b_site_db": -8.831,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0054,
+   "net_frac3": -0.0054,
+   "dHH_px_median_db": -0.4997,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.7,
+   "sm_a": 0.1666,
+   "sm_b": 0.1328,
+   "dSM": -0.0338,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "AM",
+    "hours_from_nisar": 0.4,
+    "cell_latlon": [
+     8.682134628295898,
+     28.241701126098633
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 23.6,
+    "cell_latlon": [
+     8.682134628295898,
+     28.241701126098633
+    ]
+   },
+   "rain": {
+    "between": 15.95,
+    "pre3_a": 2.66,
+    "pre3_b": 0.15
+   }
+  },
+  {
+   "k": 57,
+   "key": "019_A_013_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_019_A_013_4005_DHDH_A_20261025T120645_20261025T120720_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_019_A_013_4005_DHDH_A_20261106T120646_20261106T120720_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -100.15,
+   "lat": 22.6,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32614,
+   "local_solar_hour": 5.42,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.8514,
+   "HH_a_site_db": -8.905,
+   "HH_b_site_db": -9.757,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0041,
+   "net_frac3": -0.004,
+   "dHH_px_median_db": -0.8771,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 42.3,
+   "sm_a": 0.1646,
+   "sm_b": 0.1001,
+   "dSM": -0.0645,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.4,
+    "cell_latlon": [
+     22.63552474975586,
+     -100.12966918945312
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     22.63552474975586,
+     -100.12966918945312
+    ]
+   },
+   "rain": {
+    "between": 19.52,
+    "pre3_a": 13.73,
+    "pre3_b": 12.31
+   }
+  },
+  {
+   "k": 58,
+   "key": "019_A_015_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_019_A_015_4005_DHDH_A_20261025T120752_20261025T120827_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_019_A_015_4005_DHDH_A_20261106T120753_20261106T120827_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -101.3,
+   "lat": 26.56,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32614,
+   "local_solar_hour": 5.36,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.1236,
+   "HH_a_site_db": -13.639,
+   "HH_b_site_db": -13.516,
+   "frac_up3": 0.0006,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0006,
+   "dHH_px_median_db": 0.0897,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 40.9,
+   "sm_a": 0.1135,
+   "sm_b": 0.1236,
+   "dSM": 0.0101,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.4,
+    "cell_latlon": [
+     26.588117599487305,
+     -101.3433609008789
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     26.588117599487305,
+     -101.3433609008789
+    ]
+   },
+   "rain": {
+    "between": 13.33,
+    "pre3_a": 3.59,
+    "pre3_b": 2.21
+   }
+  },
+  {
+   "k": 59,
+   "key": "019_A_018_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_019_A_018_4005_DHDH_A_20261025T120933_20261025T121008_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_019_A_018_4005_DHDH_A_20261106T120934_20261106T121008_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -103.23,
+   "lat": 32.51,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32613,
+   "local_solar_hour": 5.27,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.692,
+   "HH_a_site_db": -13.838,
+   "HH_b_site_db": -15.53,
+   "frac_up3": 0.0008,
+   "frac_dn3": 0.2772,
+   "net_frac3": -0.2764,
+   "dHH_px_median_db": -1.6961,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 37.0,
+   "sm_a": 0.0656,
+   "sm_b": 0.1204,
+   "dSM": 0.0549,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.3,
+    "cell_latlon": [
+     32.49633026123047,
+     -103.21057891845703
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 12.7,
+    "cell_latlon": [
+     32.49633026123047,
+     -103.21057891845703
+    ]
+   },
+   "rain": {
+    "between": 41.96,
+    "pre3_a": 4.35,
+    "pre3_b": 0.04
+   }
+  },
+  {
+   "k": 63,
+   "key": "021_D_104_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_021_D_104_2005_DHDH_A_20261025T161805_20261025T161840_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_021_D_104_2005_DHDH_A_20261106T161805_20261106T161840_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 26.52,
+   "lat": -30.77,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32735,
+   "local_solar_hour": 18.07,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.2482,
+   "HH_a_site_db": -12.516,
+   "HH_b_site_db": -12.764,
+   "frac_up3": 0.002,
+   "frac_dn3": 0.0003,
+   "net_frac3": 0.0017,
+   "dHH_px_median_db": -0.2721,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.0,
+   "sm_a": 0.121,
+   "sm_b": 0.112,
+   "dSM": -0.0091,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "AM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -30.761165618896484,
+     26.561203002929688
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -30.761165618896484,
+     26.561203002929688
+    ]
+   },
+   "rain": {
+    "between": 8.9,
+    "pre3_a": 0.38,
+    "pre3_b": 0.74
+   }
+  },
+  {
+   "k": 68,
+   "key": "023_D_064_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_023_D_064_2005_DHDH_A_20261025T191524_20261025T191602_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_023_D_064_2005_DHDH_A_20261106T191525_20261106T191602_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -1.2,
+   "lat": 48.79,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32630,
+   "local_solar_hour": 19.17,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.4717,
+   "HH_a_site_db": -6.919,
+   "HH_b_site_db": -7.391,
+   "frac_up3": 0.0015,
+   "frac_dn3": 0.0218,
+   "net_frac3": -0.0203,
+   "dHH_px_median_db": -0.4815,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 37.1,
+   "sm_a": 0.3063,
+   "sm_b": 0.2882,
+   "dSM": -0.018,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "AM",
+    "hours_from_nisar": 13.2,
+    "cell_latlon": [
+     48.738304138183594,
+     -1.1670124530792236
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 1.2,
+    "cell_latlon": [
+     48.738304138183594,
+     -1.1670124530792236
+    ]
+   },
+   "rain": {
+    "between": 5.76,
+    "pre3_a": 44.51,
+    "pre3_b": 1.46
+   }
+  },
+  {
+   "k": 69,
+   "key": "023_D_067_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_023_D_067_2005_DHDH_A_20261025T191709_20261025T191744_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_023_D_067_2005_DHDH_A_20261106T191709_20261106T191744_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -4.32,
+   "lat": 42.84,
+   "mode": "DHDH",
+   "bytes": 48234496,
+   "epsg": 32630,
+   "local_solar_hour": 19.0,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.2652,
+   "HH_a_site_db": -9.769,
+   "HH_b_site_db": -10.034,
+   "frac_up3": 0.0041,
+   "frac_dn3": 0.0091,
+   "net_frac3": -0.005,
+   "dHH_px_median_db": -0.2663,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 42.5,
+   "sm_a": 0.1502,
+   "sm_b": 0.1138,
+   "dSM": -0.0363,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 1.0,
+    "cell_latlon": [
+     42.80397415161133,
+     -4.3412861824035645
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 11.0,
+    "cell_latlon": [
+     42.80397415161133,
+     -4.3412861824035645
+    ]
+   },
+   "rain": {
+    "between": 6.72,
+    "pre3_a": 0.11,
+    "pre3_b": 3.03
+   }
+  },
+  {
+   "k": 70,
+   "key": "023_D_069_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_023_D_069_2005_DHDH_A_20261025T191822_20261025T191851_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_023_D_069_2005_DHDH_A_20261106T191823_20261106T191852_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -6.11,
+   "lat": 38.74,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32629,
+   "local_solar_hour": 18.89,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1178,
+   "HH_a_site_db": -10.343,
+   "HH_b_site_db": -10.461,
+   "frac_up3": 0.0011,
+   "frac_dn3": 0.0045,
+   "net_frac3": -0.0034,
+   "dHH_px_median_db": -0.1266,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 35.5,
+   "sm_a": 0.1165,
+   "sm_b": 0.0962,
+   "dSM": -0.0203,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 0.9,
+    "cell_latlon": [
+     38.724464416503906,
+     -6.115145206451416
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 11.1,
+    "cell_latlon": [
+     38.724464416503906,
+     -6.115145206451416
+    ]
+   },
+   "rain": {
+    "between": 0.01,
+    "pre3_a": 0.01,
+    "pre3_b": 0.01
+   }
+  },
+  {
+   "k": 72,
+   "key": "023_D_072_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_023_D_072_4005_DHDH_A_20261025T191958_20261025T192033_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_023_D_072_4005_DHDH_A_20261106T191958_20261106T192028_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -8.31,
+   "lat": 32.99,
+   "mode": "DHDH",
+   "bytes": 54525952,
+   "epsg": 32629,
+   "local_solar_hour": 18.76,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.092,
+   "HH_a_site_db": -14.091,
+   "HH_b_site_db": -13.999,
+   "frac_up3": 0.0063,
+   "frac_dn3": 0.003,
+   "net_frac3": 0.0033,
+   "dHH_px_median_db": 0.0761,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 43.1,
+   "sm_a": 0.047,
+   "sm_b": 0.0562,
+   "dSM": 0.0092,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 0.8,
+    "cell_latlon": [
+     32.998085021972656,
+     -8.355809211730957
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 11.2,
+    "cell_latlon": [
+     32.998085021972656,
+     -8.355809211730957
+    ]
+   },
+   "rain": {
+    "between": 5.93,
+    "pre3_a": 0.0,
+    "pre3_b": 5.4
+   }
+  },
+  {
+   "k": 73,
+   "key": "023_D_073_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_023_D_073_4005_DHDH_A_20261025T192032_20261025T192040_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_023_D_073_4005_DHDH_A_20261106T192032_20261106T192041_P05036_N_P_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -8.79,
+   "lat": 31.62,
+   "mode": "DHDH",
+   "bytes": 54525952,
+   "epsg": 32629,
+   "local_solar_hour": 18.75,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.059,
+   "HH_a_site_db": -12.634,
+   "HH_b_site_db": -12.575,
+   "frac_up3": 0.0004,
+   "frac_dn3": 0.0004,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": 0.0552,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 47.7,
+   "sm_a": 0.0881,
+   "sm_b": 0.1065,
+   "dSM": 0.0184,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 0.8,
+    "cell_latlon": [
+     31.583480834960938,
+     -8.822613716125488
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 11.2,
+    "cell_latlon": [
+     31.583480834960938,
+     -8.822613716125488
+    ]
+   },
+   "rain": {
+    "between": 9.91,
+    "pre3_a": 1.63,
+    "pre3_b": 5.06
+   }
+  },
+  {
+   "k": 75,
+   "key": "024_A_165_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_024_A_165_2005_DHDH_A_20261025T215240_20261025T215314_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_024_A_165_2005_DHDH_A_20261106T215240_20261106T215315_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 120.71,
+   "lat": -25.25,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32751,
+   "local_solar_hour": 5.91,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0657,
+   "HH_a_site_db": -13.746,
+   "HH_b_site_db": -13.68,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": 0.0719,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 34.8,
+   "sm_a": 0.0553,
+   "sm_b": 0.1248,
+   "dSM": 0.0694,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -25.2568302154541,
+     120.6690902709961
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -25.2568302154541,
+     120.6690902709961
+    ]
+   },
+   "rain": {
+    "between": 0.79,
+    "pre3_a": 0.0,
+    "pre3_b": 0.79
+   }
+  },
+  {
+   "k": 76,
+   "key": "024_A_166_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_024_A_166_2005_DHDH_A_20261025T215313_20261025T215348_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_024_A_166_2005_DHDH_A_20261106T215314_20261106T215348_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 120.3,
+   "lat": -23.27,
+   "mode": "DHDH",
+   "bytes": 35651584,
+   "epsg": 32751,
+   "local_solar_hour": 5.9,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0869,
+   "HH_a_site_db": -18.787,
+   "HH_b_site_db": -18.7,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": 0.0623,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 30.9,
+   "sm_a": 0.053,
+   "sm_b": 0.0905,
+   "dSM": 0.0375,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -23.2476863861084,
+     120.29564666748047
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -23.2476863861084,
+     120.29564666748047
+    ]
+   },
+   "rain": {
+    "between": 0.65,
+    "pre3_a": 0.0,
+    "pre3_b": 0.65
+   }
+  },
+  {
+   "k": 77,
+   "key": "024_A_167_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_024_A_167_2005_DHDH_A_20261025T215347_20261025T215425_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_024_A_167_2005_DHDH_A_20261106T215347_20261106T215426_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": 119.86,
+   "lat": -21.18,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32750,
+   "local_solar_hour": 5.87,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.053,
+   "HH_a_site_db": -14.032,
+   "HH_b_site_db": -14.085,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0006,
+   "net_frac3": -0.0005,
+   "dHH_px_median_db": -0.0553,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 35.4,
+   "sm_a": 0.0657,
+   "sm_b": 0.1124,
+   "dSM": 0.0467,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -21.19209098815918,
+     119.8288345336914
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -21.19209098815918,
+     119.8288345336914
+    ]
+   },
+   "rain": {
+    "between": 2.4,
+    "pre3_a": 0.0,
+    "pre3_b": 2.4
+   }
+  },
+  {
+   "k": 80,
+   "key": "025_D_084_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_025_D_084_4005_DHDH_A_20261025T224627_20261025T224701_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_025_D_084_4005_DHDH_A_20261106T224627_20261106T224702_P05036_N_F_J_001",
+   "date_a": "20261025",
+   "date_b": "20261106",
+   "lon": -64.99,
+   "lat": 9.17,
+   "mode": "DHDH",
+   "bytes": 54525952,
+   "epsg": 32620,
+   "local_solar_hour": 18.43,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 1.0519,
+   "HH_a_site_db": -8.439,
+   "HH_b_site_db": -7.387,
+   "frac_up3": 0.0182,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0182,
+   "dHH_px_median_db": 1.0928,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 44.1,
+   "sm_a": 0.1824,
+   "sm_b": 0.2659,
+   "dSM": 0.0835,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "AM",
+    "hours_from_nisar": 12.4,
+    "cell_latlon": [
+     9.182318687438965,
+     -65.02593231201172
+    ]
+   },
+   "smap_b": {
+    "day": "20261106",
+    "overpass": "PM",
+    "hours_from_nisar": 0.4,
+    "cell_latlon": [
+     9.182318687438965,
+     -65.02593231201172
+    ]
+   },
+   "rain": {
+    "between": 43.11,
+    "pre3_a": 0.17,
+    "pre3_b": 15.98
+   }
+  },
+  {
+   "k": 85,
+   "key": "027_D_070_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_027_D_070_4005_DHDH_A_20261026T015823_20261026T015858_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_027_D_070_4005_DHDH_A_20261107T015823_20261107T015858_P05036_N_F_J_001",
+   "date_a": "20261026",
+   "date_b": "20261107",
+   "lon": -106.75,
+   "lat": 36.94,
+   "mode": "DHDH",
+   "bytes": 56623104,
+   "epsg": 32613,
+   "local_solar_hour": 18.85,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.6325,
+   "HH_a_site_db": -5.944,
+   "HH_b_site_db": -6.577,
+   "frac_up3": 0.0002,
+   "frac_dn3": 0.0066,
+   "net_frac3": -0.0064,
+   "dHH_px_median_db": -0.7019,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 48.6,
+   "sm_a": 0.346,
+   "sm_b": 0.3134,
+   "dSM": -0.0325,
+   "smap_a": {
+    "day": "20261027",
+    "overpass": "AM",
+    "hours_from_nisar": 11.1,
+    "cell_latlon": [
+     36.94527816772461,
+     -106.75830078125
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 12.9,
+    "cell_latlon": [
+     36.94527816772461,
+     -106.75830078125
+    ]
+   },
+   "rain": {
+    "between": 68.74,
+    "pre3_a": 31.03,
+    "pre3_b": 0.25
+   }
+  },
+  {
+   "k": 91,
+   "key": "040_A_021_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_040_A_021_2005_DHDH_A_20261026T230849_20261026T230924_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_040_A_021_2005_DHDH_A_20261107T230849_20261107T230924_P05036_N_F_J_001",
+   "date_a": "20261026",
+   "date_b": "20261107",
+   "lon": 90.1,
+   "lat": 38.44,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32646,
+   "local_solar_hour": 5.14,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0502,
+   "HH_a_site_db": -14.254,
+   "HH_b_site_db": -14.203,
+   "frac_up3": 0.0013,
+   "frac_dn3": 0.0003,
+   "net_frac3": 0.001,
+   "dHH_px_median_db": 0.0635,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 38.2,
+   "sm_a": 0.0462,
+   "sm_b": 0.0645,
+   "dSM": 0.0182,
+   "smap_a": {
+    "day": "20261025",
+    "overpass": "PM",
+    "hours_from_nisar": 11.1,
+    "cell_latlon": [
+     38.45486068725586,
+     90.14004516601562
+    ]
+   },
+   "smap_b": {
+    "day": "20261107",
+    "overpass": "AM",
+    "hours_from_nisar": 0.9,
+    "cell_latlon": [
+     38.45486068725586,
+     90.14004516601562
+    ]
+   },
+   "rain": {
+    "between": 0.74,
+    "pre3_a": 0.0,
+    "pre3_b": 0.01
+   }
+  },
+  {
+   "k": 99,
+   "key": "048_D_080_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_048_D_080_4005_DHDH_A_20261027T130133_20261027T130148_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_048_D_080_4005_DHDH_A_20261108T130134_20261108T130148_P05036_N_P_J_001",
+   "date_a": "20261027",
+   "date_b": "20261108",
+   "lon": 82.78,
+   "lat": 17.63,
+   "mode": "DHDH",
+   "bytes": 73400320,
+   "epsg": 32644,
+   "local_solar_hour": 18.54,
+   "spacing_m": 10.0,
+   "valid_frac": 0.9998,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.9427,
+   "HH_a_site_db": -4.785,
+   "HH_b_site_db": -5.727,
+   "frac_up3": 0.0027,
+   "frac_dn3": 0.0428,
+   "net_frac3": -0.0401,
+   "dHH_px_median_db": -0.9261,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 59.2,
+   "sm_a": 0.2478,
+   "sm_b": 0.2698,
+   "dSM": 0.022,
+   "smap_a": {
+    "day": "20261026",
+    "overpass": "PM",
+    "hours_from_nisar": 24.5,
+    "cell_latlon": [
+     17.603527069091797,
+     82.7645263671875
+    ]
+   },
+   "smap_b": {
+    "day": "20261109",
+    "overpass": "PM",
+    "hours_from_nisar": 23.5,
+    "cell_latlon": [
+     17.603527069091797,
+     82.7645263671875
+    ]
+   },
+   "rain": {
+    "between": 138.32,
+    "pre3_a": 78.46,
+    "pre3_b": 8.95
+   }
+  },
+  {
+   "k": 101,
+   "key": "055_A_014_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_055_A_014_4005_DHDH_A_20261028T000309_20261028T000344_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_055_A_014_4005_DHDH_A_20261109T000310_20261109T000344_P05036_N_F_J_001",
+   "date_a": "20261028",
+   "date_b": "20261109",
+   "lon": 80.33,
+   "lat": 24.58,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32644,
+   "local_solar_hour": 5.41,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.3309,
+   "HH_a_site_db": -9.558,
+   "HH_b_site_db": -9.889,
+   "frac_up3": 0.0268,
+   "frac_dn3": 0.0239,
+   "net_frac3": 0.0029,
+   "dHH_px_median_db": -0.3644,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 34.8,
+   "sm_a": 0.1393,
+   "sm_b": 0.1464,
+   "dSM": 0.0071,
+   "smap_a": {
+    "day": "20261028",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     24.557823181152344,
+     80.3371353149414
+    ]
+   },
+   "smap_b": {
+    "day": "20261109",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     24.557823181152344,
+     80.3371353149414
+    ]
+   },
+   "rain": {
+    "between": 8.97,
+    "pre3_a": 1.79,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 102,
+   "key": "055_A_015_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_055_A_015_4005_DHDH_A_20261028T000343_20261028T000417_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_055_A_015_4005_DHDH_A_20261109T000343_20261109T000418_P05036_N_F_J_001",
+   "date_a": "20261028",
+   "date_b": "20261109",
+   "lon": 79.74,
+   "lat": 26.57,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32644,
+   "local_solar_hour": 5.37,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.1503,
+   "HH_a_site_db": -9.046,
+   "HH_b_site_db": -10.196,
+   "frac_up3": 0.0191,
+   "frac_dn3": 0.1405,
+   "net_frac3": -0.1214,
+   "dHH_px_median_db": -0.7996,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 37.7,
+   "sm_a": 0.1808,
+   "sm_b": 0.1758,
+   "dSM": -0.0049,
+   "smap_a": {
+    "day": "20261028",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     26.588117599487305,
+     79.77696990966797
+    ]
+   },
+   "smap_b": {
+    "day": "20261109",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     26.588117599487305,
+     79.77696990966797
+    ]
+   },
+   "rain": {
+    "between": 12.46,
+    "pre3_a": 0.93,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 105,
+   "key": "069_A_014_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_069_A_014_4005_DHDH_A_20261028T232132_20261028T232207_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_069_A_014_4005_DHDH_A_20261109T232132_20261109T232207_P05036_N_F_J_001",
+   "date_a": "20261028",
+   "date_b": "20261109",
+   "lon": 90.7,
+   "lat": 24.58,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32646,
+   "local_solar_hour": 5.4,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.8559,
+   "HH_a_site_db": -2.604,
+   "HH_b_site_db": -3.46,
+   "frac_up3": 0.001,
+   "frac_dn3": 0.0521,
+   "net_frac3": -0.0511,
+   "dHH_px_median_db": -0.7305,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 39.4,
+   "sm_a": 0.2449,
+   "sm_b": 0.1781,
+   "dSM": -0.0668,
+   "smap_a": {
+    "day": "20261028",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     24.557823181152344,
+     90.70021057128906
+    ]
+   },
+   "smap_b": {
+    "day": "20261108",
+    "overpass": "PM",
+    "hours_from_nisar": 11.4,
+    "cell_latlon": [
+     24.557823181152344,
+     90.70021057128906
+    ]
+   },
+   "rain": {
+    "between": 18.4,
+    "pre3_a": 5.45,
+    "pre3_b": 3.68
+   }
+  },
+  {
+   "k": 107,
+   "key": "077_D_076_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_077_D_076_4005_DHDH_A_20261029T131600_20261029T131633_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_077_D_076_4005_DHDH_A_20261110T131600_20261110T131633_P05036_N_F_J_001",
+   "date_a": "20261029",
+   "date_b": "20261110",
+   "lon": 80.67,
+   "lat": 25.01,
+   "mode": "DHDH",
+   "bytes": 56623104,
+   "epsg": 32644,
+   "local_solar_hour": 18.64,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.4264,
+   "HH_a_site_db": -8.299,
+   "HH_b_site_db": -8.726,
+   "frac_up3": 0.0064,
+   "frac_dn3": 0.026,
+   "net_frac3": -0.0196,
+   "dHH_px_median_db": -0.4836,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 42.6,
+   "sm_a": 0.1943,
+   "sm_b": 0.1921,
+   "dSM": -0.0022,
+   "smap_a": {
+    "day": "20261029",
+    "overpass": "PM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     25.02339744567871,
+     80.71057891845703
+    ]
+   },
+   "smap_b": {
+    "day": "20261110",
+    "overpass": "AM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     25.02339744567871,
+     80.71057891845703
+    ]
+   },
+   "rain": {
+    "between": 8.78,
+    "pre3_a": 1.89,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 108,
+   "key": "077_D_077_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_077_D_077_4005_DHDH_A_20261029T131632_20261029T131706_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_077_D_077_4005_DHDH_A_20261110T131632_20261110T131707_P05036_N_F_J_001",
+   "date_a": "20261029",
+   "date_b": "20261110",
+   "lon": 80.12,
+   "lat": 23.09,
+   "mode": "DHDH",
+   "bytes": 54525952,
+   "epsg": 32644,
+   "local_solar_hour": 18.61,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.4655,
+   "HH_a_site_db": -7.516,
+   "HH_b_site_db": -7.982,
+   "frac_up3": 0.0192,
+   "frac_dn3": 0.0169,
+   "net_frac3": 0.0023,
+   "dHH_px_median_db": -0.5208,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 45.9,
+   "sm_a": 0.2234,
+   "sm_b": 0.2178,
+   "dSM": -0.0056,
+   "smap_a": {
+    "day": "20261029",
+    "overpass": "PM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     23.094390869140625,
+     80.1504135131836
+    ]
+   },
+   "smap_b": {
+    "day": "20261110",
+    "overpass": "AM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     23.094390869140625,
+     80.1504135131836
+    ]
+   },
+   "rain": {
+    "between": 2.08,
+    "pre3_a": 3.71,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 110,
+   "key": "084_A_010_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_084_A_010_4005_DHDH_A_20261030T001734_20261030T001808_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_084_A_010_4005_DHDH_A_20261111T001734_20261111T001809_P05036_N_F_J_001",
+   "date_a": "20261030",
+   "date_b": "20261111",
+   "lon": 78.33,
+   "lat": 16.62,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32644,
+   "local_solar_hour": 5.51,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.1598,
+   "HH_a_site_db": -8.977,
+   "HH_b_site_db": -10.137,
+   "frac_up3": 0.009,
+   "frac_dn3": 0.0928,
+   "net_frac3": -0.0838,
+   "dHH_px_median_db": -0.4814,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 37.8,
+   "sm_a": 0.1219,
+   "sm_b": 0.1401,
+   "dSM": 0.0182,
+   "smap_a": {
+    "day": "20261030",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     16.64411163330078,
+     78.37655639648438
+    ]
+   },
+   "smap_b": {
+    "day": "20261111",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     16.64411163330078,
+     78.37655639648438
+    ]
+   },
+   "rain": {
+    "between": 32.77,
+    "pre3_a": 3.79,
+    "pre3_b": 0.69
+   }
+  },
+  {
+   "k": 111,
+   "key": "084_A_012_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_084_A_012_4005_DHDH_A_20261030T001841_20261030T001915_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_084_A_012_4005_DHDH_A_20261111T001841_20261111T001916_P05036_N_F_J_001",
+   "date_a": "20261030",
+   "date_b": "20261111",
+   "lon": 77.27,
+   "lat": 20.59,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32643,
+   "local_solar_hour": 5.45,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1343,
+   "HH_a_site_db": -11.151,
+   "HH_b_site_db": -11.285,
+   "frac_up3": 0.0041,
+   "frac_dn3": 0.0058,
+   "net_frac3": -0.0017,
+   "dHH_px_median_db": -0.1402,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 41.2,
+   "sm_a": 0.131,
+   "sm_b": 0.1671,
+   "dSM": 0.0361,
+   "smap_a": {
+    "day": "20261030",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     20.588485717773438,
+     77.2562255859375
+    ]
+   },
+   "smap_b": {
+    "day": "20261111",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     20.588485717773438,
+     77.2562255859375
+    ]
+   },
+   "rain": {
+    "between": 1.46,
+    "pre3_a": 3.12,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 115,
+   "key": "098_A_013_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_098_A_013_4005_DHDH_A_20261030T233737_20261030T233812_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_098_A_013_4005_DHDH_A_20261111T233738_20261111T233812_P05036_N_F_J_001",
+   "date_a": "20261030",
+   "date_b": "20261111",
+   "lon": 87.17,
+   "lat": 22.58,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32645,
+   "local_solar_hour": 5.43,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.3371,
+   "HH_a_site_db": -3.982,
+   "HH_b_site_db": -5.319,
+   "frac_up3": 0.001,
+   "frac_dn3": 0.0928,
+   "net_frac3": -0.0918,
+   "dHH_px_median_db": -1.1387,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 39.0,
+   "sm_a": 0.2428,
+   "sm_b": 0.1693,
+   "dSM": -0.0734,
+   "smap_a": {
+    "day": "20261030",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     22.559192657470703,
+     87.1524887084961
+    ]
+   },
+   "smap_b": {
+    "day": "20261111",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     22.559192657470703,
+     87.1524887084961
+    ]
+   },
+   "rain": {
+    "between": 11.26,
+    "pre3_a": 42.68,
+    "pre3_b": 1.27
+   }
+  },
+  {
+   "k": 116,
+   "key": "098_A_014_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_034_098_A_014_4005_DHDH_A_20261030T233811_20261030T233845_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_035_098_A_014_4005_DHDH_A_20261111T233811_20261111T233846_P05036_N_F_J_001",
+   "date_a": "20261030",
+   "date_b": "20261111",
+   "lon": 86.6,
+   "lat": 24.57,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32645,
+   "local_solar_hour": 5.41,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.7678,
+   "HH_a_site_db": -7.362,
+   "HH_b_site_db": -9.13,
+   "frac_up3": 0.0003,
+   "frac_dn3": 0.1448,
+   "net_frac3": -0.1445,
+   "dHH_px_median_db": -1.6112,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 35.9,
+   "sm_a": 0.2461,
+   "sm_b": 0.1492,
+   "dSM": -0.0969,
+   "smap_a": {
+    "day": "20261030",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     24.557823181152344,
+     86.59232330322266
+    ]
+   },
+   "smap_b": {
+    "day": "20261111",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     24.557823181152344,
+     86.59232330322266
+    ]
+   },
+   "rain": {
+    "between": 7.48,
+    "pre3_a": 6.84,
+    "pre3_b": 2.21
+   }
+  },
+  {
+   "k": 118,
+   "key": "138_D_062_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_138_D_062_2005_DHDH_A_20261021T184100_20261021T184135_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_138_D_062_2005_DHDH_A_20261102T184100_20261102T184136_P05036_N_F_J_001",
+   "date_a": "20261021",
+   "date_b": "20261102",
+   "lon": 9.52,
+   "lat": 52.61,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32632,
+   "local_solar_hour": 19.32,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.3045,
+   "HH_a_site_db": -7.018,
+   "HH_b_site_db": -7.323,
+   "frac_up3": 0.0028,
+   "frac_dn3": 0.0191,
+   "net_frac3": -0.0163,
+   "dHH_px_median_db": -0.2358,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 43.3,
+   "sm_a": 0.1821,
+   "sm_b": 0.1172,
+   "dSM": -0.065,
+   "smap_a": {
+    "day": "20261021",
+    "overpass": "AM",
+    "hours_from_nisar": 13.3,
+    "cell_latlon": [
+     52.607521057128906,
+     9.476140975952148
+    ]
+   },
+   "smap_b": {
+    "day": "20261102",
+    "overpass": "PM",
+    "hours_from_nisar": 1.3,
+    "cell_latlon": [
+     52.607521057128906,
+     9.476140975952148
+    ]
+   },
+   "rain": {
+    "between": 35.92,
+    "pre3_a": 12.98,
+    "pre3_b": 5.35
+   }
+  },
+  {
+   "k": 120,
+   "key": "139_A_164_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_139_A_164_2005_DHDH_A_20261021T211848_20261021T211923_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_139_A_164_2005_DHDH_A_20261102T211848_20261102T211923_P05036_N_F_J_001",
+   "date_a": "20261021",
+   "date_b": "20261102",
+   "lon": 129.47,
+   "lat": -27.25,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32752,
+   "local_solar_hour": 5.93,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -4.4275,
+   "HH_a_site_db": -12.709,
+   "HH_b_site_db": -17.137,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.9803,
+   "net_frac3": -0.9803,
+   "dHH_px_median_db": -4.4672,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 39.3,
+   "sm_a": 0.1868,
+   "sm_b": 0.0418,
+   "dSM": -0.145,
+   "smap_a": {
+    "day": "20261021",
+    "overpass": "AM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -27.219833374023438,
+     129.4450225830078
+    ]
+   },
+   "smap_b": {
+    "day": "20261102",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -27.219833374023438,
+     129.4450225830078
+    ]
+   },
+   "rain": {
+    "between": 9.22,
+    "pre3_a": 4.87,
+    "pre3_b": 0.08
+   }
+  },
+  {
+   "k": 121,
+   "key": "139_A_169_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_139_A_169_2005_DHDH_A_20261021T212136_20261021T212215_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_139_A_169_2005_DHDH_A_20261102T212136_20261102T212211_P05036_N_F_J_001",
+   "date_a": "20261021",
+   "date_b": "20261102",
+   "lon": 127.36,
+   "lat": -17.17,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32752,
+   "local_solar_hour": 5.84,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.1378,
+   "HH_a_site_db": -8.744,
+   "HH_b_site_db": -9.881,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0215,
+   "net_frac3": -0.0215,
+   "dHH_px_median_db": -1.1754,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 37.5,
+   "sm_a": 0.2029,
+   "sm_b": 0.1172,
+   "dSM": -0.0857,
+   "smap_a": {
+    "day": "20261021",
+    "overpass": "AM",
+    "hours_from_nisar": 0.2,
+    "cell_latlon": [
+     -17.160120010375977,
+     127.39107513427734
+    ]
+   },
+   "smap_b": {
+    "day": "20261102",
+    "overpass": "PM",
+    "hours_from_nisar": 12.2,
+    "cell_latlon": [
+     -17.160120010375977,
+     127.39107513427734
+    ]
+   },
+   "rain": {
+    "between": 26.07,
+    "pre3_a": 8.15,
+    "pre3_b": 13.77
+   }
+  },
+  {
+   "k": 125,
+   "key": "140_D_101_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_140_D_101_2005_DHDH_A_20261021T222238_20261021T222313_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_140_D_101_2005_DHDH_A_20261102T222238_20261102T222313_P05036_N_F_J_001",
+   "date_a": "20261021",
+   "date_b": "20261102",
+   "lon": -63.81,
+   "lat": -24.76,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32720,
+   "local_solar_hour": 18.11,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0211,
+   "HH_a_site_db": -13.07,
+   "HH_b_site_db": -13.091,
+   "frac_up3": 0.0002,
+   "frac_dn3": 0.0004,
+   "net_frac3": -0.0002,
+   "dHH_px_median_db": -0.0351,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 39.0,
+   "sm_a": 0.0785,
+   "sm_b": 0.0858,
+   "dSM": 0.0073,
+   "smap_a": {
+    "day": "20261021",
+    "overpass": "AM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     -63.81224060058594
+    ]
+   },
+   "smap_b": {
+    "day": "20261102",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     -63.81224060058594
+    ]
+   },
+   "rain": {
+    "between": 19.78,
+    "pre3_a": 0.67,
+    "pre3_b": 9.76
+   }
+  },
+  {
+   "k": 136,
+   "key": "147_A_162_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_147_A_162_2005_DHDH_A_20261022T103645_20261022T103720_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_147_A_162_2005_DHDH_A_20261103T103645_20261103T103720_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": -69.49,
+   "lat": -31.26,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32719,
+   "local_solar_hour": 5.97,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0036,
+   "HH_a_site_db": -13.879,
+   "HH_b_site_db": -13.883,
+   "frac_up3": 0.0002,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0002,
+   "dHH_px_median_db": -0.0134,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 34.1,
+   "sm_a": 0.1068,
+   "sm_b": 0.1011,
+   "dSM": -0.0057,
+   "smap_a": {
+    "day": "20261022",
+    "overpass": "AM",
+    "hours_from_nisar": 0.0,
+    "cell_latlon": [
+     -31.253713607788086,
+     -69.50726318359375
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 12.0,
+    "cell_latlon": [
+     -31.253713607788086,
+     -69.50726318359375
+    ]
+   },
+   "rain": {
+    "between": 34.77,
+    "pre3_a": 6.48,
+    "pre3_b": 3.75
+   }
+  },
+  {
+   "k": 141,
+   "key": "147_D_098_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_147_D_098_2005_DHDH_A_20261022T100009_20261022T100043_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_147_D_098_2005_DHDH_A_20261103T100009_20261103T100044_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 122.62,
+   "lat": -18.76,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32751,
+   "local_solar_hour": 18.17,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0952,
+   "HH_a_site_db": -16.476,
+   "HH_b_site_db": -16.571,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.0978,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 39.6,
+   "sm_a": 0.0344,
+   "sm_b": 0.0677,
+   "dSM": 0.0333,
+   "smap_a": {
+    "day": "20261022",
+    "overpass": "AM",
+    "hours_from_nisar": 12.2,
+    "cell_latlon": [
+     -18.791248321533203,
+     122.62966918945312
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 0.2,
+    "cell_latlon": [
+     -18.791248321533203,
+     122.62966918945312
+    ]
+   },
+   "rain": {
+    "between": 1.14,
+    "pre3_a": 0.66,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 142,
+   "key": "147_D_099_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_147_D_099_2005_DHDH_A_20261022T100042_20261022T100117_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_147_D_099_2005_DHDH_A_20261103T100043_20261103T100117_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 122.21,
+   "lat": -20.74,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32751,
+   "local_solar_hour": 18.15,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.1199,
+   "HH_a_site_db": -20.115,
+   "HH_b_site_db": -20.235,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0001,
+   "dHH_px_median_db": -0.1237,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 37.9,
+   "sm_a": 0.0397,
+   "sm_b": 0.0725,
+   "dSM": 0.0329,
+   "smap_a": {
+    "day": "20261022",
+    "overpass": "AM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -20.739166259765625,
+     122.2562255859375
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -20.739166259765625,
+     122.2562255859375
+    ]
+   },
+   "rain": {
+    "between": 0.33,
+    "pre3_a": 0.74,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 143,
+   "key": "147_D_100_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_147_D_100_2005_DHDH_A_20261022T100116_20261022T100151_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_147_D_100_2005_DHDH_A_20261103T100116_20261103T100151_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 121.79,
+   "lat": -22.77,
+   "mode": "DHDH",
+   "bytes": 35651584,
+   "epsg": 32751,
+   "local_solar_hour": 18.14,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0063,
+   "HH_a_site_db": -17.805,
+   "HH_b_site_db": -17.811,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.0205,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 33.4,
+   "sm_a": 0.0651,
+   "sm_b": 0.0745,
+   "dSM": 0.0094,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "PM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -22.788312911987305,
+     121.78942108154297
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -22.788312911987305,
+     121.78942108154297
+    ]
+   },
+   "rain": {
+    "between": 0.0,
+    "pre3_a": 0.65,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 148,
+   "key": "151_D_073_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_151_D_073_2005_DHDH_A_20261022T162544_20261022T162618_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_151_D_073_2005_DHDH_A_20261103T162544_20261103T162619_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 34.73,
+   "lat": 31.01,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32636,
+   "local_solar_hour": 18.73,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.1157,
+   "HH_a_site_db": -8.68,
+   "HH_b_site_db": -8.564,
+   "frac_up3": 0.0016,
+   "frac_dn3": 0.0014,
+   "net_frac3": 0.0002,
+   "dHH_px_median_db": -0.1879,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 38.9,
+   "sm_a": 0.0513,
+   "sm_b": 0.0484,
+   "dSM": -0.0029,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 11.3,
+    "cell_latlon": [
+     31.00712776184082,
+     34.68360900878906
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 0.7,
+    "cell_latlon": [
+     31.00712776184082,
+     34.68360900878906
+    ]
+   },
+   "rain": {
+    "between": 7.97,
+    "pre3_a": 0.06,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 149,
+   "key": "152_D_060_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_152_D_060_2005_DHDH_A_20261022T175836_20261022T175849_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_152_D_060_2005_DHDH_A_20261103T175837_20261103T175850_P05036_N_P_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 22.23,
+   "lat": 55.73,
+   "mode": "DHDH",
+   "bytes": 35651584,
+   "epsg": 32634,
+   "local_solar_hour": 19.45,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.4358,
+   "HH_a_site_db": -5.913,
+   "HH_b_site_db": -6.349,
+   "frac_up3": 0.0045,
+   "frac_dn3": 0.0012,
+   "net_frac3": 0.0033,
+   "dHH_px_median_db": -0.315,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 35.7,
+   "sm_a": 0.0261,
+   "sm_b": 0.0453,
+   "dSM": 0.0192,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "PM",
+    "hours_from_nisar": 22.6,
+    "cell_latlon": [
+     55.715972900390625,
+     22.266597747802734
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 1.4,
+    "cell_latlon": [
+     55.715972900390625,
+     22.266597747802734
+    ]
+   },
+   "rain": {
+    "between": 10.83,
+    "pre3_a": 0.36,
+    "pre3_b": 0.83
+   }
+  },
+  {
+   "k": 150,
+   "key": "152_D_062_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_152_D_062_2005_DHDH_A_20261022T175923_20261022T175958_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_152_D_062_2005_DHDH_A_20261103T175923_20261103T175959_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": 19.92,
+   "lat": 52.61,
+   "mode": "DHDH",
+   "bytes": 52428800,
+   "epsg": 32634,
+   "local_solar_hour": 19.31,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.2365,
+   "HH_a_site_db": -5.148,
+   "HH_b_site_db": -6.385,
+   "frac_up3": 0.0006,
+   "frac_dn3": 0.0772,
+   "net_frac3": -0.0766,
+   "dHH_px_median_db": -1.5285,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 43.8,
+   "sm_a": 0.0261,
+   "sm_b": 0.0893,
+   "dSM": 0.0633,
+   "smap_a": {
+    "day": "20261022",
+    "overpass": "AM",
+    "hours_from_nisar": 13.3,
+    "cell_latlon": [
+     52.607521057128906,
+     19.932573318481445
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 1.3,
+    "cell_latlon": [
+     52.607521057128906,
+     19.932573318481445
+    ]
+   },
+   "rain": {
+    "between": 7.85,
+    "pre3_a": 15.32,
+    "pre3_b": 3.52
+   }
+  },
+  {
+   "k": 151,
+   "key": "154_D_101_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_154_D_101_4005_DHDH_A_20261022T214101_20261022T214136_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_154_D_101_4005_DHDH_A_20261103T214101_20261103T214136_P05036_N_F_J_001",
+   "date_a": "20261022",
+   "date_b": "20261103",
+   "lon": -53.42,
+   "lat": -24.76,
+   "mode": "DHDH",
+   "bytes": 58720256,
+   "epsg": 32722,
+   "local_solar_hour": 18.12,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -3.1829,
+   "HH_a_site_db": -7.103,
+   "HH_b_site_db": -10.286,
+   "frac_up3": 0.0002,
+   "frac_dn3": 0.6729,
+   "net_frac3": -0.6727,
+   "dHH_px_median_db": -4.0333,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 50.3,
+   "sm_a": 0.4234,
+   "sm_b": 0.2851,
+   "dSM": -0.1384,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "PM",
+    "hours_from_nisar": 23.9,
+    "cell_latlon": [
+     -24.790395736694336,
+     -53.44916915893555
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -24.790395736694336,
+     -53.44916915893555
+    ]
+   },
+   "rain": {
+    "between": 86.2,
+    "pre3_a": 15.25,
+    "pre3_b": 40.56
+   }
+  },
+  {
+   "k": 154,
+   "key": "156_A_010_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_156_A_010_4005_DHDH_A_20261023T000914_20261023T000949_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_156_A_010_4005_DHDH_A_20261104T000914_20261104T000949_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 80.42,
+   "lat": 16.63,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32644,
+   "local_solar_hour": 5.51,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 1.3959,
+   "HH_a_site_db": -9.507,
+   "HH_b_site_db": -8.111,
+   "frac_up3": 0.179,
+   "frac_dn3": 0.0741,
+   "net_frac3": 0.1049,
+   "dHH_px_median_db": 1.4019,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 34.6,
+   "sm_a": 0.1967,
+   "sm_b": 0.3726,
+   "dSM": 0.1759,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     16.64411163330078,
+     80.43049621582031
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     16.64411163330078,
+     80.43049621582031
+    ]
+   },
+   "rain": {
+    "between": 202.04,
+    "pre3_a": 11.55,
+    "pre3_b": 153.16
+   }
+  },
+  {
+   "k": 155,
+   "key": "156_A_011_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_156_A_011_4005_DHDH_A_20261023T000948_20261023T001022_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_156_A_011_4005_DHDH_A_20261104T000948_20261104T001022_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 79.89,
+   "lat": 18.63,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32644,
+   "local_solar_hour": 5.48,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.2164,
+   "HH_a_site_db": -6.696,
+   "HH_b_site_db": -6.913,
+   "frac_up3": 0.0026,
+   "frac_dn3": 0.0051,
+   "net_frac3": -0.0025,
+   "dHH_px_median_db": -0.0816,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 36.7,
+   "sm_a": 0.1963,
+   "sm_b": 0.1513,
+   "dSM": -0.045,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     18.642345428466797,
+     79.87033081054688
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     18.642345428466797,
+     79.87033081054688
+    ]
+   },
+   "rain": {
+    "between": 43.02,
+    "pre3_a": 0.22,
+    "pre3_b": 33.07
+   }
+  },
+  {
+   "k": 157,
+   "key": "156_A_015_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_156_A_015_4005_DHDH_A_20261023T001202_20261023T001236_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_156_A_015_4005_DHDH_A_20261104T001202_20261104T001237_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 77.65,
+   "lat": 26.56,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32643,
+   "local_solar_hour": 5.38,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0747,
+   "HH_a_site_db": -10.92,
+   "HH_b_site_db": -10.845,
+   "frac_up3": 0.0132,
+   "frac_dn3": 0.0051,
+   "net_frac3": 0.0081,
+   "dHH_px_median_db": -0.0337,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 39.5,
+   "sm_a": 0.1428,
+   "sm_b": 0.1164,
+   "dSM": -0.0264,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     26.588117599487305,
+     77.62966918945312
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     26.588117599487305,
+     77.62966918945312
+    ]
+   },
+   "rain": {
+    "between": 2.87,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 160,
+   "key": "157_A_014_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_157_A_014_4005_DHDH_A_20261023T015121_20261023T015129_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_157_A_014_4005_DHDH_A_20261104T015122_20261104T015130_P05036_N_P_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 53.45,
+   "lat": 23.92,
+   "mode": "DHDH",
+   "bytes": 46137344,
+   "epsg": 32639,
+   "local_solar_hour": 5.41,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.2231,
+   "HH_a_site_db": -18.596,
+   "HH_b_site_db": -18.373,
+   "frac_up3": 0.0017,
+   "frac_dn3": 0.0005,
+   "net_frac3": 0.0012,
+   "dHH_px_median_db": 0.1422,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 40.4,
+   "sm_a": 0.0689,
+   "sm_b": 0.0977,
+   "dSM": 0.0287,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.6,
+    "cell_latlon": [
+     23.93967056274414,
+     53.44916915893555
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.6,
+    "cell_latlon": [
+     23.93967056274414,
+     53.44916915893555
+    ]
+   },
+   "rain": {
+    "between": 6.34,
+    "pre3_a": 2.07,
+    "pre3_b": 1.7
+   }
+  },
+  {
+   "k": 169,
+   "key": "158_A_168_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_158_A_168_2005_DHDH_A_20261023T045851_20261023T045925_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_158_A_168_2005_DHDH_A_20261104T045851_20261104T045926_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 13.36,
+   "lat": -19.28,
+   "mode": "DHDH",
+   "bytes": 39845888,
+   "epsg": 32733,
+   "local_solar_hour": 5.86,
+   "spacing_m": 20.0,
+   "valid_frac": 0.9999,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.0296,
+   "HH_a_site_db": -6.636,
+   "HH_b_site_db": -6.666,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0001,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": -0.0332,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 33.6,
+   "sm_a": 0.0936,
+   "sm_b": 0.093,
+   "dSM": -0.0006,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 24.1,
+    "cell_latlon": [
+     -19.313425064086914,
+     13.397302627563477
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -19.313425064086914,
+     13.397302627563477
+    ]
+   },
+   "rain": {
+    "between": 0.25,
+    "pre3_a": 0.04,
+    "pre3_b": 0.01
+   }
+  },
+  {
+   "k": 170,
+   "key": "159_A_009_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_159_A_009_2005_DHDH_A_20261023T050820_20261023T050854_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_159_A_009_2005_DHDH_A_20261104T050820_20261104T050855_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 5.99,
+   "lat": 14.63,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32631,
+   "local_solar_hour": 5.53,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0012,
+   "HH_a_site_db": -10.317,
+   "HH_b_site_db": -10.316,
+   "frac_up3": 0.0003,
+   "frac_dn3": 0.0001,
+   "net_frac3": 0.0002,
+   "dHH_px_median_db": -0.0169,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 38.2,
+   "sm_a": 0.0538,
+   "sm_b": 0.0547,
+   "dSM": 0.0009,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     14.666003227233887,
+     6.02178430557251
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     14.666003227233887,
+     6.02178430557251
+    ]
+   },
+   "rain": {
+    "between": 0.0,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 171,
+   "key": "159_A_012_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_159_A_012_2005_DHDH_A_20261023T051000_20261023T051037_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_159_A_012_2005_DHDH_A_20261104T051001_20261104T051038_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 4.41,
+   "lat": 20.63,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32631,
+   "local_solar_hour": 5.46,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0278,
+   "HH_a_site_db": -21.417,
+   "HH_b_site_db": -21.39,
+   "frac_up3": 0.0001,
+   "frac_dn3": 0.0007,
+   "net_frac3": -0.0006,
+   "dHH_px_median_db": 0.039,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 40.6,
+   "sm_a": 0.0341,
+   "sm_b": 0.0393,
+   "dSM": 0.0052,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 0.5,
+    "cell_latlon": [
+     20.663806915283203,
+     4.434647083282471
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.5,
+    "cell_latlon": [
+     20.663806915283203,
+     4.434647083282471
+    ]
+   },
+   "rain": {
+    "between": 0.0,
+    "pre3_a": 0.0,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 177,
+   "key": "162_A_006_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_162_A_006_4005_DHDH_A_20261023T100619_20261023T100653_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_162_A_006_4005_DHDH_A_20261104T100619_20261104T100653_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": -67.46,
+   "lat": 8.68,
+   "mode": "DHDH",
+   "bytes": 44040192,
+   "epsg": 32619,
+   "local_solar_hour": 5.6,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.8139,
+   "HH_a_site_db": -6.633,
+   "HH_b_site_db": -7.447,
+   "frac_up3": 0.0049,
+   "frac_dn3": 0.063,
+   "net_frac3": -0.0581,
+   "dHH_px_median_db": -0.9828,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 40.6,
+   "sm_a": 0.2447,
+   "sm_b": 0.2242,
+   "dSM": -0.0205,
+   "smap_a": {
+    "day": "20261022",
+    "overpass": "PM",
+    "hours_from_nisar": 11.6,
+    "cell_latlon": [
+     8.682134628295898,
+     -67.45331573486328
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 12.4,
+    "cell_latlon": [
+     8.682134628295898,
+     -67.45331573486328
+    ]
+   },
+   "rain": {
+    "between": 43.18,
+    "pre3_a": 24.72,
+    "pre3_b": 14.85
+   }
+  },
+  {
+   "k": 179,
+   "key": "162_D_074_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_162_D_074_2005_DHDH_A_20261023T104501_20261023T104535_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_162_D_074_2005_DHDH_A_20261104T104501_20261104T104536_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 119.4,
+   "lat": 29.05,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32650,
+   "local_solar_hour": 18.71,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 1.602,
+   "HH_a_site_db": -4.894,
+   "HH_b_site_db": -3.292,
+   "frac_up3": 0.1029,
+   "frac_dn3": 0.0008,
+   "net_frac3": 0.1021,
+   "dHH_px_median_db": 1.6987,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 38.9,
+   "sm_a": 0.2483,
+   "sm_b": 0.2881,
+   "dSM": 0.0397,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 12.7,
+    "cell_latlon": [
+     29.05614471435547,
+     119.36203002929688
+    ]
+   },
+   "smap_b": {
+    "day": "20261105",
+    "overpass": "AM",
+    "hours_from_nisar": 11.3,
+    "cell_latlon": [
+     29.05614471435547,
+     119.36203002929688
+    ]
+   },
+   "rain": {
+    "between": 36.28,
+    "pre3_a": 9.14,
+    "pre3_b": 27.65
+   }
+  },
+  {
+   "k": 185,
+   "key": "163_D_067_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_163_D_067_2005_DHDH_A_20261023T122057_20261023T122132_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_163_D_067_2005_DHDH_A_20261104T122058_20261104T122133_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 99.69,
+   "lat": 42.89,
+   "mode": "DHDH",
+   "bytes": 41943040,
+   "epsg": 32647,
+   "local_solar_hour": 18.98,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": 0.0233,
+   "HH_a_site_db": -18.986,
+   "HH_b_site_db": -18.963,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0,
+   "net_frac3": 0.0,
+   "dHH_px_median_db": 0.0063,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 33.1,
+   "sm_a": 0.0545,
+   "sm_b": 0.0312,
+   "dSM": -0.0233,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "AM",
+    "hours_from_nisar": 13.0,
+    "cell_latlon": [
+     42.899696350097656,
+     99.6628646850586
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "PM",
+    "hours_from_nisar": 1.0,
+    "cell_latlon": [
+     42.899696350097656,
+     99.6628646850586
+    ]
+   },
+   "rain": {
+    "between": 0.0,
+    "pre3_a": 0.94,
+    "pre3_b": 0.0
+   }
+  },
+  {
+   "k": 188,
+   "key": "166_D_085_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_166_D_085_4005_DHDH_A_20261023T173042_20261023T173049_P05036_N_P_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_166_D_085_4005_DHDH_A_20261104T173042_20261104T173050_P05036_N_P_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 13.78,
+   "lat": 7.84,
+   "mode": "DHDH",
+   "bytes": 73400320,
+   "epsg": 32633,
+   "local_solar_hour": 18.42,
+   "spacing_m": 10.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.95,
+   "HH_a_site_db": -6.027,
+   "HH_b_site_db": -6.977,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.01,
+   "net_frac3": -0.01,
+   "dHH_px_median_db": -0.9911,
+   "thumb_shape": [
+    200,
+    200
+   ],
+   "status": "ok",
+   "seconds": 59.7,
+   "sm_a": 0.2351,
+   "sm_b": 0.1519,
+   "dSM": -0.0831,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "PM",
+    "hours_from_nisar": 0.4,
+    "cell_latlon": [
+     7.8261637687683105,
+     13.770747184753418
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "AM",
+    "hours_from_nisar": 12.4,
+    "cell_latlon": [
+     7.8261637687683105,
+     13.770747184753418
+    ]
+   },
+   "rain": {
+    "between": 3.63,
+    "pre3_a": 1.65,
+    "pre3_b": 2.26
+   }
+  },
+  {
+   "k": 189,
+   "key": "167_A_164_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_167_A_164_2005_DHDH_A_20261023T195534_20261023T195609_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_167_A_164_2005_DHDH_A_20261104T195534_20261104T195609_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 150.28,
+   "lat": -27.25,
+   "mode": "DHDH",
+   "bytes": 35651584,
+   "epsg": 32756,
+   "local_solar_hour": 5.94,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -1.6033,
+   "HH_a_site_db": -10.795,
+   "HH_b_site_db": -12.399,
+   "frac_up3": 0.0046,
+   "frac_dn3": 0.1134,
+   "net_frac3": -0.1088,
+   "dHH_px_median_db": -1.5377,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 31.9,
+   "sm_a": 0.4245,
+   "sm_b": 0.3823,
+   "dSM": -0.0422,
+   "smap_a": {
+    "day": "20261024",
+    "overpass": "AM",
+    "hours_from_nisar": 24.1,
+    "cell_latlon": [
+     -27.219833374023438,
+     150.2645263671875
+    ]
+   },
+   "smap_b": {
+    "day": "20261103",
+    "overpass": "PM",
+    "hours_from_nisar": 11.9,
+    "cell_latlon": [
+     -27.219833374023438,
+     150.2645263671875
+    ]
+   },
+   "rain": {
+    "between": 25.05,
+    "pre3_a": 45.45,
+    "pre3_b": 2.38
+   }
+  },
+  {
+   "k": 190,
+   "key": "167_A_165_P05036_DHDH",
+   "a": "NISAR_L2_PR_GCOV_033_167_A_165_2005_DHDH_A_20261023T195608_20261023T195642_P05036_N_F_J_001",
+   "b": "NISAR_L2_PR_GCOV_034_167_A_165_2005_DHDH_A_20261104T195608_20261104T195642_P05036_N_F_J_001",
+   "date_a": "20261023",
+   "date_b": "20261104",
+   "lon": 149.85,
+   "lat": -25.25,
+   "mode": "DHDH",
+   "bytes": 37748736,
+   "epsg": 32755,
+   "local_solar_hour": 5.92,
+   "spacing_m": 20.0,
+   "valid_frac": 1.0,
+   "exc_values_a": [
+    768
+   ],
+   "dHH_site_db": -0.5561,
+   "HH_a_site_db": -4.918,
+   "HH_b_site_db": -5.474,
+   "frac_up3": 0.0,
+   "frac_dn3": 0.0026,
+   "net_frac3": -0.0026,
+   "dHH_px_median_db": -0.6675,
+   "thumb_shape": [
+    100,
+    100
+   ],
+   "status": "ok",
+   "seconds": 36.4,
+   "sm_a": 0.2221,
+   "sm_b": 0.2388,
+   "dSM": 0.0167,
+   "smap_a": {
+    "day": "20261023",
+    "overpass": "PM",
+    "hours_from_nisar": 12.1,
+    "cell_latlon": [
+     -25.2568302154541,
+     149.89108276367188
+    ]
+   },
+   "smap_b": {
+    "day": "20261104",
+    "overpass": "AM",
+    "hours_from_nisar": 0.1,
+    "cell_latlon": [
+     -25.2568302154541,
+     149.89108276367188
+    ]
+   },
+   "rain": {
+    "between": 62.35,
+    "pre3_a": 68.9,
+    "pre3_b": 7.83
+   }
+  }
+ ]
+}

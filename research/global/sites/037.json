@@ -1,0 +1,32 @@
+{
+ "k": 37,
+ "key": "011_D_093_P05036_DHDH",
+ "a": "NISAR_L2_PR_GCOV_034_011_D_093_4005_DHDH_A_20261024T233305_20261024T233339_P05036_N_F_J_001",
+ "b": "NISAR_L2_PR_GCOV_035_011_D_093_4005_DHDH_A_20261105T233305_20261105T233340_P05036_N_F_J_001",
+ "date_a": "20261024",
+ "date_b": "20261105",
+ "lon": -79.33,
+ "lat": -8.76,
+ "mode": "DHDH",
+ "bytes": 54525952,
+ "epsg": 32717,
+ "local_solar_hour": 18.26,
+ "valid_frac": 1.0,
+ "exc_values_a": [
+  768
+ ],
+ "dHH_site_db": -0.0101,
+ "HH_a_site_db": -18.104,
+ "HH_b_site_db": -18.114,
+ "frac_up3": 0.0016,
+ "frac_dn3": 0.0023,
+ "net_frac3": -0.0007,
+ "dHH_px_median_db": -0.0164,
+ "thumb_shape": [
+  200,
+  200
+ ],
+ "status": "ok",
+ "seconds": 49.8,
+ "spacing_m": 10.0
+}

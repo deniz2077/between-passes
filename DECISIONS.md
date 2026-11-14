@@ -19,3 +19,5 @@
 | 14 Nov ~18:00 | 29 Oct granule (track 079) not used as third look | Different projection/geometry and RFI likelihood ~4e10 (HH) vs ~6 for the pair |
 | 14 Nov ~19:15 | NASA demo = the 7-slide deck; captioned video kept only for Niğde (YouTube required there). Slide 1 member: Deniz Efe Bulut (written name only) | NASA allows ≤30 s video OR ≤7 slides; the evidence ladder needs text |
 | 14 Nov ~19:25 | Scale to a pre-registered global test: 200 random NISAR repeat pairs vs NASA SMAP soil-moisture change | Answers 'does it scale' and 'wetting or ploughing' with an independent L-band measurement; plan fixed before seeing data |
+| 14 Nov ~20:00 | Global test result: hypothesis supported (ρ 0.58, p 1e-4, n 74). Ceyhan placed only as labelled exploratory (±2-day SMAP window) | Pre-registered rule found no approved SMAP value near 22 Oct at Ceyhan |
+| 14 Nov ~19:50 | Public repo github.com/deniz2077/between-passes created by Claude at Deniz's request; push via a repo-only deploy key; Pages via Actions | Nisa: repos public; Deniz authorised GitHub actions |

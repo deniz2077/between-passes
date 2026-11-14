@@ -17,17 +17,17 @@ G = os.path.join(ROOT, "research", "global")
 SEED = 2026
 
 
-def sm_value(smap, cell, date, hour):
+def sm_value(smap, cell, date, hour, max_days=1):
     """SMAP soil moisture per the pre-registered overpass rule. Returns (value, used) or (None, why)."""
     r, c = cell
     d0 = datetime.strptime(date, "%Y%m%d")
     cands = []
-    for dd in (0, -1, 1):
+    for dd in [0] + [d for k in range(1, max_days + 1) for d in (-k, k)]:
         day = (d0 + timedelta(days=dd)).strftime("%Y%m%d")
         for ov, h in (("AM", 6.0), ("PM", 18.0)):
             # time distance in hours from the NISAR acquisition (local solar)
             dist = abs((dd * 24 + h) - hour)
-            cands.append((0 if dd == 0 else 1, dist, day, ov))
+            cands.append((abs(dd), dist, day, ov))
     cands.sort()
     tried = []
     for _, dist, day, ov in cands:

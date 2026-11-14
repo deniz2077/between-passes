@@ -1,0 +1,33 @@
+{
+ "k": 999,
+ "key": "151_D_070_P05036_DHDH (Ceyhan case)",
+ "a": "NISAR_L2_PR_GCOV_033_151_D_070_2005_DHDH_A_20261022T162402_20261022T162437_P05036_N_F_J_001",
+ "b": "NISAR_L2_PR_GCOV_034_151_D_070_2005_DHDH_A_20261103T162403_20261103T162437_P05036_N_F_J_001",
+ "date_a": "20261022",
+ "date_b": "20261103",
+ "lon": 35.85,
+ "lat": 37.0,
+ "mode": "DHDH",
+ "bytes": 44040192,
+ "epsg": 32637,
+ "local_solar_hour": 18.79,
+ "valid_frac": 1.0,
+ "exc_values_a": [
+  0,
+  768
+ ],
+ "dHH_site_db": 0.2865,
+ "HH_a_site_db": -4.452,
+ "HH_b_site_db": -4.165,
+ "frac_up3": 0.0523,
+ "frac_dn3": 0.0088,
+ "net_frac3": 0.0435,
+ "dHH_px_median_db": 0.2694,
+ "thumb_shape": [
+  100,
+  100
+ ],
+ "status": "ok",
+ "seconds": 39.8,
+ "spacing_m": 20.0
+}
