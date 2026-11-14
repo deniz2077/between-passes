@@ -3,10 +3,10 @@
 ## A. Niğde — GitHub & sprint reports
 - [x] Repo created on GitHub — public per Nisa: github.com/deniz2077/between-passes
 - [ ] Repo link shared with organizer **on 14 Nov**
-- [x] `sprint-reports/sprint-01.md` (English, at real sprint end)
-- [x] `sprint-reports/sprint-02.md`
-- [x] `sprint-reports/sprint-03.md`
-- [ ] `sprint-reports/sprint-04.md`
+- [x] `sprint-reports/sprint-1.md` (English, at real sprint end)
+- [x] `sprint-reports/sprint-2.md`
+- [x] `sprint-reports/sprint-3.md`
+- [ ] `sprint-reports/sprint-4.md`
 - Each: goals, planned tasks, done/not done, problems, solutions, contributions, next goals.
 
 ## B. Niğde — Google Drive (team folder link pending; deadline pending)
