@@ -200,15 +200,21 @@ function signAgreement() {
 function hero(fit) {
   const P = G.results.primary, n = P.n, sig = P.perm_p < 0.05 && P.spearman_rho > 0, c = G.ceyhan;
   const [agree, clear] = signAgreement();
-  $("#w-n-sites").textContent = G.results.n_sampled;
+  const R = REP, rep = R && R.replicates;
+  $("#w-n-sites").textContent = rep ? `${G.results.n_sampled + R.replication.n_sampled}` : G.results.n_sampled;
   $("#w-pop").textContent = G.results.n_population_pairs;
-  $("#w-headline").textContent = sig
-    ? `Where NASA's SMAP saw soil get wetter, NISAR's radar got brighter. Where it dried, NISAR got darker.`
-    : `Across ${n} sites worldwide, NISAR's site-wide change did not track soil wetting.`;
-  $("#w-lede").innerHTML = sig
-    ? `We drew ${G.results.n_sampled} NISAR repeat pairs at random from ${G.results.n_population_pairs} worldwide and fixed the test before looking. At the ${n} sites where SMAP had a quality-approved reading on both dates, radar change tracks soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)}); ${agree} of the ${clear} sites with a clear moisture change (> 0.05 m³/m³) moved in the same direction. That is the physics the Ceyhan case relies on — <a href="#site-ceyhan">and SMAP confirms Ceyhan's soil was wetted between our two passes</a>.`
-    : `The pre-registered test did not find the expected relationship.`;
-  const stats = [
+  $("#w-headline").innerHTML = !sig ? `Across ${n} sites worldwide, NISAR's site-wide change did not track soil wetting.`
+    : rep ? `From orbit, NISAR's radar tracks whether the ground got <em>wetter or drier</em>. We tested it on random sites worldwide — twice.`
+          : `Where NASA's SMAP saw soil get wetter, NISAR's radar got brighter. Where it dried, NISAR got darker.`;
+  $("#w-lede").innerHTML = !sig ? `The pre-registered test did not find the expected relationship.`
+    : `We wrote the test down before looking, drew ${G.results.n_sampled} NISAR sites at random from ${G.results.n_population_pairs} worldwide, and compared each with NASA's SMAP soil-moisture satellite. ${rep ? `Then we repeated it on ${R.replication.n_sampled} <i>new</i> random sites. Both times, radar change tracked soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)} and ${fmt(R.replication.rho, 2)}, p &lt; 0.001). The clearer signal is drying: soil that dried got darker by about 1 dB, while wetting brightened less consistently.` : `Radar change tracks soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)}); ${agree} of the ${clear} sites with a clear moisture change moved in the same direction.`} <a href="#site-ceyhan">At Ceyhan, SMAP confirms the soil was wetted between our two passes.</a>`;
+  const stats = rep ? [
+    ["Sites tested", `${P.n + R.replication.n}<small> of ${G.results.n_sampled + R.replication.n_sampled} drawn</small>`],
+    ["Test ρ", `${fmt(P.spearman_rho, 2)}<small> n ${P.n}</small>`],
+    ["Replication ρ", `${fmt(R.replication.rho, 2)}<small> n ${R.replication.n}</small>`],
+    ["p (both)", "&lt; 0.001"],
+    ["Same direction", `${R.pooled.same_direction[0]}/${R.pooled.same_direction[1]}<small> clear cases</small>`],
+  ] : [
     ["Sites tested", `${n}<small> of ${G.results.n_sampled} drawn</small>`],
     ["Spearman ρ", fmt(P.spearman_rho, 2)],
     ["p (permutation)", P.perm_p <= 0.00011 ? "< 0.001" : fmt(P.perm_p, 4)],

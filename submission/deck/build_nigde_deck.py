@@ -21,7 +21,7 @@ EXTRA = """
     <div class="rung" style="min-height:380px"><div class="q">5 · Show</div><p style="font-size:26px;margin-top:14px">Static <strong>HTML/JS app</strong> (canvas + SVG), deployed by <strong>GitHub Actions → Pages</strong>.</p></div>
   </div>
   <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:48px">
-    <p style="font-size:28px"><strong class="acc">Verification at three levels:</strong> 24 automated tests (pytest) · data-integrity tests on the shipped files · the browser recomputes the published statistics on every load.</p>
+    <p style="font-size:28px"><strong class="acc">Verification at three levels:</strong> 26 automated tests (pytest) · data-integrity tests on the shipped files · the browser recomputes the published statistics on every load.</p>
     <p style="font-size:28px"><strong class="acc">Science hygiene:</strong> pre-registered global test and replication, deviations listed, a falsifiable prediction locked in public git history before the satellite pass.</p>
   </div>
   <div class="foot"><span>Between Passes · Signal Foundry</span><span>N / T</span></div>

@@ -14,7 +14,7 @@ const st = {
   mode: "delta",
   show: { objects: true, context: true, control: true },
 };
-let C, D, viewer, GL = null; // GL: global NISAR x SMAP test (data/global/global.json)
+let C, D, viewer, GL = null, GLR = null; // GL: global NISAR x SMAP test (data/global/global.json)
 
 // ---------------------------------------------------------------- loading
 async function fetchBin(meta) {
@@ -33,6 +33,7 @@ async function load() {
   if (!r.ok) throw new Error(`case.json: HTTP ${r.status}`);
   C = await r.json();
   fetch("data/global/global.json").then((g) => g.ok ? g.json() : null).then((g) => { GL = g; }).catch(() => {});
+  fetch("data/global/replication.json").then((g) => g.ok ? g.json() : null).then((g) => { GLR = g; }).catch(() => {});
   const L = C.layers;
   const [hhA, hhB, hvA, hvB, flags, objects, ndA, ndB] = await Promise.all(
     ["hh_a", "hh_b", "hv_a_40m", "hv_b_40m", "flags", "objects", "ndvi_a_40m", "ndvi_b_40m"].map((k) => (L[k] ? fetchBin(L[k]) : Promise.resolve(null))));
@@ -697,8 +698,8 @@ function storySteps() {
         return ex && P ? `${base} NASA <strong>SMAP</strong> measured Ceyhan's soil moisture jump from <strong>${f(ex.sm_a, 2)} to ${f(ex.sm_b, 2)} m³/m³</strong> by the morning of the second pass. <strong>Wetting is the leading explanation</strong>; ploughing can't be ruled out field by field.` : `${base} The <strong>Interpretation</strong> tab shows what would decide it.`;
       },
       go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
-    { k: "6 · Does it hold everywhere?", t: "A pre-registered test on 200 random NISAR sites",
-      p: () => { const P = GL?.results?.primary; return P ? `We fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar brightened where soil got wetter and darkened where it dried (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001). <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
+    { k: "6 · Does it hold everywhere?", t: "Tested on random sites worldwide — twice",
+      p: () => { const P = GL?.results?.primary; return P ? `We fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar change tracked soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
       go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
   ];
 }

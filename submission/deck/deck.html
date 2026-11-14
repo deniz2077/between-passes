@@ -120,7 +120,7 @@
 <!-- 5 GLOBAL TEST -->
 <section class="slide" style="padding-top:70px">
   <p class="k">Does it hold everywhere? A pre-registered global test</p>
-  <h2 style="font-size:56px;max-width:1700px">Where NASA's SMAP saw soil get wetter, NISAR got brighter. Where it dried, NISAR got darker.</h2>
+  <h2 style="font-size:56px;max-width:1700px">From orbit, NISAR tracks whether the ground got <span style="color:var(--up);font-style:italic">wetter or drier</span>. Tested twice, at random, worldwide.</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:8px">
     <div><img class="shot" src="../shots/world_map.png" style="width:100%"></div>
     <div><img class="shot" src="../shots/world_scatter.png" style="width:100%;height:470px;object-fit:cover;object-position:top"></div>
@@ -128,8 +128,8 @@
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:30px">
     <div><div class="mono acc" style="font-size:52px">200</div><p style="font-size:24px">NISAR pairs drawn at random from <strong>889</strong> worldwide; test fixed and committed <strong>before</strong> extracting data</p></div>
     <div><div class="mono acc" style="font-size:52px">ρ 0.58</div><p style="font-size:24px">radar vs. SMAP soil-moisture change at the <strong>74</strong> sites with quality SMAP data · p &lt; 0.001</p></div>
-    <div><div class="mono acc" style="font-size:52px">16 / 18</div><p style="font-size:24px">sites with a clear moisture change moved in the <strong>same direction</strong></p></div>
-    <div><div class="mono acc" style="font-size:52px">+1.0 dB</div><p style="font-size:24px">per +0.1 m³/m³ wetter (95 % CI 0.7–1.4). Same L-band, same dawn/dusk orbit.</p></div>
+    <div><div class="mono acc" style="font-size:52px">ρ 0.55</div><p style="font-size:24px"><strong>Replicated</strong> on 200 <strong>new</strong> random sites (n 73, p &lt; 0.001), also pre-registered</p></div>
+    <div><div class="mono acc" style="font-size:52px">36 / 45</div><p style="font-size:24px">sites with a clear moisture change moved in the same direction. Drying is the clearer signal (≈ −1 dB).</p></div>
   </div>
   <div class="foot"><span>NISAR L2 GCOV VALIDATED · NASA SMAP SPL3SMP_E · Natural Earth</span><span>5 / 7</span></div>
 </section>
@@ -147,9 +147,9 @@
     </table>
     <div>
       <ul style="margin-bottom:18px">
-        <li style="font-size:26px"><strong>Pre-registered</strong> global test; deviations listed openly.</li>
+        <li style="font-size:26px"><strong>Pre-registered</strong> global test <strong>and replication</strong>; deviations listed openly.</li>
         <li style="font-size:26px"><strong>Browser integrity checks</strong> recompute the control, all 636 parcels and the global statistics from the shipped data on every load.</li>
-        <li style="font-size:26px"><strong>23 automated tests</strong>; the bugs they and we caught are documented.</li>
+        <li style="font-size:26px"><strong>26 automated tests</strong>; the bugs they and we caught — including one in our own replication run — are documented.</li>
       </ul>
       <p class="k" style="font-size:19px;color:var(--caution);margin-top:22px">Not claimed</p>
       <ul>

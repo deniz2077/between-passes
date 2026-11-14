@@ -52,3 +52,4 @@ Full plan: `research/global/PREREGISTRATION.md` (commit 43f2fbb, before any extr
 - Test: Spearman ρ, two-sided permutation p (10,000), Theil–Sen slope with bootstrap CI.
 - Result: n = 74 retained (125 lacked approved SMAP values, 1 invalid window); ρ = 0.577, p = 0.0001, +1.02 dB per +0.1 m³/m³ (95 % CI 0.69–1.42).
 - Ceyhan: the pre-registered SMAP rule finds no approved value near 22 Oct; an exploratory ±2-day window gives 0.161 → 0.356 m³/m³.
+- Replication (pre-registered, `research/global/REPLICATION_PREREGISTRATION.md`, commit 7e1ffcf): 200 new pairs (seed 2027, disjoint from the original sample), same rules → n = 73, ρ = 0.546, p = 0.0001, +0.78 dB per +0.1 m³/m³ (95 % CI 0.45–1.11). Replication criterion met. Pooled (descriptive): n = 147, ρ = 0.572.
