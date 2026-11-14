@@ -131,3 +131,8 @@ select { background: var(--ink-2); color: var(--bone); }
 /* Turkish page */
 .step .big { font-family: var(--serif); font-weight: 500; }
 .tr-hero img { box-shadow: 0 24px 60px -24px rgba(40,30,15,.45); }
+
+@media (max-width: 520px) {
+  .seg button { padding: 7px 7px; font-size: 12px; }
+  .seg button .sk { margin-right: 1px; }
+}
