@@ -15,7 +15,7 @@ Inspected via GitHub API file trees + READMEs only. Live demos **not yet opened*
 3. Our differentiators must be *computational*: user-drawn ROI computed in-browser on real calibrated γ⁰ arrays, identically processed stable-control comparison, HH vs HV behaviour, explicit noise/stability baseline, and a reproducible export.
 4. Avoid cinematic intros; get to real data in one click.
 
-## Second pass (14 Nov ~18:00) — live demos, judging guide, 2025 winners
+## Second pass (14 Nov ~17:45) — live demos, judging guide, 2025 winners
 
 ### Earth Whisper live (earth-whisper.vercel.app), opened and used
 - Landing: cinematic Earth/satellite imagery, "Analysis with DHARA", 4-person team, lists NISAR, Sentinel-1, GPM IMERG, HLS, NASADEM.
