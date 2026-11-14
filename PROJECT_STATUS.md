@@ -1,6 +1,6 @@
 # PROJECT STATUS — Between Passes (Signal Foundry)
 
-_Last updated: 2026-11-14 17:52 Europe/Istanbul_
+_Last updated: 2026-11-14 18:20 Europe/Istanbul_
 
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Target an early basic submission, then resubmit.
@@ -8,7 +8,7 @@ _Last updated: 2026-11-14 17:52 Europe/Istanbul_
 - Repo visibility: **pending Nisa's answer** — do not change visibility until Deniz confirms.
 
 ## Phase
-Sprint 2 (research + prototype) in progress. Done: pipeline, 636 change objects vs urban control, NASA HLS optical cross-check (86% coverage; 10.4% of brightened objects lost vegetation), web app v1 incl. ΔNDVI view, 19 tests, docs (docs/METHOD.md, LIMITATIONS.md, AI_USE.md). Sprint 2 report to be written at end of today's work.
+Sprint 2 in progress. Done since gate: pipeline + 636 change objects; NASA HLS optical cross-check (consistent tile 36SYF, 60% coverage, 9.0% of brightened objects lose vegetation); guided 6-step story (#story-N deep links); competitor live-demo + judging-guide + 2025-winner research (research/COMPETITIVE_NOTES.md); NASA 7-slide deck draft (submission/deck/*.pdf, placeholders {{TEAM_MEMBER_NAME}}, {{APP_URL}}, {{REPO_URL}}); NASA form text draft (submission/nasa_form.md). 19 tests pass.
 
 ## Verified
 - Official challenge text read (fits a hometown backscatter-change study).
@@ -23,10 +23,11 @@ Sprint 2 (research + prototype) in progress. Done: pipeline, 636 change objects 
 - Git author name/email (commits currently use placeholder "Signal Foundry").
 
 ## Next actions
-1. GitHub: waiting for Nisa (visibility) → Deniz creates repo → push → share link with organizer (due today).
-2. Public URL: GitHub Pages from app/ (needs public repo) — or another static host if repo must stay private (ask Deniz).
-3. Sprint 2 report at end of day 1.
-4. Day 2: UI polish, NASA demo (≤30 s video or ≤7 slides), Niğde presentation/docs/YouTube, NASA form, Sprint 3/4 reports.
+1. GitHub: waiting for Nisa → Deniz creates repo → push → share link (due today). Then GitHub Pages (needs public) or alternative static host.
+2. Deniz: confirm name for slide 1 and git author identity.
+3. Time-boxed: 29 Oct NISAR pass (track 079) feasibility as third look (moisture vs tillage).
+4. Sprint 2 report at end of day 1.
+5. Day 2: Niğde presentation + documentation + YouTube walkthrough (captions, no voice/face), final QA, NASA form submit.
 
 ## How to run
 `python3 scripts/serve.py 8765` → http://localhost:8765 (app reads app/data/ceyhan). Tests: `.venv/bin/python -m pytest tests`.
