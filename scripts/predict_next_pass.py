@@ -152,6 +152,9 @@ def score(gid_c):
     json.dump(res, open(os.path.join(OUTD, "score.json"), "w"), indent=1)
     json.dump({k: v for k, v in res.items() if k != "objects"} | {"objects": {k: [v["R"], v["label"]] for k, v in per.items()}},
               open(os.path.join(CASE, "prediction_result.json"), "w"))
+    app_pred = json.load(open(os.path.join(CASE, "prediction.json")))
+    app_pred["scored"] = True
+    json.dump(app_pred, open(os.path.join(CASE, "prediction.json"), "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "objects"}, indent=1))
 
 

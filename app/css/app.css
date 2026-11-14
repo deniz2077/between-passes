@@ -252,3 +252,17 @@ select { background: var(--ink-3); color: var(--bone); border: 1px solid var(--l
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0s !important; transition: none !important; }
 }
+
+/* Next-pass prediction */
+.nextpass { margin: 0 16px 16px; padding: 18px 20px; border: 1px solid var(--line-2); border-radius: 12px;
+  background: linear-gradient(180deg, rgba(86,212,232,.06), rgba(86,212,232,0) 60%), var(--ink-2); }
+.np-head h2 { font-size: 20px; margin: 2px 0 10px; }
+.np-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.np-text p { margin: 0 0 10px; color: var(--bone-2); font-size: 14px; }
+.np-text ol { margin: 6px 0 10px; padding-left: 20px; color: var(--bone-2); font-size: 14px; }
+.np-text li { margin-bottom: 4px; }
+.np-text b { color: var(--bone); }
+.np-count { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.np-count .big { display: block; font-size: 26px; color: var(--accent); margin-top: 2px; }
+.np-verdict { font-size: 18px; color: var(--bone); margin-bottom: 8px; }
+@media (max-width: 900px) { .np-grid { grid-template-columns: 1fr; } }

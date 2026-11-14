@@ -615,11 +615,56 @@ function initViewer() {
     ], { width: w });
   };
   drawTimeline();
+  renderNextPass();
   let tlw = 0;
   new ResizeObserver(() => { const w = $("#timeline").clientWidth; if (Math.abs(w - tlw) > 40) { tlw = w; drawTimeline(); } }).observe($("#timeline"));
   $("#loading").hidden = true;
   const m = location.hash.match(/^#object-(\d+)$/);
   if (m && D.byId.has(+m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
+}
+
+// ------------------------------------------------------------ next-pass prediction
+async function renderNextPass() {
+  const [P] = await Promise.all([
+    fetch(BASE + "prediction.json").then((r) => r.ok ? r.json() : null).catch(() => null),
+  ]);
+  const R = P?.scored ? await fetch(BASE + "prediction_result.json").then((r) => r.ok ? r.json() : null).catch(() => null) : null;
+  if (!P) { $("#nextpass").hidden = true; return; }
+  const commit = "https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md";
+  const thr = P.P1_threshold_dHH_BC_db, agg = P.aggregate_dHH_AB_db;
+  let html = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} parcels brightened</b> (pooled <b class="num-up">${f(agg, 2, true)} dB</b>). If that was <b>wet soil</b>, they must dim back as the soil dries — NASA SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³. If it was <b>ploughing</b>, roughness doesn't dry: they stay bright.</p>
+    <p>We locked the test <a href="${commit}">in public, before the pass</a>:</p>
+    <ol><li><b>Wetting dominant</b> if the brightened parcels dim by ≤ <b>${f(thr, 2)} dB</b> overall <i>and</i> the typical parcel reverses ≥ 50 % of its brightening.</li>
+      <li><b>Ploughing dominant</b> if the typical parcel reverses &lt; 25 %.</li>
+      <li>Otherwise <b>mixed</b>. Void if the town control moves &gt; 0.5 dB or if it rains again (SMAP ≥ 0.25).</li></ol>`;
+  if (R) {
+    html = `<p class="np-verdict">Verdict: <b>${esc(R.verdict)}</b></p>
+      <p>Pooled change 3 Nov → next pass: <b>${f(R.aggregate_dHH_BC_db, 2, true)} dB</b> (threshold ${f(thr, 2)}); median parcel recovery <b>${f(100 * R.median_R, 0)} %</b>; control ${f(R.control_dHH_BC_db, 2, true)} dB. Granule <span class="mono">${esc(R.granule_c)}</span>.</p>` + html;
+  }
+  $("#np-text").innerHTML = html;
+  const target = Date.UTC(2026, 10, 15, 16, 24);
+  const tick = () => {
+    const ms = target - Date.now();
+    if (R) { $("#np-count").innerHTML = `Scored <span class="big">${esc(R.scored_utc.slice(0, 10))}</span>`; return; }
+    if (ms > 0) {
+      const h = Math.floor(ms / 3.6e6), m = Math.floor((ms % 3.6e6) / 6e4);
+      $("#np-count").innerHTML = `NISAR over Ceyhan again in<span class="big">${h} h ${String(m).padStart(2, "0")} min</span>15 Nov 2026 · ~19:24 local · track 151`;
+    } else {
+      $("#np-count").innerHTML = `The pass has flown<span class="big">awaiting NASA release</span>VALIDATED data typically appear a few days after acquisition; the locked scorer will run then.`;
+    }
+  };
+  tick(); setInterval(tick, 30000);
+  const pts = [["20261020", 18, 0.161], ["20261025", 6, 0.109], ["20261026", 18, 0.053], ["20261028", 18, 0.291], ["20261102", 6, 0.268], ["20261103", 6, 0.356], ["20261105", 18, 0.232], ["20261110", 6, 0.134], ["20261111", 18, 0.098]]
+    .map(([d, h, v]) => ({ t: Date.UTC(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6), h), v }));
+  const t0 = Date.UTC(2026, 9, 19), t1 = Date.UTC(2026, 10, 17), W = 360, H = 120, L = 30, B = 18;
+  const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 8), Y = (v) => 8 + (0.4 - v) / 0.4 * (H - B - 8);
+  const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
+  $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#1a2230"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#8a93a3" font-size="9" font-family="IBM Plex Mono">${v}</text>`).join("")}
+    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#e8c547" : "#56d4e8"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#e8c547" : "#56d4e8"}" font-size="9" font-family="IBM Plex Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
+    <polyline fill="none" stroke="#e8e3d8" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#e8e3d8"/>`).join("")}
+  </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³, quality-approved readings). Wet at pass B; dry again by 11 Nov.</p>`;
 }
 
 // ------------------------------------------------------------ guided story
