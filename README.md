@@ -23,7 +23,7 @@ Twelve days. Two NASA-ISRO **NISAR** radar passes. One farming landscape around 
 | Optical cross-check (NASA HLS NDVI, 23 Oct → 2 Nov) | Of 310 brightened objects with a clear view, **9.0 % lost vegetation**; 85.5 % show little vegetation change (median ΔNDVI +0.015 vs +0.060 for other fields) |
 | ΔHV | **Unresolved** — west–east gradient + high RFI-likelihood flag; shown, not interpreted |
 
-Possible explanations (not determinable from backscatter alone): wetter soil after ~23 mm of rain on 28–29 Oct (27.6 mm over the whole interval) (NASA POWER estimate), tillage, harvest, standing water. The optical cross-check makes **harvest unlikely for most brightened parcels**, leaving soil-surface change (moisture and/or roughness) as the leading candidates. The app shows which are *consistent* with each selection and what evidence would decide between them.
+Explanations, ranked by independent evidence: the optical cross-check makes **harvest unlikely for most brightened parcels**; NASA SMAP shows Ceyhan's soil was **wetted** between the passes (0.16 → 0.36 m³/m³, exploratory window) after ~23 mm of rain on 28–29 Oct, and the pre-registered global test shows NISAR brightens where SMAP sees wetting. **Wetting is the leading explanation**; tillage remains possible for individual parcels. A [falsifiable prediction](research/prediction/PREDICTION.md) for NISAR's 15 Nov pass, locked before the pass, will separate them: wet soil dries back, ploughed soil stays bright.
 
 ## Features
 - **Radar viewer** — both calibrated γ⁰ HH scenes on one fixed stretch, a swipe comparison, a ΔHH change map and a cautioned ΔHV map; pan/zoom, map context (OpenStreetMap), lat/lon grid, pixel readout.
