@@ -179,7 +179,7 @@ function renderPanel() {
   const v = verdict(s.dDb);
   if (sel.kind === "area") {
     const so = C.stats.objects;
-    v.text = `The change is concentrated in individual parcels, not spread evenly — the area-wide average stays within the stable control's spread.` + (C.optical ? ` NASA HLS optical check: of ${C.optical.brightened.objects_with_clear_view} brightened parcels with a clear view, only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% lost vegetation, so harvest explains a minority.` : "") + ` Click an outlined parcel or draw a region.`;
+    v.text = `The change sits in individual fields, not everywhere at once.` + (C.optical ? ` An optical satellite (NASA HLS) shows only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% of the brighter fields lost their plants, so harvest explains only a few.` : "") + ` Tap any outlined field, or draw your own.`;
   }
   const color = v.cls === "down" ? "#2a5db0" : v.cls === "up" ? "#d9531e" : "#9c927f";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
@@ -188,7 +188,7 @@ function renderPanel() {
   const so = C.stats.objects;
   let obs = sel.kind === "area" ? `<div class="verdict">
       <div class="big up">${(so.area_ha_brightened / so.area_ha_darkened).toFixed(1)}×</div>
-      <div class="label">more parcel area brightened (${fmtInt(Math.round(so.area_ha_brightened))} ha) than darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha) — change objects ≥ 3 dB, ≥ 1 ha, over ${f(areaHa / 100, 0)} km². Area-average ΔHH ${f(s.dDb, 2, true)} dB.</div>
+      <div class="label">more farmland got brighter on radar than got darker: ${fmtInt(Math.round(so.area_ha_brightened))} ha vs ${fmtInt(Math.round(so.area_ha_darkened))} ha, across ${f(areaHa / 100, 0)} km².<span class="tech"> Fields changing ≥ 3 dB, ≥ 1 ha. Area-average ΔHH ${f(s.dDb, 2, true)} dB.</span></div>
       <div class="call">${esc(v.text)}</div></div>` : `<div class="verdict">
       <div class="big ${v.cls}">${f(s.dDb, 2, true)} dB</div>
       <div class="label">ΔHH = 10·log₁₀(mean γ⁰ 3 Nov / mean γ⁰ 22 Oct) over ${fmtInt(s.n)} valid pixels (${f(areaHa, 1)} ha)</div>
@@ -237,7 +237,7 @@ function renderPanel() {
       <dt>Pass times (local)</dt><dd>19:24 · 19:24 TRT</dd>
     </dl>
     <p>Both passes were acquired on the same descending orbit track (151) at the same time of day and identical geometry, so the comparison is pixel-for-pixel on one 20 m grid without resampling.</p>
-    <p>NASA POWER estimates ${f(tot, 1)} mm of rain over the interval, concentrated on 28–29 October — about five days before the second pass. Rain on 4–6 November fell <em>after</em> the second pass and cannot appear in this pair.</p>
+    <p>NASA POWER estimates ${f(tot, 1)} mm of rain over the interval, mostly on 28–29 October, about five days before the second pass. Rain on 4–6 November fell <em>after</em> the second pass and cannot appear in this pair.</p>
     <p>A third NISAR pass exists on 29 October (track 079, the rainiest day). I checked it and did not use it: it is on a different orbit track and map projection (UTM 36N), and its own radio-frequency-interference likelihood flag is extremely high (≈4×10¹⁰ for HH, versus ≈6 for the two passes used).</p>
     <p class="muted">Precipitation: NASA POWER daily point estimate (~0.5° model grid). Not a rain gauge; it cannot say how much rain fell on any single field.</p>`;
 
@@ -271,7 +271,7 @@ function interpretation(sel, s) {
   let h = `<p>The radar measures how much L-band energy returns from the ground. These are the physical explanations that remain possible for what was measured in this selection, ranked by the independent evidence available. None is proven for an individual field.</p>`;
   const ex = GL?.ceyhan?.exploratory, P = GL?.results?.primary;
   const wetEvidence = GL && ex && P
-    ? ` <b>Independent evidence:</b> NASA SMAP measured soil moisture in Ceyhan's 9 km cell rise from ${f(ex.sm_a, 2)} (20 Oct) to ${f(ex.sm_b, 2)} m³/m³ on the morning of the second pass (3 Nov) — the soil really was wet. And in a pre-registered test on ${P.n} randomly drawn NISAR sites worldwide, radar change tracked SMAP soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001; <a href="world.html#site-ceyhan">see the global test</a>). Wetting is therefore the <em>leading</em> explanation — but SMAP is 9 km wide, so it cannot say which individual fields.`
+    ? ` <b>Independent evidence:</b> NASA SMAP measured soil moisture in Ceyhan's 9 km cell rise from ${f(ex.sm_a, 2)} (20 Oct) to ${f(ex.sm_b, 2)} m³/m³ on the morning of the second pass (3 Nov). The soil really was wet. And in a pre-registered test on ${P.n} randomly drawn NISAR sites worldwide, radar change tracked SMAP soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001; <a href="world.html#site-ceyhan">see the global test</a>). Wetting is therefore the <em>leading</em> explanation — but SMAP is 9 km wide, so it cannot say which individual fields.`
     : "";
   h += mk("Wetter soil after the 28–29 Oct rain",
     bright ? (wetEvidence ? "leading explanation" : "consistent") : "not indicated", bright ? "ok" : "",
@@ -287,10 +287,10 @@ function interpretation(sel, s) {
   const harvestTag = o.cls === "vegetation loss" ? ["consistent", "ok"] : o.cls === "no clear optical view" ? ["possible", ""] : ["not indicated", ""];
   h += mk("Harvest or removal of vegetation",
     harvestTag[0], harvestTag[1],
-    (o.cls === "vegetation loss" ? `NASA HLS shows the vegetation index fell (ΔNDVI ${f(o.dNDVI, 3, true)}) between 23 Oct and 2 Nov — consistent with a crop being harvested or cleared. ` :
+    (o.cls === "vegetation loss" ? `NASA HLS shows the vegetation index fell (ΔNDVI ${f(o.dNDVI, 3, true)}) between 23 Oct and 2 Nov, which fits a crop being harvested or cleared. ` :
       o.cls === "no clear optical view" ? "No clear optical view of this selection on both dates, so vegetation change cannot be checked here. " :
       `NASA HLS shows no vegetation loss here (ΔNDVI ${f(o.dNDVI, 3, true)}), so harvest is unlikely to explain this radar change. `) +
-    "The Çukurova autumn calendar (cotton harvest, preparation for winter wheat) makes field operations plausible in this window — general regional knowledge, not verified for these fields.",
+    "The Çukurova autumn calendar (cotton harvest, preparation for winter wheat) makes field work plausible in this window. This is general regional knowledge, not checked for these fields.",
     "a cloud-free optical pair where unavailable; field records; a reliable HV channel (vegetation volume), unresolved here.");
   h += mk("Standing water or flooding",
     !bright && after < -15 ? "consistent" : "not indicated", !bright && after < -15 ? "ok" : "",
@@ -461,7 +461,7 @@ function methodHtml() {
       <li><strong>Cross-check with optical.</strong> NASA HLS S30 (Sentinel-2) surface reflectance on 23 Oct and 2 Nov (same tile, 08:30 UTC), cloud-masked with Fmask and resampled onto the same 20 m grid; NDVI change per object (≥ 80% clear pixels) separates vegetation loss (harvest) from soil-surface change.</li>
       <li><strong>Check.</strong> HV tested for range-dependent bias (failed → excluded); HH tested (passed). Python unit tests and an integrity test recompute every published number from the shipped files; the browser repeats that check on every load (below).</li>
     </ol>
-    <h3>Integrity check — run in your browser just now</h3>
+    <h3>Integrity check, run in your browser just now</h3>
     <table class="checks">${checks}</table>
     <h3>Data</h3>
     <ul class="plain">
@@ -635,8 +635,8 @@ async function renderNextPass() {
   if (!P) { $("#nextpass").hidden = true; return; }
   const commit = "https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md";
   const thr = P.P1_threshold_dHH_BC_db, agg = P.aggregate_dHH_AB_db;
-  let html = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} parcels brightened</b> (pooled <b class="num-up">${f(agg, 2, true)} dB</b>). If that was <b>wet soil</b>, they must dim back as the soil dries — NASA SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³. If it was <b>ploughing</b>, roughness doesn't dry: they stay bright.</p>
-    <p>I locked the test <a href="${commit}">in public, before the pass</a>:</p>
+  let html = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} parcels brightened</b> (pooled <b class="num-up">${f(agg, 2, true)} dB</b>). If that was <b>wet soil</b>, they will dim back as the soil dries. NASA SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³. If it was <b>ploughing</b>, roughness doesn't dry: they stay bright.</p>
+    <p>I published the test <a href="${commit}">before the pass</a>:</p>
     <ol><li><b>Wetting dominant</b> if the brightened parcels dim by ≤ <b>${f(thr, 2)} dB</b> overall <i>and</i> the typical parcel reverses ≥ 50 % of its brightening.</li>
       <li><b>Ploughing dominant</b> if the typical parcel reverses &lt; 25 %.</li>
       <li>Otherwise <b>mixed</b>. Void if the town control moves &gt; 0.5 dB or if it rains again (SMAP ≥ 0.25).</li></ol>`;
@@ -684,27 +684,27 @@ function storySteps() {
   const soilObj = C.objects.find((o) => o.sign === "brightened" && o.optical_class === "little vegetation change") || C.objects[0];
   const rain = C.weather.series.filter((d) => d.date === "20261028" || d.date === "20261029").reduce((a, d) => a + d.mm, 0);
   return [
-    { k: "1 · Two passes", t: "Same orbit, same time of day, twelve days apart",
-      p: `NASA-ISRO's NISAR radar imaged these fields around <strong>Ceyhan, Adana</strong> on 22 Oct and 3 Nov 2026 at 19:24 local time, from the identical orbit track. Radar sees through cloud and darkness. <strong>Drag the handle</strong> to compare the two calibrated scenes.`,
+    { k: "1 · Two passes", t: "Same orbit, same time of day, 12 days apart",
+      p: `NASA-ISRO's NISAR radar imaged these fields around <strong>Ceyhan, Adana</strong> on 22 Oct and 3 Nov 2026 at 19:24 local time, from the same orbit. Radar sees through cloud and darkness. <strong>Drag the handle</strong> to compare the two images.`,
       go: () => { select({ kind: "area" }); setMode("swipe"); viewer.fit(); } },
     { k: "2 · What changed", t: `${ratio.toFixed(1)}× more land lit up than went dark`,
-      p: `Orange parcels returned more radar energy on 3 Nov, blue less. Field by field: <span class="num-up">${fmtInt(so.brightened)} parcels brightened (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} darkened (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. The asymmetry holds at every detection threshold from 2 to 5 dB.`,
+      p: `Orange fields reflected more radar on 3 Nov, blue fields less. Field by field: <span class="num-up">${fmtInt(so.brightened)} fields got brighter (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} got darker (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. This holds whatever cut-off you use for "changed".`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
-    { k: "3 · Is it real?", t: "Check against something that shouldn't change",
-      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A parcel only counts as changed above <strong>3 dB</strong> — beyond 99% of the control's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
+    { k: "3 · Is it real?", t: "Compare with something that shouldn't change",
+      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A field only counts as changed above <strong>3 dB</strong>, more than 99% of the town's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.focus([ux0, uy0, ux1, uy1], 6); } },
     { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
-      p: op ? `NASA HLS optical imagery (Sentinel-2) measures vegetation. Of <strong>${op.brightened.objects_with_clear_view}</strong> radar-brightened parcels with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost vegetation (magenta). <strong>Harvest explains a minority.</strong>` : "Optical cross-check unavailable.",
+      p: op ? `NASA HLS optical imagery shows where plants are. Of <strong>${op.brightened.objects_with_clear_view}</strong> brighter fields with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost their plants (magenta). <strong>Harvest explains only a few.</strong>` : "Optical cross-check unavailable.",
       go: () => { select({ kind: "area" }); setMode("ndvi"); viewer.fit(); } },
-    { k: "5 · What remains", t: "The soil got wet — confirmed by a third NASA satellite",
+    { k: "5 · What remains", t: "The soil got wet, says a third NASA satellite",
       p: () => {
         const ex = GL?.ceyhan?.exploratory, P = GL?.results?.primary;
         const base = `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). Left: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing.`;
-        return ex && P ? `${base} NASA <strong>SMAP</strong> measured Ceyhan's soil moisture jump from <strong>${f(ex.sm_a, 2)} to ${f(ex.sm_b, 2)} m³/m³</strong> by the morning of the second pass. <strong>Wetting is the leading explanation</strong>; ploughing can't be ruled out field by field.` : `${base} The <strong>Interpretation</strong> tab shows what would decide it.`;
+        return ex && P ? `${base} NASA <strong>SMAP</strong> measured Ceyhan's soil moisture jump from <strong>${f(ex.sm_a, 2)} to ${f(ex.sm_b, 2)} m³/m³</strong> by the morning of the second pass. <strong>Wet soil is the most likely explanation.</strong> Ploughing can't be ruled out for single fields.` : `${base} The <strong>Interpretation</strong> tab shows what would decide it.`;
       },
       go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
-    { k: "6 · Does it hold everywhere?", t: "Tested on random sites worldwide — twice",
-      p: () => { const P = GL?.results?.primary; return P ? `I fixed the test before looking, then drew NISAR pairs at random worldwide. At the <strong>${P.n}</strong> sites with quality SMAP data, radar change tracked soil-moisture change (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
+    { k: "6 · Does it hold everywhere?", t: "Tested at random places worldwide, twice",
+      p: () => { const P = GL?.results?.primary; return P ? `I wrote the rules down before looking, then picked NISAR sites at random worldwide. At the <strong>${P.n}</strong> sites with good soil-moisture data, the radar changed with the soil (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
       go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
   ];
 }

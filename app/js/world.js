@@ -204,16 +204,16 @@ function hero(fit) {
   $("#w-n-sites").textContent = rep ? `${G.results.n_sampled + R.replication.n_sampled}` : G.results.n_sampled;
   $("#w-pop").textContent = G.results.n_population_pairs;
   $("#w-headline").innerHTML = !sig ? `Across ${n} sites worldwide, NISAR's site-wide change did not track soil wetting.`
-    : rep ? `From orbit, NISAR's radar tracks whether the ground got <em>wetter or drier</em>. I tested it on random sites worldwide — twice.`
+    : rep ? `From orbit, NISAR's radar tracks whether the ground got <em>wetter or drier</em>. I tested it at random places worldwide, twice.`
           : `Where NASA's SMAP saw soil get wetter, NISAR's radar got brighter. Where it dried, NISAR got darker.`;
   $("#w-lede").innerHTML = !sig ? `The pre-registered test did not find the expected relationship.`
-    : `I wrote the test down before looking, drew ${G.results.n_sampled} NISAR sites at random from ${G.results.n_population_pairs} worldwide, and compared each with NASA's SMAP soil-moisture satellite. ${rep ? `Then I repeated it on ${R.replication.n_sampled} <i>new</i> random sites. Both times, radar change tracked soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)} and ${fmt(R.replication.rho, 2)}, p &lt; 0.001). The clearer signal is drying: soil that dried got darker by about 1 dB, while wetting brightened less consistently.` : `Radar change tracks soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)}); ${agree} of the ${clear} sites with a clear moisture change moved in the same direction.`} <a href="#site-ceyhan">At Ceyhan, SMAP confirms the soil was wetted between the two passes.</a>`;
+    : `I wrote the rules down before looking, picked ${G.results.n_sampled} NISAR sites at random from ${G.results.n_population_pairs} worldwide, and compared each with NASA's soil-moisture satellite, SMAP. ${rep ? `Then I repeated it on ${R.replication.n_sampled} <i>new</i> random sites. Both times, when the soil got wetter or drier, the radar changed with it. Drying shows most clearly: soil that dried got about 1 dB darker.` : `Radar change tracks soil-moisture change (ρ = ${fmt(P.spearman_rho, 2)}); ${agree} of the ${clear} sites with a clear moisture change moved in the same direction.`} <a href="#site-ceyhan">At Ceyhan, SMAP confirms the soil was wetted between the two passes.</a>`;
   const stats = rep ? [
-    ["Sites tested", `${P.n + R.replication.n}<small> of ${G.results.n_sampled + R.replication.n_sampled} drawn</small>`],
-    ["Test ρ", `${fmt(P.spearman_rho, 2)}<small> n ${P.n}</small>`],
-    ["Replication ρ", `${fmt(R.replication.rho, 2)}<small> n ${R.replication.n}</small>`],
-    ["p (both)", "&lt; 0.001"],
-    ["Same direction", `${R.pooled.same_direction[0]}/${R.pooled.same_direction[1]}<small> clear cases</small>`],
+    ["Sites with soil data", `${P.n + R.replication.n}<small> of ${G.results.n_sampled + R.replication.n_sampled} picked</small>`],
+    ["First test", `ρ ${fmt(P.spearman_rho, 2)}<small> ${P.n} sites</small>`],
+    ["Repeat test", `ρ ${fmt(R.replication.rho, 2)}<small> ${R.replication.n} sites</small>`],
+    ["Chance result", "&lt; 0.1%<small> both</small>"],
+    ["Moved the same way", `${R.pooled.same_direction[0]}/${R.pooled.same_direction[1]}<small> clear cases</small>`],
   ] : [
     ["Sites tested", `${n}<small> of ${G.results.n_sampled} drawn</small>`],
     ["Spearman ρ", fmt(P.spearman_rho, 2)],

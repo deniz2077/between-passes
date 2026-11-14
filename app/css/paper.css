@@ -143,3 +143,5 @@ select { background: var(--ink-2); color: var(--bone); }
 .cover-test .ct-t { margin: 0 0 8px; font-size: 15px; line-height: 1.5; color: var(--bone-2); }
 .cover-test .ct-t strong { color: var(--bone); }
 .cover-test .ct-link { font-weight: 600; font-size: 14.5px; }
+
+.verdict .label .tech { display:block; margin-top:4px; font-size:11.5px; color: var(--muted); }
