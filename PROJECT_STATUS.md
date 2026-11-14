@@ -1,6 +1,6 @@
 # PROJECT STATUS — Between Passes (Signal Foundry)
 
-_Last updated: 2026-11-14 ~17:30 Europe/Istanbul_
+_Last updated: 2026-11-14 17:12 Europe/Istanbul_
 
 ## Deadlines
 - **NASA official "Submit for Judging": Sun 15 Nov 2026 23:59 Europe/Istanbul.** Target an early basic submission, then resubmit.
@@ -8,7 +8,7 @@ _Last updated: 2026-11-14 ~17:30 Europe/Istanbul_
 - Repo visibility: **pending Nisa's answer** — do not change visibility until Deniz confirms.
 
 ## Phase
-Sprint 1 (framing + feasibility). NISAR gate **in progress — BLOCKED on Earthdata Login**.
+Sprint 1 (framing + feasibility). NISAR gate **GO at 17:10** (see research/NISAR_GATE.md). Awaiting Deniz approval of research question phrasing.
 
 ## Verified
 - Official challenge text read (fits a hometown backscatter-change study).

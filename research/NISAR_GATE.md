@@ -45,7 +45,7 @@ Figures: `research/figures/gate_preview_A.png`, `research/figures/gate_HH_pair.p
 - At fixed brightness, ΔHH shows **no range ramp**; darker HH fields brighten more (~+0.8–1.0 dB for −15…−11 dB fields) uniformly across range. HH noise floor decreased on B, so additive noise cannot explain the brightening.
 - **HV unresolved**: ΔHV rises west→east even at fixed HV brightness (e.g. −0.15 → +1.84 dB for −15…−13 dB pixels), while the reported HV noise floor changed only ~0.3 dB. Could be a real landscape gradient or an HV-specific artifact (RFI likelihood high). **HV change will not be interpreted** unless resolved; it is shown as a documented failure mode.
 
-## Step 6 — Verdict: **GO** (access + comparability), 17:2x TRT
+## Step 6 — Verdict: **GO** (access + comparability), 17:10 TRT (gate elapsed ≈19 min)
 Two authentic, calibrated, identically gridded same-track NISAR γ⁰ rasters are accessible reproducibly; HH shows a stable control and a measurable, spatially structured, parcel-scale change signal.
 
 ## Scientific failure modes to carry forward
