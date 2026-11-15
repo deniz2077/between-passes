@@ -79,7 +79,7 @@
     <div class="big" style="font-size:120px;color:var(--text);margin-top:16px">636</div>
     <p style="font-size:26px;color:var(--muted)">fields as “changed” (white).<br>Which ones really did?</p>
   </div>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>2 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>2 / 11</span></div>
 </section>
 
 <!-- 3 MEASURED -->
@@ -97,7 +97,7 @@
     <p style="font-size:30px;margin-top:40px">Where the soil got wetter or drier, <b class="o">85%</b> of that “change” could be just the weather.</p>
   </div>
   <p class="fn">Share of land changed ≥ 3 dB, typical place · NISAR L2 GCOV repeat pairs 12 days apart · soil moisture: NASA SMAP SPL3SMP_E, same days</p>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>3 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>3 / 11</span></div>
 </section>
 
 <!-- 4 THE RULE -->
@@ -120,7 +120,7 @@
     <p style="font-size:30px;margin-top:24px">So a change that goes <b>against</b> the measured soil moisture <b>cannot be the weather.</b> Something on the ground really changed: crops, water, buildings.</p>
     <p style="font-size:24px;color:var(--muted);margin-top:24px">Rules committed to GitHub before running them on any place (2365a8e).</p>
   </div>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>4 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>4 / 11</span></div>
 </section>
 
 <!-- 5 SOLUTION IN ACTION -->
@@ -138,7 +138,7 @@
     <div style="width:560px"><div class="pic" style="width:560px;height:433px"><img src="n10/filter_full.jpg"><span class="lbl">3 · SORT</span></div><p style="font-size:25px;margin-top:16px"><span class="w"><b class="w">88%</b> could be the rain</span> (brighter). <span class="o"><b class="o">12%</b> really changed</span> (darker, against the weather).</p></div>
   </div>
   <p class="fn">Share of changed land in this view · NISAR L2 GCOV HH, 20 m, change ≥ 3 dB · SMAP SPL3SMP_E 9 km · rain: NASA POWER PRECTOTCORR between passes</p>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>5 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>5 / 11</span></div>
 </section>
 
 <!-- 6 NASA DATA -->
@@ -152,7 +152,7 @@
     <div class="card" style="height:520px"><div class="t">NASA HLS</div><div style="font-size:40px;font-weight:700;letter-spacing:-.02em">Were plants removed?</div><p style="font-size:24px;margin-top:16px">An optical check in Ceyhan: only 9% of the brightened fields lost their plants.</p><p class="mono" style="font-size:18px;color:var(--muted);margin-top:22px;line-height:1.6">HLSS30 v2.0 · 30 m<br>NDVI before/after<br>LP DAAC · 10.5067/HLS/HLSS30.002</p></div>
   </div>
   <p class="fn">Also: NASA CMR catalogue search · Earthdata Login · map context © OpenStreetMap contributors · land outlines Natural Earth</p>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>6 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>6 / 11</span></div>
 </section>
 
 <!-- 7 TECH -->
@@ -170,7 +170,7 @@
     <div class="card" style="padding:26px 30px"><div class="t">Run it on any place NISAR has flown</div><div class="mono" style="font-size:22px;color:var(--text);white-space:nowrap">python scripts/bp_check.py --lat 38.50 --lon -98.50 --name "Kansas"</div><p style="font-size:22px;margin-top:10px">Finds the passes, reads the weather, writes the filtered map and a report. Free Earthdata account.</p></div>
     <div class="card" style="padding:26px 30px"><div class="t">Stack</div><p style="font-size:22px">Python · h5py · NumPy · SciPy · rasterio · Shapely · HTML/JS canvas, no framework · GitHub Actions → Pages · <b>37 automated tests</b> · MIT open source</p></div>
   </div>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>7 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>7 / 11</span></div>
 </section>
 
 <!-- 8 PRODUCT -->
@@ -187,7 +187,7 @@
   </div>
   <div class="abs" style="left:1210px;top:150px;width:300px"><img src="../shots/n_card_kansas.png" class="shot" style="width:300px;height:720px;object-fit:cover;object-position:top"><p style="font-size:20px;margin-top:10px"><b>Kansas, USA:</b> 50 mm of rain. All of the change went the way the soil did.</p></div>
   <div class="abs" style="left:1530px;top:150px;width:300px"><img src="../shots/n_card_punjab.png" class="shot" style="width:300px;height:720px;object-fit:cover;object-position:top"><p style="font-size:20px;margin-top:10px"><b>Punjab, India:</b> the soil stayed the same, yet 20% of the land changed.</p></div>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>8 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>8 / 11</span></div>
 </section>
 
 <!-- 9 LOCAL + PROOF -->
@@ -204,12 +204,44 @@
     <div class="card" style="padding:22px 28px;margin-bottom:16px;border-color:var(--b)"><div class="t" style="color:var(--b)">3 predictions, locked in advance</div><p style="font-size:24px">If Ceyhan's bright fields were just wet, they will fade as the soil dries. Locked on GitHub <b>before NASA released the next passes</b> (e3915c1, a068d8f). The app scores them automatically, whatever they say.</p></div>
     <div class="card" style="padding:22px 28px"><div class="t">Honest limits</div><p style="font-size:24px">A screening filter: it says <b>where to look</b>, not what happened. SMAP cells are 9 km, so a local shower can look like real change.</p></div>
   </div>
-  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>9 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>9 / 11</span></div>
+</section>
+
+<!-- 10 DEVELOPMENT PROCESS -->
+<section class="slide">
+  <p class="k"><b>09</b>Development process · 4 Scrum sprints · solo: Product Owner, Developer, Scrum Master</p>
+  <h2 style="font-size:70px">It started as one field question.<br><span class="o">The data turned it into a product.</span></h2>
+  <div class="abs" style="left:96px;right:96px;top:372px;height:4px;background:linear-gradient(90deg,#353a43,var(--b))"></div>
+  <div class="abs" style="left:96px;right:96px;top:352px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+    <div><div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:4px solid #8d929b"></div>
+      <div class="card" style="margin-top:22px;height:370px;padding:28px 28px"><div class="t">Sprint 1 · 14 Nov 16:51</div><div style="font-size:31px;font-weight:700;letter-spacing:-.02em">Can it be done?</div>
+      <p style="font-size:25px;margin-top:12px">Found NISAR passes over Ceyhan. Built a reader that downloads 70 MB of a 1.9 GB file. Town centre stable (+0.08 dB), farmland brightening.</p>
+      <p class="mono" style="font-size:18px;color:var(--b);margin-top:14px">→ GO at 17:10</p></div></div>
+    <div><div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:4px solid #b0a37f"></div>
+      <div class="card" style="margin-top:22px;height:370px;padding:28px 28px"><div class="t">Sprint 2 · 17:20</div><div style="font-size:31px;font-weight:700;letter-spacing:-.02em">Which fields changed?</div>
+      <p style="font-size:25px;margin-top:12px">Pipeline + web app v1. 636 changed fields, mostly brighter. NASA HLS: only 9% lost their plants, so it wasn't harvest.</p>
+      <p class="mono" style="font-size:18px;color:var(--b);margin-top:14px">→ new question: was it rain?</p></div></div>
+    <div><div style="width:44px;height:44px;border-radius:50%;background:var(--bg);border:4px solid #d9a63a"></div>
+      <div class="card" style="margin-top:22px;height:370px;padding:28px 28px"><div class="t">Sprint 3 · 19:15</div><div style="font-size:31px;font-weight:700;letter-spacing:-.02em">Does it hold worldwide?</div>
+      <p style="font-size:25px;margin-top:12px">Test rules committed <b>before</b> extracting data. 74 random sites: radar follows SMAP soil moisture (ρ = 0.58). Repo and app go public.</p>
+      <p class="mono" style="font-size:18px;color:var(--b);margin-top:14px">→ rain fools radar everywhere</p></div></div>
+    <div><div style="width:44px;height:44px;border-radius:50%;background:var(--b);border:4px solid var(--b)"></div>
+      <div class="card" style="margin-top:22px;height:370px;padding:28px 28px;border-color:var(--b)"><div class="t" style="color:var(--b)">Sprint 4 · 20:00 → 15 Nov</div><div style="font-size:31px;font-weight:700;letter-spacing:-.02em">Turn it into a product.</div>
+      <p style="font-size:25px;margin-top:12px">Repeated on 73 new sites (ρ = 0.55). Weather filter on 148 places, bp_check.py for any place, 3 locked predictions, new design.</p>
+      <p class="mono" style="font-size:18px;color:var(--b);margin-top:14px">→ Between Passes</p></div></div>
+  </div>
+  <div class="abs" style="left:96px;right:96px;top:850px;display:flex;gap:14px;flex-wrap:nowrap">
+    <span class="mono" style="font-size:19px;padding:10px 16px;border:1px solid var(--line2);border-radius:99px;color:var(--soft);white-space:nowrap">Rules committed before the data</span>
+    <span class="mono" style="font-size:19px;padding:10px 16px;border:1px solid var(--line2);border-radius:99px;color:var(--soft);white-space:nowrap">Tests: 19 → 23 → 37</span>
+    <span class="mono" style="font-size:19px;padding:10px 16px;border:1px solid var(--line2);border-radius:99px;color:var(--soft);white-space:nowrap">Every failed run and dropped site reported</span>
+    <span class="mono" style="font-size:19px;padding:10px 16px;border:1px solid var(--line2);border-radius:99px;color:var(--soft);white-space:nowrap">A sprint report on GitHub after each sprint</span>
+  </div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>10 / 11</span></div>
 </section>
 
 <!-- 10 IMPACT -->
 <section class="slide">
-  <p class="k"><b>09</b>Expected impact</p>
+  <p class="k"><b>10</b>Expected impact</p>
   <h2 style="font-size:100px">Fewer false alarms.<br><span class="o">Real changes first.</span></h2>
   <div class="abs" style="left:96px;top:420px;width:1230px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
     <div class="card"><div class="t" style="color:var(--b)">Flood &amp; disaster teams</div><p style="font-size:26px">See real flooding and damage, not fields that just got wet.</p></div>
@@ -224,7 +256,7 @@
     <p class="mono" style="font-size:19px;color:var(--muted);margin-top:6px">github.com/deniz2077/between-passes</p>
   </div>
   <p class="fn">The project idea, research question, study area and every key decision are mine. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use.</p>
-  <div class="foot"><span>Between Passes · Dusk Orbit · Deniz Efe Bulut</span><span>10 / 10</span></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit · Deniz Efe Bulut</span><span>11 / 11</span></div>
 </section>
 </body>
 </html>

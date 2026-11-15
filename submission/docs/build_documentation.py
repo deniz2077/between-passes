@@ -111,15 +111,16 @@ def front():
     <div><span><span class='n'>1</span>User guide: how to use the app</span></div>
     <div><span><span class='n'>2</span>System architecture and technology</span></div>
     <div><span><span class='n'>3</span>NASA data sources</span></div>
-        <div><span><span class='n'>4</span>The weather filter: rules fixed first</span></div>
-    <div><span><span class='n'>5</span>Method in detail</span></div>
-    <div><span><span class='n'>6</span>Worldwide test: results</span></div>
-    <div><span><span class='n'>7</span>Prediction 1: the next pass</span></div>
-    <div><span><span class='n'>8</span>Prediction 2: two other orbits</span></div>
-    <div><span><span class='n'>9</span>Limitations: what I don't claim</span></div>
-    <div><span><span class='n'>10</span>Reproduce it yourself</span></div>
-    <div><span><span class='n'>11</span>Data provenance</span></div>
-    <div><span><span class='n'>12</span>Use of AI</span></div></div></section>""")
+        <div><span><span class='n'>4</span>Development process: 4 Scrum sprints</span></div>
+    <div><span><span class='n'>5</span>The weather filter: rules fixed first</span></div>
+    <div><span><span class='n'>6</span>Method in detail</span></div>
+    <div><span><span class='n'>7</span>Worldwide test: results</span></div>
+    <div><span><span class='n'>8</span>Prediction 1: the next pass</span></div>
+    <div><span><span class='n'>9</span>Prediction 2: two other orbits</span></div>
+    <div><span><span class='n'>10</span>Limitations: what I don't claim</span></div>
+    <div><span><span class='n'>11</span>Reproduce it yourself</span></div>
+    <div><span><span class='n'>12</span>Data provenance</span></div>
+    <div><span><span class='n'>13</span>Use of AI</span></div></div></section>""")
     # 1 user guide
     h.append(f"""<section class='part'><h1 class='ptitle'>1 · User guide</h1><h1>How to use the app</h1>
     <p>Open <b>deniz2077.github.io/between-passes</b> on any computer or phone. No installation, no account, no login. A Turkish page is at <b>/tr.html</b>.</p>
@@ -132,7 +133,7 @@ def front():
     <div class='step'><div class='n'>6</div><div><b>Go deeper.</b> The lab (lab.html) has a guided tour, field measurement, every layer and the method; world.html has the worldwide test.</div></div></div></div>
     <div class='grid2'>{img(SHOTS+'/n_map.png','World explorer: 148 places in 39 countries. Dot colour = the filter verdict.')}{img(SHOTS+'/n_look.png','Ceyhan: where to look first, with the nearest village.','height:62mm;object-fit:cover;object-position:top')}</div>
     <h2>Run it on a new place</h2><pre>python scripts/bp_check.py --lat 38.50 --lon -98.50 --name "Kansas, USA"</pre>
-    <p>Finds two NISAR passes over the point in NASA's catalogue, reads only the needed part of each file, asks SMAP and POWER about the weather, and writes the filtered change map and a report. Needs a free NASA Earthdata account (section 10).</p></section>""")
+    <p>Finds two NISAR passes over the point in NASA's catalogue, reads only the needed part of each file, asks SMAP and POWER about the weather, and writes the filtered change map and a report. Needs a free NASA Earthdata account (section 11).</p></section>""")
     # 2 architecture
     h.append("""<section class='part'><h1 class='ptitle'>2 · Architecture</h1><h1>System architecture and technology</h1>
     <div class='pipe'><div><b>1 FIND</b>NASA CMR search: two NISAR passes on the identical orbit and grid, 12 days apart.</div><div><b>2 READ</b>HTTP byte-range reads: only the needed window, ~70 MB of a 1.9 GB HDF5 file.</div><div><b>3 WEATHER</b>SMAP soil moisture on both days, POWER rain in between.</div><div><b>4 FILTER</b>Python: speckle filter, ≥ 3 dB change, sort by soil-moisture direction.</div><div><b>5 SHOW</b>Static web app on GitHub Pages; re-checks its numbers on load.</div></div>
@@ -160,7 +161,20 @@ def front():
     <tr><td><b>NASA POWER</b></td><td>PRECTOTCORR, daily point API · NASA LaRC</td><td>How much did it rain?</td><td>Rain between the passes, shown as context for every place.</td></tr>
     <tr><td><b>NASA HLS</b></td><td>HLSS30 v2.0, 30 m · LP DAAC · DOI 10.5067/HLS/HLSS30.002</td><td>Were plants removed?</td><td>Optical check in Ceyhan: only 9% of brightened fields lost their plants.</td></tr>
     <tr><td><b>NASA CMR</b></td><td>Common Metadata Repository API</td><td>Which passes exist?</td><td>Finds matching NISAR passes and SMAP files for any point.</td></tr></table>
-    <p>Other: map context © OpenStreetMap contributors; land and country outlines from Natural Earth. ISRO is a 2026 Space Apps Space Agency Partner (NISAR is a NASA–ISRO mission). Exact files, versions and retrieval dates: section 11.</p></section>""")
+    <p>Other: map context © OpenStreetMap contributors; land and country outlines from Natural Earth. ISRO is a 2026 Space Apps Space Agency Partner (NISAR is a NASA–ISRO mission). Exact files, versions and retrieval dates: section 12.</p></section>""")
+    h.append("<section class='part'><h1 class='ptitle'>4 · Development process</h1><h1>How it was built: 4 Scrum sprints</h1>"
+             "<p>Solo team: I was Product Owner, Developer and Scrum Master. Each sprint had a goal, a plan, a review and a public report on GitHub. "
+             "The project changed direction because of what the data showed: it started as <b>“which fields changed in Ceyhan?”</b> (Sprints 1–2), "
+             "the optical check showed it was mostly not harvest, so the question became <b>“was it the rain?”</b> (Sprint 3, tested worldwide with rules committed first), "
+             "and the answer became a product: <b>a weather filter for radar change maps</b> (Sprint 4).</p>"
+             "<table><tr><th>Sprint</th><th>Window (TRT)</th><th>Goal</th><th>Key result</th></tr>"
+             "<tr><td>1</td><td>14 Nov 16:51–17:20</td><td>Problem and feasibility</td><td>NISAR passes found; 70 MB byte-range reads of 1.9 GB files; GO at 17:10</td></tr>"
+             "<tr><td>2</td><td>14 Nov 17:20–18:10</td><td>Pipeline and first prototype</td><td>636 changed fields; HLS: only 9% lost plants; web app v1; 19 tests</td></tr>"
+             "<tr><td>3</td><td>14 Nov 19:15–20:00</td><td>Scale the science</td><td>Rules committed first; 74 random sites, ρ = 0.58; repo and app public; 23 tests</td></tr>"
+             "<tr><td>4</td><td>14 Nov 20:00–15 Nov 16:11</td><td>From study to product</td><td>Replicated (ρ = 0.55, 73 new sites); weather filter on 148 places; 3 locked predictions; 37 tests</td></tr></table>"
+             "<p>The full sprint reports follow.</p>"
+             + "".join(f"<div style='page-break-before:always'>{md(f'sprint-reports/sprint-{i}.md')}</div>" for i in range(1, 5))
+             + "</section>")
     return h
 
 
@@ -172,7 +186,7 @@ def main():
     parts = front()
     cover, rest = parts[0], parts[1:]
     html += rest
-    for i, (title, path) in enumerate(PARTS, start=4):
+    for i, (title, path) in enumerate(PARTS, start=5):
         html.append(f"<section class='part'><h1 class='ptitle'>{i} · {title}</h1>{md(path)}</section>")
     html.append("</body></html>")
     src = os.path.join(HERE, "documentation.html")
