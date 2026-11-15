@@ -46,7 +46,7 @@ def record():
     b2 = p.locator('.steps button[data-step="2"]').bounding_box()
     r.glide(b1["x"] + 60, b1["y"] + 15, b2["x"] + 60, b2["y"] + 15, 0.5)
     p.locator('.steps button[data-step="2"]').click()
-    r.mark("The filter: wet soil only looks brighter. Blue could be just the rain. Orange: something really changed.")
+    r.mark("The filter: wetter soil can only brighten radar. Blue: could be the rain. Orange: really changed.")
     r.wait(4.2)
     # 2 - the problem, measured
     p.evaluate("window.scrollTo({top: document.querySelector('#problem').offsetTop - 40, behavior: 'smooth'})")

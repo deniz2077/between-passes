@@ -33,8 +33,8 @@ Answer the two open questions from Sprint 2: does it hold beyond one place, and 
 | Ceyhan itself misses the ±1-day SMAP rule | Shown only as a labelled exploratory comparison |
 
 ## Contributions
-- **Deniz Efe Bulut:** the project idea, the research question, the choice of location, the project's direction and every key decision.
-- **AI (Claude Code):** coding, data analysis and document drafting.
+- **Deniz Efe Bulut:** the project idea, the research question, the study area and every key decision.
+- **AI (Claude Code):** wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use.
 
 ## Evidence
 Commits `43f2fbb` – `0f16f34` · `research/global/` · `app/world.html`

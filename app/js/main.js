@@ -477,7 +477,7 @@ python scripts/extract_window.py &lt;granule&gt; 35.85 37.0 12 data/raw/win_A
 python scripts/build_case.py
 python -m pytest tests</pre>
     <h3>AI assistance</h3>
-    <p>Generative AI (Claude Code) assisted with software development, data-processing code and documentation. The research question, study area and decisions were made by the participant. All numbers shown are computed from NASA data by the code in the repository and re-verified in your browser; no AI-generated imagery is used.</p>
+    <p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use. All numbers shown are computed from NASA data by the code in the repository and re-verified in your browser; no AI-generated imagery is used.</p>
     <p class="muted">Built ${esc(C.built_utc)} · case ${esc(C.id)}</p>
   </div>`;
 }

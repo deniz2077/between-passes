@@ -32,8 +32,8 @@ Turn the GO result into a reproducible pipeline and a working web app on the rea
 | The 29 Oct pass looked like a useful third date | Tested and rejected for this pair: different geometry and a high interference flag |
 
 ## Contributions
-- **Deniz Efe Bulut:** the project idea, the research question, the choice of location, the project's direction and every key decision.
-- **AI (Claude Code):** coding, data analysis and document drafting.
+- **Deniz Efe Bulut:** the project idea, the research question, the study area and every key decision.
+- **AI (Claude Code):** wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use.
 
 ## Evidence
 Commits `ca43690` – `9d76fae` · `app/` · `tests/` · `submission/deck/`
