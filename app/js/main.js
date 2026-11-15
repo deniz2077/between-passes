@@ -369,7 +369,7 @@ function drawOverlay(ctx, v) {
   ctx.save();
   // graticule
   ctx.strokeStyle = "rgba(232,227,216,.14)"; ctx.lineWidth = 1;
-  ctx.font = "10.5px DM Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.6)";
+  ctx.font = "10.5px IBM Plex Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.6)";
   for (const g of ctxData.graticule) {
     ctx.beginPath(); g.px.forEach(([x, y], i) => { const [sx, sy] = v.toScreen(x, y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.stroke();
     const [x, y] = g.kind === "lon" ? g.px[g.px.length - 1] : g.px[0];
@@ -394,7 +394,7 @@ function drawOverlay(ctx, v) {
     const [sx, sy] = v.toScreen(p.px[0], p.px[1]);
     if (sx < -50 || sy < -20 || sx > v.cw + 50 || sy > v.ch + 20) continue;
     const city = p.kind !== "village";
-    ctx.font = city ? "600 13px Instrument Sans, sans-serif" : "11px Instrument Sans, sans-serif";
+    ctx.font = city ? "600 13px IBM Plex Sans, sans-serif" : "11px IBM Plex Sans, sans-serif";
     ctx.fillStyle = "#efe7d6"; ctx.beginPath(); ctx.arc(sx, sy, city ? 3.5 : 2, 0, Math.PI * 2); ctx.fill();
     ctx.lineWidth = 3; ctx.strokeStyle = "rgba(7,9,12,.85)"; ctx.strokeText(p.name, sx + 6, sy + 4); ctx.fillText(p.name, sx + 6, sy + 4);
   }
@@ -403,7 +403,7 @@ function drawOverlay(ctx, v) {
   const len = km * 50 * v.scale;
   const x0 = v.cw - len - 16, y0 = v.ch - 30;
   ctx.fillStyle = "#efe7d6"; ctx.fillRect(x0, y0, len, 3);
-  ctx.font = "11px DM Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(`${km} km`, x0 + len / 2, y0 - 5);
+  ctx.font = "11px IBM Plex Mono, monospace"; ctx.textAlign = "center"; ctx.fillText(`${km} km`, x0 + len / 2, y0 - 5);
   ctx.restore();
 }
 
@@ -535,7 +535,7 @@ function openReport() {
   const w = window.open("", "_blank");
   if (!w) { alert("Please allow pop-ups to open the printable report."); return; }
   w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Between Passes — case report</title>
-  <style>body{font:13px/1.45 "Instrument Sans",system-ui,sans-serif;color:#111;max-width:820px;margin:24px auto;padding:0 20px}h1{font-size:22px;margin:0}h2{font-size:14px;margin:18px 0 6px}
+  <style>body{font:13px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:#111;max-width:820px;margin:24px auto;padding:0 20px}h1{font-size:22px;margin:0}h2{font-size:14px;margin:18px 0 6px}
   .meta{color:#555;font-size:12px}img{width:100%;border:1px solid #ccc;margin-top:10px}table{border-collapse:collapse;width:100%}td{border-top:1px solid #ddd;padding:4px 6px}td:last-child{text-align:right;font-family:monospace}
   code{font-size:10.5px;word-break:break-all}.v{font-size:20px;font-weight:600;font-family:monospace}@media print{button{display:none}}</style></head><body>
   <button onclick="print()">Print / save as PDF</button>
@@ -569,7 +569,7 @@ function renderCover() {
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, cv.width, cv.height);
   ctx.globalAlpha = 0.6; ctx.drawImage(edges, 0, 0, cv.width, cv.height); ctx.globalAlpha = 1;
-  ctx.font = "500 11px DM Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.75)";
+  ctx.font = "500 11px IBM Plex Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.75)";
   ctx.fillText("ΔHH 22 Oct → 3 Nov 2026 · NISAR · real data", 12, cv.height - 12);
   const btn = $("#open-case"); btn.disabled = false;
   renderNextPass();
@@ -679,9 +679,9 @@ async function renderNextPass() {
   const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
   const others = P2 ? [Date.UTC(2026, 9, 29, 10), Date.UTC(2026, 10, 10, 10)] : [];
   $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="var(--muted)" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
-    ${others.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="20" y2="${H - B}" stroke="#2a5db0" stroke-dasharray="1 2"/><text x="${X(t)}" y="${H - 6}" text-anchor="middle" fill="#2a5db0" font-size="8.5" font-family="DM Mono">${i ? "10 Nov" : "29 Oct"}</text>`).join("")}
-    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#a8690f" : "#1f6f5c"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#a8690f" : "#1f6f5c"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono">${v}</text>`).join("")}
+    ${others.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="20" y2="${H - B}" stroke="#2a5db0" stroke-dasharray="1 2"/><text x="${X(t)}" y="${H - 6}" text-anchor="middle" fill="#2a5db0" font-size="8.5" font-family="IBM Plex Mono">${i ? "10 Nov" : "29 Oct"}</text>`).join("")}
+    ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#a8690f" : "#1f6f5c"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#a8690f" : "#1f6f5c"}" font-size="9" font-family="IBM Plex Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
     <polyline fill="none" stroke="var(--bone)" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
     ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="var(--bone)"/>`).join("")}
   </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³). Green: my study's orbit. Blue: the two other orbits, wet on 29 Oct, dry by 10 Nov.</p>`;
