@@ -11,8 +11,8 @@ const GH = "https://github.com/deniz2077/between-passes/blob/main/";
 // ------------------------------------------------------------------ hero demo
 const CAPTIONS = [
   "<b>22 October.</b> NISAR's radar view of farmland around Ceyhan, southern Türkiye. Brighter means more radar echo.",
-  "<b>3 November, 12 days later.</b> The first autumn rain fell in between. A normal change map flags every patch that changed (white). But how much of it is real?",
-  "<b>Filter on.</b> NASA's SMAP satellite says the soil got wetter, and wet soil can only look brighter. So brightening <span class='c-w'>could be the weather</span>. Fields that got darker can't be explained by wetter soil: <span class='c-b'>something really changed there</span>.",
+  "<b>3 November, 12 days later.</b> The first autumn rain fell in between. A normal change map flags every patch that changed, in white. But how much of it really changed?",
+  "<b>Filter on.</b> NASA's SMAP satellite says the soil got wetter, and wet soil only ever looks brighter. So fields that got brighter <span class='c-w'>could be just the rain (blue)</span>. Fields that got darker can't be explained by rain: <span class='c-b'>something really changed there (orange)</span>.",
 ];
 const DATES = ["22 Oct 2026", "3 Nov 2026", "3 Nov 2026 · filtered"];
 let timer = null;
@@ -77,7 +77,7 @@ const proj = (lon, lat) => { const [x, y] = equalEarth(lon, lat); return [MW / 2
 const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); parent?.appendChild(e); return e; };
 let SITES = [], cur = null, filt = "all";
 const dots = new Map();
-const VERDICT = { weather: "Mostly the weather", beyond: "Real change beyond the weather", quiet: "Quiet: little changed" };
+const VERDICT = { weather: "Mostly just the weather", beyond: "Something really changed", quiet: "Quiet: little changed" };
 
 function drawMap(land) {
   const svg = $("#map");
@@ -113,7 +113,7 @@ function drawMap(land) {
 function siteText(s) {
   const smap = `SMAP ${f(s.sm_a, 2)} → ${f(s.sm_b, 2)} m³/m³`;
   if (s.verdict === "quiet") return `Less than 1% of this patch changed by 3 dB or more (${pct(s.changed_frac, 1)}). Nothing to flag.`;
-  if (s.verdict === "weather") return `The soil got <b>${s.soil}</b> (${smap}). ${pct(s.weather_share)} of the land that changed went the same way, so most of this change <span class="c-w">could be the weather</span>.`;
+  if (s.verdict === "weather") return `The soil got <b>${s.soil}</b> (${smap}). ${pct(s.weather_share)} of the land that changed went the way wetter or drier soil would push it, so most of this change <span class="c-w">could be just the weather</span>.`;
   if (s.soil === "steady") return `The soil barely changed (${smap}), yet ${pct(s.changed_frac, 1)} of the patch changed. The weather can't explain that: <span class="c-b">something on the ground changed</span> (crops, water, building, or a local shower SMAP can't see).` +
     (s.rain_mm >= 10 ? ` <span class="small">Note: NASA POWER estimates ${f(s.rain_mm, 0)} mm of rain between the passes, so local wetting or drying that SMAP's 9 km cell missed is possible here.</span>` : "");
   return `The soil got <b>${s.soil}</b> (${smap}), but ${pct(1 - s.weather_share)} of the changed land went the other way. <span class="c-b">That part isn't the weather.</span>`;
@@ -140,17 +140,17 @@ function select(s, push = true) {
     </div>
     <div class="card-tools">
       <button class="btn small" id="t-filter" aria-pressed="true">Filter on</button>
-      <span class="small" style="align-self:center">Drag the image to compare the passes.</span>
+      <span class="small" style="align-self:center">Drag across the picture to compare the two dates. Blue: could be just the rain. Orange: really changed.</span>
     </div>
     ${tot ? `<div class="split-bar" aria-hidden="true"><i style="width:${wPct}%;background:var(--weather)"></i><i style="width:${100 - wPct}%;background:var(--beyond)"></i></div>
-    <div class="split-lab"><span class="c-w">${Math.round(wPct)}% could be the weather</span><span class="c-b">${Math.round(100 - wPct)}% beyond it</span></div>` : ""}
+    <div class="split-lab"><span class="c-w">${Math.round(wPct)}% could be just the rain</span><span class="c-b">${Math.round(100 - wPct)}% really changed</span></div>` : ""}
     <p class="card-text" style="margin-top:12px">${siteText(s)}</p>
     <dl class="kv">
-      <dt>Land that changed ≥ 3 dB</dt><dd>${pct(s.changed_frac, 1)}</dd>
-      <dt>Soil moisture (NASA SMAP)</dt><dd>${f(s.sm_a, 3)} → ${f(s.sm_b, 3)}${s.exploratory_smap ? "*" : ""}</dd>
+      <dt>Land that changed strongly</dt><dd>${pct(s.changed_frac, 1)}</dd>
+      <dt>Soil wetness (NASA SMAP, m³/m³)</dt><dd>${f(s.sm_a, 3)} → ${f(s.sm_b, 3)}${s.exploratory_smap ? "*" : ""}</dd>
       <dt>Rain between passes (NASA POWER)</dt><dd>${s.rain_mm == null ? "—" : f(s.rain_mm, 1) + " mm"}</dd>
-      <dt>Radar change, whole patch</dt><dd>${f(s.dHH_db, 2, true)} dB</dd>
-      <dt>…expected from soil moisture alone</dt><dd>${f(s.expected_dHH_db, 2, true)} dB</dd>
+      <dt>Radar brightness change, whole patch</dt><dd>${f(s.dHH_db, 2, true)} dB</dd>
+      <dt>…expected from the soil wetness alone</dt><dd>${f(s.expected_dHH_db, 2, true)} dB</dd>
     </dl>
     ${s.exploratory_smap ? `<p class="card-text small">* Ceyhan's SMAP values use a ±2-day window (exploratory, labelled). <a href="lab.html#tour">Open the Ceyhan lab →</a></p>` : ""}
     <div class="card-foot">

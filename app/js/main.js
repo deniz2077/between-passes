@@ -145,11 +145,11 @@ function selectionStats(sel) {
 function verdict(d) {
   const [p1, p5, , , , p95, p99] = D.ctrlQ;
   if (!Number.isFinite(d)) return { cls: "flat", text: "No valid pixels in this selection." };
-  if (d > p99) return { cls: "up", tag: "beyond control", text: `Brightened well beyond the stable control (control 99th percentile ${f(p99, 2, true)} dB).` };
-  if (d > p95) return { cls: "up", tag: "beyond typical", text: `Brightened beyond typical control variability (control 95th percentile ${f(p95, 2, true)} dB), but within its extreme range.` };
-  if (d < p1) return { cls: "down", tag: "beyond control", text: `Darkened well beyond the stable control (control 1st percentile ${f(p1, 2, true)} dB).` };
-  if (d < p5) return { cls: "down", tag: "beyond typical", text: `Darkened beyond typical control variability (control 5th percentile ${f(p5, 2, true)} dB), but within its extreme range.` };
-  return { cls: "flat", tag: "within control", text: `Within the variability of the stable control (${f(p5, 2, true)} to ${f(p95, 2, true)} dB). No change can be claimed.` };
+  if (d > p99) return { cls: "up", tag: "beyond control", text: `Got brighter far more than the town centre ever did: a real change.` , tech: `control 99th percentile ${f(p99, 2, true)} dB` };
+  if (d > p95) return { cls: "up", tag: "beyond typical", text: `Got a little brighter, more than most of the town centre, but not clearly beyond it.`, tech: `control 95th percentile ${f(p95, 2, true)} dB` };
+  if (d < p1) return { cls: "down", tag: "beyond control", text: `Got darker far more than the town centre ever did: a real change.`, tech: `control 1st percentile ${f(p1, 2, true)} dB` };
+  if (d < p5) return { cls: "down", tag: "beyond typical", text: `Got a little darker, more than most of the town centre, but not clearly beyond it.`, tech: `control 5th percentile ${f(p5, 2, true)} dB` };
+  return { cls: "flat", tag: "within control", text: `No more change than the town centre, which should not change. Nothing to claim here.`, tech: `control ${f(p5, 2, true)} to ${f(p95, 2, true)} dB` };
 }
 
 function nearestPlace(px) {
@@ -162,7 +162,7 @@ function nearestPlace(px) {
 }
 
 function selTitle(sel) {
-  if (sel.kind === "object") { const o = D.byId.get(sel.id); return { kind: `Change object #${o.id} · ${o.sign}`, title: `${f(o.area_ha, 1)} ha near ${nearestPlace(o.centroid_px)?.name ?? "—"}` }; }
+  if (sel.kind === "object") { const o = D.byId.get(sel.id); return { kind: `Field #${o.id} · got ${o.sign === "brightened" ? "brighter" : "darker"}`, title: `${f(o.area_ha, 1)} ha near ${nearestPlace(o.centroid_px)?.name ?? "—"}` }; }
   if (sel.kind === "roi") return { kind: "Your region", title: `${f((S.polygonAreaPx(sel.poly) * C.grid.posting_m ** 2) / 1e4, 1)} ha drawn region` };
   return { kind: "Whole analysis area", title: "Ceyhan fields, Adana" };
 }
@@ -191,29 +191,29 @@ function renderPanel() {
       <div class="label">more farmland got brighter on radar than got darker: ${fmtInt(Math.round(so.area_ha_brightened))} ha vs ${fmtInt(Math.round(so.area_ha_darkened))} ha, across ${f(areaHa / 100, 0)} km².<span class="tech"> Fields changing ≥ 3 dB, ≥ 1 ha. Area-average ΔHH ${f(s.dDb, 2, true)} dB.</span></div>
       <div class="call">${esc(v.text)}</div></div>` : `<div class="verdict">
       <div class="big ${v.cls}">${f(s.dDb, 2, true)} dB</div>
-      <div class="label">ΔHH = 10·log₁₀(mean γ⁰ 3 Nov / mean γ⁰ 22 Oct) over ${fmtInt(s.n)} valid pixels (${f(areaHa, 1)} ha)</div>
-      <div class="call">${esc(v.text)}</div>
+      <div class="label">change in radar brightness, 22 Oct → 3 Nov, over ${f(areaHa, 1)} ha (${fmtInt(s.n)} pixels). ${Math.abs(s.dDb) >= 3 ? `The radar echo ${s.dDb > 0 ? "more than doubled" : "fell by more than half"}.` : Math.abs(s.dDb) >= 1 ? (s.dDb > 0 ? `The radar echo got about ${Math.round(100 * (10 ** (s.dDb / 10) - 1))}% stronger.` : `The radar echo got about ${Math.round(100 * (1 - 10 ** (s.dDb / 10)))}% weaker.`) : "Almost no change."}<span class="tech"> ΔHH = 10·log₁₀(mean γ⁰ 3 Nov / mean γ⁰ 22 Oct).</span></div>
+      <div class="call">${esc(v.text)}${v.tech ? `<span class="tech">${esc(v.tech)}</span>` : ""}</div>
     </div>`;
   if (sel.kind === "roi" && s.n < 25) obs += `<div class="caution-box"><p><strong>Too small.</strong> Fewer than 25 valid pixels (1 ha): speckle dominates. Draw a larger region.</p></div>`;
   if (s.outside > 0 && sel.kind === "roi") obs += `<div class="caution-box"><p><strong>Edge zone.</strong> ${fmtInt(s.outside)} pixels lie within 500 m of the swath edge, where NISAR's valid-sample mask is known to be misaligned.</p></div>`;
   obs += `<dl class="kv">
-      <dt>HH 22 Oct (region mean)</dt><dd>${f(s.aDb)} dB</dd>
-      <dt>HH 3 Nov (region mean)</dt><dd>${f(s.bDb)} dB</dd>
-      <dt>Per-pixel Δ median [IQR]</dt><dd>${f(s.q[2], 2, true)} [${f(s.q[1], 1, true)}, ${f(s.q[3], 1, true)}]</dd>
-      <dt>Stable control ΔHH</dt><dd>${f(C.stats.urban_control.dHH_db_region, 2, true)} dB</dd>
-      ${sel.kind !== "object" ? `<dt>Inside brightened objects</dt><dd>${f((s.inUp * 0.04), 1)} ha</dd><dt>Inside darkened objects</dt><dd>${f((s.inDown * 0.04), 1)} ha</dd>` : ""}
+      <dt>Radar brightness, 22 Oct</dt><dd>${f(s.aDb)} dB</dd>
+      <dt>Radar brightness, 3 Nov</dt><dd>${f(s.bDb)} dB</dd>
+      <dt>Typical pixel change [middle half]</dt><dd>${f(s.q[2], 2, true)} [${f(s.q[1], 1, true)}, ${f(s.q[3], 1, true)}]</dd>
+      <dt>Town centre change (should be ≈ 0)</dt><dd>${f(C.stats.urban_control.dHH_db_region, 2, true)} dB</dd>
+      ${sel.kind !== "object" ? `<dt>Area in fields that got brighter</dt><dd>${f((s.inUp * 0.04), 1)} ha</dd><dt>Area in fields that got darker</dt><dd>${f((s.inDown * 0.04), 1)} ha</dd>` : ""}
     </dl>`;
   obs += `<div class="chart">${histogramSvg(s.hist, D.ctrlHist, { color, markers: [{ v: D.ctrlQ[6], label: "ctrl p99", color: "#a8690f" }, { v: D.ctrlQ[0], label: "p1", color: "#a8690f" }] })}
-      <p class="chart-caption">Bars: per-pixel ΔHH in the selection (100 m speckle filter). Amber line: the stable urban control (Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px). Pixels are spatially correlated, so no independent-pixel confidence interval is claimed.</p></div>`;
+      <p class="chart-caption">How much each pixel changed (bars) compared with the town centre, which should not change (amber outline). Anything outside the amber lines changed more than 99% of the town did. <span class="tech">Per-pixel ΔHH, 100 m speckle filter; control: Ceyhan centre, ${fmtInt(C.stats.urban_control.px)} px; pixels are spatially correlated, so no independent-pixel confidence interval is claimed.</span></p></div>`;
   if (s.opt) {
     const o = s.opt, has = Number.isFinite(o.dNDVI) && o.cls !== "no clear optical view";
     const pillCls = o.cls === "vegetation loss" ? "down" : o.cls === "greening" ? "ok" : o.cls === "little vegetation change" ? "" : "caution";
-    obs += `<h3>Optical cross-check · NASA HLS (Sentinel-2)</h3>
+    obs += `<h3>Did the plants change? · NASA HLS optical satellite</h3>
       <dl class="kv">
-        <dt>Vegetation index (NDVI) 23 Oct → 2 Nov</dt><dd>${has ? `${f(o.before)} → ${f(o.after)}` : "—"}</dd>
-        <dt>ΔNDVI (median)</dt><dd>${has ? f(o.dNDVI, 3, true) : "—"}</dd>
-        <dt>Clear on both dates</dt><dd>${f(100 * o.clearFrac, 0)}%</dd>
-        <dt>Optical reading</dt><dd><span class="pill ${pillCls}">${esc(o.cls)}</span></dd>
+        <dt>Greenness (NDVI), 23 Oct → 2 Nov</dt><dd>${has ? `${f(o.before)} → ${f(o.after)}` : "—"}</dd>
+        <dt>Change in greenness</dt><dd>${has ? f(o.dNDVI, 3, true) : "—"}</dd>
+        <dt>Cloud-free on both dates</dt><dd>${f(100 * o.clearFrac, 0)}%</dd>
+        <dt>Reading</dt><dd><span class="pill ${pillCls}">${esc(o.cls)}</span></dd>
       </dl>
       <p class="chart-caption">${has ? `Fields outside change objects greened by ${f(C.optical.background_fields_dNDVI_median, 3, true)} (median) over the same days. ` : "Cloud, cloud shadow or the satellite's swath edge left too few clear pixels (parcels need ≥ 80%, regions ≥ 50% clear on both dates). "}${o.partial ? `Values cover the ${f(100 * o.clearFrac, 0)}% of this selection with a clear view. ` : ""}A vegetation-loss reading would point to harvest; little change points to the soil surface (moisture or roughness).${o.exact ? "" : " Region values use 40 m blocks."}</p>`;
   }
@@ -349,13 +349,13 @@ function renderLegend() {
       <div class="ticks"><span>−${NDVI_MAX}</span><span>veg. loss</span><span>0</span><span>greening</span><span>+${NDVI_MAX}</span></div>
       <div class="note">NASA HLS S30 (Sentinel-2), 40 m. Grey = no clear view on both dates (cloud or outside the optical swath; ${Math.round(op.clear_both_frac_of_analysis * 100)}% of the area is clear). Outlines: radar change objects.</div>`;
   } else if (m === "delta" || m === "hv") {
-    h = `<div class="title">${m === "hv" ? "ΔHV" : "ΔHH"} (3 Nov − 22 Oct), dB</div>
+    h = `<div class="title">${m === "hv" ? "HV change" : "Radar change"}, 22 Oct → 3 Nov (dB)</div>
       <div class="bar" style="background:${deltaLegendGradient()}"></div>
       <div class="ticks"><span>−${DELTA_MAX}</span><span>darker</span><span>0</span><span>brighter</span><span>+${DELTA_MAX}</span></div>`;
     h += m === "hv" ? `<div class="note caution">Unresolved: west–east gradient and high RFI flag. Not interpreted. Shown at 40 m.</div>`
-      : `<div class="note">100 m speckle filter on linear γ⁰. Outlines: change objects (≥ 3 dB seed, ≥ 1 ha). Amber outline: stable control.</div>`;
+      : `<div class="note">Pink: got brighter. Teal: got darker. ±3 dB = the echo doubled or halved. Outlines: the 636 changed fields; amber outline: the town centre (should not change).</div>`;
   } else {
-    h = `<div class="title">HH γ⁰ ${m === "swipe" ? "22 Oct | 3 Nov" : m === "a" ? "22 Oct 2026" : "3 Nov 2026"}, dB</div>
+    h = `<div class="title">Radar brightness, ${m === "swipe" ? "22 Oct | 3 Nov" : m === "a" ? "22 Oct 2026" : "3 Nov 2026"} (dB)</div>
       <div class="bar" style="background:linear-gradient(90deg,#000,#fff)"></div>
       <div class="ticks"><span>${HH_RANGE[0]}</span><span>${HH_RANGE[1]}</span></div>
       <div class="note">Same fixed stretch for both dates. Bright = more radar return.${m === "swipe" ? " Drag the handle to compare." : ""}</div>`;
@@ -700,10 +700,10 @@ function storySteps() {
       p: `NASA-ISRO's NISAR radar imaged these fields around <strong>Ceyhan, Adana</strong> on 22 Oct and 3 Nov 2026 at 19:24 local time, from the same orbit. Radar sees through cloud and darkness. <strong>Drag the handle</strong> to compare the two images.`,
       go: () => { select({ kind: "area" }); setMode("swipe"); viewer.fit(); } },
     { k: "2 · What changed", t: `${ratio.toFixed(1)}× more land lit up than went dark`,
-      p: `Orange fields reflected more radar on 3 Nov, blue fields less. Field by field: <span class="num-up">${fmtInt(so.brightened)} fields got brighter (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} got darker (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. This holds whatever cut-off you use for "changed".`,
+      p: `<span class="num-up">Pink</span> fields sent back more radar on 3 Nov, <span class="num-down">teal</span> fields less. Field by field: <span class="num-up">${fmtInt(so.brightened)} fields got brighter (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} got darker (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. This holds whatever cut-off you use for "changed".`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
     { k: "3 · Is it real?", t: "Compare with something that shouldn't change",
-      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. So a field only counts as changed if it moved more than <strong>3 dB</strong>, more than 99% of the town's pixels did (${f(D.ctrlQ[6], 2, true)} dB).`,
+      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. So a field only counts as changed if its radar echo at least doubled or halved (<strong>3 dB</strong>), more than 99% of the town's pixels moved (${f(D.ctrlQ[6], 2, true)} dB).`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.focus([ux0, uy0, ux1, uy1], 6); } },
     { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
       p: op ? `NASA HLS optical imagery shows where plants are. Of <strong>${op.brightened.objects_with_clear_view}</strong> brighter fields with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost their plants (magenta). <strong>Harvest explains only a few.</strong>` : "Optical cross-check unavailable.",

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/home.css?v=9" />
+  <link rel="stylesheet" href="css/home.css?v=10" />
   <script>try { const t = new URLSearchParams(location.search).get("theme") || localStorage.getItem("bp-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0b0d'/%3E%3Cpath d='M9 24V8M23 24V8' stroke='%23eceae4' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23ffb020'/%3E%3C/svg%3E" />
   <meta name="theme-color" content="#0a0b0d" />
@@ -48,7 +48,8 @@
         <p class="kicker mono"><span class="k0">00</span> NASA Space Apps 2026 · Dancing with the SARs</p>
         <h1 id="hero-title">Rain fools radar.</h1>
         <p class="hero-sub">Between Passes shows what really changed.</p>
-        <p class="hero-body">NASA's new <b>NISAR</b> satellite maps the ground through cloud and darkness every 12 days. But wet soil looks brighter to radar and dry soil darker, so its change maps fill up with weather. Between Passes checks every change against NASA's soil-moisture and rain data, and <span class="hl-beyond">highlights what the weather can't explain</span>.</p>
+        <p class="hero-body">NASA's new <b>NISAR</b> satellite takes a radar picture of the ground every 12 days, through cloud and at night. Comparing two pictures shows what changed: floods, harvests, forests cut down. But radar also sees <b>water in the soil</b>: after rain the ground looks brighter, even where nothing really changed. Between Passes checks every change against NASA's soil-moisture and rain data, and <span class="hl-beyond">highlights what the rain can't explain</span>.</p>
+        <p class="hero-analogy">Like two photos of a garden, one taken right after watering: it looks as if everything changed, but it's only water.</p>
         <div class="hero-cta">
           <a class="btn primary" href="#problem">How it works ↓</a>
           <a class="btn" href="#world">Skip to the 148 places →</a>
@@ -78,8 +79,9 @@
           <button role="tab" data-step="2"><span class="mono">3</span> Filter on</button>
         </div>
         <div class="legend" id="legend">
-          <span><i class="sw weather"></i>Could be the weather <b class="mono" id="lg-w">88%</b></span>
-          <span><i class="sw beyond"></i>Beyond the weather <b class="mono" id="lg-b">12%</b></span>
+          <span><i class="sw white"></i>White: changed</span>
+          <span><i class="sw weather"></i>Blue: could be just the rain <b class="mono" id="lg-w">88%</b></span>
+          <span><i class="sw beyond"></i>Orange: really changed <b class="mono" id="lg-b">12%</b></span>
         </div>
       </figure>
     </section>
@@ -112,13 +114,13 @@
             <div class="bar-track"><div class="bar-fill" id="b2" style="width:0"></div></div>
             <div class="bar-val mono" id="b2v">0.18%</div>
           </div>
-          <figcaption>Share of land that changed by 3 dB or more between two NISAR passes 12 days apart (median per place). Soil moisture from NASA SMAP for the same days; "wetter or drier" means a change of at least 0.05 m³/m³, "the same" at most 0.02.</figcaption>
+          <figcaption>Share of land whose radar picture changed strongly (the echo doubled or halved) between two passes 12 days apart; median per place. Soil wetness measured by NASA's SMAP satellite on the same days. <span class="fine">"Wetter or drier": a change of at least 0.05 m³/m³; "the same": at most 0.02; strong change: ≥ 3 dB.</span></figcaption>
         </figure>
       </div>
 
       <h3 class="how-title">How the filter works</h3>
       <ol class="how">
-        <li><span class="mono">1</span><b>Measure.</b> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed by 3 dB or more (twice or half the radar echo) is flagged.</li>
+        <li><span class="mono">1</span><b>Measure.</b> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed strongly (the radar echo doubled or halved) is flagged.</li>
         <li><span class="mono">2</span><b>Ask the weather.</b> NASA's SMAP satellite measures how wet the soil was on both days. NASA POWER gives the rain in between.</li>
         <li><span class="mono">3</span><b>Sort.</b> Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather <span class="c-w">could be the weather</span>. A change that goes against it can't be: <span class="c-b">something really changed there</span>.</li>
       </ol>
@@ -129,12 +131,12 @@
     <section id="world" class="sec" aria-labelledby="w-title">
       <p class="eyebrow mono"><span>02</span> Worldwide</p>
       <h2 id="w-title">148 places. 39 countries. Click any of them.</h2>
-      <p class="lead" id="w-lead">Every dot is a real 10 × 10 km patch that NISAR saw twice, 12 days apart, picked at random. The filter sorted each one.</p>
+      <p class="lead" id="w-lead">Every dot is a real 10 × 10 km patch of land that NISAR photographed twice, 12 days apart, picked at random. Orange dots: something really changed there. Blue: mostly just the weather. Grey: little changed.</p>
       <div class="chips" role="group" aria-label="Filter places by verdict">
         <button class="chip on" data-v="all">All <b class="mono" id="c-all">148</b></button>
-        <button class="chip" data-v="beyond"><i class="sw beyond"></i>Real change beyond the weather <b class="mono" id="c-beyond"></b></button>
-        <button class="chip" data-v="weather"><i class="sw weather"></i>Mostly the weather <b class="mono" id="c-weather"></b></button>
-        <button class="chip" data-v="quiet"><i class="sw quiet"></i>Quiet <b class="mono" id="c-quiet"></b></button>
+        <button class="chip" data-v="beyond"><i class="sw beyond"></i>Something really changed <b class="mono" id="c-beyond"></b></button>
+        <button class="chip" data-v="weather"><i class="sw weather"></i>Mostly just the weather <b class="mono" id="c-weather"></b></button>
+        <button class="chip" data-v="quiet"><i class="sw quiet"></i>Quiet: little changed <b class="mono" id="c-quiet"></b></button>
       </div>
       <div class="explorer">
         <div class="mapbox"><svg id="map" role="img" aria-label="World map of the 148 places"></svg>
@@ -233,7 +235,7 @@
     </div>
   </footer>
 
-  <script type="module" src="js/home.js?v=8"></script>
+  <script type="module" src="js/home.js?v=10"></script>
   <script src="js/sky.js?v=2" defer></script>
 </body>
 </html>

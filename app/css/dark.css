@@ -42,3 +42,6 @@ h1, .w-hero h1, .tr-hero h1 { font-weight: 600; letter-spacing: -.035em; }
 .back-btn:hover { border-color: var(--accent); }
 @media (max-width: 720px) { .back-btn { padding: 5px 9px; font-size: 12.5px; margin-right: 8px; } }
 .pill.up { border-color: rgba(244,114,182,.5); } .pill.down { border-color: rgba(45,212,191,.5); }
+
+.verdict .label .tech, .chart-caption .tech { display: block; margin-top: 4px; font-size: 11.5px; color: var(--muted); }
+.verdict .call .tech { display: block; margin-top: 4px; font-size: 11.5px; color: var(--muted); }
