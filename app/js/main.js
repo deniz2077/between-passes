@@ -572,6 +572,7 @@ function renderCover() {
   ctx.font = "500 11px DM Mono, monospace"; ctx.fillStyle = "rgba(232,227,216,.75)";
   ctx.fillText("ΔHH 22 Oct → 3 Nov 2026 · NISAR · real data", 12, cv.height - 12);
   const btn = $("#open-case"); btn.disabled = false;
+  renderNextPass();
 }
 
 function openApp(push = true) {
@@ -618,7 +619,6 @@ function initViewer() {
     ], { width: w });
   };
   drawTimeline();
-  renderNextPass();
   let tlw = 0;
   new ResizeObserver(() => { const w = $("#timeline").clientWidth; if (Math.abs(w - tlw) > 40) { tlw = w; drawTimeline(); } }).observe($("#timeline"));
   $("#loading").hidden = true;
@@ -626,39 +626,49 @@ function initViewer() {
   if (m && D.byId.has(+m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
 }
 
-// ------------------------------------------------------------ next-pass prediction
+// ------------------------------------------------------------ next-pass predictions (three locked checks)
+const okVerdict = (v) => /^(CONFIRMED|WETTING)/.test(v || "") ? "ok" : /^(REFUTED|PERSISTENT)/.test(v || "") ? "no" : "mid";
 async function renderNextPass() {
-  const [P] = await Promise.all([
-    fetch(BASE + "prediction.json").then((r) => r.ok ? r.json() : null).catch(() => null),
-  ]);
-  const R = P?.scored ? await fetch(BASE + "prediction_result.json").then((r) => r.ok ? r.json() : null).catch(() => null) : null;
+  const get = (n) => fetch(BASE + n).then((r) => r.ok ? r.json() : null).catch(() => null);
+  const [P, P2] = await Promise.all([get("prediction.json"), get("prediction2.json")]);
+  const R2 = P2?.scored ? await get("prediction2_result.json") : null;
+  const R = P?.scored ? await get("prediction_result.json") : null;
   if (!P) { $("#nextpass").hidden = true; return; }
-  const commit = "https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md";
-  const thr = P.P1_threshold_dHH_BC_db, agg = P.aggregate_dHH_AB_db;
-  let html = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} parcels brightened</b> (pooled <b class="num-up">${f(agg, 2, true)} dB</b>). If that was <b>wet soil</b>, they will dim back as the soil dries. NASA SMAP already shows Ceyhan drying from 0.36 to 0.10 m³/m³. If it was <b>ploughing</b>, roughness doesn't dry: they stay bright.</p>
-    <p>I published the test <a href="${commit}">before the pass</a>:</p>
-    <ol><li><b>Wetting dominant</b> if the brightened parcels dim by ≤ <b>${f(thr, 2)} dB</b> overall <i>and</i> the typical parcel reverses ≥ 50 % of its brightening.</li>
-      <li><b>Ploughing dominant</b> if the typical parcel reverses &lt; 25 %.</li>
-      <li>Otherwise <b>mixed</b>. Void if the town control moves &gt; 0.5 dB or if it rains again (SMAP ≥ 0.25).</li></ol>`;
-  if (R) {
-    html = `<p class="np-verdict">Verdict: <b>${esc(R.verdict)}</b></p>
-      <p>Pooled change 3 Nov → next pass: <b>${f(R.aggregate_dHH_BC_db, 2, true)} dB</b> (threshold ${f(thr, 2)}); median parcel recovery <b>${f(100 * R.median_R, 0)} %</b>; control ${f(R.control_dHH_BC_db, 2, true)} dB. Granule <span class="mono">${esc(R.granule_c)}</span>.</p>` + html;
+  const gh = "https://github.com/deniz2077/between-passes/blob/main/research/prediction/";
+  const thr = P.P1_threshold_dHH_BC_db;
+  const flown = Date.now() > Date.UTC(2026, 10, 15, 16, 24);
+  const status = (r, txt, notYet) => r
+    ? `<span class="chk-s ${okVerdict(r.verdict)}">${esc(r.verdict)}</span><span class="chk-n">${txt(r)}</span>`
+    : `<span class="chk-s wait">${notYet ? "Satellite flies over today, 19:24 Turkey time" : "Waiting for NASA to release the data"}</span>`;
+  const rel = (r) => `Fields vs farmland: ${f(r.relative, 2, true)} dB · ${Math.round(100 * r.frac_fields_darker)}% of fields darker · town ${f(r.dB_control, 2, true)} dB`;
+  const checks = [];
+  if (P2) {
+    checks.push({ h: "Dusk orbit", m: "track 079 · 29 Oct → 10 Nov", p: "The fields get at least 1 dB darker than the farmland around them, and most of them darken.", s: status(R2?.["079"], rel) });
+    checks.push({ h: "Dawn orbit", m: "track 071 · 29 Oct → 10 Nov", p: "Same test, seen from the other side, at sunrise.", s: status(R2?.["071"], rel) });
   }
-  $("#np-text").innerHTML = html;
-  if (R) {
-    const ct = $("#ct-t"); if (ct) ct.innerHTML = `NISAR flew over Ceyhan again on 15 Nov. The prediction, published before the pass, has been scored: <strong>${esc(R.verdict)}</strong>. Scored ${esc(R.scored_utc.slice(0, 10))} by the code committed before the pass.`;
-    const k = $("#cover-test .ct-k"); if (k) k.textContent = "The prediction · scored";
-    const pl = $("#pl-count"); if (pl) { pl.dataset.scored = "1"; pl.textContent = "scored"; }
+  checks.push({ h: "My study's orbit", m: "track 151 · 3 Nov → 15 Nov", p: `The fields lose at least half of their brightening (${f(thr, 2)} dB overall).`,
+    s: status(R, (r) => `Overall ${f(r.aggregate_dHH_BC_db, 2, true)} dB · typical field reversed ${f(100 * r.median_R, 0)}% · town ${f(r.control_dHH_BC_db, 2, true)} dB`, !flown && Date.now() > Date.UTC(2026, 10, 14, 21)) });
+  $("#np-text").innerHTML = `<p>Between 22 Oct and 3 Nov, <b>${P.n_brightened} fields lit up</b> on radar. If that was <b>wet soil</b>, they will go dark again as the soil dries. If it was <b>ploughing</b>, they will stay bright: rough soil doesn't dry out.</p>
+    <p>NISAR passes over Ceyhan on three orbits. For each, I wrote down what it will show and published it <b>before NASA released the data</b>:</p>
+    <div class="np-checks">${checks.map((c) => `<div class="chk"><div class="chk-h"><b>${c.h}</b><span class="mono">${c.m}</span></div><p>${c.p}</p><div class="chk-st">${c.s}</div></div>`).join("")}</div>
+    <p class="np-small">If the fields stay bright, my explanation is wrong. A check doesn't count if it rains again or the town centre changes by more than 0.5 dB.
+      Locked: <a href="${gh}PREDICTION.md">14 Nov</a> (track 151) · <a href="${gh}PREDICTION2.md">15 Nov</a> (tracks 079 and 071).</p>`;
+  const scored = [R2?.["079"], R2?.["071"], R].filter(Boolean);
+  if (scored.length) {
+    const nOk = scored.filter((r) => okVerdict(r.verdict) === "ok").length;
+    const ct = $("#ct-t"); if (ct) ct.innerHTML = `I published three predictions before NASA released the data. <strong>${scored.length} of 3 scored so far: ${nOk} confirmed</strong> (wet soil). Scored by the code saved with each prediction.`;
+    const k = $("#cover-test .ct-k"); if (k) k.textContent = "Predictions · scored";
   }
+  if (R) { const pl = $("#pl-count"); if (pl) { pl.dataset.scored = "1"; pl.textContent = "scored"; } }
   const target = Date.UTC(2026, 10, 15, 16, 24);
   const tick = () => {
     const ms = target - Date.now();
-    if (R) { $("#np-count").innerHTML = `Scored <span class="big">${esc(R.scored_utc.slice(0, 10))}</span>`; return; }
+    if (R) { $("#np-count").innerHTML = `Track 151 scored <span class="big">${esc(R.scored_utc.slice(0, 10))}</span>`; return; }
     if (ms > 0) {
       const h = Math.floor(ms / 3.6e6), m = Math.floor((ms % 3.6e6) / 6e4);
       $("#np-count").innerHTML = `NISAR over Ceyhan again in<span class="big">${h} h ${String(m).padStart(2, "0")} min</span>15 Nov 2026 · ~19:24 local · track 151`;
     } else {
-      $("#np-count").innerHTML = `The pass has flown<span class="big">awaiting NASA data</span>NISAR VALIDATED data have appeared 10–20 days after each pass (the 3 Nov pass was published on 13 Nov). The locked scorer runs as soon as it is out.`;
+      $("#np-count").innerHTML = `The 15 Nov pass has flown<span class="big">awaiting NASA data</span>NISAR VALIDATED data have appeared 3–20 days after a pass. The locked scorers run as soon as the data are out.`;
     }
   };
   tick(); setInterval(tick, 30000);
@@ -667,12 +677,14 @@ async function renderNextPass() {
   const t0 = Date.UTC(2026, 9, 19), t1 = Date.UTC(2026, 10, 17), W = 360, H = 120, L = 30, B = 18;
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 8), Y = (v) => 8 + (0.4 - v) / 0.4 * (H - B - 8);
   const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
+  const others = P2 ? [Date.UTC(2026, 9, 29, 10), Date.UTC(2026, 10, 10, 10)] : [];
   $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
     ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e6dfd2"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${others.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="20" y2="${H - B}" stroke="#2a5db0" stroke-dasharray="1 2"/><text x="${X(t)}" y="${H - 6}" text-anchor="middle" fill="#2a5db0" font-size="8.5" font-family="DM Mono">${i ? "10 Nov" : "29 Oct"}</text>`).join("")}
     ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#a8690f" : "#1f6f5c"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#a8690f" : "#1f6f5c"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
     <polyline fill="none" stroke="#1c1b17" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
     ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#1c1b17"/>`).join("")}
-  </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³, quality-approved readings). Wet at pass B; dry again by 11 Nov.</p>`;
+  </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³). Green: my study's orbit. Blue: the two other orbits, wet on 29 Oct, dry by 10 Nov.</p>`;
 }
 
 // ------------------------------------------------------------ guided story

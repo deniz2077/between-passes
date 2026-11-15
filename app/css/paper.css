@@ -145,3 +145,21 @@ select { background: var(--ink-2); color: var(--bone); }
 .cover-test .ct-link { font-weight: 600; font-size: 14.5px; }
 
 .verdict .label .tech { display:block; margin-top:4px; font-size:11.5px; color: var(--muted); }
+
+/* three locked checks */
+.np-checks { display: grid; gap: 8px; margin: 4px 0 12px; }
+.chk { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 9px 12px; background: var(--paper, #f3efe6); }
+.chk-h { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.chk-h b { font-size: 14.5px; }
+.chk-h .mono { font-size: 11.5px; color: var(--muted); }
+.chk p { margin: 3px 0 6px !important; font-size: 13.5px !important; }
+.chk-st { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.chk-s { font: 600 11px/1 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; }
+.chk-s.wait { color: #a8690f; background: rgba(168,105,15,.10); }
+.chk-s.ok { color: #1f6f5c; background: rgba(31,111,92,.12); }
+.chk-s.no { color: #d9531e; background: rgba(217,83,30,.12); }
+.chk-s.mid { color: #2a5db0; background: rgba(42,93,176,.10); }
+.chk-n { font-size: 12px; color: var(--muted); }
+.np-small { font-size: 12.5px !important; color: var(--muted) !important; }
+.passlog .pl-o { color: var(--muted); font-size: 10.5px; margin-top: 2px; }
+#nextpass { scroll-margin-top: 72px; }

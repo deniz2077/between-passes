@@ -232,6 +232,9 @@ def score(orbit, gid_new):
     allres = json.load(open(app)) if os.path.exists(app) else {}
     allres[orbit] = {k: v for k, v in res.items() if k != "fields"}
     json.dump(allres, open(app, "w"), indent=1)
+    app_pred = json.load(open(os.path.join(CASE, "prediction2.json")))
+    app_pred["scored"] = sorted(allres)
+    json.dump(app_pred, open(os.path.join(CASE, "prediction2.json"), "w"), indent=1)
     print(json.dumps({k: v for k, v in res.items() if k != "fields"}, indent=1))
 
 
