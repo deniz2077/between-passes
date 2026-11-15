@@ -1,0 +1,77 @@
+{
+ "locked_utc": "2026-11-15T00:20:24+00:00",
+ "criteria": {
+  "passes": "for each orbit separately: 29 Oct 2026 (reference, wet) -> 10 Nov 2026 (dry), identical grid",
+  "groups": "B = pixels inside the 508 brightened fields (track-151 outlines carried onto the orbit's grid by position); F = surrounding farmland: pixels in no changed field, not urban, darker than -5 dB HH on both track-151 dates; U = Ceyhan urban control. All pixels: valid on both dates (mask 1..254, exception mask 768, gamma0 > 0), inside the track-151 analysis area, 500 m from invalid pixels",
+  "metric": "dB = 10*log10(sum gamma0_10Nov / sum gamma0_29Oct) over a group (pooled linear HH). Relative change = dB(B) - dB(F)",
+  "Q1_pooled": "relative change <= -1.0 dB (the brightened fields darken at least 1 dB more than the farmland around them)",
+  "Q2_most_fields": "at least two thirds of the brightened fields (those with >= 25 pixels on the orbit's grid) darken more than the surrounding farmland (field dB < dB(F))",
+  "Q3_control": "urban control |dB(U)| <= 0.5 dB, otherwise the orbit is not comparable -> inconclusive",
+  "verdict_per_orbit": "Q1 and Q2 met -> CONFIRMED (wet soil); relative change >= 0 -> REFUTED (stayed bright: roughness/ploughing); otherwise MIXED; Q3 failed -> INCONCLUSIVE",
+  "void_if": [
+   "the 10 Nov granule for that orbit is missing, not VALIDATED, or not on the identical grid",
+   "rain before the 10 Nov pass: NASA POWER >= 10 mm over 7-10 Nov at 35.8E 37.0N. (Known at lock: 0.0 mm on each of 7, 8, 9, 10 and 11 Nov, and NASA SMAP 0.134 m3/m3 on 10 Nov AM, so the weather condition is already met.)"
+  ]
+ },
+ "context": {
+  "smap_ceyhan_recommended": [
+   [
+    "20261026",
+    "PM",
+    0.0534
+   ],
+   [
+    "20261028",
+    "PM",
+    0.2909
+   ],
+   [
+    "20261102",
+    "AM",
+    0.2679
+   ],
+   [
+    "20261103",
+    "AM",
+    0.356
+   ],
+   [
+    "20261105",
+    "PM",
+    0.2315
+   ],
+   [
+    "20261110",
+    "AM",
+    0.1337
+   ],
+   [
+    "20261111",
+    "PM",
+    0.0976
+   ]
+  ],
+  "power_ceyhan_mm": {
+   "20261028": 6.46,
+   "20261029": 16.49,
+   "20261107": 0.0,
+   "20261108": 0.0,
+   "20261109": 0.0,
+   "20261110": 0.0,
+   "20261111": 0.0
+  },
+  "cmr_check": "NASA CMR queried 15 Nov 2026 ~00:20 UTC: no cycle-035 granule over Ceyhan for track 079 or 071 (newest NISAR GCOV anywhere: 12 Nov). The 10 Nov data were acquired but not yet released."
+ },
+ "orbits": {
+  "079": {
+   "name": "track 079 descending (evening pass)",
+   "expected_pass": "NISAR L2 GCOV VALIDATED, cycle 035, track 079 D, frame 070, CRID P05036 (acquired 10 Nov 2026 ~16:32 UTC)",
+   "n_fields_mapped": 494
+  },
+  "071": {
+   "name": "track 071 ascending (dawn pass)",
+   "expected_pass": "NISAR L2 GCOV VALIDATED, cycle 035, track 071 A, frame 020, CRID P05036 (acquired 10 Nov 2026 ~02:44 UTC)",
+   "n_fields_mapped": 508
+  }
+ }
+}
