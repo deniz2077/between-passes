@@ -614,7 +614,7 @@ function initViewer() {
     const w = Math.max(640, Math.round($("#timeline").clientWidth || 900));
     $("#timeline").innerHTML = timelineSvg(C.weather.series, [
       { key: "a", date: "20261022", hourFrac: 16.4 / 24, label: "Pass A · 22 Oct" },
-      { key: "c", date: "20261029", hourFrac: 16.53 / 24, label: "29 Oct · other track" },
+      { key: "c", date: "20261029", hourFrac: 16.53 / 24, label: "29 Oct · other orbits" },
       { key: "b", date: "20261103", hourFrac: 16.4 / 24, label: "Pass B · 3 Nov" },
     ], { width: w });
   };
