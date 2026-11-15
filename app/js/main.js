@@ -703,7 +703,7 @@ function storySteps() {
       p: `Orange fields reflected more radar on 3 Nov, blue fields less. Field by field: <span class="num-up">${fmtInt(so.brightened)} fields got brighter (${fmtInt(Math.round(so.area_ha_brightened))} ha)</span> vs <span class="num-down">${fmtInt(so.darkened)} got darker (${fmtInt(Math.round(so.area_ha_darkened))} ha)</span>. This holds whatever cut-off you use for "changed".`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
     { k: "3 · Is it real?", t: "Compare with something that shouldn't change",
-      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. A field only counts as changed above <strong>3 dB</strong>, more than 99% of the town's pixels (${f(D.ctrlQ[6], 2, true)} dB).`,
+      p: `Ceyhan's town centre (amber outline) is the stable control: buildings, not crops. It changed by just <span class="num-ok">${f(uc.dHH_db_region, 2, true)} dB</span>. So a field only counts as changed if it moved more than <strong>3 dB</strong>, more than 99% of the town's pixels did (${f(D.ctrlQ[6], 2, true)} dB).`,
       go: () => { select({ kind: "area" }); setMode("delta"); viewer.focus([ux0, uy0, ux1, uy1], 6); } },
     { k: "4 · Is it the harvest?", t: "Ask a second NASA satellite",
       p: op ? `NASA HLS optical imagery shows where plants are. Of <strong>${op.brightened.objects_with_clear_view}</strong> brighter fields with a clear view, only <span class="num-up">${Math.round(100 * op.brightened.frac_vegetation_loss)}%</span> lost their plants (magenta). <strong>Harvest explains only a few.</strong>` : "Optical cross-check unavailable.",
@@ -711,12 +711,12 @@ function storySteps() {
     { k: "5 · What remains", t: "The soil got wet, says a third NASA satellite",
       p: () => {
         const ex = GL?.ceyhan?.exploratory, P = GL?.results?.primary;
-        const base = `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). Left: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing.`;
+        const base = `This ${f(soilObj.area_ha, 0)} ha parcel near ${esc(nearestPlace(soilObj.centroid_px)?.name ?? "Ceyhan")} brightened <span class="num-up">${f(soilObj.dHH_db, 1, true)} dB</span> with no vegetation loss (ΔNDVI ${f(soilObj.dNDVI, 2, true)}). That leaves two explanations: wetter soil after <strong>${f(rain, 0)} mm</strong> of rain on 28–29 Oct, or ploughing.`;
         return ex && P ? `${base} NASA <strong>SMAP</strong> measured Ceyhan's soil moisture jump from <strong>${f(ex.sm_a, 2)} to ${f(ex.sm_b, 2)} m³/m³</strong> by the morning of the second pass. <strong>Wet soil is the most likely explanation.</strong> Ploughing can't be ruled out for single fields.` : `${base} The <strong>Interpretation</strong> tab shows what would decide it.`;
       },
       go: () => { setMode("delta"); select({ kind: "object", id: soilObj.id }, { focus: true }); setTab("interp"); } },
     { k: "6 · Does it hold everywhere?", t: "Tested at random places worldwide, twice",
-      p: () => { const P = GL?.results?.primary; return P ? `I wrote the rules down before looking, then picked NISAR sites at random worldwide. At the <strong>${P.n}</strong> sites with good soil-moisture data, the radar changed with the soil (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Or click <strong>Draw region</strong> and measure any field yourself.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
+      p: () => { const P = GL?.results?.primary; return P ? `I wrote the rules down before looking, then picked NISAR sites at random worldwide. At the <strong>${P.n}</strong> sites with good soil-moisture data, the radar changed with the soil (ρ ${f(P.spearman_rho, 2)}, p &lt; 0.001)${GLR?.replicates ? `, and it <strong>replicated</strong> on ${GLR.replication.n_sampled} new random sites (ρ ${f(GLR.replication.rho, 2)})` : ""}. <a href="world.html#site-ceyhan">Open the global test →</a> Next, three more NISAR passes will check the answer: <a href="#prediction">see the predictions</a>.` : `Every number here is computed in your browser from the real NISAR data — and re-verified on load. Click <strong>Draw region</strong>, outline a field, and export the evidence.`; },
       go: () => { setTab("observed"); select({ kind: "area" }); setMode("delta"); viewer.fit(); } },
   ];
 }
@@ -784,7 +784,7 @@ function wire() {
     if (!D) return;
     if (location.hash === "" || location.hash === "#") { $("#app").hidden = true; $("#cover").hidden = false; return; }
     if ($("#app").hidden) openApp(false);
-    if (location.hash === "#prediction") { setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); return; }
+    if (location.hash === "#prediction") { if (st.story != null) closeStory(); setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); return; }
     const m = location.hash.match(/^#object-(\d+)$/);
     if (m && D.byId.has(+m[1]) && !(st.sel.kind === "object" && st.sel.id === +m[1])) select({ kind: "object", id: +m[1] }, { focus: true });
   });
