@@ -27,3 +27,16 @@ Global test (same seed → same sites and numbers):
 
 `extract_window.py` reads only the needed HDF5 chunks over HTTP byte ranges (~70 MB of 1.9 GB per granule).
 
+
+## The weather filter
+```bash
+.venv/bin/python scripts/fetch_site_windows.py 10      # re-reads the 147 test-site windows (needs Earthdata Login)
+.venv/bin/python scripts/build_sites.py                # applies the fixed rules, writes app/data/sites/
+.venv/bin/python scripts/build_hero.py                 # front-page images from the Ceyhan layers
+```
+
+## Run it on any place
+```bash
+.venv/bin/python scripts/bp_check.py --lat 38.75 --lon -101.33 --name "Western Kansas, USA"
+```
+Writes `results/<name>/` with before/after images, the filtered change map, `report.json` and `report.md`. It needs two NISAR passes on the same track and frame over the point, at least half of the 10 km window valid, and quality-approved SMAP soil moisture within a day of both passes; otherwise it stops and says why. `scripts/find_check_points.py west south east north` lists frame centres with repeat passes inside a region.

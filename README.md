@@ -1,66 +1,66 @@
 # Between Passes
 
-**Can a radar satellite tell, from space, whether farmland got wetter or drier?**
+**Rain fools radar. Between Passes shows what really changed.**
 
-NASA and ISRO's new **NISAR** satellite sees the ground through cloud and darkness, passing over the same place every 12 days. I used it to answer one question about my home region in southern Türkiye, then tested the answer at random places around the world.
+NASA and ISRO's new **NISAR** satellite maps the ground through cloud and darkness every 12 days. Comparing two passes shows what changed: floods, harvests, cleared forest, new buildings. But wet soil looks brighter to radar and dry soil darker, so change maps fill up with weather.
 
-**[Open the live app →](https://deniz2077.github.io/between-passes/)**   ·   [Worldwide test](https://deniz2077.github.io/between-passes/world.html)   ·   [7-slide demo](https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf)   ·   [Türkçe](https://deniz2077.github.io/between-passes/tr.html)
+Between Passes checks every NISAR change against NASA's soil-moisture and rain data, and highlights the changes the weather can't explain.
 
-![Farmland near Ceyhan seen by NISAR. Orange fields got brighter between 22 Oct and 3 Nov 2026, blue fields got darker.](app/img/ceyhan_change.jpg)
+**[Open the live app →](https://deniz2077.github.io/between-passes/)**   ·   [Ceyhan lab](https://deniz2077.github.io/between-passes/lab.html)   ·   [Worldwide test](https://deniz2077.github.io/between-passes/world.html)   ·   [7-slide demo](https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf)   ·   [Türkçe](https://deniz2077.github.io/between-passes/tr.html)
+
+![The filter on real NISAR radar over Ceyhan, Türkiye: blue changes could be the weather, amber changes are beyond it.](app/img/readme_filter.jpg)
 
 *NASA Space Apps Challenge 2026 · Dancing with the SARs · Team Dusk Orbit (Deniz Efe Bulut) · Niğde Local Event*
 
 ---
 
-## What I found
+## The problem, measured
+At 147 random places NISAR passed over twice, **28 times more land looked "changed"** where the soil got wetter or drier than where it stayed the same (median 5.0% against 0.18% of the land, NASA SMAP soil moisture). Where the soil moved, **85%** of that "change" could be the weather alone.
 
-**1. Something changed.** Between two passes, on 22 October and 3 November 2026, seven times more farmland around Ceyhan lit up on radar than went dark. The town centre, which should not change, stayed the same. So the change is real.
+## How the filter works
+1. **Measure.** Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed by 3 dB or more is flagged.
+2. **Ask the weather.** NASA SMAP measures how wet the soil was on both days; NASA POWER gives the rain in between.
+3. **Sort.** Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather *could be the weather*. A change that goes against it can't be: **something really changed there**.
 
-**2. Most likely, wet soil.** I checked three more NASA datasets. An optical satellite shows most of those fields kept their plants, so it wasn't mainly the harvest. The first big autumn rain fell between the passes. And NASA's soil-moisture satellite saw the soil there more than double in water.
+The rules were [committed before running them on any place](research/filter/WEATHER_FILTER.md).
 
-**3. It holds around the world.** I picked 200 random places NISAR had seen twice, and wrote the rules of the test down before looking at any data. At the places with good soil data, when the soil got wetter or drier, the radar usually changed with it. Then I repeated the whole test on 200 new places. Same answer.
+## What it found
+- **148 places, 39 countries.** 41 show real change beyond the weather, 27 are mostly weather, 80 are quiet. Every place has its own card: drag between the two passes, switch the filter on, share the link.
+- **Ceyhan, my home region.** The first autumn rain fell between the passes and SMAP saw the soil more than double in water. 508 fields got brighter (could be the weather; an optical satellite shows only 9% lost their plants). 128 fields got darker, which wetter soil can't do. The app lists them, largest first, with the nearest village: **where to look first**.
+- **The physics is tested.** With rules written before looking, NISAR change followed SMAP soil-moisture change at 74 random sites (ρ = 0.58, p < 0.001), and again at 73 new ones (ρ = 0.55).
 
-**4. Three more passes will check it.** If the fields lit up because the soil was wet, they will go dark again as it dries. If they were ploughed, they will stay bright. NISAR passes over Ceyhan on three different orbits, and for each one I published what it will show **before NASA released the data**: two passes on 10 November, seen from other angles after the soil had dried, and one on 15 November. The results will appear on the live app, scored by code saved with each prediction.
+## The proof: predictions made before the data existed
+If Ceyhan's bright fields were wet soil, they will fade as it dries; if ploughed, they will stay bright. I published what three upcoming NISAR passes will show, **before NASA released any of that data**. The app scores them automatically as the data arrive, whatever the result.
 
-## What you can do in the app
-
-- Swipe between the two passes.
-- Tap any field to see what changed and why.
-- Draw your own field and measure it.
-- Explore every site of the worldwide test.
-- Read a plain-language summary in Turkish, for local farmers.
-
-Every number is checked again in your browser each time the page opens.
+## Run it on any place
+```bash
+python scripts/bp_check.py --lat 38.50 --lon -98.50 --name "Kansas, USA"
+```
+Finds two NISAR passes over the point, reads only the needed part of each file, asks SMAP and POWER about the weather, and writes the filtered change map and a report. Needs a free NASA Earthdata account ([setup](docs/REPRODUCE.md)).
 
 ## The data
-
-All from NASA, all public:
-
-| Dataset | What it tells us |
+| NASA dataset | Role |
 |---|---|
-| **NISAR** radar (NASA and ISRO) | What changed on the ground |
+| **NISAR** L2 GCOV radar (NASA–ISRO) | What changed on the ground |
 | **SMAP** soil moisture | Whether the soil got wetter or drier |
-| **HLS** optical imagery | Whether plants were removed |
-| **POWER** weather | When it rained |
+| **POWER** weather | How much it rained in between |
+| **HLS** optical imagery | Whether plants were removed (Ceyhan) |
 
 ## Go deeper
-
 | | |
 |---|---|
-| [How it works](docs/METHOD.md) | Every step, in detail |
+| [The filter's rules](research/filter/WEATHER_FILTER.md) | Fixed before computing · [results](research/filter/results.json) |
+| [How it works](docs/METHOD.md) | Every step in detail |
 | [What I don't claim](docs/LIMITATIONS.md) | The honest limits |
-| [The worldwide test](research/global/RESULTS.md) | Results, written before and after |
-| [The predictions](research/prediction/PREDICTION2.md) | Three checks, locked before NASA released the data ([first one](research/prediction/PREDICTION.md)) |
+| [The worldwide test](research/global/RESULTS.md) | Pre-registered, repeated |
+| [The predictions](research/prediction/PREDICTION2.md) | Locked before NASA released the data ([first one](research/prediction/PREDICTION.md)) |
 | [Reproduce it](docs/REPRODUCE.md) | Run everything yourself |
 | [Data sources](DATA_PROVENANCE.md) | Exact files and credits |
 | [Sprint reports](sprint-reports/) | How the two days went |
 
 ## AI use
-
-AI assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by me. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.
-
-Full details: [docs/AI_USE.md](docs/AI_USE.md).
+The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: [docs/AI_USE.md](docs/AI_USE.md).
 
 ---
 
-Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors. Not an official NASA or ISRO product.
+Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors; land and country outlines from Natural Earth. Not an official NASA or ISRO product.

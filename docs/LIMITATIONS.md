@@ -24,3 +24,12 @@
 - Prediction 2 carries the track-151 field outlines onto the other orbits' grids by position (nearest 20 m pixel). Alignment was checked before locking (best match at zero shift), but edges of small fields can shift by a pixel.
 - NASA's frame-level radio-interference flag is high for both 29 Oct passes. The Ceyhan window shows no visible interference and a clean quality mask; the town-centre check would flag a problem.
 - A confirmed prediction supports wet soil as the main cause *overall*; it still cannot prove the cause for any single field.
+
+## The weather filter
+- It is a **screening filter**: it says which changes the weather cannot explain, not what the real change was (harvest, ploughing, flooding, building, fire, wind on water…).
+- "Could be the weather" is not proof of weather. Ceyhan's brightened fields fall in this group; the predictions test them.
+- SMAP measures 9 km cells and the top ~5 cm of soil. A local shower inside a "steady" cell shows up as "beyond the weather".
+- Vegetation growth, freezing and wind over water also change radar; the filter does not model them.
+- Site cards use one 10 km window per place, picked at random; many places are not farmland.
+- Thresholds (0.05 m³/m³, 3 dB, 1 %, 2/3) are choices fixed before computing, not tuned.
+- The demonstration places run with `bp_check.py` were chosen by name (farming regions), not at random, and are not part of any statistical test.

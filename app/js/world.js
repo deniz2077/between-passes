@@ -93,7 +93,7 @@ function drawMap(land) {
   const c = G.ceyhan, [cx, cy] = proj(c.lon, c.lat);
   const m = el("g", { class: "cey-g", style: "cursor:pointer" }, svg);
   el("circle", { cx, cy, r: 9, class: "cey-mark" }, m);
-  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#fbf9f4" }, m);
+  el("circle", { cx, cy, r: 4, fill: colorFor(c.dHH_site_db), stroke: "#0a0b0d" }, m);
   m.addEventListener("click", () => select(c));
 }
 
@@ -175,7 +175,7 @@ function select(s, push = true) {
     </dl>
     ${isC ? smapSeries(s) + (s.exploratory ? `<p class="cap">* exploratory: ${s.exploratory.rule}.</p>` : "") : ""}
     <p class="ids">${s.a}<br>${s.b}${(() => { const u = s.dSM != null ? s : s.exploratory; return u ? `<br>SMAP ${u.smap_a.day} ${u.smap_a.overpass} / ${u.smap_b.day} ${u.smap_b.overpass}` : ""; })()}</p>
-    ${isC ? `<div class="navrow"><a class="btn small primary" href="index.html#case">Open the full Ceyhan case</a></div>` : `<div class="navrow"><button class="btn small ghost" id="w-prev">← Previous</button><button class="btn small ghost" id="w-next">Next →</button></div>`}`;
+    ${isC ? `<div class="navrow"><a class="btn small primary" href="lab.html#case">Open the full Ceyhan case</a></div>` : `<div class="navrow"><button class="btn small ghost" id="w-prev">← Previous</button><button class="btn small ghost" id="w-next">Next →</button></div>`}`;
   $("#w-thumb").appendChild(thumbCanvas(s));
   if (!isC) {
     const i = G.sites.indexOf(s), n = G.sites.length;
@@ -239,10 +239,10 @@ function smapSeries(c) {
   const X = (t) => L + (t - t0) / (t1 - t0) * (W - L - 6), Y = (v) => 6 + (0.4 - v) / 0.4 * (H - B - 6);
   const pass = [Date.UTC(2026, 9, 22, 18, 47), Date.UTC(2026, 10, 3, 18, 47)];
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;margin:6px 0 2px" aria-label="SMAP soil moisture at Ceyhan">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e6dfd2"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 6}" y1="${Y(v)}" y2="${Y(v)}" stroke="#252930"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
     ${pass.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="4" y2="${H - B}" stroke="#1f6f5c" stroke-dasharray="3 2"/><text x="${X(t) + 3}" y="12" fill="#1f6f5c" font-size="9" font-family="DM Mono">NISAR ${i ? "B" : "A"}</text>`).join("")}
-    <polyline fill="none" stroke="#1c1b17" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#1c1b17"/>`).join("")}
+    <polyline fill="none" stroke="#eceae4" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.6" fill="#eceae4"/>`).join("")}
     <text x="${L}" y="${H - 4}" fill="#948a7a" font-size="9" font-family="DM Mono">19 Oct</text><text x="${W - 6}" y="${H - 4}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">12 Nov</text>
   </svg><p class="cap">NASA SMAP soil moisture at Ceyhan (m³/m³), every quality-approved reading. The rain on 28–29 Oct is visible as a jump.</p>`;
 }

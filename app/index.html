@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Between Passes · Rain fools radar</title>
+  <meta name="description" content="Rain fools radar. Between Passes checks every NISAR radar change against NASA soil-moisture and rain data, and shows what really changed on the ground. 148 places, 39 countries." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/home.css" />
+  <script>try { const t = new URLSearchParams(location.search).get("theme") || localStorage.getItem("bp-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0b0d'/%3E%3Cpath d='M9 24V8M23 24V8' stroke='%23eceae4' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23ffb020'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#0a0b0d" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Between Passes · Rain fools radar" />
+  <meta property="og:description" content="Between Passes checks every NISAR radar change against NASA soil-moisture and rain data, and shows what really changed. 148 places, 39 countries." />
+  <meta property="og:url" content="https://deniz2077.github.io/between-passes/" />
+  <meta property="og:image" content="https://deniz2077.github.io/between-passes/img/social.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+  <a class="skip" href="#problem">Skip to the content</a>
+  <header class="nav">
+    <a class="logo" href="#top" aria-label="Between Passes, top">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M9 26V6M23 26V6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="16" r="3.2" fill="var(--beyond)"/></svg>
+      Between Passes
+    </a>
+    <nav aria-label="Sections">
+      <a href="#problem"><span class="n">01</span> Problem</a>
+      <a href="#world"><span class="n">02</span> Worldwide</a>
+      <a href="#ceyhan"><span class="n">03</span> Ceyhan</a>
+      <a href="#predictions"><span class="n">04</span> Predictions</a>
+      <a href="#run"><span class="n">05</span> Run it</a>
+      <a href="tr.html" lang="tr" class="tr">TR</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -------------------------------------------------------------->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <p class="kicker mono">NASA Space Apps 2026 · Dancing with the SARs</p>
+        <h1 id="hero-title">Rain fools radar.</h1>
+        <p class="hero-sub">Between Passes shows what really changed.</p>
+        <p class="hero-body">NASA's new <b>NISAR</b> satellite maps the ground through cloud and darkness every 12 days. But wet soil looks brighter to radar and dry soil darker, so its change maps fill up with weather. Between Passes checks every change against NASA's soil-moisture and rain data, and <span class="hl-beyond">highlights what the weather can't explain</span>.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#world">Explore 148 places →</a>
+          <a class="btn" href="#problem">How it works</a>
+        </div>
+      </div>
+
+      <figure class="demo" aria-label="The filter on real NISAR radar over Ceyhan, Türkiye">
+        <div class="demo-head mono">
+          <span>NISAR · Ceyhan, Türkiye · 17.6 × 13.6 km</span>
+          <span class="live" id="demo-date">22 Oct 2026</span>
+        </div>
+        <div class="demo-stage" id="demo-stage">
+          <img class="layer l-before" src="img/hero/before.jpg" alt="NISAR radar image of farmland near Ceyhan on 22 October 2026" />
+          <img class="layer l-after" src="img/hero/after.jpg" alt="The same area on 3 November 2026, after the first autumn rain" />
+          <img class="layer l-change" src="img/hero/changes.png" alt="Every patch of land that changed by more than 3 dB, in white" />
+          <img class="layer l-filter" src="img/hero/filter.png" alt="Changed land coloured by the filter: blue could be the weather, amber is beyond the weather" />
+          <div class="sweep" id="sweep" aria-hidden="true"></div>
+          <div class="caption" id="demo-caption" aria-live="polite"></div>
+        </div>
+        <div class="rain" aria-label="NASA POWER daily rain between the passes">
+          <div class="rain-bars" id="rain-bars"></div>
+          <div class="rain-axis mono"><span>22 Oct · pass 1</span><span>rain 28–29 Oct</span><span>3 Nov · pass 2</span></div>
+        </div>
+        <div class="steps" role="tablist" aria-label="Demo steps">
+          <button role="tab" data-step="0"><span class="mono">1</span> Before</button>
+          <button role="tab" data-step="1"><span class="mono">2</span> After the rain</button>
+          <button role="tab" data-step="2"><span class="mono">3</span> Filter on</button>
+        </div>
+        <div class="legend" id="legend">
+          <span><i class="sw weather"></i>Could be the weather <b class="mono" id="lg-w">88%</b></span>
+          <span><i class="sw beyond"></i>Beyond the weather <b class="mono" id="lg-b">12%</b></span>
+        </div>
+      </figure>
+    </section>
+
+    <section class="strip" aria-label="Key results">
+      <div><b class="mono" id="k-ratio">28×</b><span>more land looked "changed" where the soil got wetter or drier<small>median, 147 random NISAR sites</small></span></div>
+      <div><b class="mono" id="k-share">85%</b><span>of that "change" could be the weather alone<small>pooled over those sites</small></span></div>
+      <div><b class="mono">3</b><span>predictions locked before NASA released the data<small>scored here, automatically</small></span></div>
+      <div><b class="mono">4</b><span>NASA datasets: NISAR, SMAP, HLS, POWER<small>no login, checked in your browser</small></span></div>
+    </section>
+
+    <!-- 01 PROBLEM --------------------------------------------------------->
+    <section id="problem" class="sec" aria-labelledby="p-title">
+      <p class="eyebrow mono"><span>01</span> The problem</p>
+      <div class="split">
+        <div>
+          <h2 id="p-title">Radar sees through cloud.<br />Not through weather.</h2>
+          <p class="lead">Radar satellites are how the world watches the ground when clouds hide it: floods, harvests, forests cut down, new buildings, damage after disasters. They work by comparing two passes and flagging what changed.</p>
+          <p>But water changes how the ground reflects radar. After rain, soil looks brighter. As it dries, darker. So a change map made after a rainy week lights up with change that is only weather, and the real changes hide inside it.</p>
+          <p>I measured how big this is, with NASA data, at 147 random places NISAR passed over twice.</p>
+        </div>
+        <figure class="bars" aria-label="Share of land that looked changed, by soil-moisture change">
+          <div class="bar-row">
+            <div class="bar-lab">Soil got wetter or drier<small class="mono" id="b-n1">45 places</small></div>
+            <div class="bar-track"><div class="bar-fill hot" id="b1" style="width:0"></div></div>
+            <div class="bar-val mono" id="b1v">5.0%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-lab">Soil stayed the same<small class="mono" id="b-n2">63 places</small></div>
+            <div class="bar-track"><div class="bar-fill" id="b2" style="width:0"></div></div>
+            <div class="bar-val mono" id="b2v">0.18%</div>
+          </div>
+          <figcaption>Share of land that changed by 3 dB or more between two NISAR passes 12 days apart (median per place). Soil moisture from NASA SMAP for the same days; "wetter or drier" means a change of at least 0.05 m³/m³, "the same" at most 0.02.</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="how-title">How the filter works</h3>
+      <ol class="how">
+        <li><span class="mono">1</span><b>Measure.</b> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed by 3 dB or more (twice or half the radar echo) is flagged.</li>
+        <li><span class="mono">2</span><b>Ask the weather.</b> NASA's SMAP satellite measures how wet the soil was on both days. NASA POWER gives the rain in between.</li>
+        <li><span class="mono">3</span><b>Sort.</b> Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather <span class="c-w">could be the weather</span>. A change that goes against it can't be: <span class="c-b">something really changed there</span>.</li>
+      </ol>
+      <p class="small">The rules were written down and published before I ran them on any place: <a href="https://github.com/deniz2077/between-passes/blob/main/research/filter/WEATHER_FILTER.md">the filter's rules</a>. The physics behind step 3 is tested too: across 147 random places, NISAR's change followed SMAP's soil-moisture change, twice, with rules written first (<a href="world.html">the worldwide test</a>).</p>
+    </section>
+
+    <!-- 02 WORLDWIDE ------------------------------------------------------->
+    <section id="world" class="sec" aria-labelledby="w-title">
+      <p class="eyebrow mono"><span>02</span> Worldwide</p>
+      <h2 id="w-title">148 places. 39 countries. Click any of them.</h2>
+      <p class="lead" id="w-lead">Every dot is a real 10 × 10 km patch that NISAR saw twice, 12 days apart, picked at random. The filter sorted each one.</p>
+      <div class="chips" role="group" aria-label="Filter places by verdict">
+        <button class="chip on" data-v="all">All <b class="mono" id="c-all">148</b></button>
+        <button class="chip" data-v="beyond"><i class="sw beyond"></i>Real change beyond the weather <b class="mono" id="c-beyond"></b></button>
+        <button class="chip" data-v="weather"><i class="sw weather"></i>Mostly the weather <b class="mono" id="c-weather"></b></button>
+        <button class="chip" data-v="quiet"><i class="sw quiet"></i>Quiet <b class="mono" id="c-quiet"></b></button>
+      </div>
+      <div class="explorer">
+        <div class="mapbox"><svg id="map" role="img" aria-label="World map of the 148 places"></svg>
+          <p class="map-note mono">Natural Earth land · Equal Earth projection · dot size = share of land that changed</p></div>
+        <article class="card" id="card" aria-live="polite"></article>
+      </div>
+      <p class="small">Site-scale: a 10 km patch mixes fields, towns and water, and SMAP measures in 9 km cells, so a local shower can look like "real change". The filter says where to look, not what happened there. <a href="world.html">Full statistics of the worldwide test →</a></p>
+    </section>
+
+    <!-- 03 CEYHAN ---------------------------------------------------------->
+    <section id="ceyhan" class="sec" aria-labelledby="c-title">
+      <p class="eyebrow mono"><span>03</span> Up close</p>
+      <div class="split">
+        <div>
+          <h2 id="c-title">Ceyhan, my home region.</h2>
+          <p class="lead">Farmland on the Çukurova plain, southern Türkiye. Between NISAR's passes on 22 October and 3 November 2026, the first autumn rain fell. 636 fields changed.</p>
+          <ul class="facts" id="c-facts"></ul>
+          <div class="hero-cta"><a class="btn primary" href="lab.html#tour">Open the lab (guided tour) →</a><a class="btn" href="tr.html" lang="tr">Türkçe</a></div>
+        </div>
+        <div class="look">
+          <div class="look-head"><h3>Where to look first</h3><p>The fields that got <span class="c-b">darker</span> while the soil got wetter. The weather can't explain them. Largest first.</p></div>
+          <ol class="look-list" id="look-list"></ol>
+          <button class="btn small" id="look-more">Show all</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 PREDICTIONS ----------------------------------------------------->
+    <section id="predictions" class="sec" aria-labelledby="pr-title">
+      <p class="eyebrow mono"><span>04</span> The proof</p>
+      <div class="split">
+        <div>
+          <h2 id="pr-title">Then I predicted the next passes. Before NASA released the data.</h2>
+          <p class="lead">If Ceyhan's bright fields were just wet soil, they will fade as the soil dries. If they were ploughed, they will stay bright. NASA's SMAP satellite says the soil has dried since.</p>
+          <p>I wrote down exactly what three upcoming NISAR passes will show and published it on GitHub, with a timestamp, before NASA released any of that data. The scores appear here automatically, whatever they say.</p>
+          <p class="small" id="pr-count"></p>
+        </div>
+        <div class="board" id="board"></div>
+      </div>
+    </section>
+
+    <!-- 05 RUN IT ---------------------------------------------------------->
+    <section id="run" class="sec" aria-labelledby="r-title">
+      <p class="eyebrow mono"><span>05</span> Run it yourself</p>
+      <div class="split">
+        <div>
+          <h2 id="r-title">Any place NISAR has flown.</h2>
+          <p class="lead">One command finds two NISAR passes over any point on Earth, reads only the part of each file it needs, asks SMAP and POWER about the weather, and writes the filtered change map and a report.</p>
+          <p>All you need is a free NASA Earthdata account. Everything is open source.</p>
+          <p>Example: in western Kansas, 50 mm of rain fell between two passes, and a normal change map flags <b>a third of the land</b> as changed. The filter shows all of it went the way the soil moisture did: it could be the weather.</p>
+        </div>
+        <div>
+          <div class="cmd"><code id="cmd">python scripts/bp_check.py --lat 38.75 --lon -101.33</code><button class="btn small" id="copy">Copy</button></div>
+          <p class="small">Setup: <a href="https://github.com/deniz2077/between-passes/blob/main/docs/REPRODUCE.md">docs/REPRODUCE.md</a> · code: <a href="https://github.com/deniz2077/between-passes">github.com/deniz2077/between-passes</a></p>
+          <div id="new-sites"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-grid">
+      <div>
+        <p class="logo"><svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true"><path d="M9 26V6M23 26V6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="16" r="3.2" fill="var(--beyond)"/></svg>Between Passes</p>
+        <p class="small">By Deniz Efe Bulut (team Dusk Orbit) · NASA Space Apps Challenge 2026 · Dancing with the SARs · Niğde.</p>
+        <p class="small">AI (Claude Code) wrote code and drafted documents under my direction; <a href="https://github.com/deniz2077/between-passes/blob/main/docs/AI_USE.md">AI use</a>. Not an official NASA or ISRO product.</p>
+      </div>
+      <div>
+        <p class="small"><b>Data</b>: NASA-ISRO NISAR L2 GCOV VALIDATED (<a href="https://doi.org/10.5067/NIL2GCOV-V1">DOI</a>) · NASA SMAP SPL3SMP_E · NASA HLS · NASA POWER · Natural Earth · © OpenStreetMap contributors.</p>
+        <p class="small"><a href="lab.html">Ceyhan lab</a> · <a href="world.html">Worldwide test</a> · <a href="demo/Between_Passes_NASA_demo.pdf">7-slide demo</a> · <a href="https://github.com/deniz2077/between-passes">Code &amp; reports</a> · <a href="https://github.com/deniz2077/between-passes/blob/main/docs/LIMITATIONS.md">Limits</a></p>
+      </div>
+      <div class="themes" role="group" aria-label="Colour theme">
+        <span class="small">Theme</span>
+        <button data-theme="ink" title="Ink" aria-label="Ink theme"></button>
+        <button data-theme="navy" title="Night blue" aria-label="Night blue theme"></button>
+        <button data-theme="graphite" title="Graphite" aria-label="Graphite theme"></button>
+        <button data-theme="paper" title="Paper" aria-label="Paper theme"></button>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/home.js"></script>
+</body>
+</html>

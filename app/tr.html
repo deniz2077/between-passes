@@ -7,11 +7,12 @@
   <meta name="description" content="NASA-ISRO NISAR radar uydusu Ceyhan tarlalarında 12 günde neyin değiştiğini gördü ve bunun Çukurova çiftçisi için anlamı." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/world.css" />
-  <link rel="stylesheet" href="css/paper.css" />
-  <style>
+  <link rel="stylesheet" href="css/dark.css" />
+  <script>try { const t = localStorage.getItem("bp-theme"); if (t && t !== "paper" && t !== "ink") document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <style>.tr-look{padding-left:1.3em}.tr-look li{margin:4px 0}.tr-look a{text-decoration:none}
     .tr-main { max-width: 1080px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 40px) 64px; }
     .tr-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 36px; align-items: center; margin-bottom: 28px; }
     .tr-hero h1 { font-size: clamp(30px, 4.4vw, 50px); line-height: 1.05; letter-spacing: -0.025em; margin: 6px 0 14px; }
@@ -33,7 +34,7 @@
     @media (max-width: 800px) { .tr-hero, .steps { grid-template-columns: 1fr; } }
   </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c1b17'/%3E%3Cpath d='M9 24V8M23 24V8' stroke='%23f3efe6' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23d9531e'/%3E%3C/svg%3E" />
-  <meta name="theme-color" content="#f3efe6" />
+  <meta name="theme-color" content="#0a0b0d" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Between Passes · Türkçe özet: Ceyhan tarlaları" />
   <meta property="og:description" content="NASA-ISRO NISAR radar uydusu Ceyhan tarlalarında 12 günde neyin değiştiğini gördü ve bunun Çukurova çiftçisi için anlamı." />
@@ -51,7 +52,7 @@
       <span class="brand-sub">Türkçe özet · Çukurova</span>
     </div>
     <nav class="topnav" aria-label="Sayfalar">
-      <a class="link" href="index.html#case">Uygulama</a>
+      <a class="link" href="lab.html#case">Uygulama</a>
       <a class="link" href="world.html">Dünya testi</a>
       <a class="link" href="index.html" lang="en">English</a>
     </nav>
@@ -61,12 +62,13 @@
     <section class="tr-hero">
       <div>
         <p class="eyebrow">NASA Space Apps 2026 · Çukurova için</p>
-        <h1>Uzaydan bakınca: Ceyhan tarlalarında 12 günde ne değişti?</h1>
-        <p class="tr-lede">NASA ve ISRO'nun ortak radar uydusu <b>NISAR</b>, Ceyhan çevresini 22 Ekim ve 3 Kasım 2026'da aynı yörüngeden görüntüledi. Radar bulut ve karanlıktan etkilenmez. Bu sayfa, ölçtüklerimi ve bunun Çukurova çiftçisi için ne anlama gelebileceğini sade bir dille anlatıyor.</p>
+        <h1>Yağmur radarı yanıltır.</h1>
+        <p class="tr-lede" style="color:var(--accent);font-size:22px;margin-top:-4px">Between Passes, gerçekte neyin değiştiğini gösterir.</p>
+        <p class="tr-lede">NASA ve ISRO'nun radar uydusu <b>NISAR</b>, bulut ve karanlıktan etkilenmeden her 12 günde bir yeryüzünü görüntüler. Ama ıslak toprak radarda parlak, kuru toprak koyu görünür; bu yüzden değişim haritaları hava durumuyla dolar. Between Passes her değişimi NASA'nın toprak nemi ve yağış verileriyle karşılaştırır ve <b>havanın açıklayamadığı değişimleri</b> öne çıkarır. Bu sayfa, Ceyhan çevresinde 22 Ekim ile 3 Kasım 2026 arasında ölçtüklerimi anlatıyor.</p>
       </div>
       <figure style="margin:0">
-        <img src="img/ceyhan_change.jpg" alt="Ceyhan çevresinde radar değişim haritası: turuncu parseller parlaklaşan, mavi parseller kararan tarlalar" />
-        <figcaption class="cap">Radar değişimi, 22 Ekim → 3 Kasım: <span class="up-t">turuncu</span> = daha parlak, <span class="dn-t">mavi</span> = daha koyu. Çizgiler: 636 değişen parsel.</figcaption>
+        <img src="img/readme_filter.jpg" alt="Ceyhan çevresinde filtrelenmiş radar değişimi: mavi alanlar hava olabilir, turuncu alanlar havayla açıklanamaz" />
+        <figcaption class="cap">22 Ekim → 3 Kasım, filtre açık: <span style="color:#6fa8dc">mavi</span> = ıslak toprak olabilir, <span style="color:#ffb020">turuncu</span> = havayla açıklanamaz, gerçek bir değişim.</figcaption>
       </figure>
     </section>
 
@@ -79,6 +81,13 @@
         <p>NASA'nın optik uydu verisine (HLS) göre parlaklaşan parsellerin yalnızca <b>%9'unda</b> bitki örtüsü azaldı. Değişimin çoğu hasat değil.</p></div>
       <div class="step"><div class="n">4 · Yağmur mu?</div><div class="big" style="color:var(--accent)">0,16 → 0,36</div>
         <p>28–29 Ekim'de yaklaşık <b>23 mm</b> yağmur yağdı. NASA'nın toprak nemi uydusu <b>SMAP</b>, Ceyhan'da toprağın belirgin şekilde ıslandığını ölçtü (m³/m³). <b>En güçlü açıklama: toprak ıslandı.</b></p></div>
+    </section>
+
+    <section class="block">
+      <h2>Önce nereye bakmalı?</h2>
+      <p>Toprak ıslanırken radarda <b>kararan</b> 128 tarla var. Islak toprak bunu yapamaz, yani bu tarlalarda başka bir şey değişti (su birikmesi, hasat, toprak işleme gibi). En büyükten başlayarak ilk 10'u, en yakın köyle birlikte:</p>
+      <ol class="tr-look"><li><a href="lab.html#object-20"><b>Aydınlar</b> · 1,1 km · 23,5 ha · <span class="dn-t">−8,8 dB</span> · bitki örtüsü değişmedi</a></li><li><a href="lab.html#object-29"><b>Adatepe</b> · 3,0 km · 19,4 ha · <span class="dn-t">−4,1 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-48"><b>Küçük Mangıt</b> · 2,4 km · 15,8 ha · <span class="dn-t">−3,2 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-61"><b>Hamdilli</b> · 2,7 km · 14,4 ha · <span class="dn-t">−3,2 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-67"><b>Köprülü</b> · 1,4 km · 13,5 ha · <span class="dn-t">−3,1 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-69"><b>Değirmendere</b> · 1,8 km · 13,3 ha · <span class="dn-t">−3,4 dB</span> · bitki örtüsü değişmedi</a></li><li><a href="lab.html#object-72"><b>Mercin</b> · 0,9 km · 13,0 ha · <span class="dn-t">−4,1 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-73"><b>Adatepe</b> · 3,8 km · 13,0 ha · <span class="dn-t">−3,5 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-82"><b>Veysiye</b> · 1,6 km · 11,2 ha · <span class="dn-t">−3,5 dB</span> · optik görüntü yok</a></li><li><a href="lab.html#object-86"><b>Hamdilli</b> · 2,1 km · 10,6 ha · <span class="dn-t">−3,7 dB</span> · optik görüntü yok</a></li></ol>
+      <p class="fineprint">Her satır uygulamada o tarlayı açar. Mesafe: tarlanın ortasından köyün merkezine. Optik bilgi NASA HLS (Sentinel-2) verisinden.</p>
     </section>
 
     <section class="block">
@@ -101,7 +110,7 @@
       <h2>Çiftçi ve ziraat teknisyenleri için ne anlama gelir?</h2>
       <ul>
         <li><b>Bulutlu havada da görür:</b> Radar, Çukurova'nın kış aylarında bile her 12 günde bir tarlaların ıslanıp kuruduğunu izleyebilir.</li>
-        <li><b>Kendi bölgenize bakın:</b> Uygulamada "Change census" tablosundaki <i>Nearest place</i> sütununda köyünüzün adını arayın, ya da haritada <i>Draw region</i> ile tarlanızı çizip ölçün.</li>
+        <li><b>Kendi bölgenize bakın:</b> Yukarıdaki listeye ya da uygulamadaki "Change census" tablosunun <i>Nearest place</i> sütununa bakın; haritada <i>Measure a field</i> ile tarlanızı çizip ölçebilirsiniz.</li>
         <li><b>Saha kontrolü için başlangıç noktası:</b> Belirgin parlayan veya kararan parseller, yerinde bakılması gereken yerleri gösterebilir (su tutma, sürüm, hasat).</li>
         <li><b>Gelecekte:</b> Ardışık NISAR geçişleriyle hangi tarlaların ne kadar hızlı kuruduğunu karşılaştırmak, sulama ve drenaj planlamasına yardımcı olabilir. Bu henüz test edilmiş bir uygulama değildir.</li>
       </ul>
@@ -115,7 +124,7 @@
         <li>Ceyhan'ın toprak nemi karşılaştırması "keşif amaçlı"dır (22 Ekim'e en yakın güvenilir SMAP ölçümü 20 Ekim'dir).</li>
       </ul>
       <div class="cta">
-        <a class="btn small primary" href="index.html#case">Uygulamayı aç (İngilizce)</a>
+        <a class="btn small primary" href="lab.html#case">Uygulamayı aç (İngilizce)</a>
         <a class="btn small ghost" href="https://github.com/deniz2077/between-passes">Kaynak kod ve veriler</a>
       </div>
     </section>

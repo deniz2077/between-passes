@@ -1,5 +1,13 @@
 # Method — Between Passes
 
+## 0. The weather filter (the product)
+Rules: `research/filter/WEATHER_FILTER.md` (committed before computing). Code: `scripts/build_sites.py` (all sites), `scripts/bp_check.py` (any point).
+1. For each place: two NISAR L2 GCOV passes on the same track and frame (identical grid), 10 × 10 km window, the validity rules below, 5 × 5 linear boxcar, ΔHH in dB.
+2. NASA SMAP L3 Enhanced soil moisture for both days (overpass nearest the NISAR local time, recommended quality, ±1 day) → soil *wetter* (ΔSM ≥ +0.05), *drier* (≤ −0.05) or *steady*.
+3. Changed land: |ΔHH| ≥ 3 dB. A changed pixel *could be the weather* if it moved the way the soil moisture did (wetter → brighter, drier → darker); otherwise it is *beyond the weather* (all changes where the soil was steady).
+4. Verdict: changed land < 1 % → quiet; soil moved and ≥ 2/3 of changed land could be weather → mostly the weather; otherwise → real change beyond the weather.
+5. Result over the 147 worldwide-test sites (`research/filter/results.json`): median changed land 5.0 % where the soil moved (n = 45) vs 0.18 % where it was steady (n = 63), 28×; pooled, 84.5 % of changed land where the soil moved could be weather. Verdicts: 41 beyond, 26 weather, 80 quiet. Ceyhan (exploratory SMAP): mostly the weather, 88 %.
+
 ## Question
 Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan (Adana, Türkiye) changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?
 

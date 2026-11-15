@@ -56,7 +56,7 @@ export function timelineSvg(series, passes, { start = "20261018", end = "2026110
     const xp = xd(p.date, p.hourFrac);
     if (xp == null) continue;
     const dash = p.key === "c" ? "4 3" : "";
-    const col = p.key === "c" ? "#948a7a" : "#1c1b17";
+    const col = p.key === "c" ? "#8d929b" : "#eceae4";
     s += `<line x1="${xp}" x2="${xp}" y1="${P.t - 18}" y2="${P.t + ih}" stroke="${col}" stroke-width="${p.key === "c" ? 1 : 1.6}" stroke-dasharray="${dash}"/>`;
     s += `<text class="tl-pass" x="${xp}" y="${P.t - 22}" text-anchor="middle" style="fill:${col}">${esc(p.label)}</text>`;
   }
@@ -82,7 +82,7 @@ export function sensitivitySvg(sens, current) {
     const cur = r.core_db === current;
     s += `<rect x="${x0}" y="${y(r.area_brightened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_brightened_ha)}" fill="#d9531e" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_brightened_ha} ha brightened in ${r.objects_brightened} objects</title></rect>`;
     s += `<rect x="${x0 + bw + 2}" y="${y(r.area_darkened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_darkened_ha)}" fill="#2a5db0" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_darkened_ha} ha darkened in ${r.objects_darkened} objects</title></rect>`;
-    s += `<text class="axis" x="${x0 + bw}" y="${H - 16}" text-anchor="middle" style="fill:${cur ? "#1c1b17" : "#948a7a"}">${r.core_db}</text>`;
+    s += `<text class="axis" x="${x0 + bw}" y="${H - 16}" text-anchor="middle" style="fill:${cur ? "#eceae4" : "#8d929b"}">${r.core_db}</text>`;
     s += `<text class="axis" x="${x0 + bw}" y="${H - 4}" text-anchor="middle">${(r.area_brightened_ha / Math.max(1, r.area_darkened_ha)).toFixed(1)}×</text>`;
   });
   for (const v of [0, 1000, 2000, 3000]) if (v <= vmax) s += `<text class="axis" x="${P.l - 4}" y="${y(v) + 3}" text-anchor="end">${v ? v / 1000 + "k" : 0}</text><line x1="${P.l}" x2="${P.l + iw}" y1="${y(v)}" y2="${y(v)}" stroke="#e6dfd2"/>`;

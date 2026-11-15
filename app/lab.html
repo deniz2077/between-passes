@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Between Passes · NISAR radar, explained</title>
+  <title>Between Passes · Ceyhan lab</title>
   <meta name="description" content="Can a radar satellite tell, from space, whether farmland got wetter or drier? A NISAR case study in Ceyhan, Türkiye, tested at random places worldwide." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/app.css" />
-  <link rel="stylesheet" href="css/paper.css" />
+  <link rel="stylesheet" href="css/dark.css" />
+  <script>try { const t = localStorage.getItem("bp-theme"); if (t && t !== "paper" && t !== "ink") document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c1b17'/%3E%3Cpath d='M9 24V8M23 24V8' stroke='%23f3efe6' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23d9531e'/%3E%3C/svg%3E" />
-  <meta name="theme-color" content="#f3efe6" />
+  <meta name="theme-color" content="#0a0b0d" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Between Passes · NISAR radar, explained" />
   <meta property="og:description" content="Can a radar satellite tell, from space, whether farmland got wetter or drier? A NISAR case study in Ceyhan, Türkiye, tested at random places worldwide." />
@@ -25,7 +26,7 @@
   <a class="skip" href="#viewer">Skip to the radar viewer</a>
 
   <!-- COVER ---------------------------------------------------------------->
-  <section id="cover" class="cover" aria-labelledby="cover-title">
+  <section id="cover" class="cover" aria-labelledby="cover-title" hidden>
     <div class="cover-inner">
       <p class="eyebrow">NASA Space Apps 2026 · Dancing with the SARs</p>
       <h1 id="cover-title">Between <em>Passes</em></h1>
@@ -66,15 +67,15 @@
   </section>
 
   <!-- APP ------------------------------------------------------------------>
-  <div id="app" class="app" hidden>
+  <div id="app" class="app">
     <header class="topbar">
       <div class="brand">
         <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M8 26V6M24 26V6" stroke="currentColor" stroke-width="3"/><path d="M12 16h8" stroke="var(--bone)" stroke-width="2"/></svg>
-        <span class="brand-name">Between Passes</span>
+        <a class="brand-name" href="index.html" style="text-decoration:none">Between Passes</a>
         <span class="brand-sub">Ceyhan fields · NISAR 22 Oct → 3 Nov 2026</span>
       </div>
       <nav class="topnav" aria-label="Case tools">
-        <a class="link" href="world.html" style="text-decoration:none">Global<span class="long"> test</span></a>
+        <a class="link" href="index.html" style="text-decoration:none">Home</a><a class="link" href="index.html#world" style="text-decoration:none">All places</a>
         <a class="link" href="tr.html" lang="tr" style="text-decoration:none">TR</a>
         <button class="link" data-open="method">Method<span class="long"> &amp; sources</span></button>
         <button class="link" data-open="export">Export<span class="long"> case file</span></button>

@@ -41,3 +41,9 @@ Overpass API query (places town/village/city, rivers, motorway/trunk/primary) fo
 - Same 24 × 24 km window centre (35.85E, 37.0N), extracted with `scripts/extract_window.py` into `data/raw/win_079/` and `data/raw/win_071/` (not committed; SHA-256 of each HH layer in `research/prediction/prediction2.json`).
 - Frame-level `rfiLikelihood` (HH): 4.0e10 (079) and 5.6e4 (071); data-quality exception mask 768 everywhere in the window.
 - The 10 Nov partner granules (cycle 035) were not yet in NASA CMR at lock time; `scripts/predict_two_orbits.py score` extracts them identically.
+
+## The weather filter
+- Rules: `research/filter/WEATHER_FILTER.md` (commit 2365a8e, before computing). Results: `research/filter/results.json`, app data `app/data/sites/` (SHA-256 of `sites.json` recorded in the results).
+- Site windows re-read from the same NISAR granules as the worldwide test (`scripts/fetch_site_windows.py`); site-wide ΔHH matches the published values within 0.001 dB.
+- Country names: Natural Earth 1:50m admin-0 (public domain) via `world-atlas@2.0.2` (`data/context/ne/countries-50m.json`).
+- Demonstration places: `scripts/bp_check.py` reads NISAR (CMR + HTTP range), SMAP SPL3SMP_E v006 (CMR + HTTP range) and NASA POWER live; outputs in `app/data/checks/`.

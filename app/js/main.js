@@ -579,7 +579,7 @@ function openApp(push = true) {
   $("#cover").hidden = true; $("#app").hidden = false;
   if (!viewer) initViewer();
   else viewer.resize();
-  if (push && !location.hash.startsWith("#object-")) history.replaceState(null, "", "#case");
+  if (push && !location.hash.startsWith("#object-") && location.hash !== "#tour") history.replaceState(null, "", "#case");
   $("#viewer").focus({ preventScroll: true });
 }
 
@@ -679,11 +679,11 @@ async function renderNextPass() {
   const passes = [[Date.UTC(2026, 9, 22, 16, 24), "A"], [Date.UTC(2026, 10, 3, 16, 24), "B"], [target, "next"]];
   const others = P2 ? [Date.UTC(2026, 9, 29, 10), Date.UTC(2026, 10, 10, 10)] : [];
   $("#np-smap").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="NASA SMAP soil moisture at Ceyhan with NISAR passes">
-    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#e6dfd2"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="#948a7a" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
+    ${[0, 0.2, 0.4].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${Y(v) + 3}" text-anchor="end" fill="var(--muted)" font-size="9" font-family="DM Mono">${v}</text>`).join("")}
     ${others.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="20" y2="${H - B}" stroke="#2a5db0" stroke-dasharray="1 2"/><text x="${X(t)}" y="${H - 6}" text-anchor="middle" fill="#2a5db0" font-size="8.5" font-family="DM Mono">${i ? "10 Nov" : "29 Oct"}</text>`).join("")}
     ${passes.map(([t, k]) => `<line x1="${X(t)}" x2="${X(t)}" y1="6" y2="${H - B}" stroke="${k === "next" ? "#a8690f" : "#1f6f5c"}" stroke-dasharray="3 2"/><text x="${k === "next" ? X(t) - 3 : X(t) + 3}" y="14" text-anchor="${k === "next" ? "end" : "start"}" fill="${k === "next" ? "#a8690f" : "#1f6f5c"}" font-size="9" font-family="DM Mono">${k === "next" ? "next: 15 Nov" : "NISAR " + k}</text>`).join("")}
-    <polyline fill="none" stroke="#1c1b17" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
-    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="#1c1b17"/>`).join("")}
+    <polyline fill="none" stroke="var(--bone)" stroke-width="1.5" points="${pts.map((p) => `${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ")}"/>
+    ${pts.map((p) => `<circle cx="${X(p.t).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="2.5" fill="var(--bone)"/>`).join("")}
   </svg><p class="muted" style="font-size:11.5px;margin:4px 0 0">NASA SMAP soil moisture at Ceyhan (m³/m³). Green: my study's orbit. Blue: the two other orbits, wet on 29 Oct, dry by 10 Nov.</p>`;
 }
 
@@ -782,7 +782,7 @@ function wire() {
   }
   window.addEventListener("hashchange", () => {
     if (!D) return;
-    if (location.hash === "" || location.hash === "#") { $("#app").hidden = true; $("#cover").hidden = false; return; }
+    if (location.hash === "" || location.hash === "#" || location.hash === "#tour") { if (location.hash === "#tour") renderStory(0); return; }
     if ($("#app").hidden) openApp(false);
     if (location.hash === "#prediction") { if (st.story != null) closeStory(); setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); return; }
     const m = location.hash.match(/^#object-(\d+)$/);
@@ -814,6 +814,7 @@ async function boot() {
     else if (location.hash === "#census") { openApp(false); setTimeout(() => $(".census").scrollIntoView(), 400); }
     else if (location.hash === "#prediction") { openApp(false); setTimeout(() => $("#nextpass").scrollIntoView({ behavior: "smooth", block: "start" }), 400); }
     else if (location.hash.startsWith("#case") || location.hash.startsWith("#object-")) openApp(false);
+    else { openApp(false); renderStory(0); }   // the lab opens straight into the guided tour
   } catch (err) {
     console.error(err);
     $("#cover-result").textContent = "The case data could not be loaded.";
