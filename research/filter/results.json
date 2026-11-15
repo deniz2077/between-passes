@@ -1,0 +1,22 @@
+{
+ "n_sites": 147,
+ "verdicts": {
+  "weather": 26,
+  "beyond": 41,
+  "quiet": 80
+ },
+ "rules": "research/filter/WEATHER_FILTER.md",
+ "soil_moved_n": 45,
+ "soil_steady_n": 63,
+ "median_changed_frac_soil_moved": 0.0504,
+ "median_changed_frac_soil_steady": 0.0018,
+ "ratio": 28.0,
+ "pooled_weather_share_where_soil_moved": 0.845,
+ "ceyhan": {
+  "verdict": "weather",
+  "weather_share": 0.883,
+  "changed_frac": 0.0531,
+  "soil": "wetter"
+ },
+ "sha256_sites_json": "ae09c372ebed728ac0e28c39b81d2bc2d9a4c95f21a065a57298e5ccad2607a3"
+}

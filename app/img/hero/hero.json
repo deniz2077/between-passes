@@ -1,0 +1,15 @@
+{
+ "crop": [
+  500,
+  1180,
+  310,
+  1190
+ ],
+ "posting_m": 20,
+ "analysis_px": 1010074,
+ "could_be_weather_px": 47409,
+ "beyond_weather_px": 6275,
+ "could_be_weather_frac": 0.0469,
+ "beyond_weather_frac": 0.0062,
+ "source": "app/data/ceyhan hh_a/hh_b/flags; 5x5 linear boxcar; +/-3 dB; soil wetter (SMAP exploratory)"
+}
