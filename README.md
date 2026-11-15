@@ -20,7 +20,7 @@ NASA and ISRO's new **NISAR** satellite sees the ground through cloud and darkne
 
 **3. It holds around the world.** I picked 200 random places NISAR had seen twice, and wrote the rules of the test down before looking at any data. At the places with good soil data, when the soil got wetter or drier, the radar usually changed with it. Then I repeated the whole test on 200 new places. Same answer.
 
-**4. The next pass will check it.** NISAR flew over Ceyhan again on 15 November. The day before, I published what that pass should show: as the soil dries, the bright fields dim again. NASA releases the data about 10 to 20 days after a pass. The result will appear on the live app, scored by code that was saved before the satellite flew.
+**4. Three more passes will check it.** If the fields lit up because the soil was wet, they will go dark again as it dries. If they were ploughed, they will stay bright. NISAR passes over Ceyhan on three different orbits, and for each one I published what it will show **before NASA released the data**: two passes on 10 November, seen from other angles after the soil had dried, and one on 15 November. The results will appear on the live app, scored by code saved with each prediction.
 
 ## What you can do in the app
 
@@ -50,7 +50,7 @@ All from NASA, all public:
 | [How it works](docs/METHOD.md) | Every step, in detail |
 | [What I don't claim](docs/LIMITATIONS.md) | The honest limits |
 | [The worldwide test](research/global/RESULTS.md) | Results, written before and after |
-| [The prediction](research/prediction/PREDICTION.md) | Locked on 14 Nov, before the pass |
+| [The predictions](research/prediction/PREDICTION2.md) | Three checks, locked before NASA released the data ([first one](research/prediction/PREDICTION.md)) |
 | [Reproduce it](docs/REPRODUCE.md) | Run everything yourself |
 | [Data sources](DATA_PROVENANCE.md) | Exact files and credits |
 | [Sprint reports](sprint-reports/) | How the two days went |

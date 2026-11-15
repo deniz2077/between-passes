@@ -34,7 +34,7 @@ a { color: #0b7f95; word-break: break-all; }
 <p><strong>1. Something changed.</strong> Between two passes, on 22 October and 3 November 2026, seven times more farmland around Ceyhan lit up on radar than went dark. The town centre, which should not change, stayed the same. So the change is real.</p>
 <p><strong>2. Most likely, wet soil.</strong> I checked three more NASA datasets. An optical satellite shows most of those fields kept their plants, so it wasn't mainly the harvest. The first big autumn rain fell between the passes. And NASA's soil-moisture satellite saw the soil there more than double in water.</p>
 <p><strong>3. It holds around the world.</strong> I picked 200 random places NISAR had seen twice, and wrote the rules of the test down before looking at any data. At the places with good soil data, when the soil got wetter or drier, the radar usually changed with it. Then I repeated the whole test on 200 new places. Same answer.</p>
-<p><strong>4. The next pass will check it.</strong> NISAR flew over Ceyhan again on 15 November. The day before, I published what that pass should show: as the soil dries, the bright fields dim again. NASA releases the data about 10 to 20 days after a pass. The result will appear on the live app, scored by code that was saved before the satellite flew.</p>
+<p><strong>4. Three more passes will check it.</strong> If the fields lit up because the soil was wet, they will go dark again as it dries. If they were ploughed, they will stay bright. NISAR passes over Ceyhan on three different orbits, and for each one I published what it will show <strong>before NASA released the data</strong>: two passes on 10 November, seen from other angles after the soil had dried, and one on 15 November. The results will appear on the live app, scored by code saved with each prediction.</p>
 <h2>What you can do in the app</h2>
 <ul>
 <li>Swipe between the two passes.</li>
@@ -94,8 +94,8 @@ a { color: #0b7f95; word-break: break-all; }
 <td>Results, written before and after</td>
 </tr>
 <tr>
-<td><a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md">The prediction</a></td>
-<td>Locked on 14 Nov, before the pass</td>
+<td><a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION2.md">The predictions</a></td>
+<td>Three checks, locked before NASA released the data (<a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md">first one</a>)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/docs/REPRODUCE.md">Reproduce it</a></td>
@@ -307,6 +307,34 @@ Next pass: NISAR track 151 descending, frame 70, cycle 035, expected <strong>15 
 <ul>
 <li>NISAR VALIDATED data have appeared about 3–6 days after acquisition, so the result is expected <strong>after</strong> the NASA submission deadline. The prediction is locked now; the score will be published in the app when the data exist.</li>
 <li>Rain fell on 4–6 Nov (13.6 mm, NASA POWER), after our second pass; SMAP shows the soil dried again by 10–11 Nov.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Prediction 2: two other orbits</h1><h1>Prediction 2: the same fields, seen from two other orbits</h1>
+<p><strong>Locked and published on 15 Nov 2026 (03:20 TRT, commit a068d8f), before NASA released the data it predicts.</strong>
+The git commit on GitHub is the timestamp. Machine-readable lock: <code>prediction2.json</code>. Scorer: <code>scripts/predict_two_orbits.py</code>.</p>
+<h2>In plain words</h2>
+<p>Between 22 October and 3 November, 508 fields near Ceyhan lit up on radar. My explanation is that the soil got wet in the first big autumn rain. The other possible explanation is ploughing, which also makes a field look brighter.</p>
+<p>NISAR does not only fly over Ceyhan on the orbit I studied. It also passes on two other orbits, one at dusk and one at dawn. Both flew over on <strong>29 October, the rainy day</strong>, and again on <strong>10 November, when the soil had dried</strong> (NASA's SMAP satellite: 0.29 m³/m³ on 28 Oct, 0.13 on 10 Nov; no rain 7–11 Nov in NASA POWER).</p>
+<p><strong>My prediction:</strong> on both of these orbits, the 508 fields will <strong>get darker</strong> from 29 Oct to 10 Nov, by more than the farmland around them. Wet soil dries out; ploughed soil stays rough. If they stay bright, my explanation is wrong.</p>
+<p>Each orbit is a separate, independent check. It sees the ground from a different angle and at a different time of day, and it never took part in choosing the fields.</p>
+<p>The satellite had already flown on 10 November, but NASA had not released those data when I locked this. I checked NASA's catalogue just before locking: no 10 November pass over Ceyhan was listed for either orbit.</p>
+<h2>Criteria (fixed)</h2>
+<p>For each orbit separately, comparing 29 Oct with 10 Nov on that orbit's own grid:
+- <strong>Q1:</strong> the brightened fields, pooled together, darken by <strong>at least 1.0 dB more</strong> than the surrounding farmland.
+- <strong>Q2:</strong> at least <strong>two thirds</strong> of the brightened fields darken more than the surrounding farmland.
+- <strong>Q3 (sanity):</strong> Ceyhan's town centre changes by no more than 0.5 dB; otherwise the orbit is not comparable, and the result is inconclusive.
+- <strong>Verdict:</strong> Q1 and Q2 met → <strong>confirmed (wet soil)</strong>. The fields stay as bright as their surroundings or get brighter → <strong>refuted (ploughing)</strong>. Anything else → <strong>mixed</strong>.</p>
+<p>Exact definitions are in <code>prediction2.json</code> (<code>criteria</code>).</p>
+<h2>How the fields are matched</h2>
+<p>The field outlines come from the original track-151 analysis. They are carried onto each orbit's own grid by geographic position, using the nearest pixel. Radar values are never resampled. Before locking, I checked the alignment: the 29 Oct images of both orbits match the 3 Nov track-151 image best at zero shift (to within 20 m). 494 of the 508 fields fall inside the track 079 window; all 508 fall inside track 071.</p>
+<h2>When the test is void</h2>
+<ul>
+<li>The 10 Nov granule for an orbit is missing, not VALIDATED, or not on the identical grid.</li>
+<li>Rain before the pass (NASA POWER ≥ 10 mm over 7–10 Nov). Already known at lock: 0 mm on each day, so this condition is met.</li>
+</ul>
+<h2>Honest notes</h2>
+<ul>
+<li><strong>Interference flag.</strong> NASA's metadata gives both 29 Oct passes a high radio-interference likelihood for the whole frame: about 56,000 for track 071 and about 40 billion for track 079, against about 6 for the track-151 pair. Over the Ceyhan window, the images show no visible interference stripes, and the data-quality mask is clean (every pixel code 768). If interference affected 29 Oct, the town-centre check (Q3) is meant to catch it.</li>
+<li><strong>Not a repeat of the same measurement.</strong> These orbits see the town and fields from other angles. That is why each orbit is only compared with itself, and the fields with the farmland around them.</li>
+<li><strong>Already visible on 29 Oct.</strong> Compared with their surroundings, the fields that brightened were already partly brighter on 29 Oct. This is not part of the test, but it fits rain on 28–29 Oct.</li>
 </ul></section><section class='part'><h1 class='ptitle'>Limitations</h1><h1>Limitations</h1>
 <ol>
 <li><strong>Two radar dates.</strong> One pair cannot distinguish lasting change (tillage) from transient change (wet soil drying out).</li>
@@ -367,11 +395,19 @@ Next pass: NISAR track 151 descending, frame 70, cycle 035, expected <strong>15 
 <li><strong>NASA POWER</strong> daily PRECTOTCORR per site: <code>research/global/power.json</code> (context only, not in the test).</li>
 <li><strong>Natural Earth</strong> 1:110m land (public domain) via <code>world-atlas@2.0.2</code> → <code>app/data/global/land.json</code>.</li>
 <li>App package: <code>app/data/global/global.json</code> + <code>thumbs.u8</code> (SHA-256 recorded in the JSON), built by <code>scripts/global_export.py</code>.</li>
+</ul>
+<h2>Prediction 2: NISAR tracks 079 and 071 (29 Oct reference)</h2>
+<ul>
+<li><code>NISAR_L2_PR_GCOV_034_079_D_070_2005_DHDH_A_20261029T163222_20261029T163257_P05036_N_F_J_001</code> (EPSG:32636) and
+  <code>NISAR_L2_PR_GCOV_034_071_A_020_2005_DHDH_A_20261029T024440_20261029T024515_P05036_N_F_J_001</code> (EPSG:32637).</li>
+<li>Same 24 × 24 km window centre (35.85E, 37.0N), extracted with <code>scripts/extract_window.py</code> into <code>data/raw/win_079/</code> and <code>data/raw/win_071/</code> (not committed; SHA-256 of each HH layer in <code>research/prediction/prediction2.json</code>).</li>
+<li>Frame-level <code>rfiLikelihood</code> (HH): 4.0e10 (079) and 5.6e4 (071); data-quality exception mask 768 everywhere in the window.</li>
+<li>The 10 Nov partner granules (cycle 035) were not yet in NASA CMR at lock time; <code>scripts/predict_two_orbits.py score</code> extracts them identically.</li>
 </ul></section><section class='part'><h1 class='ptitle'>Use of AI</h1><h1>Use of AI (Super Intelligence) tools</h1>
 <p><strong>Tool:</strong> Claude Code (Anthropic), used as a development assistant during the hackathon (14–15 Nov 2026).</p>
 <p><strong>Human decisions (participant):</strong> choice of challenge, hometown study area (Adana / Ceyhan), the research question and its approval, the decision to stay on NISAR rather than switch challenges, data-access login, review of results, and all submission decisions.</p>
 <p><strong>AI-assisted:</strong> writing and refactoring Python data-access and analysis code, the web application code, tests, documentation drafts and sprint-report drafts; running analyses and checks in the development environment; literature/documentation lookup.</p>
-<p><strong>AI-proposed, participant-approved:</strong> the AI assistant proposed the global NASA SMAP test, its pre-registration, the independent replication and the falsifiable next-pass prediction after the participant asked to scale the project and find a headline answer; it also created the public GitHub repository, deploy key and GitHub Pages site at the participant's request (the participant signed in himself).</p>
+<p><strong>AI-proposed, participant-approved:</strong> the AI assistant proposed the global NASA SMAP test, its pre-registration, the independent replication and the falsifiable next-pass predictions (including the second, two-orbit prediction) after the participant asked to scale the project and find a headline answer; it also created the public GitHub repository, deploy key and GitHub Pages site at the participant's request (the participant signed in himself).</p>
 <p><strong>Not AI-generated:</strong> all scientific numbers come from NASA data processed by the code in this repository and are verified by tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap.</p>
 <p><strong>Suggested submission text:</strong></p>
 <blockquote>

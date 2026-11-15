@@ -34,3 +34,10 @@ Overpass API query (places town/village/city, rivers, motorway/trunk/primary) fo
 - **NASA POWER** daily PRECTOTCORR per site: `research/global/power.json` (context only, not in the test).
 - **Natural Earth** 1:110m land (public domain) via `world-atlas@2.0.2` → `app/data/global/land.json`.
 - App package: `app/data/global/global.json` + `thumbs.u8` (SHA-256 recorded in the JSON), built by `scripts/global_export.py`.
+
+## Prediction 2: NISAR tracks 079 and 071 (29 Oct reference)
+- `NISAR_L2_PR_GCOV_034_079_D_070_2005_DHDH_A_20261029T163222_20261029T163257_P05036_N_F_J_001` (EPSG:32636) and
+  `NISAR_L2_PR_GCOV_034_071_A_020_2005_DHDH_A_20261029T024440_20261029T024515_P05036_N_F_J_001` (EPSG:32637).
+- Same 24 × 24 km window centre (35.85E, 37.0N), extracted with `scripts/extract_window.py` into `data/raw/win_079/` and `data/raw/win_071/` (not committed; SHA-256 of each HH layer in `research/prediction/prediction2.json`).
+- Frame-level `rfiLikelihood` (HH): 4.0e10 (079) and 5.6e4 (071); data-quality exception mask 768 everywhere in the window.
+- The 10 Nov partner granules (cycle 035) were not yet in NASA CMR at lock time; `scripts/predict_two_orbits.py score` extracts them identically.

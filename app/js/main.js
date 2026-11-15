@@ -238,7 +238,7 @@ function renderPanel() {
     </dl>
     <p>Both passes were acquired on the same descending orbit track (151) at the same time of day and identical geometry, so the comparison is pixel-for-pixel on one 20 m grid without resampling.</p>
     <p>NASA POWER estimates ${f(tot, 1)} mm of rain over the interval, mostly on 28–29 October, about five days before the second pass. Rain on 4–6 November fell <em>after</em> the second pass and cannot appear in this pair.</p>
-    <p>A third NISAR pass exists on 29 October (track 079, the rainiest day). I checked it and did not use it: it is on a different orbit track and map projection (UTM 36N), and its own radio-frequency-interference likelihood flag is extremely high (≈4×10¹⁰ for HH, versus ≈6 for the two passes used).</p>
+    <p>Two other NISAR orbits also passed on 29 October, the rainiest day (tracks 079 and 071). They see the fields from other angles, so I don't mix them into this comparison. Instead, each one gets its own test: from wet 29 Oct to dry 10 Nov, the fields should darken. That prediction was published before NASA released the 10 Nov data (<a href="#prediction">see the three checks</a>). Their radio-interference flags are high for the whole frame (HH ≈4×10¹⁰ and ≈6×10⁴, versus ≈6 here), so each check includes the town-centre test.</p>
     <p class="muted">Precipitation: NASA POWER daily point estimate (~0.5° model grid). Not a rain gauge; it cannot say how much rain fell on any single field.</p>`;
 
   // INTERPRETATION

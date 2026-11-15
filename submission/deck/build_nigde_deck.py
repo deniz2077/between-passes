@@ -20,7 +20,7 @@ EXTRA = """
     <div class="card"><div class="t">4 · Show</div><p>A website that re-checks every number when it opens.</p></div>
   </div>
   <p class="lead" style="margin-top:44px">Everything is open source. Anyone with a free NASA Earthdata account can run it again and get the same numbers.</p>
-  <p class="fn">Python (h5py, numpy, scipy, rasterio) · HTTP byte-range reads · HTML/JS canvas app · GitHub Actions → Pages · 26 automated tests (pytest).</p>
+  <p class="fn">Python (h5py, numpy, scipy, rasterio) · HTTP byte-range reads · HTML/JS canvas app · GitHub Actions → Pages · 32 automated tests (pytest).</p>
   <div class="foot"><span>Between Passes · Dusk Orbit</span><span>N / T</span></div>
 </section>
 

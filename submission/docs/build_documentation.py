@@ -19,6 +19,7 @@ PARTS = [
     ("Method", "docs/METHOD.md"),
     ("Global test — results", "research/global/RESULTS.md"),
     ("Next-pass prediction", "research/prediction/PREDICTION.md"),
+    ("Prediction 2: two other orbits", "research/prediction/PREDICTION2.md"),
     ("Limitations", "docs/LIMITATIONS.md"),
     ("Data provenance", "DATA_PROVENANCE.md"),
     ("Use of AI", "docs/AI_USE.md"),
