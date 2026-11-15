@@ -125,7 +125,7 @@ a { color: #0b7f95; word-break: break-all; }
 </tbody>
 </table>
 <h2>AI use</h2>
-<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: <a href="https://github.com/deniz2077/between-passes/blob/main/docs/AI_USE.md">docs/AI_USE.md</a>.</p>
+<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: <a href="https://github.com/deniz2077/between-passes/blob/main/docs/AI_USE.md">docs/AI_USE.md</a>.</p>
 <hr />
 <p>Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors; land and country outlines from Natural Earth. Not an official NASA or ISRO product.</p></section><section class='part'><h1 class='ptitle'>The weather filter: rules fixed first</h1><h1>The weather filter: rules fixed before computing</h1>
 <p>Written and committed on 15 Nov 2026 (~11:45 TRT), before any per-pixel filter result was computed for the worldwide sites. The site-level numbers it uses (NISAR ΔHH, SMAP ΔSM) already exist from the pre-registered test; the per-pixel classification below does not.</p>
@@ -506,10 +506,9 @@ python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earth
 <li>Demonstration places: <code>scripts/bp_check.py</code> reads NISAR (CMR + HTTP range), SMAP SPL3SMP_E v006 (CMR + HTTP range) and NASA POWER live; outputs in <code>app/data/checks/</code>.</li>
 </ul></section><section class='part'><h1 class='ptitle'>Use of AI</h1><h1>Use of AI</h1>
 <p><strong>Tool:</strong> Claude Code (Anthropic), used as a development assistant during the hackathon (14–15 Nov 2026).</p>
-<p><strong>Deniz Efe Bulut (participant):</strong> conceived the core project idea, the research question, the choice of location (Ceyhan, Adana) and the overall project direction. Every key decision is mine, including reviewing, approving and formally adopting the methodology, the locked predictions and the product framing ("Rain fools radar. Between Passes shows what really changed.") as part of the project.</p>
-<p><strong>AI (Claude Code):</strong> handled the coding, data analysis and document drafting, and proposed the statistical tests (the worldwide test, its pre-registration and replication), the prediction framework, and the weather-filter framing, which I evaluated and approved. It also set up the public GitHub repository, its deploy key and the GitHub Pages site at my request (I signed in myself).</p>
-<p><strong>Not AI-generated:</strong> every scientific number comes from NASA data processed by the code in this repository and is checked by automated tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap and Natural Earth.</p>
-<p><strong>Short version (for forms):</strong></p>
-<blockquote>
-<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests. No AI-generated imagery is used.</p>
-</blockquote></section></body></html>
+<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use.</p>
+<ul>
+<li><strong>Mine (Deniz Efe Bulut):</strong> the project idea, the research question, the study area (Ceyhan, Adana), the project's direction and every key decision.</li>
+<li><strong>AI (Claude Code):</strong> writing and running the code, the data analysis, drafting documents and slides, and suggesting methods and wording, which I reviewed and chose to use. It also set up the GitHub repository and website at my request.</li>
+<li><strong>Not AI-generated:</strong> every number comes from NASA data processed by the code in this repository and is checked by automated tests and in the browser. No AI-generated images, video, audio or NASA branding are used.</li>
+</ul></section></body></html>

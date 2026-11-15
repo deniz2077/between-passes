@@ -32,7 +32,7 @@ Turn the GO result into a reproducible pipeline and a working web app on the rea
 | The 29 Oct pass looked like a useful third date | Tested and rejected for this pair: different geometry and a high interference flag |
 
 ## Contributions
-- **Deniz Efe Bulut:** conceived the project idea, the research question and the choice of location, and set the project's direction. Made every key decision, including staying on NISAR and choosing the slide deck as the NASA demo.
+- **Deniz Efe Bulut:** the project idea, the research question, the choice of location, the project's direction and every key decision.
 - **AI (Claude Code):** coding, data analysis and document drafting.
 
 ## Evidence

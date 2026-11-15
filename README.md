@@ -61,7 +61,7 @@ Finds two NISAR passes over the point, reads only the needed part of each file, 
 | [Sprint reports](sprint-reports/) | How the two days went |
 
 ## AI use
-The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: [docs/AI_USE.md](docs/AI_USE.md).
+The project idea, research question, study area and every key decision are mine. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that I reviewed and chose to use. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: [docs/AI_USE.md](docs/AI_USE.md).
 
 ---
 

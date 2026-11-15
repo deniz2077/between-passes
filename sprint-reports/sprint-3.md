@@ -33,8 +33,8 @@ Answer the two open questions from Sprint 2: does it hold beyond one place, and 
 | Ceyhan itself misses the ±1-day SMAP rule | Shown only as a labelled exploratory comparison |
 
 ## Contributions
-- **Deniz Efe Bulut:** conceived the project idea, the research question and the choice of location, and set the project's direction. Made every key decision, including reviewing, approving and adopting the worldwide test and its pre-registration.
-- **AI (Claude Code):** coding, data analysis and document drafting; proposed the worldwide statistical test, which Deniz evaluated and approved.
+- **Deniz Efe Bulut:** the project idea, the research question, the choice of location, the project's direction and every key decision.
+- **AI (Claude Code):** coding, data analysis and document drafting.
 
 ## Evidence
 Commits `43f2fbb` – `0f16f34` · `research/global/` · `app/world.html`

@@ -34,7 +34,7 @@ Define an honest research problem and prove, with real NASA radar data, that it 
 | HV channel shows an unexplained east–west gradient | HV kept as a documented limitation; HH is the evidence channel |
 
 ## Contributions
-- **Deniz Efe Bulut:** conceived the project idea, the research question and the choice of location, and set the project's direction. Made every key decision.
+- **Deniz Efe Bulut:** the project idea, the research question, the choice of location, the project's direction and every key decision.
 - **AI (Claude Code):** coding, data analysis and document drafting.
 
 ## Evidence
