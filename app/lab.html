@@ -70,7 +70,7 @@
   <div id="app" class="app">
     <header class="topbar">
       <div class="brand">
-        <a class="back-btn" href="index.html#ceyhan">← Back to overview</a>
+        <a class="back-btn" id="back-btn" href="index.html#ceyhan">← Back to overview</a>
         <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M8 26V6M24 26V6" stroke="currentColor" stroke-width="3"/><path d="M12 16h8" stroke="var(--bone)" stroke-width="2"/></svg>
         <a class="brand-name" href="index.html" style="text-decoration:none">Between Passes</a>
         <span class="brand-sub">Ceyhan fields · NISAR 22 Oct → 3 Nov 2026</span>
@@ -197,6 +197,15 @@
   <dialog id="dlg-export" class="dialog" aria-labelledby="export-title"></dialog>
   <div id="fatal" class="fatal" hidden role="alert"></div>
 
+  <script>
+    // Return to the exact spot on the overview the visitor came from (browser history keeps the scroll position).
+    document.getElementById("back-btn").addEventListener("click", (e) => {
+      try {
+        const r = document.referrer ? new URL(document.referrer) : null;
+        if (r && r.origin === location.origin && /\/(index\.html)?$/.test(r.pathname) && history.length > 1) { e.preventDefault(); history.back(); }
+      } catch (err) {}
+    });
+  </script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

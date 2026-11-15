@@ -296,6 +296,9 @@ async function init() {
   if (S) { problem(S.summary); if (land) explorer(S, land); }
   if (C && S) ceyhan(C, S.sites.find((s) => s.id === "ceyhan"));
   board();
-  checks();
+  await checks();
+  // content above may have changed height while loading: land on the requested section again
+  const h = location.hash;
+  if (/^#(problem|world|ceyhan|predictions|run|lab)$/.test(h)) requestAnimationFrame(() => document.querySelector(h)?.scrollIntoView());
 }
 init();
