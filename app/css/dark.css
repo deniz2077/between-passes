@@ -37,3 +37,7 @@ h1, h2, h3 { letter-spacing: -.02em; }
 .eyebrow::before { content: none; }
 .w-card, .block, .step { background-color: var(--ink-2); }
 h1, .w-hero h1, .tr-hero h1 { font-weight: 600; letter-spacing: -.035em; }
+
+.back-btn { display: inline-flex; align-items: center; gap: 6px; margin-right: 14px; padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--ink-2); color: var(--bone); font: 500 13.5px var(--sans); text-decoration: none; white-space: nowrap; }
+.back-btn:hover { border-color: var(--accent); }
+@media (max-width: 720px) { .back-btn { padding: 5px 9px; font-size: 12.5px; margin-right: 8px; } }

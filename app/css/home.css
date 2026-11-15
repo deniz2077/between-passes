@@ -231,3 +231,24 @@ h3 { font-size: 20px; letter-spacing: -.01em; font-weight: 600; margin: 0 0 8px;
 .nc-t b { font-size: 14px; display: block; } .nc-t small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
 @media (max-width: 980px) { .nc-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .nc-grid { grid-template-columns: 1fr; } }
+
+/* lab link, band and clickable rows */
+.nav .lab-link { color: var(--text); border: 1px solid var(--line2); border-radius: 4px; padding: 0 8px; }
+.nav .lab-link:hover { border-color: var(--beyond); }
+.look-hint { font-size: 12.5px !important; color: var(--beyond) !important; margin: -4px 0 10px !important; }
+.look-list a { position: relative; padding-right: 22px; border-radius: 4px; transition: background .15s; }
+.look-list a::after { content: "↗"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); color: var(--dim); transition: color .15s, transform .15s; }
+.look-list a:hover::after, .look-list a:focus-visible::after { color: var(--beyond); transform: translate(2px, calc(-50% - 2px)); }
+.look-list a:hover b, .look-list a:hover span:nth-child(2) { color: var(--text); }
+.lab-band { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0; margin-top: 40px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--text); transition: border-color .2s; }
+.lab-band:hover { border-color: var(--line2); }
+.lab-img { display: block; overflow: hidden; background: #000; }
+.lab-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, 0, .2, 1); }
+.lab-band:hover .lab-img img { transform: scale(1.03); }
+.lab-txt { display: flex; flex-direction: column; gap: 14px; padding: 30px 32px; justify-content: center; }
+.lab-txt .eyebrow { margin: 0; }
+.lab-h { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }
+.lab-list { display: grid; gap: 7px; color: var(--soft); font-size: 15px; }
+.lab-list span::before { content: ""; display: inline-block; width: 12px; height: 2px; background: var(--beyond); vertical-align: middle; margin-right: 10px; }
+.lab-txt .btn { align-self: flex-start; margin-top: 6px; }
+@media (max-width: 980px) { .lab-band { grid-template-columns: minmax(0, 1fr); } .nav nav a.lab-link { display: inline; } }
