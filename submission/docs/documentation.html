@@ -26,26 +26,27 @@ a { color: #0b7f95; word-break: break-all; }
       <div class='meta'>Team Dusk Orbit · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
       Live app: https://deniz2077.github.io/between-passes/<br>Code &amp; data: https://github.com/deniz2077/between-passes</div></section><section class='part'><h1 class='ptitle'>Overview</h1><h1>Between Passes</h1>
 <p><strong>Rain fools radar. Between Passes shows what really changed.</strong></p>
-<p>NASA and ISRO's new <strong>NISAR</strong> satellite maps the ground through cloud and darkness every 12 days. Comparing two passes shows what changed: floods, harvests, cleared forest, new buildings. But wet soil looks brighter to radar and dry soil darker, so change maps fill up with weather.</p>
-<p>Between Passes checks every NISAR change against NASA's soil-moisture and rain data, and highlights the changes the weather can't explain.</p>
+<p>Satellites find floods, harvests and cut-down forests by comparing two pictures of the same place. But rain fools them: wet ground looks different, so after a rainy week whole regions look "changed" when nothing happened. Between Passes is a filter that sorts out those false alarms, so people see only the real changes.</p>
+<p><strong>Who it's for:</strong> anyone who uses satellite change maps. Disaster teams looking for floods, agencies watching farms and forests, farmers checking their fields.</p>
 <p><strong><a href="https://deniz2077.github.io/between-passes/">Open the live app →</a></strong>   ·   <a href="https://deniz2077.github.io/between-passes/lab.html">Ceyhan lab</a>   ·   <a href="https://deniz2077.github.io/between-passes/world.html">Worldwide test</a>   ·   <a href="https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf">7-slide demo</a>   ·   <a href="https://deniz2077.github.io/between-passes/tr.html">Türkçe</a></p>
-<p><img alt="The filter on real NISAR radar over Ceyhan, Türkiye: blue changes could be the weather, amber changes are beyond it." src="file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/readme_filter.jpg" /></p>
+<p><img alt="The filter on real NISAR radar over Ceyhan, Türkiye. Blue: could be just the rain. Orange: something really changed." src="file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/readme_filter.jpg" /></p>
+<p><em>Blue: could be just the rain. Orange: something really changed. Real NASA-ISRO NISAR radar, 3 Nov 2026.</em></p>
 <p><em>NASA Space Apps Challenge 2026 · Dancing with the SARs · Team Dusk Orbit (Deniz Efe Bulut) · Niğde Local Event</em></p>
 <hr />
 <h2>The problem, measured</h2>
-<p>At 147 random places NISAR passed over twice, <strong>28 times more land looked "changed"</strong> where the soil got wetter or drier than where it stayed the same (median 5.0% against 0.18% of the land, NASA SMAP soil moisture). Where the soil moved, <strong>85%</strong> of that "change" could be the weather alone.</p>
+<p>At 147 random places NISAR passed over twice, <strong>28 times more land looked "changed"</strong> where the soil got wetter or drier than where it stayed the same (5.0% of the land against 0.18%, typical place; soil wetness from NASA's SMAP satellite). Where the soil got wetter or drier, <strong>85%</strong> of that "change" could be just the weather.</p>
 <h2>How the filter works</h2>
 <ol>
-<li><strong>Measure.</strong> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed by 3 dB or more is flagged.</li>
+<li><strong>Measure.</strong> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed strongly (the radar echo doubled or halved) is flagged.</li>
 <li><strong>Ask the weather.</strong> NASA SMAP measures how wet the soil was on both days; NASA POWER gives the rain in between.</li>
-<li><strong>Sort.</strong> Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather <em>could be the weather</em>. A change that goes against it can't be: <strong>something really changed there</strong>.</li>
+<li><strong>Sort.</strong> Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather <em>could be just the rain</em>. A change that goes against it can't be: <strong>something really changed there</strong>.</li>
 </ol>
 <p>The rules were <a href="https://github.com/deniz2077/between-passes/blob/main/research/filter/WEATHER_FILTER.md">committed before running them on any place</a>.</p>
 <h2>What it found</h2>
 <ul>
-<li><strong>148 places, 39 countries.</strong> 41 show real change beyond the weather, 27 are mostly weather, 80 are quiet. Every place has its own card: drag between the two passes, switch the filter on, share the link.</li>
+<li><strong>148 places, 39 countries.</strong> 41 show something really changed, 27 are mostly just the weather, 80 are quiet. Every place has its own card: drag between the two passes, switch the filter on, share the link.</li>
 <li><strong>Ceyhan, my home region.</strong> The first autumn rain fell between the passes and SMAP saw the soil more than double in water. 508 fields got brighter (could be the weather; an optical satellite shows only 9% lost their plants). 128 fields got darker, which wetter soil can't do. The app lists them, largest first, with the nearest village: <strong>where to look first</strong>.</li>
-<li><strong>The physics is tested.</strong> With rules written before looking, NISAR change followed SMAP soil-moisture change at 74 random sites (ρ = 0.58, p &lt; 0.001), and again at 73 new ones (ρ = 0.55).</li>
+<li><strong>The physics is tested.</strong> With the rules written before looking at any data, NISAR's change followed SMAP's soil-moisture change at 74 random places, and again at 73 new ones. Both times the link was strong and very unlikely to be luck (less than a 1-in-1,000 chance; Spearman ρ = 0.58 and 0.55).</li>
 </ul>
 <h2>The proof: predictions made before the data existed</h2>
 <p>If Ceyhan's bright fields were wet soil, they will fade as it dries; if ploughed, they will stay bright. I published what three upcoming NISAR passes will show, <strong>before NASA released any of that data</strong>. The app scores them automatically as the data arrive, whatever the result.</p>
@@ -103,7 +104,7 @@ a { color: #0b7f95; word-break: break-all; }
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/research/global/RESULTS.md">The worldwide test</a></td>
-<td>Pre-registered, repeated</td>
+<td>Rules written first, repeated</td>
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION2.md">The predictions</a></td>

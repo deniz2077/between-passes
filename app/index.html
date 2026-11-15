@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Between Passes · Rain fools radar</title>
-  <meta name="description" content="Rain fools radar. Between Passes checks every NISAR radar change against NASA soil-moisture and rain data, and shows what really changed on the ground. 148 places, 39 countries." />
+  <meta name="description" content="Satellites find floods, harvests and cut forests by comparing two pictures. Rain fools them. Between Passes sorts out the false alarms with NASA data, so people see only the real changes." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/home.css?v=10" />
+  <link rel="stylesheet" href="css/home.css?v=12" />
   <script>try { const t = new URLSearchParams(location.search).get("theme") || localStorage.getItem("bp-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0b0d'/%3E%3Cpath d='M9 24V8M23 24V8' stroke='%23eceae4' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23ffb020'/%3E%3C/svg%3E" />
   <meta name="theme-color" content="#0a0b0d" />
@@ -48,8 +48,12 @@
         <p class="kicker mono"><span class="k0">00</span> NASA Space Apps 2026 · Dancing with the SARs</p>
         <h1 id="hero-title">Rain fools radar.</h1>
         <p class="hero-sub">Between Passes shows what really changed.</p>
-        <p class="hero-body">NASA's new <b>NISAR</b> satellite takes a radar picture of the ground every 12 days, through cloud and at night. Comparing two pictures shows what changed: floods, harvests, forests cut down. But radar also sees <b>water in the soil</b>: after rain the ground looks brighter, even where nothing really changed. Between Passes checks every change against NASA's soil-moisture and rain data, and <span class="hl-beyond">highlights what the rain can't explain</span>.</p>
-        <p class="hero-analogy">Like two photos of a garden, one taken right after watering: it looks as if everything changed, but it's only water.</p>
+        <ul class="hero-points">
+          <li><b>Satellites find change by comparing two pictures.</b> Floods, harvests and cut-down forests show up when NASA's NISAR photographs the same place 12 days apart.</li>
+          <li><b>But rain fools them.</b> Wet ground looks different, so after a rainy week whole regions look "changed" when nothing happened.</li>
+          <li><b>Between Passes sorts out those false alarms,</b> using NASA's soil-moisture and rain data, so people <span class="hl-beyond">see only the real changes</span>.</li>
+        </ul>
+        <p class="hero-who"><b>For</b> disaster teams looking for floods, agencies watching farms and forests, and farmers checking their fields.</p>
         <div class="hero-cta">
           <a class="btn primary" href="#problem">How it works ↓</a>
           <a class="btn" href="#world">Skip to the 148 places →</a>

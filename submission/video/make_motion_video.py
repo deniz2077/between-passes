@@ -41,12 +41,12 @@ def record():
     b1 = p.locator('.steps button[data-step="1"]').bounding_box()
     r.glide(1300, 700, b1["x"] + 60, b1["y"] + 15, 0.6)
     p.locator('.steps button[data-step="1"]').click()
-    r.mark("12 days later, after the first autumn rain, a normal change map flags all of this.")
+    r.mark("12 days later, after the first autumn rain, a normal change map flags all of this as 'changed'.")
     r.wait(4.2)
     b2 = p.locator('.steps button[data-step="2"]').bounding_box()
     r.glide(b1["x"] + 60, b1["y"] + 15, b2["x"] + 60, b2["y"] + 15, 0.5)
     p.locator('.steps button[data-step="2"]').click()
-    r.mark("The filter: wet soil can only brighten radar. Blue could be the weather. Amber can't: it really changed.")
+    r.mark("The filter: wet soil only looks brighter. Blue could be just the rain. Orange: something really changed.")
     r.wait(4.2)
     # 2 - the problem, measured
     p.evaluate("window.scrollTo({top: document.querySelector('#problem').offsetTop - 40, behavior: 'smooth'})")
@@ -92,11 +92,11 @@ def record():
     # 5 - Ceyhan: where to look first
     p.evaluate("window.scrollTo({top: document.querySelector('#ceyhan').offsetTop - 20, behavior: 'smooth'})")
     r.mark("In my home region, the fields the rain can't explain, listed with their villages.")
-    r.wait(3.6)
+    r.wait(3.0)
     # 6 - predictions
     p.evaluate("window.scrollTo({top: document.querySelector('#predictions').offsetTop - 20, behavior: 'smooth'})")
     r.mark("And predictions for the next three passes, locked before NASA released the data. They score themselves.")
-    r.wait(4.2)
+    r.wait(3.4)
     return r.stop()
 
 
@@ -132,7 +132,7 @@ def main():
     intro = card("intro", os.path.join(HERE, "frames", "_intro.png"))
     outro = card("outro", os.path.join(HERE, "frames", "_outro.png"))
     n = 0
-    for _ in range(int(2.5 * FPS)):
+    for _ in range(int(4.5 * FPS)):
         w.append_data(intro); n += 1
     j, cache = 0, {}
     t = frames[0][0]

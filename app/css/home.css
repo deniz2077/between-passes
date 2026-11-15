@@ -278,3 +278,12 @@ main { position: relative; z-index: 1; }
 .legend { opacity: 1 !important; }
 .sw.white { background: #f5f3ec; }
 .fine { display: block; color: var(--dim); margin-top: 4px; }
+
+.hero-points { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; max-width: 34em; }
+.hero-points li { position: relative; padding-left: 26px; font-size: 17px; line-height: 1.5; color: var(--soft); }
+.hero-points li::before { content: ""; position: absolute; left: 0; top: 10px; width: 12px; height: 2px; background: var(--beyond); }
+.hero-points b { color: var(--text); font-weight: 600; display: block; font-size: 18.5px; }
+@media (max-width: 520px) { .hero-points li { font-size: 16px; } .hero-points b { font-size: 17px; } }
+
+.hero-who { margin: 18px 0 0; font-size: 15px; color: var(--muted); max-width: 34em; }
+.hero-who b { color: var(--beyond); font-weight: 600; margin-right: 4px; }

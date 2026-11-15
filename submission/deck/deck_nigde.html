@@ -46,7 +46,7 @@
     <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
     <h1>Rain fools radar.</h1>
     <p class="sub">Between Passes shows what really changed.</p>
-    <p class="lead" style="margin-top:40px;font-size:34px">A weather filter for NASA-ISRO NISAR radar change maps, using NASA SMAP soil moisture and NASA POWER rain.</p>
+    <p class="lead" style="margin-top:36px;font-size:30px">Satellites find floods, harvests and cut-down forests by comparing two pictures of the same place. But rain fools them: after a rainy week, whole regions look "changed" when nothing happened. <b>Between Passes sorts out those false alarms</b>, with NASA NISAR, SMAP and POWER data.</p>
     <p style="margin-top:44px;font-size:27px;color:var(--muted)">Team <b>Dusk Orbit</b> · Deniz Efe Bulut · Niğde, Türkiye</p>
     <p class="mono" style="margin-top:8px;font-size:24px;color:var(--text)">deniz2077.github.io/between-passes</p>
   </div>
@@ -60,9 +60,9 @@
   <h2>Radar sees through cloud. Not through weather.</h2>
   <p class="lead">Comparing two radar passes is how the world spots floods, harvests, cleared forest and damage. But wet soil looks brighter to radar and dry soil darker, so change maps fill up with weather.</p>
   <div class="row3" style="margin-top:56px">
-    <div class="card"><div class="t">Soil got wetter or drier</div><div class="n b">5.0%</div><p>of the land looked "changed" (median, 45 random places)</p></div>
-    <div class="card"><div class="t">Soil stayed the same</div><div class="n">0.18%</div><p>of the land looked "changed" (median, 63 random places)</p></div>
-    <div class="card" style="border-color:var(--beyond)"><div class="t">The difference</div><div class="n b">28×</div><p>more false-looking change. Where the soil moved, <b>85%</b> of it could be the weather alone.</p></div>
+    <div class="card"><div class="t">Soil got wetter or drier</div><div class="n b">5.0%</div><p>of the land looked "changed" (typical place, 45 random places)</p></div>
+    <div class="card"><div class="t">Soil stayed the same</div><div class="n">0.18%</div><p>of the land looked "changed" (typical place, 63 random places)</p></div>
+    <div class="card" style="border-color:var(--beyond)"><div class="t">The difference</div><div class="n b">28×</div><p>more false-looking change. Where the soil got wetter or drier, <b>85%</b> of it could be just the weather.</p></div>
   </div>
   <p class="fn">147 random NISAR L2 GCOV repeat pairs (12 days apart) · changed = ≥ 3 dB · NASA SMAP SPL3SMP_E soil moisture, same days · wetter/drier ≥ 0.05 m³/m³, same ≤ 0.02</p>
   <div class="foot"><span>Between Passes · Dusk Orbit</span><span>2 / 10</span></div>
@@ -76,7 +76,7 @@
   <div class="row3" style="margin-top:26px;gap:24px">
     <p style="font-size:27px"><b>1 · Measure.</b> Two NISAR passes over Ceyhan, Türkiye, 12 days apart. A normal change map flags everything (white).</p>
     <p style="font-size:27px"><b>2 · Ask the weather.</b> NASA SMAP: the soil got wetter after the first autumn rain (0.16 → 0.36 m³/m³).</p>
-    <p style="font-size:27px"><b>3 · Sort.</b> Brightening <span class="w">could be the weather</span> (88%). Darkening can't: <span class="b">something really changed</span> (12%).</p>
+    <p style="font-size:27px"><b>3 · Sort.</b> Fields that got brighter <span class="w">could be just the rain</span> (blue, 88%). Darker ones can't: <span class="b">something really changed</span> (orange, 12%).</p>
   </div>
   <p class="fn" style="bottom:84px">Rules committed to GitHub before running them on any place (research/filter/WEATHER_FILTER.md).</p>
   <div class="foot"><span>Between Passes · Dusk Orbit</span><span>3 / 10</span></div>
@@ -87,7 +87,7 @@
   <div>
     <p class="k"><b>03</b>It scales</p>
     <h2 style="font-size:64px">148 places in 39 countries. Click any of them.</h2>
-    <div style="margin:10px 0 26px"><span class="chip"><i class="sw" style="background:var(--beyond)"></i>Real change beyond the weather<b>41</b></span><span class="chip"><i class="sw" style="background:var(--weather)"></i>Mostly the weather<b>27</b></span><span class="chip"><i class="sw" style="background:#5d626b"></i>Quiet<b>80</b></span></div>
+    <div style="margin:10px 0 26px"><span class="chip"><i class="sw" style="background:var(--beyond)"></i>Something really changed<b>41</b></span><span class="chip"><i class="sw" style="background:var(--weather)"></i>Mostly just the weather<b>27</b></span><span class="chip"><i class="sw" style="background:#5d626b"></i>Quiet<b>80</b></span></div>
     <img class="shot" src="../shots/n_map.png" style="width:92%">
     <p style="font-size:24px;margin-top:14px;max-width:1000px">One command runs it on <b>any place NISAR has flown</b>. Right: western Kansas, run today. 50 mm of rain made <b>a third of the land</b> look "changed"; all of it went the way the soil moisture did.</p>
   </div>
@@ -116,7 +116,7 @@
   <div>
     <p class="k"><b>05</b>The proof</p>
     <h2 style="font-size:70px">Tested worldwide. Then predicted before the data existed.</h2>
-    <p style="font-size:30px">With the test rules committed first, NISAR change followed SMAP soil-moisture change at <b>74 random sites</b> (ρ = 0.58, p &lt; 0.001), and again at <b>73 new ones</b> (ρ = 0.55).</p>
+    <p style="font-size:30px">With the rules written down first, NISAR's change followed SMAP's soil-moisture change at <b>74 random places</b>, and again at <b>73 new ones</b>: a strong link, with less than a 1-in-1,000 chance of being luck (ρ = 0.58 and 0.55).</p>
     <p style="font-size:30px;margin-top:22px">If Ceyhan's bright fields were wet soil, they will fade as it dries. I locked what <b>three upcoming NISAR passes</b> will show on GitHub <b>before NASA released the data</b>. The app scores them automatically, whatever they say.</p>
   </div>
   <div style="padding-top:20px"><img class="shot" src="../shots/n_board.png" style="width:100%"></div>
