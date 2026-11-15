@@ -274,8 +274,21 @@ function themes() {
   });
 }
 
+function scrollspy() {
+  const links = [...document.querySelectorAll('.nav nav a[href^="#"]')];
+  const secs = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const upd = () => {
+    const y = scrollY + 140;
+    let cur = secs[0];
+    for (const s of secs) if (s.id !== "top" && s.getBoundingClientRect().top + scrollY <= y) cur = s;
+    links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + cur.id));
+  };
+  addEventListener("scroll", upd, { passive: true }); upd();
+}
+
 async function init() {
   themes();
+  scrollspy();
   $("#copy").addEventListener("click", async (e) => { try { await navigator.clipboard.writeText($("#cmd").textContent); e.target.textContent = "Copied"; } catch { e.target.textContent = "Select and copy"; } });
   const j = (u) => fetch(u).then((r) => r.ok ? r.json() : null).catch(() => null);
   const [C, hero, S, land] = await Promise.all([j("data/ceyhan/case.json"), j("img/hero/hero.json"), j("data/sites/sites.json"), j("data/global/land.json")]);
