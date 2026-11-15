@@ -16,11 +16,13 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 PARTS = [
     ("Overview", "README.md"),
+    ("The weather filter: rules fixed first", "research/filter/WEATHER_FILTER.md"),
     ("Method", "docs/METHOD.md"),
     ("Global test — results", "research/global/RESULTS.md"),
     ("Next-pass prediction", "research/prediction/PREDICTION.md"),
     ("Prediction 2: two other orbits", "research/prediction/PREDICTION2.md"),
     ("Limitations", "docs/LIMITATIONS.md"),
+    ("Reproduce", "docs/REPRODUCE.md"),
     ("Data provenance", "DATA_PROVENANCE.md"),
     ("Use of AI", "docs/AI_USE.md"),
 ]
@@ -50,8 +52,9 @@ a { color: #0b7f95; word-break: break-all; }
 
 def md(path):
     txt = open(os.path.join(ROOT, path), encoding="utf-8").read()
-    # links to repo files -> GitHub
-    txt = re.sub(r"\]\((?!https?://)([^)#]+)\)", lambda m: f"](https://github.com/deniz2077/between-passes/blob/main/{m.group(1)})", txt)
+    # images -> local files; links to repo files -> GitHub
+    txt = re.sub(r"!\[([^\]]*)\]\((?!https?://)([^)]+)\)", lambda m: f"![{m.group(1)}](file://{ROOT}/{m.group(2)})", txt)
+    txt = re.sub(r"\]\((?!https?://|file://)([^)#]+)\)", lambda m: f"](https://github.com/deniz2077/between-passes/blob/main/{m.group(1)})", txt)
     return markdown.markdown(txt, extensions=["tables", "fenced_code"])
 
 
@@ -61,8 +64,9 @@ def main():
             f"<style>{CSS}</style></head><body>"]
     html.append(f"""<section class='cover'><div class='k'>NASA Space Apps Challenge 2026 · Dancing with the SARs · Project Documentation</div>
       <h1>Between Passes</h1>
-      <p>A radar evidence lab on NASA-ISRO NISAR data: what changed in the fields of Ceyhan (Adana, Türkiye) between two passes, why — tested worldwide on randomly drawn NISAR sites against NASA SMAP — and a falsifiable prediction for the next pass.</p>
-      <img src='file://{ROOT}/app/img/ceyhan_change.jpg'>
+      <p style='font-size:20pt;font-weight:600;margin:0'>Rain fools radar.</p><p style='font-size:16pt;color:#b37a00;margin:2pt 0 12pt'>Between Passes shows what really changed.</p>
+      <p>A weather filter for NASA-ISRO NISAR radar change maps. It checks every change against NASA SMAP soil moisture and NASA POWER rain, and highlights the changes the weather cannot explain: 148 places in 39 countries, a command for any place NISAR has flown, a close-up of Ceyhan (Adana, Türkiye), and predictions locked before NASA released the data.</p>
+      <img src='file://{ROOT}/app/img/readme_filter.jpg'>
       <div class='meta'>Team Dusk Orbit · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
       Live app: https://deniz2077.github.io/between-passes/<br>Code &amp; data: https://github.com/deniz2077/between-passes</div></section>""")
     for title, path in PARTS:

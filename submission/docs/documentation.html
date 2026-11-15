@@ -20,42 +20,50 @@ a { color: #0b7f95; word-break: break-all; }
 .meta { font: 9.5pt "IBM Plex Mono", monospace; color: #555; margin-top: 18pt; line-height: 1.7; }
 </style></head><body><section class='cover'><div class='k'>NASA Space Apps Challenge 2026 · Dancing with the SARs · Project Documentation</div>
       <h1>Between Passes</h1>
-      <p>A radar evidence lab on NASA-ISRO NISAR data: what changed in the fields of Ceyhan (Adana, Türkiye) between two passes, why — tested worldwide on randomly drawn NISAR sites against NASA SMAP — and a falsifiable prediction for the next pass.</p>
-      <img src='file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/ceyhan_change.jpg'>
+      <p style='font-size:20pt;font-weight:600;margin:0'>Rain fools radar.</p><p style='font-size:16pt;color:#b37a00;margin:2pt 0 12pt'>Between Passes shows what really changed.</p>
+      <p>A weather filter for NASA-ISRO NISAR radar change maps. It checks every change against NASA SMAP soil moisture and NASA POWER rain, and highlights the changes the weather cannot explain: 148 places in 39 countries, a command for any place NISAR has flown, a close-up of Ceyhan (Adana, Türkiye), and predictions locked before NASA released the data.</p>
+      <img src='file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/readme_filter.jpg'>
       <div class='meta'>Team Dusk Orbit · Deniz Efe Bulut (solo) · Niğde Local Event, Türkiye<br>
       Live app: https://deniz2077.github.io/between-passes/<br>Code &amp; data: https://github.com/deniz2077/between-passes</div></section><section class='part'><h1 class='ptitle'>Overview</h1><h1>Between Passes</h1>
-<p><strong>Can a radar satellite tell, from space, whether farmland got wetter or drier?</strong></p>
-<p>NASA and ISRO's new <strong>NISAR</strong> satellite sees the ground through cloud and darkness, passing over the same place every 12 days. I used it to answer one question about my home region in southern Türkiye, then tested the answer at random places around the world.</p>
-<p><strong><a href="https://deniz2077.github.io/between-passes/">Open the live app →</a></strong>   ·   <a href="https://deniz2077.github.io/between-passes/world.html">Worldwide test</a>   ·   <a href="https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf">7-slide demo</a>   ·   <a href="https://deniz2077.github.io/between-passes/tr.html">Türkçe</a></p>
-<p><img alt="Farmland near Ceyhan seen by NISAR. Orange fields got brighter between 22 Oct and 3 Nov 2026, blue fields got darker." src="https://github.com/deniz2077/between-passes/blob/main/app/img/ceyhan_change.jpg" /></p>
+<p><strong>Rain fools radar. Between Passes shows what really changed.</strong></p>
+<p>NASA and ISRO's new <strong>NISAR</strong> satellite maps the ground through cloud and darkness every 12 days. Comparing two passes shows what changed: floods, harvests, cleared forest, new buildings. But wet soil looks brighter to radar and dry soil darker, so change maps fill up with weather.</p>
+<p>Between Passes checks every NISAR change against NASA's soil-moisture and rain data, and highlights the changes the weather can't explain.</p>
+<p><strong><a href="https://deniz2077.github.io/between-passes/">Open the live app →</a></strong>   ·   <a href="https://deniz2077.github.io/between-passes/lab.html">Ceyhan lab</a>   ·   <a href="https://deniz2077.github.io/between-passes/world.html">Worldwide test</a>   ·   <a href="https://deniz2077.github.io/between-passes/demo/Between_Passes_NASA_demo.pdf">7-slide demo</a>   ·   <a href="https://deniz2077.github.io/between-passes/tr.html">Türkçe</a></p>
+<p><img alt="The filter on real NISAR radar over Ceyhan, Türkiye: blue changes could be the weather, amber changes are beyond it." src="file:///Users/deniz/Documents/NASA INTL SPACE APPS/app/img/readme_filter.jpg" /></p>
 <p><em>NASA Space Apps Challenge 2026 · Dancing with the SARs · Team Dusk Orbit (Deniz Efe Bulut) · Niğde Local Event</em></p>
 <hr />
-<h2>What I found</h2>
-<p><strong>1. Something changed.</strong> Between two passes, on 22 October and 3 November 2026, seven times more farmland around Ceyhan lit up on radar than went dark. The town centre, which should not change, stayed the same. So the change is real.</p>
-<p><strong>2. Most likely, wet soil.</strong> I checked three more NASA datasets. An optical satellite shows most of those fields kept their plants, so it wasn't mainly the harvest. The first big autumn rain fell between the passes. And NASA's soil-moisture satellite saw the soil there more than double in water.</p>
-<p><strong>3. It holds around the world.</strong> I picked 200 random places NISAR had seen twice, and wrote the rules of the test down before looking at any data. At the places with good soil data, when the soil got wetter or drier, the radar usually changed with it. Then I repeated the whole test on 200 new places. Same answer.</p>
-<p><strong>4. Three more passes will check it.</strong> If the fields lit up because the soil was wet, they will go dark again as it dries. If they were ploughed, they will stay bright. NISAR passes over Ceyhan on three different orbits, and for each one I published what it will show <strong>before NASA released the data</strong>: two passes on 10 November, seen from other angles after the soil had dried, and one on 15 November. The results will appear on the live app, scored by code saved with each prediction.</p>
-<h2>What you can do in the app</h2>
+<h2>The problem, measured</h2>
+<p>At 147 random places NISAR passed over twice, <strong>28 times more land looked "changed"</strong> where the soil got wetter or drier than where it stayed the same (median 5.0% against 0.18% of the land, NASA SMAP soil moisture). Where the soil moved, <strong>85%</strong> of that "change" could be the weather alone.</p>
+<h2>How the filter works</h2>
+<ol>
+<li><strong>Measure.</strong> Two NISAR passes, 12 days apart, from the identical orbit. Everything that changed by 3 dB or more is flagged.</li>
+<li><strong>Ask the weather.</strong> NASA SMAP measures how wet the soil was on both days; NASA POWER gives the rain in between.</li>
+<li><strong>Sort.</strong> Wetter soil can only make radar brighter, drier soil only darker. A change that matches the weather <em>could be the weather</em>. A change that goes against it can't be: <strong>something really changed there</strong>.</li>
+</ol>
+<p>The rules were <a href="https://github.com/deniz2077/between-passes/blob/main/research/filter/WEATHER_FILTER.md">committed before running them on any place</a>.</p>
+<h2>What it found</h2>
 <ul>
-<li>Swipe between the two passes.</li>
-<li>Tap any field to see what changed and why.</li>
-<li>Draw your own field and measure it.</li>
-<li>Explore every site of the worldwide test.</li>
-<li>Read a plain-language summary in Turkish, for local farmers.</li>
+<li><strong>148 places, 39 countries.</strong> 41 show real change beyond the weather, 27 are mostly weather, 80 are quiet. Every place has its own card: drag between the two passes, switch the filter on, share the link.</li>
+<li><strong>Ceyhan, my home region.</strong> The first autumn rain fell between the passes and SMAP saw the soil more than double in water. 508 fields got brighter (could be the weather; an optical satellite shows only 9% lost their plants). 128 fields got darker, which wetter soil can't do. The app lists them, largest first, with the nearest village: <strong>where to look first</strong>.</li>
+<li><strong>The physics is tested.</strong> With rules written before looking, NISAR change followed SMAP soil-moisture change at 74 random sites (ρ = 0.58, p &lt; 0.001), and again at 73 new ones (ρ = 0.55).</li>
 </ul>
-<p>Every number is checked again in your browser each time the page opens.</p>
+<h2>The proof: predictions made before the data existed</h2>
+<p>If Ceyhan's bright fields were wet soil, they will fade as it dries; if ploughed, they will stay bright. I published what three upcoming NISAR passes will show, <strong>before NASA released any of that data</strong>. The app scores them automatically as the data arrive, whatever the result.</p>
+<h2>Run it on any place</h2>
+<pre><code class="language-bash">python scripts/bp_check.py --lat 38.50 --lon -98.50 --name &quot;Kansas, USA&quot;
+</code></pre>
+<p>Finds two NISAR passes over the point, reads only the needed part of each file, asks SMAP and POWER about the weather, and writes the filtered change map and a report. Needs a free NASA Earthdata account (<a href="https://github.com/deniz2077/between-passes/blob/main/docs/REPRODUCE.md">setup</a>).</p>
 <h2>The data</h2>
-<p>All from NASA, all public:</p>
 <table>
 <thead>
 <tr>
-<th>Dataset</th>
-<th>What it tells us</th>
+<th>NASA dataset</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>NISAR</strong> radar (NASA and ISRO)</td>
+<td><strong>NISAR</strong> L2 GCOV radar (NASA–ISRO)</td>
 <td>What changed on the ground</td>
 </tr>
 <tr>
@@ -63,12 +71,12 @@ a { color: #0b7f95; word-break: break-all; }
 <td>Whether the soil got wetter or drier</td>
 </tr>
 <tr>
-<td><strong>HLS</strong> optical imagery</td>
-<td>Whether plants were removed</td>
+<td><strong>POWER</strong> weather</td>
+<td>How much it rained in between</td>
 </tr>
 <tr>
-<td><strong>POWER</strong> weather</td>
-<td>When it rained</td>
+<td><strong>HLS</strong> optical imagery</td>
+<td>Whether plants were removed (Ceyhan)</td>
 </tr>
 </tbody>
 </table>
@@ -82,8 +90,12 @@ a { color: #0b7f95; word-break: break-all; }
 </thead>
 <tbody>
 <tr>
+<td><a href="https://github.com/deniz2077/between-passes/blob/main/research/filter/WEATHER_FILTER.md">The filter's rules</a></td>
+<td>Fixed before computing · <a href="https://github.com/deniz2077/between-passes/blob/main/research/filter/results.json">results</a></td>
+</tr>
+<tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/docs/METHOD.md">How it works</a></td>
-<td>Every step, in detail</td>
+<td>Every step in detail</td>
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/docs/LIMITATIONS.md">What I don't claim</a></td>
@@ -91,11 +103,11 @@ a { color: #0b7f95; word-break: break-all; }
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/research/global/RESULTS.md">The worldwide test</a></td>
-<td>Results, written before and after</td>
+<td>Pre-registered, repeated</td>
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION2.md">The predictions</a></td>
-<td>Three checks, locked before NASA released the data (<a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md">first one</a>)</td>
+<td>Locked before NASA released the data (<a href="https://github.com/deniz2077/between-passes/blob/main/research/prediction/PREDICTION.md">first one</a>)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/deniz2077/between-passes/blob/main/docs/REPRODUCE.md">Reproduce it</a></td>
@@ -112,10 +124,45 @@ a { color: #0b7f95; word-break: break-all; }
 </tbody>
 </table>
 <h2>AI use</h2>
-<p>AI assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by me. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.</p>
-<p>Full details: <a href="https://github.com/deniz2077/between-passes/blob/main/docs/AI_USE.md">docs/AI_USE.md</a>.</p>
+<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests and in the browser. No AI-generated imagery. Details: <a href="https://github.com/deniz2077/between-passes/blob/main/docs/AI_USE.md">docs/AI_USE.md</a>.</p>
 <hr />
-<p>Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors. Not an official NASA or ISRO product.</p></section><section class='part'><h1 class='ptitle'>Method</h1><h1>Method — Between Passes</h1>
+<p>Code: MIT license. Data remain under their providers' terms. Map context © OpenStreetMap contributors; land and country outlines from Natural Earth. Not an official NASA or ISRO product.</p></section><section class='part'><h1 class='ptitle'>The weather filter: rules fixed first</h1><h1>The weather filter: rules fixed before computing</h1>
+<p>Written and committed on 15 Nov 2026 (~11:45 TRT), before any per-pixel filter result was computed for the worldwide sites. The site-level numbers it uses (NISAR ΔHH, SMAP ΔSM) already exist from the pre-registered test; the per-pixel classification below does not.</p>
+<h2>Why</h2>
+<p>Radar change maps are how satellites watch the ground through cloud. But wet soil looks brighter to L-band radar and dry soil darker, so rain and drying make change maps light up with change that is only weather. In the worldwide test, at sites where SMAP soil moisture changed by at least 0.05 m³/m³, a median 5.1 % of the land changed by ≥ 3 dB, against 0.18 % at sites where it changed by ≤ 0.02 m³/m³ (147 sites, original + replication).</p>
+<p>The physics gives the filter its rule: <strong>wetting can only brighten, drying can only darken.</strong> A change that goes against the soil-moisture change cannot be explained by it.</p>
+<h2>Inputs (per site, already measured)</h2>
+<ul>
+<li>NISAR L2 GCOV HH, two passes on the same track 12 days apart, same 10 × 10 km window and validity rules as the worldwide test.</li>
+<li>NASA SMAP soil-moisture change ΔSM for the same days (pre-registered rule; Ceyhan uses its labelled exploratory ±2-day value).</li>
+</ul>
+<h2>Rules</h2>
+<ol>
+<li><strong>Weather signal.</strong> ΔSM ≥ +0.05 → soil got <em>wetter</em>; ΔSM ≤ −0.05 → <em>drier</em>; otherwise <em>steady</em>.</li>
+<li><strong>Changed land.</strong> After the 5 × 5 linear boxcar (as in the test), pixels with ΔHH ≥ +3 dB (brighter) or ≤ −3 dB (darker). 3 dB is the threshold used for the Ceyhan change objects.</li>
+<li><strong>Each changed pixel</strong> is</li>
+<li><em>could be the weather</em> if the soil got wetter and the pixel got brighter, or the soil got drier and the pixel got darker;</li>
+<li><em>beyond the weather</em> otherwise, including every changed pixel where the soil was steady.</li>
+<li><strong>Site verdict.</strong></li>
+<li>Changed land &lt; 1 % of valid pixels → <strong>Quiet</strong>.</li>
+<li>Else, soil wetter or drier and ≥ 2/3 of the changed land <em>could be the weather</em> → <strong>Mostly the weather</strong>.</li>
+<li>Else → <strong>Real change beyond the weather</strong>.</li>
+<li><strong>Expected shift (context only).</strong> The pre-registered fit (+1.02 dB per +0.1 m³/m³, intercept −0.13 dB) gives the site-wide change the soil moisture alone would predict; it is shown next to the measured change, not used in the verdict.</li>
+</ol>
+<h2>What it is and is not</h2>
+<ul>
+<li>A <strong>screening filter</strong>: it tells you which changes the weather cannot explain, so you know where to look. It does not say what the real change was (harvest, ploughing, flooding, building, fire, wind on water…).</li>
+<li>"Could be the weather" is not proof of weather. Ceyhan's brightened fields are in this group; the three locked predictions test them.</li>
+<li>SMAP sees 9 km cells; a local shower inside a "steady" cell would show as "beyond the weather". Vegetation growth, freezing and wind on water also change radar.</li>
+<li>Thresholds (0.05 m³/m³, 3 dB, 1 %, 2/3) are choices made here, before computing; they are not tuned.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Method</h1><h1>Method — Between Passes</h1>
+<h2>0. The weather filter (the product)</h2>
+<p>Rules: <code>research/filter/WEATHER_FILTER.md</code> (committed before computing). Code: <code>scripts/build_sites.py</code> (all sites), <code>scripts/bp_check.py</code> (any point).
+1. For each place: two NISAR L2 GCOV passes on the same track and frame (identical grid), 10 × 10 km window, the validity rules below, 5 × 5 linear boxcar, ΔHH in dB.
+2. NASA SMAP L3 Enhanced soil moisture for both days (overpass nearest the NISAR local time, recommended quality, ±1 day) → soil <em>wetter</em> (ΔSM ≥ +0.05), <em>drier</em> (≤ −0.05) or <em>steady</em>.
+3. Changed land: |ΔHH| ≥ 3 dB. A changed pixel <em>could be the weather</em> if it moved the way the soil moisture did (wetter → brighter, drier → darker); otherwise it is <em>beyond the weather</em> (all changes where the soil was steady).
+4. Verdict: changed land &lt; 1 % → quiet; soil moved and ≥ 2/3 of changed land could be weather → mostly the weather; otherwise → real change beyond the weather.
+5. Result over the 147 worldwide-test sites (<code>research/filter/results.json</code>): median changed land 5.0 % where the soil moved (n = 45) vs 0.18 % where it was steady (n = 63), 28×; pooled, 84.5 % of changed land where the soil moved could be weather. Verdicts: 41 beyond, 26 weather, 80 quiet. Ceyhan (exploratory SMAP): mostly the weather, 88 %.</p>
 <h2>Question</h2>
 <p>Between NISAR's passes on 22 Oct and 3 Nov 2026 — an interval that included the area's first significant autumn rain — which fields around Ceyhan (Adana, Türkiye) changed in L-band HH backscatter beyond a stable urban control, and what physical explanations remain possible?</p>
 <h2>1. Data selection</h2>
@@ -363,7 +410,46 @@ The git commit on GitHub is the timestamp. Machine-readable lock: <code>predicti
 <li>Prediction 2 carries the track-151 field outlines onto the other orbits' grids by position (nearest 20 m pixel). Alignment was checked before locking (best match at zero shift), but edges of small fields can shift by a pixel.</li>
 <li>NASA's frame-level radio-interference flag is high for both 29 Oct passes. The Ceyhan window shows no visible interference and a clean quality mask; the town-centre check would flag a problem.</li>
 <li>A confirmed prediction supports wet soil as the main cause <em>overall</em>; it still cannot prove the cause for any single field.</li>
-</ul></section><section class='part'><h1 class='ptitle'>Data provenance</h1><h1>Data provenance</h1>
+</ul>
+<h2>The weather filter</h2>
+<ul>
+<li>It is a <strong>screening filter</strong>: it says which changes the weather cannot explain, not what the real change was (harvest, ploughing, flooding, building, fire, wind on water…).</li>
+<li>"Could be the weather" is not proof of weather. Ceyhan's brightened fields fall in this group; the predictions test them.</li>
+<li>SMAP measures 9 km cells and the top ~5 cm of soil. A local shower inside a "steady" cell shows up as "beyond the weather".</li>
+<li>Vegetation growth, freezing and wind over water also change radar; the filter does not model them.</li>
+<li>Site cards use one 10 km window per place, picked at random; many places are not farmland.</li>
+<li>Thresholds (0.05 m³/m³, 3 dB, 1 %, 2/3) are choices fixed before computing, not tuned.</li>
+<li>The demonstration places run with <code>bp_check.py</code> were chosen by name (farming regions), not at random, and are not part of any statistical test.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Reproduce</h1><h1>Reproduce everything</h1>
+<p>All numbers in Between Passes come from public NASA data and the code in this repository. Same code and same random seeds give the same numbers.</p>
+<h2>Run the app locally</h2>
+<pre><code class="language-bash">python3 scripts/serve.py 8765        # then open http://localhost:8765
+</code></pre>
+<p>No login, API key or build step. All case data are frozen in <code>app/data/ceyhan/</code>.</p>
+<h2>Rebuild the data</h2>
+<pre><code class="language-bash">python3 -m venv .venv &amp;&amp; .venv/bin/pip install numpy h5py rasterio scipy requests pytest
+python3 scripts/setup_earthdata_netrc.py              # your own free NASA Earthdata Login
+.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_033_151_D_070_2005_DHDH_A_20261022T162402_20261022T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
+.venv/bin/python scripts/extract_window.py NISAR_L2_PR_GCOV_034_151_D_070_2005_DHDH_A_20261103T162403_20261103T162437_P05036_N_F_J_001 35.85 37.0 12 data/raw/win_A
+.venv/bin/python scripts/extract_hls.py
+.venv/bin/python scripts/build_case.py
+.venv/bin/python -m pytest tests
+</code></pre>
+<p>Global test (same seed → same sites and numbers):</p>
+<pre><code class="language-bash">.venv/bin/python scripts/global_scan.py sample &amp;&amp; .venv/bin/python scripts/global_scan.py nisar 8
+.venv/bin/python scripts/global_scan.py smap 4 &amp;&amp; .venv/bin/python scripts/global_scan.py power
+.venv/bin/python scripts/global_analyze.py &amp;&amp; .venv/bin/python scripts/global_export.py
+</code></pre>
+<p><code>extract_window.py</code> reads only the needed HDF5 chunks over HTTP byte ranges (~70 MB of 1.9 GB per granule).</p>
+<h2>The weather filter</h2>
+<pre><code class="language-bash">.venv/bin/python scripts/fetch_site_windows.py 10      # re-reads the 147 test-site windows (needs Earthdata Login)
+.venv/bin/python scripts/build_sites.py                # applies the fixed rules, writes app/data/sites/
+.venv/bin/python scripts/build_hero.py                 # front-page images from the Ceyhan layers
+</code></pre>
+<h2>Run it on any place</h2>
+<pre><code class="language-bash">.venv/bin/python scripts/bp_check.py --lat 38.75 --lon -101.33 --name &quot;Western Kansas, USA&quot;
+</code></pre>
+<p>Writes <code>results/&lt;name&gt;/</code> with before/after images, the filtered change map, <code>report.json</code> and <code>report.md</code>. It needs two NISAR passes on the same track and frame over the point, at least half of the 10 km window valid, and quality-approved SMAP soil moisture within a day of both passes; otherwise it stops and says why. <code>scripts/find_check_points.py west south east north</code> lists frame centres with repeat passes inside a region.</p></section><section class='part'><h1 class='ptitle'>Data provenance</h1><h1>Data provenance</h1>
 <h2>NASA NISAR — L2 GCOV, VALIDATED (primary)</h2>
 <ul>
 <li>Collection: <code>NISAR_L2_GCOV_V1</code> v1, CMR concept <code>C3622241360-ASF</code>, DOI 10.5067/NIL2GCOV-V1, ASF DAAC. Free and open; NASA ESDIS data use &amp; citation guidance.</li>
@@ -410,13 +496,19 @@ The git commit on GitHub is the timestamp. Machine-readable lock: <code>predicti
 <li>Same 24 × 24 km window centre (35.85E, 37.0N), extracted with <code>scripts/extract_window.py</code> into <code>data/raw/win_079/</code> and <code>data/raw/win_071/</code> (not committed; SHA-256 of each HH layer in <code>research/prediction/prediction2.json</code>).</li>
 <li>Frame-level <code>rfiLikelihood</code> (HH): 4.0e10 (079) and 5.6e4 (071); data-quality exception mask 768 everywhere in the window.</li>
 <li>The 10 Nov partner granules (cycle 035) were not yet in NASA CMR at lock time; <code>scripts/predict_two_orbits.py score</code> extracts them identically.</li>
-</ul></section><section class='part'><h1 class='ptitle'>Use of AI</h1><h1>Use of AI (Super Intelligence) tools</h1>
+</ul>
+<h2>The weather filter</h2>
+<ul>
+<li>Rules: <code>research/filter/WEATHER_FILTER.md</code> (commit 2365a8e, before computing). Results: <code>research/filter/results.json</code>, app data <code>app/data/sites/</code> (SHA-256 of <code>sites.json</code> recorded in the results).</li>
+<li>Site windows re-read from the same NISAR granules as the worldwide test (<code>scripts/fetch_site_windows.py</code>); site-wide ΔHH matches the published values within 0.001 dB.</li>
+<li>Country names: Natural Earth 1:50m admin-0 (public domain) via <code>world-atlas@2.0.2</code> (<code>data/context/ne/countries-50m.json</code>).</li>
+<li>Demonstration places: <code>scripts/bp_check.py</code> reads NISAR (CMR + HTTP range), SMAP SPL3SMP_E v006 (CMR + HTTP range) and NASA POWER live; outputs in <code>app/data/checks/</code>.</li>
+</ul></section><section class='part'><h1 class='ptitle'>Use of AI</h1><h1>Use of AI</h1>
 <p><strong>Tool:</strong> Claude Code (Anthropic), used as a development assistant during the hackathon (14–15 Nov 2026).</p>
-<p><strong>Human decisions (participant):</strong> choice of challenge, hometown study area (Adana / Ceyhan), the research question and its approval, the decision to stay on NISAR rather than switch challenges, data-access login, review of results, and all submission decisions.</p>
-<p><strong>AI-assisted:</strong> writing and refactoring Python data-access and analysis code, the web application code, tests, documentation drafts and sprint-report drafts; running analyses and checks in the development environment; literature/documentation lookup.</p>
-<p><strong>AI-proposed, participant-approved:</strong> the AI assistant proposed the global NASA SMAP test, its pre-registration, the independent replication and the falsifiable next-pass predictions (including the second, two-orbit prediction) after the participant asked to scale the project and find a headline answer; it also created the public GitHub repository, deploy key and GitHub Pages site at the participant's request (the participant signed in himself).</p>
-<p><strong>Not AI-generated:</strong> all scientific numbers come from NASA data processed by the code in this repository and are verified by tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap.</p>
-<p><strong>Suggested submission text:</strong></p>
+<p><strong>Deniz Efe Bulut (participant):</strong> conceived the core project idea, the research question, the choice of location (Ceyhan, Adana) and the overall project direction. Every key decision is mine, including reviewing, approving and formally adopting the methodology, the locked predictions and the product framing ("Rain fools radar. Between Passes shows what really changed.") as part of the project.</p>
+<p><strong>AI (Claude Code):</strong> handled the coding, data analysis and document drafting, and proposed the statistical tests (the worldwide test, its pre-registration and replication), the prediction framework, and the weather-filter framing, which I evaluated and approved. It also set up the public GitHub repository, its deploy key and the GitHub Pages site at my request (I signed in myself).</p>
+<p><strong>Not AI-generated:</strong> every scientific number comes from NASA data processed by the code in this repository and is checked by automated tests and an in-browser integrity check. No AI-generated images, video, audio or NASA branding are used. Map context is from OpenStreetMap and Natural Earth.</p>
+<p><strong>Short version (for forms):</strong></p>
 <blockquote>
-<p>AI assisted with software development, data-processing code and documentation. The research question, study area and project decisions were made by me. All numbers are computed from NASA data by the code in this repository and are re-verified by tests and in the browser. No AI-generated imagery is used.</p>
+<p>The project idea, research question, study area and every key decision are mine. AI (Claude Code) did the coding, data analysis and document drafting, and proposed the statistical tests, the prediction framework and the weather-filter framing, which I evaluated and adopted. All numbers are computed from NASA data by the code in this repository and checked by tests. No AI-generated imagery is used.</p>
 </blockquote></section></body></html>

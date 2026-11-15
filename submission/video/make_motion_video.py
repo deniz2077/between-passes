@@ -29,81 +29,74 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 def record():
     r = Recorder(BASE + "index.html")
     p = r.page
-    p.wait_for_selector("#open-case:not([disabled])", timeout=20000)
-    p.wait_for_timeout(800)
+    p.add_style_tag(content="html{scroll-behavior:auto}")
+    p.wait_for_selector("#lg-w", timeout=20000)
+    p.wait_for_timeout(1500)
+    p.locator('.steps button[data-step="0"]').click()
+    p.wait_for_timeout(400)
     r.start()
-    # 1 — cover
-    r.mark("Real NASA-ISRO NISAR radar data. Two passes, 12 days apart, over farmland in Ceyhan, Türkiye.")
-    r.wait(1.2)
-    b = p.locator("#open-case").bounding_box()
-    r.glide(1400, 800, b["x"] + b["width"] / 2, b["y"] + b["height"] / 2, 1.2)
-    p.locator("#open-case").click()
-    p.wait_for_timeout(300)
-    if p.locator("#story").is_visible():
-        p.locator('#story [data-story="close"]').click()
-    p.locator('#mode-seg [data-mode="delta"]').click()
-    p.wait_for_timeout(900)
-    # 2 — change map, zoom
-    r.mark("636 fields changed sharply — 7× more farmland lit up on radar than went dark.")
-    v = p.locator("#viewer").bounding_box()
-    cx, cy = v["x"] + v["width"] * 0.55, v["y"] + v["height"] * 0.45
-    r.glide(b["x"], b["y"], cx, cy, 0.8)
-    r.wheel(cx, cy, -100, 14, 2.2)
-    r.drag(cx, cy, cx - 160, cy + 60, 1.2)
-    r.wait(0.6)
-    # 3 — swipe between passes
-    r.mark("Swipe between the two passes, taken 12 days apart from the same orbit.")
-    p.locator('#mode-seg [data-mode="swipe"]').click()
-    r.wait(0.4)
-    mx = v["x"] + v["width"] / 2
-    r.drag(mx, cy + 40, v["x"] + v["width"] * 0.2, cy + 40, 1.0)
-    r.drag(v["x"] + v["width"] * 0.2, cy + 40, v["x"] + v["width"] * 0.8, cy + 40, 1.2)
-    r.wait(0.4)
-    p.locator('#mode-seg [data-mode="delta"]').click()
-    # 4 — a parcel's evidence
-    r.mark("Tap any field for its evidence: compared with the town, which shouldn't change, and a NASA optical satellite.")
-    p.evaluate("location.hash='#object-2'")
-    r.wait(1.6)
-    t = p.locator("#tb-interp").bounding_box()
-    r.glide(cx, cy, t["x"] + t["width"] / 2, t["y"] + t["height"] / 2, 0.9)
-    p.locator("#tb-interp").click()
-    r.wait(2.0)
-    # 4b — the locked prediction
-    r.mark("Then I published what NISAR's next three passes will show, before NASA released the data.")
-    p.evaluate("document.querySelector('#nextpass').scrollIntoView({behavior:'smooth', block:'center'})")
+    # 1 - the problem, live on real data
+    r.mark("NASA-ISRO's NISAR radar over farmland in Ceyhan, Türkiye. 22 October.")
+    r.wait(2.2)
+    b1 = p.locator('.steps button[data-step="1"]').bounding_box()
+    r.glide(1300, 700, b1["x"] + 60, b1["y"] + 15, 0.6)
+    p.locator('.steps button[data-step="1"]').click()
+    r.mark("12 days later, after the first autumn rain, a normal change map flags all of this.")
     r.wait(4.2)
-    # 5 — global test
-    r.mark("Does it work everywhere? I tested it on random NISAR sites worldwide.")
-    p.goto(BASE + "world.html", wait_until="networkidle")
-    p.wait_for_timeout(700)
-    r.wait(1.8)
-    dots = p.locator("#w-map .site-dot")
-    n = dots.count()
+    b2 = p.locator('.steps button[data-step="2"]').bounding_box()
+    r.glide(b1["x"] + 60, b1["y"] + 15, b2["x"] + 60, b2["y"] + 15, 0.5)
+    p.locator('.steps button[data-step="2"]').click()
+    r.mark("The filter: wet soil can only brighten radar. Blue could be the weather. Amber can't: it really changed.")
+    r.wait(4.2)
+    # 2 - the problem, measured
+    p.evaluate("window.scrollTo({top: document.querySelector('#problem').offsetTop - 40, behavior: 'smooth'})")
+    r.mark("At 147 random places, 28× more land looked 'changed' where NASA's SMAP saw the soil get wetter or drier.")
+    r.wait(4.0)
+    # 3 - worldwide explorer
+    p.evaluate("window.scrollTo({top: document.querySelector('.chips').getBoundingClientRect().top + scrollY - 80, behavior: 'smooth'})")
+    r.mark("The filter on 148 places in 39 countries. Click any of them.")
+    r.wait(1.2)
     last = (960, 540)
-    for i in (int(n * 0.15), int(n * 0.55), int(n * 0.85)):
-        bb = dots.nth(i).bounding_box()
+    for sel in ('#map circle.dot.weather[aria-label^="India"]', '#map circle.dot.beyond[aria-label^="India"]'):
+        dot = p.locator(sel).first
+        bb = dot.bounding_box()
         if not bb:
             continue
         x, y = bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2
-        r.glide(last[0], last[1], x, y, 0.7)
-        dots.nth(i).click()
+        r.glide(last[0], last[1], x, y, 0.6)
+        dot.click(force=True)
         last = (x, y)
-        r.wait(0.9)
-    r.mark(os.environ.get("BP_RESULT_CAPTION", "Twice, on new random sites: where NASA's soil-moisture satellite saw ground get wetter or drier, NISAR's radar changed with it."))
-    p.evaluate("document.querySelector('.w-scattercard').scrollIntoView({behavior:'smooth', block:'center'})")
+        r.wait(1.0)
+    sw = p.locator("#swipe").bounding_box()
+    if sw:
+        r.mark("Drag between the two passes, then switch the filter on and off.")
+        cy = sw["y"] + sw["height"] * 0.5
+        r.glide(last[0], last[1], sw["x"] + sw["width"] * 0.5, cy, 0.5)
+        r.drag(sw["x"] + sw["width"] * 0.5, cy, sw["x"] + sw["width"] * 0.15, cy, 0.9)
+        r.drag(sw["x"] + sw["width"] * 0.15, cy, sw["x"] + sw["width"] * 0.85, cy, 1.1)
+        t = p.locator("#t-filter").bounding_box()
+        r.glide(sw["x"] + sw["width"] * 0.85, cy, t["x"] + t["width"] / 2, t["y"] + t["height"] / 2, 0.5)
+        p.locator("#t-filter").click(); r.wait(1.0)
+        p.locator("#t-filter").click(); r.wait(0.8)
+    # 4 - any place: Kansas
+    p.evaluate("window.scrollTo({top: document.querySelector('#run').offsetTop - 20, behavior: 'smooth'})")
+    r.mark("One command runs it on any place NISAR has flown. Six new farming regions, run today.")
     r.wait(2.4)
-    cm = p.locator("#w-scatter .cey-mark")
-    if cm.count():
-        bb = cm.first.bounding_box()
-        x, y = bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2
-        r.glide(last[0], last[1], x, y, 1.0)
-        r.wait(0.2)
-        p.mouse.click(x, y)
-    r.wait(0.4)
-    r.mark(os.environ.get("BP_CEYHAN_CAPTION", "Ceyhan: the leading explanation is rain-soaked soil, backed by NASA SMAP."))
-    r.wait(2.0)
-    p.evaluate("document.querySelector('#w-site').scrollIntoView({behavior:'smooth', block:'start'})")
-    r.wait(4.0)
+    k = p.locator('.nc[data-id="check-kansas"]')
+    kb = k.bounding_box()
+    r.glide(900, 600, kb["x"] + kb["width"] / 2, kb["y"] + kb["height"] / 2, 0.7)
+    k.click()
+    r.wait(1.6)
+    r.mark("Kansas: 50 mm of rain made a third of the land look 'changed'. All of it could be the weather.")
+    r.wait(3.6)
+    # 5 - Ceyhan: where to look first
+    p.evaluate("window.scrollTo({top: document.querySelector('#ceyhan').offsetTop - 20, behavior: 'smooth'})")
+    r.mark("In my home region, the fields the rain can't explain, listed with their villages.")
+    r.wait(3.6)
+    # 6 - predictions
+    p.evaluate("window.scrollTo({top: document.querySelector('#predictions').offsetTop - 20, behavior: 'smooth'})")
+    r.mark("And predictions for the next three passes, locked before NASA released the data. They score themselves.")
+    r.wait(4.2)
     return r.stop()
 
 
@@ -120,12 +113,12 @@ def caption(img, text):
     im = Image.fromarray(img).convert("RGBA")
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(ov)
-    d.rectangle([0, 1080 - 120, 1920, 1080], fill=(28, 27, 23, 236))
-    d.rectangle([0, 1080 - 120, 8, 1080], fill=(217, 83, 30, 255))
+    d.rectangle([0, 1080 - 120, 1920, 1080], fill=(10, 11, 13, 236))
+    d.rectangle([0, 1080 - 120, 8, 1080], fill=(255, 176, 32, 255))
     im = Image.alpha_composite(im, ov).convert("RGB")
     d = ImageDraw.Draw(im)
     w = d.textlength(text, font=FONT)
-    d.text(((1920 - w) / 2, 1080 - 120 + 38), text, font=FONT, fill=(243, 239, 230))
+    d.text(((1920 - w) / 2, 1080 - 120 + 38), text, font=FONT, fill=(236, 234, 228))
     return np.asarray(im)
 
 

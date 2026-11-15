@@ -21,6 +21,9 @@ async def main():
         dot = pg.locator('circle.dot.beyond').first
         await dot.click(); await pg.wait_for_timeout(1200)
         await pg.locator("#card").screenshot(path=f"{OUT}/n_card_beyond.png")
+        for cid, name in (("check-kansas", "n_card_kansas"), ("check-punjab", "n_card_punjab")):
+            await pg.locator(f'.nc[data-id="{cid}"]').click(); await pg.wait_for_timeout(1500)
+            await pg.locator("#card").screenshot(path=f"{OUT}/{name}.png")
         await pg.locator(".look").scroll_into_view_if_needed(); await pg.wait_for_timeout(400)
         await pg.locator(".look").screenshot(path=f"{OUT}/n_look.png")
         await pg.locator("#board").scroll_into_view_if_needed(); await pg.wait_for_timeout(400)

@@ -3,167 +3,147 @@
 <head>
 <meta charset="utf-8">
 <title>Between Passes · NASA Space Apps 2026 demo deck</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   @page { size: 1920px 1080px; margin: 0; }
-  :root { --ink:#f3efe6; --ink2:#fbf9f4; --ink3:#ebe5d8; --line:#ddd5c6; --bone:#1c1b17; --bone2:#4a463e; --muted:#7a7366; --accent:#1f6f5c; --up:#d9531e; --down:#2a5db0; --caution:#a8690f; --green:#3e8e3a; --mag:#b0388f; }
+  :root { --bg:#0a0b0d; --bg2:#101216; --surface:#14171c; --line:#252930; --line2:#353a43; --text:#eceae4; --soft:#c4c6cb; --muted:#8d929b; --dim:#5d626b; --weather:#6fa8dc; --beyond:#ffb020; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--ink); color: var(--bone); font-family: "Instrument Sans", sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 84px 96px; background: var(--ink); }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: "IBM Plex Sans", sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; page-break-after: always; break-after: page; padding: 84px 96px; background: var(--bg); }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .mono { font-family: "DM Mono", monospace; }
-  .k { font: 500 22px "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
-  h1 { font-family: "Newsreader", Georgia, serif; font-size: 150px; line-height: .9; letter-spacing: -0.025em; margin: 0 0 30px; font-weight: 500; }
-  h1 em { font-style: italic; color: var(--accent); }
-  h2 { font-family: "Newsreader", Georgia, serif; font-size: 66px; line-height: 1.05; letter-spacing: -0.015em; margin: 0 0 28px; font-weight: 500; max-width: 1600px; }
-  p, li { font-size: 32px; line-height: 1.4; color: var(--bone2); margin: 0; }
-  strong { color: var(--bone); font-weight: 600; }
-  .up { color: var(--up); } .down { color: var(--down); } .acc { color: var(--accent); } .cau { color: var(--caution); }
-  .foot { position: absolute; left: 96px; right: 96px; bottom: 44px; display: flex; justify-content: space-between; font: 20px "DM Mono", monospace; color: var(--muted); }
-  .shot { border-radius: 6px; border: 1px solid var(--line); box-shadow: 0 30px 70px -30px rgba(40,30,15,.55); display: block; }
-  .k::before { content: ""; display: inline-block; width: 30px; height: 2px; background: currentColor; vertical-align: middle; margin-right: 14px; }
-  h1 em { color: var(--up) !important; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-  .pill { display: inline-block; font: 500 22px "DM Mono", monospace; padding: 6px 16px; border-radius: 99px; border: 1px solid var(--line); color: var(--bone2); }
-  ul { padding-left: 0; list-style: none; margin: 0; }
-  ul li { padding-left: 36px; position: relative; margin-bottom: 18px; }
-  ul li::before { content: ""; position: absolute; left: 0; top: 17px; width: 14px; height: 3px; background: var(--accent); }
-  .ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 18px; }
-  .rung { background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 30px 30px 32px; position: relative; }
-  .rung .q { font: 500 22px "DM Mono", monospace; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
-  .rung .big { white-space: nowrap; font: 600 76px/1 "DM Mono", monospace; letter-spacing: -0.03em; margin: 18px 0 14px; }
-  .rung p { font-size: 30px; }
-  .rung .src { position: absolute; left: 30px; bottom: 22px; font: 19px "DM Mono", monospace; color: var(--muted); }
-  .rung { padding-bottom: 70px; min-height: 470px; }
-  .arrow { position: absolute; right: -19px; top: 50%; width: 16px; height: 16px; border-top: 3px solid var(--line); border-right: 3px solid var(--line); transform: translateY(-50%) rotate(45deg); background: var(--ink); z-index: 2; }
-  table { border-collapse: collapse; width: 100%; font-size: 26px; }
-  td { padding: 14px 0; border-top: 1px solid var(--line); color: var(--bone2); vertical-align: top; }
-  td:first-child { color: var(--bone); width: 34%; padding-right: 24px; }
-  .note { font-size: 22px; color: var(--muted); }
-</style>
-
-<style>
-  h2 { font-size: 76px; line-height: 1.04; max-width: 1500px; }
-  .lead { font-size: 38px; line-height: 1.38; color: var(--bone2); max-width: 1300px; }
-  .fn { position: absolute; left: 96px; right: 96px; bottom: 92px; font: 19px/1.45 "DM Mono", monospace; color: var(--muted); }
-  .big3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
-  .card { background: var(--ink2); border: 1px solid var(--line); border-radius: 16px; padding: 34px 36px 38px; }
-  .card .t { font: 500 21px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
-  .card .n { font: 600 64px/1 "DM Mono", monospace; letter-spacing: -0.03em; margin: 0 0 16px; }
-  .card p { font-size: 31px; line-height: 1.38; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
-  .out { border-radius: 16px; padding: 36px 40px; border: 2px solid var(--line); background: var(--ink2); }
-  .out h3 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 46px; margin: 0 0 12px; }
-  .out p { font-size: 32px; }
-  .links { display: grid; grid-template-columns: auto 1fr; gap: 10px 22px; font-size: 25px; margin-top: 30px; }
+  .mono { font-family: "IBM Plex Mono", monospace; }
+  .k { font: 500 22px "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 22px; }
+  .k b { color: var(--beyond); font-weight: 500; margin-right: 12px; }
+  h1 { font-size: 168px; line-height: .9; letter-spacing: -.045em; margin: 0; font-weight: 700; }
+  h2 { font-size: 78px; line-height: 1.02; letter-spacing: -.035em; margin: 0 0 30px; font-weight: 600; max-width: 1500px; }
+  .sub { font-size: 56px; line-height: 1.1; letter-spacing: -.02em; color: var(--beyond); font-weight: 500; margin: 22px 0 0; }
+  p, li { font-size: 32px; line-height: 1.42; color: var(--soft); margin: 0; }
+  b, strong { color: var(--text); font-weight: 600; }
+  .w { color: var(--weather); font-weight: 500; } .b { color: var(--beyond); font-weight: 500; }
+  .lead { font-size: 38px; line-height: 1.4; color: var(--soft); max-width: 1350px; }
+  .foot { position: absolute; left: 96px; right: 96px; bottom: 40px; display: flex; justify-content: space-between; font: 20px "IBM Plex Mono", monospace; color: var(--dim); }
+  .fn { position: absolute; left: 96px; right: 96px; bottom: 88px; font: 19px/1.45 "IBM Plex Mono", monospace; color: var(--muted); }
+  .shot { border-radius: 10px; border: 1px solid var(--line); display: block; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 32px 34px 34px; }
+  .card .t { font: 500 21px "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .card .n { font: 500 72px/1 "IBM Plex Mono", monospace; letter-spacing: -.03em; margin: 0 0 14px; }
+  .card p { font-size: 29px; }
+  .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .sw { display: inline-block; width: 22px; height: 22px; border-radius: 4px; margin-right: 12px; vertical-align: -2px; }
+  .chip { display: inline-block; font: 500 24px "IBM Plex Sans"; padding: 10px 20px; border-radius: 99px; border: 1px solid var(--line2); color: var(--soft); margin: 0 10px 10px 0; }
+  .chip b { font-family: "IBM Plex Mono"; font-weight: 500; margin-left: 6px; }
+  ul { list-style: none; padding: 0; margin: 0; } ul li { padding-left: 34px; position: relative; margin-bottom: 16px; }
+  ul li::before { content: ""; position: absolute; left: 0; top: 20px; width: 16px; height: 3px; background: var(--beyond); }
+  .links { display: grid; grid-template-columns: auto 1fr; gap: 10px 26px; font-size: 26px; margin-top: 34px; }
+  .links span:nth-child(odd) { color: var(--muted); font-family: "IBM Plex Mono"; font-size: 22px; padding-top: 3px; }
 </style>
 </head>
 <body>
 <!-- 1 TITLE -->
-<section class="slide" style="display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center;">
+<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
   <div>
     <p class="k">NASA Space Apps 2026 · Dancing with the SARs</p>
-    <h1>Between<br><em>Passes</em></h1>
-    <p style="font-size:44px;color:var(--bone);max-width:880px;line-height:1.25;font-family:Newsreader,Georgia,serif">Can a radar satellite tell, from space, whether farmland got wetter or drier?</p>
-    <div style="margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;font-size:28px">
-      <span class="mono" style="color:var(--muted)">TEAM</span><span>Dusk Orbit</span>
-      <span class="mono" style="color:var(--muted)">MEMBER</span><span>Deniz Efe Bulut (solo)</span>
-      <span class="mono" style="color:var(--muted)">EVENT</span><span>Niğde Local Event, Türkiye (virtual)</span>
-      <span class="mono" style="color:var(--muted)">CHALLENGE</span><span>Dancing with the SARs</span>
-    </div>
+    <h1>Rain fools radar.</h1>
+    <p class="sub">Between Passes shows what really changed.</p>
+    <p class="lead" style="margin-top:40px;font-size:34px">A weather filter for NASA-ISRO NISAR radar change maps, using NASA SMAP soil moisture and NASA POWER rain.</p>
+    <p style="margin-top:44px;font-size:27px;color:var(--muted)">Team <b>Dusk Orbit</b> · Deniz Efe Bulut · Niğde, Türkiye</p>
+    <p class="mono" style="margin-top:8px;font-size:24px;color:var(--text)">deniz2077.github.io/between-passes</p>
   </div>
-  <div style="text-align:center"><img class="shot" src="../shots/map_delta_hero.png" style="height:800px;width:auto;max-width:100%;object-fit:contain;background:#12110f"><p class="note mono" style="margin-top:14px;font-size:19px">Farmland near Ceyhan, Türkiye · <span class="up">orange: got brighter</span> · <span class="down">blue: got darker</span></p></div>
-  <div class="foot"><span>Real NASA-ISRO NISAR data · 22 Oct and 3 Nov 2026</span><span>1 / 7</span></div>
+  <div><img class="shot" src="../shots/n_demo.png" style="width:100%"></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>1 / 7</span></div>
 </section>
 
 <!-- 2 PROBLEM -->
 <section class="slide">
-  <p class="k">The problem</p>
-  <h2>NASA's new radar satellite sees through clouds. But when a radar image changes, what changed on the ground?</h2>
-  <img class="shot" src="../shots/hh_pair_strip.png" style="width:100%;max-height:330px;object-fit:cover;margin-top:30px">
-  <div class="big3" style="margin-top:34px">
-    <div class="card"><div class="t">Wet soil?</div><p>Rain makes soil reflect more radar.</p></div>
-    <div class="card"><div class="t">Ploughing?</div><p>Rough, turned soil also looks brighter.</p></div>
-    <div class="card"><div class="t">Harvest?</div><p>Removing crops changes the signal too.</p></div>
+  <p class="k"><b>01</b>The problem</p>
+  <h2>Radar sees through cloud. Not through weather.</h2>
+  <p class="lead">Comparing two radar passes is how the world spots floods, harvests, cleared forest and damage. But wet soil looks brighter to radar and dry soil darker, so change maps fill up with weather.</p>
+  <div class="row3" style="margin-top:56px">
+    <div class="card"><div class="t">Soil got wetter or drier</div><div class="n b">5.0%</div><p>of the land looked "changed" (median, 45 random places)</p></div>
+    <div class="card"><div class="t">Soil stayed the same</div><div class="n">0.18%</div><p>of the land looked "changed" (median, 63 random places)</p></div>
+    <div class="card" style="border-color:var(--beyond)"><div class="t">The difference</div><div class="n b">28×</div><p>more false-looking change. Where the soil moved, <b>85%</b> of it could be the weather alone.</p></div>
   </div>
-  <div class="foot"><span>The same fields seen by NISAR on 22 Oct (left) and 3 Nov (right)</span><span>2 / 7</span></div>
+  <p class="fn">147 random NISAR L2 GCOV repeat pairs (12 days apart) · changed = ≥ 3 dB · NASA SMAP SPL3SMP_E soil moisture, same days · wetter/drier ≥ 0.05 m³/m³, same ≤ 0.02</p>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>2 / 7</span></div>
 </section>
 
-<!-- 3 FOUND -->
-<section class="slide" style="display:grid;grid-template-columns:.95fr 1.05fr;gap:72px;align-items:center">
+<!-- 3 FILTER -->
+<section class="slide">
+  <p class="k"><b>02</b>The solution</p>
+  <h2>Wet soil can only brighten. Dry soil can only darken.</h2>
+  <img class="shot" src="../shots/n_strip.jpg" style="width:100%;margin-top:8px">
+  <div class="row3" style="margin-top:26px;gap:24px">
+    <p style="font-size:27px"><b>1 · Measure.</b> Two NISAR passes over Ceyhan, Türkiye, 12 days apart. A normal change map flags everything (white).</p>
+    <p style="font-size:27px"><b>2 · Ask the weather.</b> NASA SMAP: the soil got wetter after the first autumn rain (0.16 → 0.36 m³/m³).</p>
+    <p style="font-size:27px"><b>3 · Sort.</b> Brightening <span class="w">could be the weather</span> (88%). Darkening can't: <span class="b">something really changed</span> (12%).</p>
+  </div>
+  <p class="fn" style="bottom:84px">Rules committed to GitHub before running them on any place (research/filter/WEATHER_FILTER.md).</p>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>3 / 7</span></div>
+</section>
+
+<!-- 4 WORLD -->
+<section class="slide" style="display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center">
   <div>
-    <p class="k">What I found in my home region</p>
-    <h2 style="font-size:72px">In 12 days, <span class="up">7× more farmland lit up</span> than went dark.</h2>
-    <p class="lead">The town centre, which should not change, stayed the same. So the change is real, not a camera error.</p>
+    <p class="k"><b>03</b>It scales</p>
+    <h2 style="font-size:64px">148 places in 39 countries. Click any of them.</h2>
+    <div style="margin:10px 0 26px"><span class="chip"><i class="sw" style="background:var(--beyond)"></i>Real change beyond the weather<b>41</b></span><span class="chip"><i class="sw" style="background:var(--weather)"></i>Mostly the weather<b>27</b></span><span class="chip"><i class="sw" style="background:#5d626b"></i>Quiet<b>80</b></span></div>
+    <img class="shot" src="../shots/n_map.png" style="width:92%">
+    <p style="font-size:24px;margin-top:14px;max-width:1000px">One command runs it on <b>any place NISAR has flown</b>. Right: western Kansas, run today. 50 mm of rain made <b>a third of the land</b> look "changed"; all of it went the way the soil moisture did.</p>
   </div>
-  <div><img class="shot" src="../shots/crop_soil.png" style="width:100%"></div>
-  <p class="fn">3,282 ha brightened vs 468 ha darkened (≥ 3 dB change, ≥ 1 ha). Town control: +0.12 dB. Holds at every threshold from 2 to 5 dB.</p>
-  <div class="foot"><span>Ceyhan, Adana · NISAR L-band radar, 20 m detail</span><span>3 / 7</span></div>
+  <div><img class="shot" src="../shots/n_card_kansas.png" style="width:100%;max-height:860px;object-fit:cover;object-position:top"></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>4 / 7</span></div>
 </section>
 
-<!-- 4 WHY -->
-<section class="slide">
-  <p class="k">Why it happened · checked with three more NASA datasets</p>
-  <h2>It rained, and the soil got wet.</h2>
-  <div class="big3">
-    <div class="card"><div class="t">Not harvest</div><div class="n acc">9%</div><p>An optical satellite shows only 9% of the brighter fields lost their plants.</p></div>
-    <div class="card"><div class="t">It rained</div><div class="n acc">23 mm</div><p>The first big autumn rain fell between the two passes.</p></div>
-    <div class="card"><div class="t">The soil got wet</div><div class="n acc">0.16→0.36</div><p>NASA's soil-moisture satellite saw Ceyhan's soil more than double in water.</p></div>
+<!-- 5 CEYHAN -->
+<section class="slide grid2">
+  <div>
+    <p class="k"><b>04</b>Local impact · Ceyhan, my home region</p>
+    <h2 style="font-size:70px">Which fields really changed after the first autumn rain?</h2>
+    <ul style="margin-top:12px">
+      <li><b>508 fields</b> got brighter: what wetter soil does. Only 9% lost their plants (NASA HLS optical), so it wasn't harvest.</li>
+      <li><b>128 fields</b> got darker while the soil got wetter. The weather can't explain them, so they are listed first, with the nearest village.</li>
+      <li>The town centre, which shouldn't change, moved only <b>0.12 dB</b>.</li>
+      <li>A Turkish page for farmers and agriculture technicians.</li>
+    </ul>
   </div>
-  <p class="lead" style="margin-top:40px">Ploughing can still explain some single fields. The next passes will tell.</p>
-  <p class="fn">NASA HLS (310 fields with a clear view) · NASA POWER rainfall 28–29 Oct · NASA SMAP soil moisture, m³/m³, 20 Oct and 3 Nov (exploratory ±2-day window).</p>
-  <div class="foot"><span>NISAR · HLS · POWER · SMAP</span><span>4 / 7</span></div>
+  <div><img class="shot" src="../shots/n_look.png" style="width:100%"></div>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>5 / 7</span></div>
 </section>
 
-<!-- 5 WORLDWIDE -->
-<section class="slide">
-  <p class="k">Is it true everywhere?</p>
-  <h2>I tested it at 400 random places worldwide. <span class="acc">Twice.</span></h2>
-  <div style="display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;margin-top:20px">
-    <img class="shot" src="../shots/world_map.png" style="width:100%">
-    <div>
-      <p class="lead" style="font-size:36px">Where NASA's soil-moisture satellite saw ground get <strong>wetter or drier</strong>, NISAR's radar changed with it.</p>
-      <p class="lead" style="font-size:36px;margin-top:26px">I wrote the rules down <strong>before</strong> looking at any data, then repeated the whole test on new places. <strong>Same answer both times.</strong></p>
-    </div>
+<!-- 6 PROOF -->
+<section class="slide grid2" style="align-items:start">
+  <div>
+    <p class="k"><b>05</b>The proof</p>
+    <h2 style="font-size:70px">Tested worldwide. Then predicted before the data existed.</h2>
+    <p style="font-size:30px">With the test rules committed first, NISAR change followed SMAP soil-moisture change at <b>74 random sites</b> (ρ = 0.58, p &lt; 0.001), and again at <b>73 new ones</b> (ρ = 0.55).</p>
+    <p style="font-size:30px;margin-top:22px">If Ceyhan's bright fields were wet soil, they will fade as it dries. I locked what <b>three upcoming NISAR passes</b> will show on GitHub <b>before NASA released the data</b>. The app scores them automatically, whatever they say.</p>
   </div>
-  <p class="fn">Two random draws of 200 NISAR sites; 74 and 73 had quality SMAP data. Spearman ρ 0.58 and 0.55, permutation p &lt; 0.001 both. 36 of 45 sites with a clear moisture change moved the same way. Plans committed to Git before extraction.</p>
-  <div class="foot"><span>NISAR L2 GCOV · NASA SMAP · 147 usable sites, 45° S to 56° N</span><span>5 / 7</span></div>
-</section>
-
-<!-- 6 PREDICTION -->
-<section class="slide">
-  <p class="k">Three predictions · published before NASA released the data</p>
-  <h2>I predicted the next three passes.</h2>
-  <p class="lead">NISAR passes over Ceyhan on three orbits: two on 10 Nov, after the soil dried, and one on 15 Nov. I published what each will show before NASA released the data.</p>
-  <div class="two">
-    <div class="out" style="border-color:var(--down)"><h3 class="down">My prediction: wet soil</h3><p>The soil dries, so the bright fields <strong>dim again</strong>.</p></div>
-    <div class="out" style="border-color:var(--up)"><h3 class="up">The alternative: ploughing</h3><p>Ploughed soil stays rough, so the fields would <strong>stay bright</strong>.</p></div>
-  </div>
-  <p class="lead" style="margin-top:40px">Three independent checks, from three viewing angles. <strong>The results will appear on the live app</strong>, scored by code saved with each prediction.</p>
-  <p class="fn">Locked in research/prediction/ with scoring code: 14 Nov (track 151, confirmed if the fields dim ≥ 2.07 dB overall and the typical field reverses ≥ 50 %) and 15 Nov (tracks 079 and 071, 29 Oct → 10 Nov: the fields darken ≥ 1 dB more than surrounding farmland, two thirds of them darker).</p>
+  <div style="padding-top:20px"><img class="shot" src="../shots/n_board.png" style="width:100%"></div>
+  <p class="fn">Pre-registration: commits 43f2fbb, 7e1ffcf · predictions: e3915c1 (14 Nov), a068d8f (15 Nov) · 37 automated tests · every number re-checked in the browser</p>
   <div class="foot"><span>Between Passes · Dusk Orbit</span><span>6 / 7</span></div>
 </section>
 
 <!-- 7 IMPACT -->
-<section class="slide" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+<section class="slide grid2">
   <div>
-    <p class="k">Try it yourself</p>
-    <h2 style="font-size:68px">A radar lab anyone can open. Free, no login.</h2>
-    <ul style="margin-top:22px">
-      <li>Swipe between the two passes and tap any field to see why it changed.</li>
-      <li>Explore the worldwide test, site by site.</li>
-      <li>A Turkish page for local farmers.</li>
-      <li>Every number is checked again in your browser.</li>
+    <p class="k"><b>06</b>Who it's for</p>
+    <h2 style="font-size:70px">Anyone who reads radar change maps.</h2>
+    <ul>
+      <li><b>Disaster responders</b> mapping floods and damage through cloud.</li>
+      <li><b>Agencies and insurers</b> watching farmland and forests.</li>
+      <li><b>Farmers and inspectors</b>: which fields to check first.</li>
+      <li><b>Scientists</b>: an open, tested way to remove the weather.</li>
     </ul>
     <div class="links">
-      <span class="mono" style="color:var(--muted)">LIVE APP</span><span class="mono acc">deniz2077.github.io/between-passes</span>
-      <span class="mono" style="color:var(--muted)">CODE</span><span class="mono acc">github.com/deniz2077/between-passes</span>
+      <span>App</span><span>deniz2077.github.io/between-passes</span>
+      <span>Code</span><span>github.com/deniz2077/between-passes</span>
+      <span>Data</span><span>NASA NISAR · SMAP · POWER · HLS</span>
     </div>
-    <p class="note" style="margin-top:18px;font-size:19px">AI use: Claude Code helped write code and documents. The question, place and decisions are mine. Every result comes from NASA data and is checked by 32 automated tests.</p>
   </div>
-  <div><img class="shot" src="../shots/case.png" style="width:100%"></div>
-  <div class="foot"><span>Between Passes · Dusk Orbit · NASA Space Apps 2026</span><span>7 / 7</span></div>
+  <div><img class="shot" src="../shots/n_card_punjab.png" style="width:100%;max-height:640px;object-fit:cover;object-position:top"><p style="font-size:21px;color:var(--muted);margin-top:10px">Punjab, India, run today: the soil stayed the same, yet 20% of the land changed. That is beyond the weather.</p></div>
+  <p class="fn">Free, open source, no login. A screening filter: it says where to look, not what happened. AI (Claude Code) assisted with code and documents; the idea and decisions are the participant's.</p>
+  <div class="foot"><span>Between Passes · Dusk Orbit</span><span>7 / 7</span></div>
 </section>
-
 </body>
 </html>
