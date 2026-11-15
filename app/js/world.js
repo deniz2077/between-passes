@@ -1,7 +1,7 @@
 // Global rain test page: renders the pre-registered NISAR x SMAP result and re-verifies it in the browser.
 const $ = (s) => document.querySelector(s);
 const NS = "http://www.w3.org/2000/svg";
-const UP = [217, 83, 30], DOWN = [42, 93, 176];
+const UP = [244, 114, 182], DOWN = [45, 212, 191];
 const fmt = (v, d = 2, sign = false) => (v == null || !Number.isFinite(v)) ? "—" : (sign && v > 0 ? "+" : "") + v.toFixed(d);
 const el = (tag, attrs = {}, parent) => {
   const e = document.createElementNS(NS, tag);
@@ -141,7 +141,7 @@ function thumbCanvas(s) {
   for (let i = 0; i < n * n; i++) {
     const q = thumbs[off + i], o = i * 4;
     if (!q) { img.data[o + 3] = 0; continue; }
-    const d = (q - 128) * G.thumbs.step_db, a = Math.min(1, Math.abs(d) / 6) ** 0.75, c = d >= 0 ? [255, 138, 76] : [90, 169, 255], g = 40;
+    const d = (q - 128) * G.thumbs.step_db, a = Math.min(1, Math.abs(d) / 6) ** 0.75, c = d >= 0 ? [244, 114, 182] : [45, 212, 191], g = 40;
     img.data[o] = g + (c[0] - g) * a; img.data[o + 1] = g + (c[1] - g) * a; img.data[o + 2] = g + (c[2] - g) * a; img.data[o + 3] = 255;
   }
   ctx.putImageData(img, 0, 0);

@@ -3,7 +3,7 @@
 :root {
   --ink: #0a0b0d; --ink-2: #14171c; --ink-3: #1b1f25; --line: #252930; --line-2: #353a43;
   --bone: #eceae4; --bone-2: #c4c6cb; --muted: #8d929b;
-  --accent: #ffb020; --caution: #ffb020; --up: #ff8a4c; --down: #6fa8dc;
+  --accent: #ffb020; --caution: #ffb020; --up: #f472b6; --down: #2dd4bf;
   --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; --serif: "IBM Plex Sans", system-ui, sans-serif;
   color-scheme: dark;
 }
@@ -41,3 +41,4 @@ h1, .w-hero h1, .tr-hero h1 { font-weight: 600; letter-spacing: -.035em; }
 .back-btn { display: inline-flex; align-items: center; gap: 6px; margin-right: 14px; padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--ink-2); color: var(--bone); font: 500 13.5px var(--sans); text-decoration: none; white-space: nowrap; }
 .back-btn:hover { border-color: var(--accent); }
 @media (max-width: 720px) { .back-btn { padding: 5px 9px; font-size: 12.5px; margin-right: 8px; } }
+.pill.up { border-color: rgba(244,114,182,.5); } .pill.down { border-color: rgba(45,212,191,.5); }

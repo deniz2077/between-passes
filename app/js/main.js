@@ -181,7 +181,7 @@ function renderPanel() {
     const so = C.stats.objects;
     v.text = `The change sits in individual fields, not everywhere at once.` + (C.optical ? ` An optical satellite (NASA HLS) shows only ${Math.round(100 * C.optical.brightened.frac_vegetation_loss)}% of the brighter fields lost their plants, so harvest explains only a few.` : "") + ` Tap any outlined field, or draw your own.`;
   }
-  const color = v.cls === "down" ? "#2a5db0" : v.cls === "up" ? "#d9531e" : "#9c927f";
+  const color = v.cls === "down" ? "#2dd4bf" : v.cls === "up" ? "#f472b6" : "#8d929b";
   const areaHa = (s.n * C.grid.posting_m ** 2) / 1e4;
 
   // OBSERVED

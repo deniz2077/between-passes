@@ -4,7 +4,7 @@
 export const HH_RANGE = [-20, 0];   // fixed display stretch (dB) — identical for both dates
 export const DELTA_MAX = 6;         // ΔdB colour saturation
 
-const UP = [255, 138, 76], DOWN = [78, 163, 255];
+const UP = [244, 114, 182], DOWN = [45, 212, 191];
 
 export function grayImage(db, w, h) {
   const img = new ImageData(w, h);

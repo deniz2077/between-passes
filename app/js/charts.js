@@ -2,7 +2,7 @@
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 /** Overlaid normalized histograms: selection (filled) vs control (outline). */
-export function histogramSvg(sel, ctrl, { lo = -8, hi = 8, color = "#d9531e", markers = [] } = {}) {
+export function histogramSvg(sel, ctrl, { lo = -8, hi = 8, color = "#f472b6", markers = [] } = {}) {
   const W = 360, H = 150, P = { l: 8, r: 8, t: 10, b: 24 };
   const iw = W - P.l - P.r, ih = H - P.t - P.b;
   const dens = (h) => h.counts.map((c) => (h.n ? c / h.n : 0));
@@ -80,8 +80,8 @@ export function sensitivitySvg(sens, current) {
   sens.forEach((r, i) => {
     const x0 = P.l + i * gw + gw * 0.16;
     const cur = r.core_db === current;
-    s += `<rect x="${x0}" y="${y(r.area_brightened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_brightened_ha)}" fill="#d9531e" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_brightened_ha} ha brightened in ${r.objects_brightened} objects</title></rect>`;
-    s += `<rect x="${x0 + bw + 2}" y="${y(r.area_darkened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_darkened_ha)}" fill="#2a5db0" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_darkened_ha} ha darkened in ${r.objects_darkened} objects</title></rect>`;
+    s += `<rect x="${x0}" y="${y(r.area_brightened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_brightened_ha)}" fill="#f472b6" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_brightened_ha} ha brightened in ${r.objects_brightened} objects</title></rect>`;
+    s += `<rect x="${x0 + bw + 2}" y="${y(r.area_darkened_ha)}" width="${bw}" height="${P.t + ih - y(r.area_darkened_ha)}" fill="#2dd4bf" opacity="${cur ? 1 : .55}"><title>≥${r.core_db} dB: ${r.area_darkened_ha} ha darkened in ${r.objects_darkened} objects</title></rect>`;
     s += `<text class="axis" x="${x0 + bw}" y="${H - 16}" text-anchor="middle" style="fill:${cur ? "#eceae4" : "#8d929b"}">${r.core_db}</text>`;
     s += `<text class="axis" x="${x0 + bw}" y="${H - 4}" text-anchor="middle">${(r.area_brightened_ha / Math.max(1, r.area_darkened_ha)).toFixed(1)}×</text>`;
   });
