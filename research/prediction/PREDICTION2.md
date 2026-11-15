@@ -1,6 +1,6 @@
 # Prediction 2: the same fields, seen from two other orbits
 
-**Locked and published on 15 Nov 2026 (about 03:40 TRT), before NASA released the data it predicts.**
+**Locked and published on 15 Nov 2026 (03:20 TRT, commit a068d8f), before NASA released the data it predicts.**
 The git commit on GitHub is the timestamp. Machine-readable lock: `prediction2.json`. Scorer: `scripts/predict_two_orbits.py`.
 
 ## In plain words
