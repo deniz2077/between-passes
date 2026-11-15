@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Between Passes film</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0b0d;--text:#eceae4;--soft:#c4c6cb;--muted:#8d929b;--dim:#5d626b;--w:#6fa8dc;--b:#ffb020;--line:#252930;--surface:#14171c}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"IBM Plex Sans",sans-serif;overflow:hidden}
+  #stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg)}
+  .sc{position:absolute;inset:0;opacity:0}
+  .abs{position:absolute}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .k{font:500 24px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .k b{color:var(--b);font-weight:500;margin-right:14px}
+  .big{font-weight:700;letter-spacing:-.045em;line-height:.92}
+  img{display:block}
+  .full{position:absolute;left:0;top:0;width:1920px;height:1484px;object-fit:cover}
+  .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,11,13,.94) 0%,rgba(10,11,13,.72) 38%,rgba(10,11,13,.08) 70%,rgba(10,11,13,0) 100%)}
+  .shadeb{position:absolute;left:0;right:0;bottom:0;height:300px;background:linear-gradient(0deg,rgba(10,11,13,.92),rgba(10,11,13,0))}
+  .scan{position:absolute;left:0;right:0;height:3px;background:var(--b);box-shadow:0 0 24px 6px rgba(255,176,32,.55)}
+  .tag{font:500 22px "IBM Plex Mono",monospace;color:#0a0b0d;background:var(--b);padding:6px 14px;border-radius:4px;letter-spacing:.04em}
+  .tag.ghost{background:rgba(10,11,13,.8);color:var(--text);border:1px solid #353a43}
+  .brand{position:absolute;left:72px;top:56px;display:flex;align-items:center;gap:16px;font:600 22px "IBM Plex Mono",monospace;letter-spacing:.14em;color:var(--text);z-index:50}
+  .logo{width:34px;height:34px;position:relative}
+  .logo i{position:absolute;bottom:4px;width:9px;border-radius:2px;background:var(--text)}
+  .logo i:nth-child(1){left:3px;height:24px} .logo i:nth-child(2){left:16px;height:16px;opacity:.55}
+  .logo em{position:absolute;right:0;top:2px;width:10px;height:10px;border-radius:50%;background:var(--b)}
+  .bar{height:64px;border-radius:6px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 34px}
+  .lock{width:44px;height:44px;position:relative;flex:none}
+  .lock .body{position:absolute;left:4px;right:4px;bottom:2px;height:24px;border-radius:5px;background:var(--b)}
+  .lock .shackle{position:absolute;left:11px;width:22px;height:26px;border:5px solid var(--b);border-bottom:none;border-radius:13px 13px 0 0;box-sizing:border-box}
+</style></head>
+<body><div id="stage">
+
+<div class="brand" id="brand"><div class="logo"><i></i><i></i><em></em></div>BETWEEN PASSES</div>
+
+<!-- S1 · two passes -->
+<div class="sc" id="s1">
+  <img class="full" id="s1a" src="before.jpg">
+  <img class="full" id="s1b" src="after.jpg">
+  <div class="scan" id="s1scan"></div>
+  <div class="abs" id="s1tag" style="right:72px"><span class="tag" id="s1tagt">NISAR · PASS 1 · 22 OCT 2026</span></div>
+  <div class="shade"></div><div class="shadeb"></div>
+  <div class="abs" style="left:96px;top:300px;width:1000px">
+    <div class="k" id="s1k">NASA Space Apps 2026 · Dancing with the SARs</div>
+    <div class="big" id="s1h" style="font-size:150px;margin-top:26px">Every<br>12 days.</div>
+    <div id="s1s" style="font-size:44px;line-height:1.25;color:var(--soft);margin-top:34px;max-width:1100px">NASA–ISRO's NISAR maps the Earth by radar.<br><span style="color:var(--text)">Through cloud. Day and night.</span></div>
+  </div>
+</div>
+
+<!-- S2 · rain fools radar -->
+<div class="sc" id="s2">
+  <div class="abs" id="s2wrap" style="left:0;top:0;width:1920px;height:1080px;overflow:hidden">
+    <img class="full" id="s2a" src="before.jpg">
+    <img class="full" id="s2b" src="after.jpg">
+    <img class="full" id="s2c" src="changes.png" style="opacity:0">
+  </div>
+  <div class="abs" id="s2line" style="top:0;bottom:0;width:4px;background:var(--text);box-shadow:0 0 18px rgba(255,255,255,.6)"></div>
+  <div class="abs" id="s2l1" style="top:150px"><span class="tag ghost">22 OCT</span></div>
+  <div class="abs" id="s2l2" style="top:150px"><span class="tag ghost">3 NOV</span></div>
+  <canvas id="rain" width="1920" height="1080" class="abs" style="left:0;top:0"></canvas>
+  <div class="abs" id="s2dark" style="inset:0;background:rgba(10,11,13,.0)"></div>
+  <div class="shadeb"></div>
+  <div class="abs" id="s2t" style="left:96px;top:360px">
+    <div class="big" style="font-size:190px;text-shadow:0 6px 40px rgba(0,0,0,.6)">Rain fools<br>radar.</div>
+  </div>
+  <div class="abs" id="s2n" style="right:96px;top:150px;text-align:right">
+    <div class="mono" style="font-size:24px;letter-spacing:.08em;color:var(--soft);background:rgba(10,11,13,.82);padding:18px 24px;border-radius:10px;border:1px solid #353a43">
+      <span style="display:inline-block;width:18px;height:18px;background:#f4f1e8;border-radius:3px;vertical-align:-2px;margin-right:10px"></span>A NORMAL CHANGE MAP<br>
+      <span style="font:600 64px 'IBM Plex Sans';color:var(--text);letter-spacing:-.02em;line-height:1.3" id="s2cnt">636</span> <span style="font-size:26px">fields "changed"</span><br>
+      <span style="color:var(--muted);font-size:20px">Ceyhan, Türkiye · after the first autumn rain</span>
+    </div>
+  </div>
+</div>
+
+<!-- S3 · measured -->
+<div class="sc" id="s3">
+  <img src="world_map.jpg" class="abs" id="s3map" style="left:760px;top:120px;clip-path:inset(14% 0 0 0);width:1160px;opacity:.0">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,var(--bg) 35%,rgba(10,11,13,.4))"></div>
+  <div class="abs" style="left:96px;top:180px">
+    <div class="k"><b>01</b>The problem, measured · 147 random places</div>
+    <div class="big mono" id="s3n" style="font-size:300px;color:var(--b);letter-spacing:-.06em;margin-top:20px;font-weight:600">28×</div>
+    <div id="s3s" style="font-size:46px;line-height:1.2;max-width:900px;margin-top:6px">more land looked “changed” where the soil got <span style="color:var(--b)">wetter or drier</span>.</div>
+  </div>
+  <div class="abs" style="left:96px;top:780px;width:1500px">
+    <div style="display:flex;align-items:center;gap:26px;margin-bottom:22px"><div style="width:420px;font-size:28px;color:var(--soft)">Soil stayed the same</div><div class="bar" id="s3b1" style="background:#5d626b;width:40px"></div><div class="mono" id="s3v1" style="font-size:34px">0.18%</div></div>
+    <div style="display:flex;align-items:center;gap:26px"><div style="width:420px;font-size:28px;color:var(--text)">Soil got wetter or drier</div><div class="bar" id="s3b2" style="background:var(--b);width:0"></div><div class="mono" id="s3v2" style="font-size:34px;color:var(--b)">5.0%</div></div>
+  </div>
+</div>
+
+<!-- S4 · the filter -->
+<div class="sc" id="s4">
+  <div class="abs" id="s4img" style="left:812px;top:120px;width:1012px;height:782px;overflow:hidden;border-radius:14px;border:1px solid #353a43">
+    <div id="s4zoom" style="position:absolute;left:0;top:0;width:1012px;height:782px;transform-origin:574px 230px">
+      <img src="after.jpg" style="position:absolute;width:100%;height:100%;filter:brightness(.62)">
+      <img src="changes.png" id="s4c" style="position:absolute;width:100%;height:100%">
+      <img src="blue.png" id="s4b" style="position:absolute;width:100%;height:100%;opacity:0">
+      <img src="orange.png" id="s4o" style="position:absolute;width:100%;height:100%;opacity:0">
+    </div>
+    <div class="abs" id="s4ring" style="left:534px;top:180px;width:90px;height:110px;border:4px solid var(--b);border-radius:50%;opacity:0;box-shadow:0 0 30px rgba(255,176,32,.7)"></div>
+  </div>
+  <div class="abs" style="left:96px;top:150px;width:660px">
+    <div class="k"><b>02</b>The filter</div>
+    <div style="font-size:30px;color:var(--soft);margin-top:34px" id="s4q">NASA SMAP · soil moisture</div>
+    <div style="display:flex;gap:18px;align-items:flex-end;height:230px;margin-top:20px" id="s4g">
+      <div style="text-align:center"><div style="width:120px;height:210px;border:2px solid #353a43;border-radius:10px;position:relative;overflow:hidden"><div id="s4g1" style="position:absolute;left:0;right:0;bottom:0;height:0;background:#4a7aa6"></div></div><div class="mono" style="font-size:20px;color:var(--muted);margin-top:8px">22 OCT</div></div>
+      <div style="text-align:center"><div style="width:120px;height:210px;border:2px solid #353a43;border-radius:10px;position:relative;overflow:hidden"><div id="s4g2" style="position:absolute;left:0;right:0;bottom:0;height:0;background:var(--w)"></div></div><div class="mono" style="font-size:20px;color:var(--muted);margin-top:8px">3 NOV</div></div>
+      <div style="padding-left:10px;padding-bottom:40px"><div class="mono" id="s4gv" style="font-size:40px">0.16 → 0.36</div><div style="font-size:24px;color:var(--muted)">m³/m³ · soil got wetter</div></div>
+    </div>
+    <div id="s4rule" style="font-size:44px;line-height:1.15;font-weight:600;margin-top:44px;letter-spacing:-.02em">Wet soil can only<br><span style="color:var(--w)">brighten</span> radar.</div>
+    <div id="s4l1" style="display:flex;gap:16px;align-items:center;margin-top:40px;font-size:30px"><span style="width:26px;height:26px;border-radius:5px;background:var(--w);flex:none"></span><span><b>Brighter:</b> could be the rain <span class="mono" style="color:var(--w)">88%</span></span></div>
+    <div id="s4l2" style="display:flex;gap:16px;align-items:center;margin-top:18px;font-size:30px"><span style="width:26px;height:26px;border-radius:5px;background:var(--b);flex:none"></span><span><b>Darker:</b> something really changed <span class="mono" style="color:var(--b)">12%</span></span></div>
+  </div>
+</div>
+
+<!-- S6 · proof -->
+<div class="sc" id="s6">
+  <div class="abs" style="left:96px;top:170px">
+    <div class="k"><b>03</b>The proof</div>
+    <div class="big" style="font-size:110px;margin-top:22px">Rules first.<br><span style="color:var(--muted)">Then the data.</span></div>
+  </div>
+  <div class="abs" style="left:1000px;top:160px;width:824px;display:flex;flex-direction:column;gap:22px">
+    <div class="card" id="s6c1" style="display:flex;gap:26px;align-items:center"><div class="lock"><div class="shackle"></div><div class="body"></div></div><div><div style="font-size:32px;font-weight:600">Filter rules</div><div class="mono" style="font-size:21px;color:var(--muted);margin-top:4px">committed before running · 2365a8e</div></div></div>
+    <div class="card" id="s6c2" style="display:flex;gap:26px;align-items:center"><div class="lock"><div class="shackle"></div><div class="body"></div></div><div><div style="font-size:32px;font-weight:600">Worldwide test, then repeated</div><div class="mono" style="font-size:21px;color:var(--muted);margin-top:4px">74 + 73 random places · ρ 0.58 / 0.55 · p &lt; 0.001</div></div></div>
+    <div class="card" id="s6c3" style="display:flex;gap:26px;align-items:center;border-color:var(--b)"><div class="lock"><div class="shackle"></div><div class="body"></div></div><div><div style="font-size:32px;font-weight:600">3 predictions for the next passes</div><div class="mono" style="font-size:21px;color:var(--muted);margin-top:4px">locked 14–15 Nov, before NASA released the data<br>e3915c1 · a068d8f · scored automatically</div></div></div>
+  </div>
+</div>
+
+<!-- S7 · impact + end -->
+<div class="sc" id="s7">
+  <div class="abs" id="s7a" style="left:96px;top:190px;width:1728px">
+    <div class="k"><b>04</b>Expected impact</div>
+    <div class="big" style="font-size:120px;margin-top:22px">Fewer false alarms.</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px">
+      <div class="card" id="s7p1"><div class="mono" style="color:var(--b);font-size:22px">FLOOD &amp; DISASTER TEAMS</div><div style="font-size:30px;margin-top:10px;color:var(--soft)">see real flooding, not wet fields</div></div>
+      <div class="card" id="s7p2"><div class="mono" style="color:var(--b);font-size:22px">FARM &amp; FOREST AGENCIES</div><div style="font-size:30px;margin-top:10px;color:var(--soft)">check real changes first</div></div>
+      <div class="card" id="s7p3"><div class="mono" style="color:var(--b);font-size:22px">FARMERS</div><div style="font-size:30px;margin-top:10px;color:var(--soft)">which fields to visit first</div></div>
+    </div>
+    <div class="mono" style="font-size:24px;color:var(--muted);margin-top:34px" id="s7p4">Free · NASA data · anywhere NISAR flies · every 12 days · through cloud</div>
+  </div>
+  <div class="abs" id="s7b" style="left:0;top:0;width:1920px;height:1080px;opacity:0">
+    <img src="filter_full.jpg" class="abs" id="s7bg" style="right:0;top:0;height:1080px;opacity:.35">
+    <div class="abs" style="inset:0;background:linear-gradient(90deg,var(--bg) 40%,rgba(10,11,13,.5))"></div>
+    <div class="abs" style="left:96px;top:250px">
+      <div class="big" style="font-size:170px">Rain fools radar.</div>
+      <div style="font-size:62px;color:var(--b);font-weight:500;letter-spacing:-.02em;margin-top:24px">Between Passes shows what really changed.</div>
+      <div class="mono" style="font-size:34px;margin-top:54px">deniz2077.github.io/between-passes</div>
+      <div style="font-size:28px;color:var(--soft);margin-top:14px">Team Dusk Orbit · Deniz Efe Bulut · Niğde Local Event, Türkiye</div>
+    </div>
+    <div class="abs mono" style="left:96px;right:96px;top:800px;font-size:17px;line-height:1.55;color:var(--muted)">
+      Data: NASA-ISRO NISAR L2 GCOV · NASA SMAP · NASA POWER · NASA HLS · © OpenStreetMap contributors · Natural Earth. Images: real NISAR radar and screens from the working app; no AI-generated imagery. Voice: AI text-to-speech.<br>
+      The project idea, research question, study area and every key decision are Deniz's. AI (Claude Code) wrote the code, ran the data analysis and drafted the documents, and suggested methods and wording that he reviewed and chose to use.
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ez=x=>{x=cl(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const eo=x=>{x=cl(x);return 1-Math.pow(1-x,3)};
+const r=(u,a,b)=>cl((u-a)/(b-a));          // 0..1 ramp
+let TL=null;
+function wt(sc,word,nth=0){ // scene-local time of a narrated word
+  const s=TL[sc]; let k=0;
+  for(const w of s.words){ if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(word)){ if(k++===nth) return s.lead+w.t; } }
+  return 0;
+}
+function show(id,u,D,fin=.35,fout=.35){ $(id).style.opacity = Math.min(r(u,0,fin), 1-r(u,D-fout,D)); }
+function fade(id,u,a,d=.5){ const v=eo(r(u,a,a+d)); const e=$(id); e.style.opacity=v; e.style.transform=`translateY(${(1-v)*26}px)`; }
+
+// deterministic rain
+function rain(u,amt){
+  const c=$('rain'),x=c.getContext('2d'); x.clearRect(0,0,1920,1080); if(amt<=0) return;
+  x.strokeStyle=`rgba(200,215,235,${.38*amt})`; x.lineWidth=2;
+  for(let i=0;i<420*amt;i++){
+    const sx=(i*197.31)%1920, sp=1500+(i*37%600), len=28+(i*13%30);
+    const y=((i*91.7)+u*sp)%1200-60, xx=(sx+u*sp*.18)%1980-30;
+    x.beginPath(); x.moveTo(xx,y); x.lineTo(xx+len*.18,y+len); x.stroke();
+  }
+}
+
+function seek(t){
+  for(const id of ['s1','s2','s3','s4','s6','s7']) $(id).style.opacity=0;
+  $('brand').style.opacity = 1;
+  let cur=null;
+  for(const k in TL){ const s=TL[k]; if(t>=s.t0 && t<s.t0+s.dur){cur=k;} }
+  if(!cur || cur==='s5'){ $('brand').style.opacity=0; return; }
+  const s=TL[cur], u=t-s.t0, D=s.dur;
+  ({s1,s2,s3,s4,s6,s7})[cur](u,D);
+}
+
+function s1(u,D){
+  show('s1',u,D,.6,.01);
+  const z=1.12-.08*eo(u/D); $('s1a').style.transform=$('s1b').style.transform=`scale(${z})`; $('s1a').style.transformOrigin=$('s1b').style.transformOrigin='70% 40%';
+  // pass 1 sweep 0.2-2.4 ; pass 2 sweep from D-2.6 to D-0.4
+  const p1=ez(r(u,.2,2.4)), p2=ez(r(u,D-2.6,D-.3));
+  $('s1a').style.clipPath=`inset(0 0 ${100-p1*100}% 0)`;
+  $('s1b').style.clipPath=`inset(0 0 ${100-p2*100}% 0)`;
+  const active = p2>0 ? p2 : p1, sy = active*1080;
+  $('s1scan').style.top=sy+'px'; $('s1scan').style.opacity=(active>0&&active<1)?1:0;
+  $('s1tag').style.top=Math.max(80,sy-52)+'px'; $('s1tag').style.opacity=(active>0&&active<1)?1:0;
+  $('s1tagt').textContent = p2>0 ? 'NISAR · PASS 2 · 3 NOV 2026 · SAME ORBIT' : 'NISAR · PASS 1 · 22 OCT 2026';
+  fade('s1k',u,.3); fade('s1h',u,.5,.7); fade('s1s',u,wt('s1','through')-0.6,.6);
+}
+
+function s2(u,D){
+  show('s2',u,D,.01,.4);
+  const tb=wt('s2','but'), tw=wt('s2','wet'), th=wt('s2','hundreds');
+  // swipe compare until "but"
+  const sw = u<tb ? .5+.32*Math.sin((u/ (tb||1))*Math.PI*2*0.9) : 1;
+  const xs = sw*1920, swOn = u<tb-.1;
+  $('s2b').style.clipPath = swOn ? `inset(0 0 0 ${xs}px)` : 'none';
+  $('s2line').style.left=(xs-2)+'px'; $('s2line').style.opacity=swOn?1:0;
+  $('s2l1').style.left=(xs-150)+'px'; $('s2l2').style.left=(xs+20)+'px';
+  $('s2l1').style.opacity=$('s2l2').style.opacity=swOn?1:0;
+  const amt = r(u,tb-.2,tb+.6) * (1-r(u,tw+.4,tw+1.4));
+  rain(u,amt);
+  $('s2dark').style.background=`rgba(10,11,13,${.62*amt})`;
+  const tt=r(u,tb+.2,tb+.8)*(1-r(u,tw+.2,tw+.8)); $('s2t').style.opacity=tt; $('s2t').style.transform=`scale(${1.04-.04*eo(r(u,tb+.2,tb+1))})`;
+  // white change flags reveal from centre
+  const c=ez(r(u,tw,tw+1.6)); $('s2c').style.opacity=1;
+  $('s2c').style.clipPath=`circle(${c*1300}px at 55% 45%)`;
+  $('s2b').style.filter=`brightness(${1-.45*c})`;
+  const zz=1+.06*eo(r(u,tw,D)); $('s2wrap').style.transform=`scale(${zz})`;
+  fade('s2n',u,th-.2,.5); $('s2cnt').textContent=Math.round(636*eo(r(u,th-.2,th+1.2)));
+  if(u<th-.2) $('s2n').style.opacity=0;
+}
+
+function s3(u,D){
+  show('s3',u,D,.35,.35);
+  $('s3map').style.opacity=.4*eo(r(u,.1,1.2));
+  const tn=wt('s3','twenty'); const n=eo(r(u,tn-.3,tn+.9));
+  $('s3n').textContent=Math.max(1,Math.round(28*n))+'×'; $('s3n').style.opacity=r(u,tn-.5,tn-.2);
+  fade('s3s',u,tn+.3,.5);
+  $('s3b1').style.width=(40*eo(r(u,.4,1)))+'px';
+  $('s3b2').style.width=(1110*eo(r(u,tn-.3,tn+1.2)))+'px';
+  $('s3v2').style.opacity=r(u,tn+.6,tn+1);
+}
+
+function s4(u,D){
+  show('s4',u,D,.35,.35);
+  const ts=wt('s4','smap'), tw=wt('s4','wetter'), tr=wt('s4','wet'), tb=wt('s4','brighter'), td=wt('s4','darker'), tsm=wt('s4','something');
+  fade('s4q',u,ts-.3); fade('s4g',u,ts-.3);
+  $('s4g1').style.height=(210*.16/.5*eo(r(u,ts,ts+.8)))+'px';
+  $('s4g2').style.height=(210*.36/.5*eo(r(u,tw-.2,tw+1)))+'px';
+  $('s4gv').style.opacity=r(u,tw,tw+.4);
+  fade('s4rule',u,tr-.2); fade('s4l1',u,tb-.1); fade('s4l2',u,td-.1);
+  // white -> blue, then orange
+  const bl=r(u,tb-.1,tb+.6); $('s4c').style.opacity=1-bl; $('s4b').style.opacity=bl*(1-.55*r(u,td,td+.6));
+  const or=r(u,td-.1,td+.4); $('s4o').style.opacity=or*(.75+.25*Math.sin(u*7));
+  const z=1+1.4*ez(r(u,tsm-.3,tsm+1.6)); $('s4zoom').style.transform=`scale(${z})`;
+  $('s4ring').style.opacity=r(u,tsm+1.2,tsm+1.6)*(.6+.4*Math.sin(u*6));
+  $('s4ring').style.transform=`scale(${1+.6*(1-r(u,tsm+1.2,tsm+1.8))})`;
+}
+
+function s6(u,D){
+  show('s6',u,D,.35,.3);
+  const ids=['s6c1','s6c2','s6c3'], ta=[.3,1.0,wt('s6','predictions')-.3];
+  ids.forEach((id,i)=>{ fade(id,u,ta[i],.5); const sh=$(id).querySelector('.shackle'); sh.style.top=(-18+12*eo(r(u,ta[i]+.5,ta[i]+.8)))+'px'; });
+}
+
+function s7(u,D){
+  show('s7',u,D,.35,.01);
+  const te=wt('s7','rain');
+  $('s7a').style.opacity=1-r(u,te-.5,te);
+  ['s7p1','s7p2','s7p3','s7p4'].forEach((id,i)=>{ if(u<te-.5) fade(id,u,.5+i*.45,.5); });
+  $('s7b').style.opacity=r(u,te-.4,te+.2);
+  $('s7bg').style.transform=`scale(${1.08-.08*eo(r(u,te,D))})`;
+}
+window.setTL=x=>{TL=x;};
+window.seek=seek;
+</script>
+</body></html>

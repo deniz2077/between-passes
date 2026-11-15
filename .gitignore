@@ -31,3 +31,5 @@ submission/nasa_form.md
 
 # Local copies for uploading (originals are in submission/ and app/)
 READY_TO_SUBMIT/
+submission/video/film/_*
+submission/video/vo/*.wav

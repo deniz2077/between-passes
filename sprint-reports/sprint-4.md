@@ -24,7 +24,7 @@ Test the claim in ways that can fail, turn the study into a product anyone can u
   - Ceyhan: 88% of the changed land could be the rain. The 128 fields that darkened are listed as "where to look first", in English and Turkish.
 - **New front page and design.** Live filter demo on real data, world explorer with swipe cards and share links, prediction board. One dark design across all pages. The lab opens straight into the guided tour.
 - **Plain language.** The intro, colour key, cards and lab were rewritten in everyday words for non-specialist readers, with expert numbers kept in small print.
-- **Submission materials.** README, 7-slide NASA demo, 10-slide Niğde presentation, documentation PDF and a captioned demo video under one minute (name and problem, how it works, live demo, expected impact), all opening with the same pitch.
+- **Submission materials.** README, 7-slide NASA demo, 10-slide Niğde presentation, documentation PDF and a demo video under one minute with captions and an AI text-to-speech voiceover (name and problem, how it works, live demo, expected impact), all opening with the same pitch.
 - **Checks.** 37 automated tests. Every page tested at desktop and phone widths with no console errors.
 - **Restore point** before the redesign: tag `restore-2026-11-15-before-redesign`.
 
