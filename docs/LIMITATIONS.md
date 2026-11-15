@@ -18,3 +18,9 @@
 - SMAP's 9 km cell and the NISAR window are not identical footprints; SMAP measures the top ~5 cm.
 - Ceyhan's SMAP comparison is exploratory (±2-day window, not pre-registered), and its wetting (+0.195 m³/m³) is larger than at any sampled site, so the global fit is extrapolated there.
 - SMAP shows that Ceyhan's soil got wetter; it cannot say which individual fields, so ploughing remains possible for any single parcel.
+
+## The predictions
+- The three checks test the same 508 fields, so they are not three independent samples of fields; they are independent *observations* (different passes, and for Prediction 2, different viewing angles and times of day).
+- Prediction 2 carries the track-151 field outlines onto the other orbits' grids by position (nearest 20 m pixel). Alignment was checked before locking (best match at zero shift), but edges of small fields can shift by a pixel.
+- NASA's frame-level radio-interference flag is high for both 29 Oct passes. The Ceyhan window shows no visible interference and a clean quality mask; the town-centre check would flag a problem.
+- A confirmed prediction supports wet soil as the main cause *overall*; it still cannot prove the cause for any single field.
